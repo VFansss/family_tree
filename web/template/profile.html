@@ -29,7 +29,7 @@
     <div class="navbar navbar-main navbar-primary navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="homepage.html">Collaborative Geneaology</a>
+                <a class="navbar-brand" href="profile.html">Collaborative Geneaology</a>
             </div>
             
             <ul class="nav navbar-nav breadcrumb-nav">
@@ -106,7 +106,7 @@
                                 <img src="template/profile/${father.imageurl}" alt="people" class="img-circle avatar" />
                             </div>
                             <div class="col-md-8 parent-info">
-                                <h3>${father.name} ${father.surname}</h3>
+                                <h3 class="profile-relative-name"><a href="#">${father.name} ${father.surname}</a></h3>
                                 <p><i class="fa fa-calendar"></i> ${father.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${father.birthplace}</p>
                             </div>
@@ -126,7 +126,7 @@
                                 <img src="template/profile/${mother.imageurl}" alt="people" class="img-circle avatar" />
                             </div>
                             <div class="col-md-8 parent-info">
-                                <h3>${mother.name} ${mother.surname}</h3>
+                                <h3 class="profile-relative-name"><a href="#">${mother.name} ${mother.surname}</a></h3>
                                 <p><i class="fa fa-calendar"></i> ${mother.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${mother.birthplace}</p>
                             </div>
@@ -148,7 +148,7 @@
                                 <img src="template/profile/${spouse.imageurl}" alt="people" class="img-circle avatar" />
                             </div>
                             <div class="col-md-3 parent-info">
-                                <h3>${spouse.name} ${spouse.surname}</h3>
+                                <h3 class="profile-relative-name"><a href="#">${spouse.name} ${spouse.surname}</a></h3>
                                 <p><i class="fa fa-calendar"></i> ${spouse.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${spouse.birthplace}</p>
                             </div>
@@ -168,7 +168,7 @@
                                 <img src="template/profile/${child.imageurl}" alt="people" class="img-circle avatar" />
                             </div>
                             <div class="col-md-3 parent-info">
-                                <h3>${child.name} ${spouse.surname}</h3>
+                                <h3 class="profile-relative-name"><a href="#">${child.name} ${spouse.surname}</a></h3>
                                 <p><i class="fa fa-calendar"></i> ${child.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${child.birthplace}</p>
                             </div>

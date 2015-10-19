@@ -63,4 +63,12 @@ ul.breadcrumb-nav li:hover{
     background-color: #2f6eb2
 }
 
+h3.profile-relative-name a{
+    color: #4d4d4d;
+}
+
+h3.profile-relative-name a:hover{
+    color: #4d4d4d;
+}
+
 // Per allargare la sidebar sx: modificare i valori in blue.css alle righe 17189, 17177 e 17183

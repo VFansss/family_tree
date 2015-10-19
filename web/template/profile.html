@@ -15,6 +15,7 @@
     
     <!-- Vendor Scripts Bundle (jQuery) -->
     <script src="template/js/vendor.min.js"></script>
+    <!-- <script src="template/js/scripts.min.js"></script> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -29,16 +30,23 @@
     <div class="navbar navbar-main navbar-primary navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
+                <a href="#" data-toggle="sidebar-menu" id="toggle-sidebar-menu" class="visible-xs">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="profile.html">Collaborative Geneaology</a>
             </div>
-            
-            <ul class="nav navbar-nav breadcrumb-nav">
-                <li><a href="#">You</a></li>
-                <li><a href="#"><i class="fa fa-fw fa-chevron-right"></i> Your Father</a></li>
-                <li><a href="#"><i class="fa fa-fw fa-chevron-right"></i> Your Uncle</a></li>
-            </ul>
-            
             <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="nav navbar-nav breadcrumb-nav">
+                    <li><a href="#">You</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-chevron-right"></i> Your Father</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-chevron-right"></i> Your Uncle</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
                     <li class="dropdown">
@@ -56,7 +64,7 @@
                     </li>
                 </ul>
             </div>
-            </div>
+        </div>
     </div>
     <div class="sidebar left hidden-xs">
         <div data-scrollable>
@@ -147,12 +155,12 @@
                             <div class="parent-image col-md-2">
                                 <img src="template/profile/${spouse.imageurl}" alt="people" class="img-circle avatar" />
                             </div>
-                            <div class="col-md-3 parent-info">
+                            <div class="col-md-4 parent-info">
                                 <h3 class="profile-relative-name"><a href="#">${spouse.name} ${spouse.surname}</a></h3>
                                 <p><i class="fa fa-calendar"></i> ${spouse.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${spouse.birthplace}</p>
                             </div>
-                            <div class="col-md-4 parent-bio">
+                            <div class="col-md-6 parent-bio">
                                 <p>${spouse.bio}</p>
                             </div>
                         </div>
@@ -167,12 +175,12 @@
                             <div class="parent-image col-md-2">
                                 <img src="template/profile/${child.imageurl}" alt="people" class="img-circle avatar" />
                             </div>
-                            <div class="col-md-3 parent-info">
-                                <h3 class="profile-relative-name"><a href="#">${child.name} ${spouse.surname}</a></h3>
+                            <div class="col-md-4 parent-info">
+                                <h3 class="profile-relative-name"><a href="#">${child.name} ${child.surname}</a></h3>
                                 <p><i class="fa fa-calendar"></i> ${child.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${child.birthplace}</p>
                             </div>
-                            <div class="col-md-4 parent-bio">
+                            <div class="col-md-6 parent-bio">
                                 <p>${child.bio}</p>
                             </div>
                         </div>
@@ -181,7 +189,6 @@
             </div>
         </div>
 
-        <!-- // Footer -->
     </div>
 </body>
 </html>

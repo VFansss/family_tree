@@ -46,8 +46,18 @@ p.bio{
 }
 
 ul.breadcrumb-nav {
-    position: absolute;
-    margin-left: 285px;
+    //position: absolute;
+    //margin-left: 285px;
+}
+
+.navbar-header{
+    width: 285px;
+}
+
+@media (max-width: 768px){
+    .navbar-header {
+        width: auto;
+    }
 }
 
 ul.breadcrumb-nav a{
@@ -70,5 +80,21 @@ h3.profile-relative-name a{
 h3.profile-relative-name a:hover{
     color: #4d4d4d;
 }
+
+/*
+.sidebar{
+    margin-top: 20px;
+    background: #f6f6f6;
+}
+
+.sidebar-block{
+    border-bottom: none;
+}
+
+.profile h4{
+    margin-top: 15px !important;
+    color:#4d4d4d !important;
+}
+*/
 
 // Per allargare la sidebar sx: modificare i valori in blue.css alle righe 17189, 17177 e 17183

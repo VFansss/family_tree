@@ -55,8 +55,11 @@ ul.breadcrumb-nav a{
     padding-right: 5px;
 }
 
+ul.breadcrumb-nav a i{
+    font-size: 0.7em;
+}
+
 ul.breadcrumb-nav li:hover{
-    //background-color: #4d77b9;
     background-color: #2f6eb2
 }
 

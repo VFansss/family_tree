@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>${page_title}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>${body_title}</div>
+        <!-- Elenca tutti gli oggetti contenuti dentro la lista "objlist" contenuta nella mappa -->
+        <#list objlist as object>
+            <p>${object.field1}, ${object.field2}</p>
+        </#list>
+        <a href="${page_href}">Go to Profile</a>
+    </body>
+</html>

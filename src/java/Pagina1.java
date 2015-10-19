@@ -49,7 +49,7 @@ public class Pagina1 extends HttpServlet {
         User child = new User("Eldarion", "Dunendain", "HSB302", "Gondor", "25/12/0", "Il cantante degli Aerosmith è mio nonno, ma la mamma non lo sa.", "eld.jpg");
 
         
-        data.put("loggeduser", loggeduser);
+        data.put("loggeduser", currentuser);
         data.put("currentuser", currentuser);
         data.put("spouse", spouse);
         data.put("father", father);

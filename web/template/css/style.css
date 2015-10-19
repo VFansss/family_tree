@@ -1,0 +1,62 @@
+
+/*==========================================*/
+/*                LOGIN                     */
+/*==========================================*/
+.login h1{
+    font-weight: bolder;
+    margin: 50px auto;
+    color: #fff;
+}
+
+.login .title{
+    text-align: center;
+}
+
+#form-login button{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+    margin-top: 5px;
+    outline: 0;
+}
+
+#form-login input{
+    font-size: 16px;
+    background-color: #fff;
+    padding: 20px 10px;
+}
+
+#form-login fieldset input:first-child {
+   border-top-right-radius: 3px;
+   border-top-left-radius: 3px;
+}
+
+#form-login fieldset input:last-child {
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+body.login .lock-container {
+    height: auto;
+}
+
+body.login .img-circle {
+    width: 110px;
+    height: 110px;
+    margin: auto;
+    padding: 0;
+    margin-top: -24px;
+}
+
+.forgot-password {
+    cursor: pointer;
+    color: white;
+    display: block;
+}
+
+.forgot-password:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+

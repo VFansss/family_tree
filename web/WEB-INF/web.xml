@@ -3,14 +3,21 @@
     <welcome-file-list>
         <welcome-file>/template/login.html</welcome-file>
     </welcome-file-list>
-    
     <servlet>
         <servlet-name>Pagina1</servlet-name>
         <servlet-class>Pagina1</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Signup</servlet-name>
+        <servlet-class>Servlet.Templating.Signup</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Pagina1</servlet-name>
         <url-pattern>/urlpagina1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Signup</servlet-name>
+        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

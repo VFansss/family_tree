@@ -11,6 +11,10 @@
     <!-- App Styling Bundle -->
     <link href="template/css/blue.css" rel="stylesheet">
     <link href="template/css/mycss.css" rel="stylesheet">
+    
+    
+    <!-- Vendor Scripts Bundle (jQuery) -->
+    <script src="template/js/vendor.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -28,16 +32,17 @@
                 <a class="navbar-brand" href="homepage.html">Collaborative Geneaology</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- User -->
+                    
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle user" data-toggle="dropdown">
-                            <img src="template/profile/${loggeduser.imageurl}" alt="Bill" class="img-circle" width="40" /> ${loggeduser.name} ${loggeduser.surname} <span class="caret"></span>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="template/profile/${loggeduser.imageurl}" alt="people" class="img-circle avatar avatar-square"/> ${loggeduser.name}<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="user?id=${loggeduser.id}">Profile</a>
+                            </li>
+                            <li><a href="settings.html">Settings</a>
                             </li>
                             <li><a href="login.html">Logout</a>
                             </li>
@@ -45,8 +50,6 @@
                     </li>
                 </ul>
             </div>
-
-            <!-- /.navbar-collapse -->
             </div>
     </div>
     <div class="sidebar left hidden-xs">
@@ -71,9 +74,9 @@
         </div>
     </div>
     <div id="content">
+        <!-- Rimosso: navigazione posta nella navbar in cima
         <nav class="navbar navbar-subnav navbar-static-top" role="navigation">
             <div class="container-fluid">
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="subnav">
                     <ul class="nav navbar-nav">
                         <li><a href="#"><i class="fa fa-fw icon-ship-wheel"></i> Your profile</a>
@@ -82,10 +85,9 @@
                         </li>
                     </ul>
                 </div>
-
-                <!-- /.navbar-collapse -->
                 </div>
         </nav>
+        -->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
@@ -175,8 +177,5 @@
 
         <!-- // Footer -->
     </div>
-
-    <!-- Vendor Scripts Bundle (jQuery) -->
-    <script src="template/js/vendor.min.js"></script>
 </body>
 </html>

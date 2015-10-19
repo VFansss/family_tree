@@ -64,7 +64,7 @@ public class Pagina1 extends HttpServlet {
             
         cfg.setServletContextForTemplateLoading(getServletContext(), "/template");
 
-        Template template = cfg.getTemplate("homepage.html");
+        Template template = cfg.getTemplate("profile.html");
 
         PrintWriter out = response.getWriter();
         try{

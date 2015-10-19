@@ -38,4 +38,5 @@ public final class UserList extends LinkedHashSet<User>{
     
     //Ciao
     ////
+    //Continuo a commentare...
 }

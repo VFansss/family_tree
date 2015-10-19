@@ -31,9 +31,9 @@ public final class UserList extends LinkedHashSet<User>{
      *
      */
     public void analize(){
-        this.stream().forEach((element) -> {
+        for(User element: this){
             Database.out.println(element.getName());
-        });
+        }
     }
     
     //Ciao

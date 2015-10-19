@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Collaborative Geneaology</title>
-
+    <title>Collaborative Geneaology (${title})</title>
     <!-- App Styling Bundle -->
-    <link href="template/css/blue.css" rel="stylesheet">
-    <link href="template/css/mycss.css" rel="stylesheet">
+    <link href="css/blue.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -34,10 +32,10 @@
                     <!-- User -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle user" data-toggle="dropdown">
-                            <img src="template/profile images/${loggeduser.imageurl}" alt="Bill" class="img-circle" width="40" /> ${loggeduser.name} ${loggeduser.surname} <span class="caret"></span>
+                            <img src="images/people/110/guy-5.jpg" alt="Bill" class="img-circle" width="40" /> Nome Utente <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="user?id=${loggeduser.id}">Profile</a>
+                            <li><a href="user-private-profile.html">Profile</a>
                             </li>
                             <li><a href="login.html">Logout</a>
                             </li>
@@ -53,20 +51,20 @@
         <div data-scrollable>
             <div class="sidebar-block">
                 <div class="profile">
-                    <img src="template/profile images/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
-                    <h4>${currentuser.name} ${currentuser.surname}</h4>
+                    <img src="images/people/110/guy-6.jpg" alt="people" class="img-circle" />
+                    <h4>Nome Utente</h4>
                 </div>
             </div>
             <div class="sidebar-block">
                 <div class="category">Anagraphics</div>
                 <ul class="list-about">
-                    <li><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</li>
-                    <li><i class="fa fa-calendar"></i> ${currentuser.birthdate}</li>
+                    <li><i class="fa fa-map-marker"></i> Luogo nascita</li>
+                    <li><i class="fa fa-calendar"></i> DD/MM/YYYY</li>
                 </ul>
             </div>
             <div class="sidebar-block">
                 <div class="category">Bio</div>
-                <p class="bio">${currentuser.bio}</p>
+                <p>Bio dell'utente, con lunghezza massima di presentazione, se si allunga più di tanto si potrebbe mettere un pulsante "read more"</p>
             </div>
         </div>
     </div>
@@ -90,84 +88,44 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-gray">
-                            <span>Father</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="parent-image col-md-4">
-                                <img src="template/profile images/${father.imageurl}" alt="people" class="img-circle avatar" />
-                            </div>
-                            <div class="col-md-8 parent-info">                                
-                                <h3>${father.name} ${father.surname}</h3>
-                                <p><i class="fa fa-calendar"></i> ${father.birthdate}</p>
-                                <p><i class="fa fa-map-marker"></i> ${father.birthplace}</p>
-                            </div>
-                            <div class="col-md-12 parent-bio">
-                                <p>${father.bio}</p>
-                            </div>
-                        </div>
+                      <div class="panel-heading panel-heading-gray">
+                          <span>Father</span>
+                      </div>
+                      <div class="panel-body">
+                          CONTENUTO PANEL
+                      </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-gray">
-                            <span>Mother</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="parent-image col-md-4">
-                                <img src="template/profile images/${mother.imageurl}" alt="people" class="img-circle avatar" />
-                            </div>
-                            <div class="col-md-8 parent-info">                                
-                                <h3>${mother.name} ${mother.surname}</h3>
-                                <p><i class="fa fa-calendar"></i> ${mother.birthdate}</p>
-                                <p><i class="fa fa-map-marker"></i> ${mother.birthplace}</p>
-                            </div>
-                            <div class="col-md-12 parent-bio">
-                                <p>${mother.bio}</p>
-                            </div>
-                        </div>
+                      <div class="panel-heading panel-heading-gray">
+                          <span>Mother</span>
+                      </div>
+                      <div class="panel-body">
+                          CONTENUTO PANEL
+                      </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-gray">
+                      <div class="panel-heading panel-heading-gray">
                           <span>Wife</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="parent-image col-md-2">
-                                <img src="template/profile images/${spouse.imageurl}" alt="people" class="img-circle avatar" />
-                            </div>
-                            <div class="col-md-3 parent-info">                                
-                                <h3>${spouse.name} ${spouse.surname}</h3>
-                                <p><i class="fa fa-calendar"></i> ${spouse.birthdate}</p>
-                                <p><i class="fa fa-map-marker"></i> ${spouse.birthplace}</p>
-                            </div>
-                            <div class="col-md-4 parent-bio">
-                                <p>${spouse.bio}</p>
-                            </div>
-                        </div>
+                      </div>
+                      <div class="panel-body">
+                          CONTENUTO PANEL
+                      </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-gray">
-                            <span>Children</span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="parent-image col-md-2">
-                                <img src="template/profile images/${child.imageurl}" alt="people" class="img-circle avatar" />
-                            </div>
-                            <div class="col-md-3 parent-info">                                
-                                <h3>${child.name} ${spouse.surname}</h3>
-                                <p><i class="fa fa-calendar"></i> ${child.birthdate}</p>
-                                <p><i class="fa fa-map-marker"></i> ${child.birthplace}</p>
-                            </div>
-                            <div class="col-md-4 parent-bio">
-                                <p>${child.bio}</p>
-                            </div>
-                        </div>
+                      <div class="panel-heading panel-heading-gray">
+                          <span>Children</span>
+                      </div>
+                      <div class="panel-body">
+                          CONTENUTO PANEL
+                      </div>
                     </div>
                 </div>
             </div>
@@ -177,6 +135,8 @@
     </div>
 
     <!-- Vendor Scripts Bundle (jQuery) -->
-    <script src="template/js/vendor.min.js"></script>
+    <!--
+    <script src="js/vendor.min.js"></script>
+    -->
 </body>
 </html>

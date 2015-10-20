@@ -16186,7 +16186,7 @@ ul.friends-list li:nth-child(6n) {
 }
 body.login {
   position: initial;
-  background: url('../images/lock-1.jpg');
+  background: url('../images/lock-1.jpg') no-repeat fixed;
   padding-top: 0;
 }
 body.login #content {

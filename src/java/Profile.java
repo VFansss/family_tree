@@ -22,8 +22,8 @@ import Classes.User;
  *
  * @author Gianluca
  */
-@WebServlet(urlPatterns = {"/urlpagina1"})
-public class Pagina1 extends HttpServlet {
+@WebServlet(urlPatterns = {"/profile"})
+public class Profile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,8 +75,9 @@ public class Pagina1 extends HttpServlet {
             
         cfg.setServletContextForTemplateLoading(getServletContext(), "/template");
 
-        Template template = cfg.getTemplate("profile.html");
-
+        //Template template = cfg.getTemplate("profile.html");
+        Template template = cfg.getTemplate("profile2.html");
+        
         PrintWriter out = response.getWriter();
         try{
             template.process(data, out);

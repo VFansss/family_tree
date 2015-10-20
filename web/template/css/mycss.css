@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : Gianluca
 */
 
+.navbar-primary{
+    background-color: rgba(70, 135, 206, 0.95);
+}
+
 .navbar-brand-logo {
     height: 40px;
 }
@@ -49,18 +53,13 @@ p.bio{
     color: #676767;
 }
 
-ul.breadcrumb-nav {
-    //position: absolute;
-    //margin-left: 285px;
-}
-
-.navbar-header{
+/*.navbar-header{
     width: 285px;
-}
+}*/
 
-@media (max-width: 768px){
+@media (min-width: 768px){
     .navbar-header {
-        width: auto;
+        width: 285px;
     }
 }
 
@@ -74,7 +73,8 @@ ul.breadcrumb-nav a i{
 }
 
 ul.breadcrumb-nav li:hover{
-    background-color: #2f6eb2
+    /*background-color: #2f6eb2*/
+    background-color: #4687ce;
 }
 
 h3.profile-relative-name a{
@@ -90,21 +90,12 @@ div.sibling-col{
     margin-bottom: 10px;
 }
 
+@media (min-width: 768px){
+    div.relatives{
+        margin-left:10%;
+        margin-right:10%;
+    }
+}
+
 //Allineamento icona: riga 3860 e 16939 blue.css (originali commentati)
-/*
-.sidebar{
-    margin-top: 20px;
-    background: #f6f6f6;
-}
-
-.sidebar-block{
-    border-bottom: none;
-}
-
-.profile h4{
-    margin-top: 15px !important;
-    color:#4d4d4d !important;
-}
-*/
-
-// Per allargare la sidebar sx: modificare i valori in blue.css alle righe 17189, 17177 e 17183
+//Per allargare la sidebar sx: modificare i valori in blue.css alle righe 17189, 17177 e 17183

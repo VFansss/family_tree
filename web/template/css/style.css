@@ -2,7 +2,8 @@
 /*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
-.login::before{
+
+.layer{
     content: "";
     background: #000;
     opacity: 0.7;
@@ -13,6 +14,7 @@
 }
 
 .login h1{
+    font-size: 60px;
     font-weight: bolder;
     margin: 50px auto;
     color: #fff;
@@ -32,12 +34,14 @@
     padding: 10px 0;
     margin-top: 5px;
     outline: 0;
+    border-radius: 0 0 5px 5px;
 }
 
 .login form input{
     font-size: 16px;
     background-color: #fff;
-    padding: 20px 10px;
+    height: 100%;
+    padding: 10px 15px;
 }
 
 .login form input:first-child {
@@ -45,22 +49,9 @@
    border-top-left-radius: 5px;
 }
 
-.login form input:last-child {
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
 
 body.login .lock-container {
     height: auto;
-}
-
-body.login .img-circle {
-    width: 110px;
-    height: 110px;
-    margin: auto;
-    padding: 0;
-    margin-top: -24px;
 }
 
 .forgot-password {

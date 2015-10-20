@@ -47,7 +47,18 @@ public class Pagina1 extends HttpServlet {
         User father = new User("Arathorn II", "Dunendain", "DGS830", "Gondor", "10/03/2900", "Mio figlio sembra Gesù Cristo.", "arathorn.jpg");
         User mother = new User("Gilraen", "Dunendain", "ASH359", "Gondor", "15/06/2907", "Ho dato la speranza ai Dúnedain, non ne ho conservata per me.", "gilraen.jpg");
         User child = new User("Eldarion", "Dunendain", "HSB302", "Gondor", "25/12/0", "Il cantante degli Aerosmith è mio nonno, ma la mamma non lo sa.", "eld.jpg");
-
+        
+        List<User> siblings = new LinkedList<User>();
+        
+        User legolas = new User("Legolas", "Verdefoglia", "EHD930", "Bosco Atro", "87 T.E.", "They are taking the hobbits to Isegard!", "legolas.jpg");
+        User gimli = new User("Gimli", "Durin", "HSD732", "Moria", "2879 T.E.", "Che vengano pure! Troveranno che qui a Moria c'è ancora un nano che respira!", "gimli.jpg");
+        User boromir = new User("Boromir", "Dunendain", "SHS733", "Gondor", "2978 T.E.", "Io ti avrei seguito fratello mio, mio capitano, mio re!", "boromir.jpg");
+        
+        siblings.add(legolas);
+        siblings.add(gimli);
+        siblings.add(boromir);
+        
+        data.put("siblings", siblings);
         
         data.put("loggeduser", currentuser);
         data.put("currentuser", currentuser);

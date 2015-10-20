@@ -2,10 +2,12 @@
 /*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
-
+.title img{
+    display:none;
+}
 .layer{
     background: #000;
-    opacity: 0.7;
+    opacity: 0.8;
     position: fixed;
     top:0;
     width: 100%;
@@ -22,16 +24,14 @@
     width: 40px;
 }
 
-#search-bar{
-    display: inline-block;
-    position: relative;
-    margin-left: 5px; 
+.header{
+    height: 35px;
 }
 
 #search-bar input{
+    
     color: rgba(255,255,255,.5);
     padding: 0 10px 2px 39px;
-    
     background: rgba(0,0,0,.13);
     font-weight: 400;
     line-height: inherit;
@@ -41,13 +41,8 @@
     border-radius: 3px;
     border: 1px solid #4687ce;
     width: 100%;
-    
 }
 
-.button-top-right a{
-    min-width:72px;
-    width:100%;
-}
 
 #search-bar::before{
     font-family: FontAwesome;
@@ -63,11 +58,17 @@
 
 }
 
+.button-top-right a{
+    min-width:72px;
+    width:100%;
+}
+
 .login h1{
     font-size: 60px;
     font-weight: bolder;
-    margin: 50px auto;
     color: #fff;
+    margin: 50px 0;
+    display: block;
 }
 
 .login .title{
@@ -117,3 +118,26 @@ body.login .lock-container {
 }
 
 
+@media (max-width: 768px) {
+    #tree-icon{
+        display: none;
+    }
+    #search-bar{
+        margin-bottom: 5px;
+    }
+    
+    .login h1{
+        margin:0;
+        display:none;
+    }
+    .title img{
+        width: 200px;
+        height:200px;
+        margin: auto;
+        display:block;
+    }
+    
+    .header{
+        height: 100px;
+    }
+}

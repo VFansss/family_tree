@@ -18,36 +18,42 @@
 
 <body class="login">
     <div class="layer"></div>
-    <div class="col-md-12 content">
+    <div class="col-xs-12 content">
             
-            <div class="col-md-12 ">
-                <div class="col-md-6">
-                    <img id="tree-icon" src="template/images/tree-icon.png">
-                    <input id="search-bar" placeholder="Search" required>
+            <div class="col-xs-12 header">
+                
+                <div class="col-md-11 test">
+                    <div id="tree-icon" class="col-xs-1">
+                        <img  src="template/images/tree-icon.png">
+                    </div>
+                    <div id="search-bar" class="col-xs-10">
+                        <input placeholder="Search" required>
+                    </div>
+                    
                 </div>
                 
-                <div class="col-md-1 pull-right">
-                    <a href="signup" class="col-md-12 btn btn-primary">Signup</a>
+                <div class="col-md-1 button-top-right">
+                    <a href="signup" class="btn btn-primary pull-right">Signup</a>
                 </div>
             </div>
             
         
-            <div class="col-md-12 title">
+            <div class="col-xs-12 title">
                 <h1>Collaborative Genealogy</h1>
             </div>
         
         
         
-            <div class="col-md-12">
+            <div class="col-xs-12">
 
                 <div class="lock-container">
 
                     <div class="panel-default text-center">
                         <form class="panel-body" method="POST">
-                          
-                            <input class="form-control" id="email-field" name="email" type="email" placeholder="E-mail" required>
-                            <input class="form-control" name="password" type="password" placeholder="Password" required>
-
+                            <fieldset>
+                                <input class="form-control" id="email-field" name="email" type="email" placeholder="E-mail" required>
+                                <input class="form-control" name="password" type="password" placeholder="Password" required>
+                            </fieldset>
                             <button type="button" id="button-login" class="col-xs-12 btn btn-primary">Login <i class="fa fa-fw fa-unlock-alt"></i></button>
 
                         </form>

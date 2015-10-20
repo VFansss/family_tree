@@ -192,19 +192,21 @@
                             <span>Siblings</span>
                         </div>
                         <div class="panel-body">
-                            <div class="col-md-6 brother-col">
-                                <div class="relative-image col-md-4">
-                                    <img src="template/profile/${father.imageurl}" alt="people" class="img-circle avatar" />
+                            <#list siblings as sibling>
+                                <div class="col-md-6 sibling-col">
+                                    <div class="relative-image col-md-4">
+                                        <img src="template/profile/${sibling.imageurl}" alt="people" class="img-circle avatar" />
+                                    </div>
+                                    <div class="col-md-8 relative-info">
+                                        <h3 class="profile-relative-name"><a href="#">${sibling.name} ${sibling.surname}</a></h3>
+                                        <p><i class="fa fa-calendar"></i> ${sibling.birthdate}</p>
+                                        <p><i class="fa fa-map-marker"></i> ${sibling.birthplace}</p>
+                                    </div>
+                                    <div class="col-md-12 relative-bio">
+                                        <p>${sibling.bio}</p>
+                                    </div>
                                 </div>
-                                <div class="col-md-8 relative-info">
-                                    <h3 class="profile-relative-name"><a href="#">${father.name} ${father.surname}</a></h3>
-                                    <p><i class="fa fa-calendar"></i> ${father.birthdate}</p>
-                                    <p><i class="fa fa-map-marker"></i> ${father.birthplace}</p>
-                                </div>
-                                <div class="col-md-12 relative-bio">
-                                    <p>${father.bio}</p>
-                                </div>
-                            </div>
+                            </#list>
                         </div>
                     </div>
                 </div>

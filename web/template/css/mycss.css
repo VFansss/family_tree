@@ -26,18 +26,18 @@ div.profile .img-circle {
     margin-top: -24px;
 }
 
-div.parent-image .img-circle{
+div.relative-image .img-circle{
     width: 100px;
     height: 100px;
     margin: auto;
     padding: 0;
 }
 
-div.parent-info h3{
+div.relative-info h3{
     margin-top: 0;
 }
 
-div.parent-bio{
+div.relative-bio{
     margin-top: 10px;
 }
 
@@ -81,6 +81,11 @@ h3.profile-relative-name a:hover{
     color: #4d4d4d;
 }
 
+.navbar-brand-logo {
+    height: 40px;
+}
+
+//Allineamento icona: riga 3860 e 16939 blue.css (originali commentati)
 /*
 .sidebar{
     margin-top: 20px;

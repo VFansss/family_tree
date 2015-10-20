@@ -3859,7 +3859,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 18px 15px;
+  //padding 18px 15px;
+  padding: 10px 15px;
   font-size: 18px;
   line-height: 20px;
   height: 56px;
@@ -16938,7 +16939,7 @@ fieldset[disabled] .cover.overlay .btn-cover.active {
 .navbar-primary .navbar-brand {
   color: #ffffff;
   font-weight: bold;
-  padding: 17px 10px 0px 15px;
+  //padding: 17px 10px 0px 15px;
 }
 .navbar-primary .navbar-text {
   color: #fff;

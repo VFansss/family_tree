@@ -13,6 +13,23 @@
     height:100%;
 }
 
+
+#tree-icon{
+    height: 40px;
+    width: 40px
+}
+
+#search-bar{
+    display: inline-block;
+    
+}
+
+#search-bar:before{
+    content:"\f002";
+}
+.content{
+    margin-top:15px; 
+}
 .login h1{
     font-size: 60px;
     font-weight: bolder;
@@ -22,10 +39,6 @@
 
 .login .title{
     text-align: center;
-}
-
-.login .button-top-right{
-    margin-top:15px; 
 }
 
 .login form button{

@@ -22,6 +22,8 @@ import freemarker.template.Template;
 
 import Classes.User;
 import Classes.UserBuilder;
+import Classes.FreeMarker;
+
 /**
  *
  * @author Gianluca
@@ -46,6 +48,8 @@ public class Profile extends HttpServlet {
         
         //Gestione sessione
         HttpSession session=request.getSession(false);  
+        
+        //Se non è stata generata la sessione
         if(session==null){
             //request.getRequestDispatcher("login").include(request, response);
             PrintWriter out = response.getWriter();
@@ -54,10 +58,6 @@ public class Profile extends HttpServlet {
         }
         String id = (String)session.getAttribute("id");
         User loggeduser = UserBuilder.getUserById(id);
-        
-        
-        //Tutti gli utenti:
-        //User loggeduser = new User("Gianluca", "Filippone", "ABC123", "Pescara", "17/12/1993", "Bio di prova!", "gianluca.jpg");
         
         //Lista fratelli
         List<User> siblings = new LinkedList<User>();
@@ -84,26 +84,8 @@ public class Profile extends HttpServlet {
         data.put("father", UserBuilder.arathorn);
         data.put("mother", UserBuilder.gilraen);
         data.put("child", UserBuilder.eldarion);
-        
-        
-        // Configurazione freemarker
-        Configuration cfg = new Configuration();
-        
-        cfg.setDefaultEncoding("UTF-8");
-            
-        cfg.setServletContextForTemplateLoading(getServletContext(), "/template");
-
-        Template template = cfg.getTemplate("profile.html");
-        //Template template = cfg.getTemplate("profile2.html");
-        
-        PrintWriter out = response.getWriter();
-        try{
-            template.process(data, out);
-        }
-        catch (Exception e){
-            out.println("ERRORE PROCESSING TEMPLATE");
-        }
-        out.flush();
+                
+        FreeMarker.process("profile.html",data, response, getServletContext());
         
     }
 

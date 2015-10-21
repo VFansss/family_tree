@@ -35,17 +35,24 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //E' UN SISTEMA DI ESEMPIO, in mancanza di una struttura basata su database
+        
+        //Recupera da GET il nome inserito nel campo email
         String name = request.getParameter("email");
         
-        User logged = UserBuilder.getUserByName(name);
+        //Recupera l'utente
+        User tolog = UserBuilder.getUserByName(name);
         
-        if (logged==null){
+        //Se il nome inserito non è presente tra gli utenti, viene segnalato un errore
+        if (tolog==null){
             PrintWriter out = response.getWriter();
             out.println("ERRORE");
+            out.flush();
         } else {
+            //Altrimenti genera una nuova sessione
             HttpSession session = request.getSession();
-            session.setAttribute("id", logged.getId());
-            request.getRequestDispatcher("profile?id="+logged.getId()).include(request, response); 
+            session.setAttribute("id", tolog.getId());
+            request.getRequestDispatcher("profile?id="+tolog.getId()).include(request, response); 
         }
     }
 

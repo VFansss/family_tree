@@ -2,6 +2,9 @@
 /*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
+button{
+    outline: none !important;
+}
 
 body.login .layer{
     background: #000;
@@ -25,33 +28,51 @@ body.login .header{
     height: 40px;
     width: 40px;
 }
+#search-bar{
+    position:relative;
+}
 
-#search-bar input{
+#search-bar input[type=submit]{
+    opacity: 0;
+    position:absolute;
+    width:32px;
+    height:32px;
+    border:0;
+    top: 1px;
+    left: 17px;
+}
+
+#search-bar input[type=text]{
     color: rgba(255,255,255,.5);
     padding: 0 10px 2px 39px;
-    background: rgba(0,0,0,.13);
+    background: rgba(0,0,0,0.6);
     font-weight: 400;
     line-height: inherit;
     font-size: 15px;
     height: 34px;   
     border: 0;
     border-radius: 4px;
-    border: 1px solid #4687ce;
+    outline:0;
     width: 100%;
+}
+
+#search-bar input[type=text]:focus{
+    background-color:rgba(255,255,255,0.1);
+    box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.1);
 }
 
 #search-bar::before{
     font-family: FontAwesome;
     content:"\f002";
     width: 50px;
-    padding: 3px 12px;
+    padding: 3px 11px;
     position: absolute;
     font-size: 20px;
     color: inherit;
     z-index: 2;
 }
 
-body.login .button-top-right a{
+body.login .button-top-right button{
     min-width:72px;
     width:100%;
 }
@@ -65,32 +86,28 @@ body.login .title h1{
     display: block;
 }
 
-body.login .title{
-    text-align: center;
-}
-
 body.login .title img{
     display:none;
 }
 
-body.login form input{
+body.login form.main-form input{
     font-size: 16px;
     background-color: #fff;
     height: 100%;
     padding: 10px 15px;
 }
 
-body.login form input:first-child {
+body.login form.main-form input:first-child {
    border-top-right-radius: 4px;
    border-top-left-radius: 4px;
 }
 
-body.login form input:last-child {
+body.login form.main-form input:last-child {
    border-bottom-right-radius: 4px;
    border-bottom-left-radius: 4px;
 }
 
-body.login form button{
+body.login form.main-form button{
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
@@ -106,10 +123,8 @@ body.login .lock-container {
 body.login .forgot-password {
     cursor: pointer;
     color: white;
-    display: block;
 }
 
 body.login .forgot-password:hover {
-    color: #fff;
     text-decoration: none;
 }

@@ -1,81 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>${action?cap_first} - Collaborative Genealogy</title>
-    <!-- icon -->
-    <link rel="shortcut icon" href="template/images/favicon.ico" />
-    <!-- App Styling Bundle -->
-    <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
-    <link href="template/css/blue.css" rel="stylesheet">
-    <link href="template/css/style.css" rel="stylesheet">
-    <link href="template/css/responsive.css" rel="stylesheet">
-    <!--Script-->
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>${action?cap_first} - Collaborative Genealogy</title>
+        <!-- icon -->
+        <link rel="shortcut icon" href="template/images/favicon.ico" />
+        <!-- App Styling Bundle -->
+        <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+        <link href="template/css/blue.css" rel="stylesheet">
+        <link href="template/css/style.css" rel="stylesheet">
+        <link href="template/css/responsive.css" rel="stylesheet">
+        <!--Script-->
+    </head>
 
-<body class="login">
-    <div class="layer"></div>
-    
-    <div class="content">
-            
-        <div class="header">
+    <body class="login">
+        <div class="layer"></div>
 
-            <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
-                <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png"></a>
-            </div>
+        <div class="content">
 
-            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
-                <input placeholder="Search" required>
-            </div>
+            <div class="header">
 
-            <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
-                
-                <#if action == "login">
-                    <#assign other_action = "signup">
-                <#else>
-                    <#assign other_action = "login">
-                </#if>
-                
-                <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
-            </div>
+                <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
+                    <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+                </div>
 
-        </div>
-
-        <div class="col-md-12 title">
-            <h1>Collaborative Genealogy</h1>
-            <img src="template/images/tree-icon-200.png">
-        </div>
-
-        <div class="col-md-12">
-            <div class="lock-container">
-                <div class="panel-default text-center">
-                    
-                    <form class="panel-body" method="POST">
-                        
-                        <fieldset>
-                            <#list fields as field>
-                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required>
-                            </#list>
-                        </fieldset>
-                        
-                        <button type="button" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
-                    
+                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
+                    <form method="POST">
+                        <input type="submit">
+                        <input placeholder="Search" type="text" required />
                     </form>
-                    
-                    <a class="forgot-password">Forgot password?</a>
-                    
+                </div>
+
+                <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
+
+                    <#if action == "login">
+                        <#assign other_action = "signup">
+                    <#else>
+                        <#assign other_action = "login">
+                    </#if>
+
+                    <button href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</button>
+                </div>
+
+            </div>
+
+            <div class="col-md-12 title text-center">
+                <h1>Collaborative Genealogy</h1>
+                <img src="template/images/tree-icon-200.png" alt="tree logo" />
+            </div>
+
+            <div class="col-md-12">
+                <div class="lock-container">
+                    <div class="panel-default text-center">
+
+                        <form action="profile" class="panel-body main-form" method="POST">
+
+                            <fieldset>
+                                <#list fields as field>
+                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required>
+                                </#list>
+                            </fieldset>
+
+                            <button type="button" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
+
+                        </form>
+                        
+                        <#if action == "login">
+                            <a class="forgot-password">Forgot password?</a>
+                        </#if>
+                        
+
+                    </div>
                 </div>
             </div>
+
         </div>
-        
-    </div>
-</body>
-
-
+    </body>
 
 </html>

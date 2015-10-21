@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login - Collaborative Genealogy</title>
+    <title>${action?cap_first} - Collaborative Genealogy</title>
     <!-- icon -->
     <link rel="shortcut icon" href="template/images/favicon.ico" />
     <!-- App Styling Bundle -->
+    <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
     <link href="template/css/blue.css" rel="stylesheet">
     <link href="template/css/style.css" rel="stylesheet">
     <link href="template/css/responsive.css" rel="stylesheet">
@@ -33,7 +34,14 @@
             </div>
 
             <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
-                <a href="signup" class="btn btn-primary pull-right">Signup</a>
+                
+                <#if action == "login">
+                    <#assign other_action = "signup">
+                <#else>
+                    <#assign other_action = "login">
+                </#if>
+                
+                <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
             </div>
 
         </div>
@@ -50,11 +58,12 @@
                     <form class="panel-body" method="POST">
                         
                         <fieldset>
-                            <input class="form-control" id="email-field" name="email" type="email" placeholder="E-mail" required>
-                            <input class="form-control" name="password" type="password" placeholder="Password" required>
+                            <#list fields as field>
+                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required>
+                            </#list>
                         </fieldset>
                         
-                        <button type="button" id="button-login" class="col-xs-12 btn btn-primary">Login <i class="fa fa-fw fa-unlock-alt"></i></button>
+                        <button type="button" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
                     
                     </form>
                     

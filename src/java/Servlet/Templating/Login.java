@@ -5,13 +5,13 @@
  */
 package Servlet.Templating;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+import Classes.FreeMarker;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,24 +34,21 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-        // Configurazione freemarker
-        Configuration cfg = new Configuration();
-        
-        cfg.setDefaultEncoding("UTF-8");
-            
-        cfg.setServletContextForTemplateLoading(getServletContext(), "/template");
+        Map<String, Object> data = new HashMap<>();
 
-        Template template = cfg.getTemplate("login.html");
+        List<String[]> fields = new ArrayList();
+        String[] email = {"email", "email", "E-mail"};
+        String[] password = {"password", "password", "Password"};
+        fields.add(email);
+        fields.add(password);
+        data.put("fields", fields);
         
-        PrintWriter out = response.getWriter();
-        try {
-            template.process(null, out);
-        } catch (TemplateException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        out.flush();
+        data.put("button_icon", "unlock-alt");
+        data.put("action", "login");
+        
+        FreeMarker.process("login.html",data, response, getServletContext());
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -63,10 +63,14 @@ public class Profile extends HttpServlet {
         //Lista utenti precedentemente visualizzati
         List<User> navigation = new LinkedList<User>();
         
-        
+        navigation.add(arathorn);
+        navigation.add(gilraen);
+        navigation.add(boromir);
+        navigation.add(aragorn);
         
         // Inserimento utenti nel data-model
         data.put("siblings", siblings);
+        data.put("navigation", navigation);
         
         data.put("loggeduser", aragorn);
         data.put("currentuser", aragorn);

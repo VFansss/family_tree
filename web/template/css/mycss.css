@@ -121,5 +121,10 @@ div.sibling-col{
     margin-bottom: 20px;
 }
 
+.panel-navigation a{
+    color: #707070;
+}
+
+
 //Allineamento icona: riga 3860 e 16939 blue.css (originali commentati)
 //Per allargare la sidebar sx: modificare i valori in blue.css alle righe 17189, 17177 e 17183

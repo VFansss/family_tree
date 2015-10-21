@@ -16,8 +16,9 @@
         <link href="template/css/style.css" rel="stylesheet">
         <link href="template/css/responsive.css" rel="stylesheet">
         <!--Script-->
+     
+       
     </head>
-
     <body class="login">
         <div class="layer"></div>
 
@@ -30,9 +31,10 @@
                 </div>
 
                 <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
-                    <form method="POST">
-                        <input type="submit">
+                    <form method="POST" >
+                        <input type="button" />
                         <input placeholder="Search" type="text" required />
+                        
                     </form>
                 </div>
 
@@ -44,7 +46,7 @@
                         <#assign other_action = "login">
                     </#if>
 
-                    <button href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</button>
+                    <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
                 </div>
 
             </div>
@@ -62,10 +64,16 @@
 
                             <fieldset>
                                 <#list fields as field>
-                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required>
+                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required />
                                 </#list>
                             </fieldset>
-
+                            
+                            <#if action == "login">
+                                <#assign button_icon = "unlock-alt">
+                            <#else>
+                                <#assign button_icon = "user">
+                            </#if>
+                            
                             <button type="button" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
 
                         </form>

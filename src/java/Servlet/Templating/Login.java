@@ -9,7 +9,6 @@ import Classes.FreeMarker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -44,7 +43,6 @@ public class Login extends HttpServlet {
         fields.add(password);
         data.put("fields", fields);
         
-        data.put("button_icon", "unlock-alt");
         data.put("action", "login");
         
         FreeMarker.process("login.html",data, response, getServletContext());

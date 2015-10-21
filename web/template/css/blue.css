@@ -16201,7 +16201,7 @@ body.login #content {
 }
 body.login .lock-container {
   margin: auto;
-  width: 300px;
+  max-width: 300px;
 }
 @media (min-width: 480px) {
   body.login .lock-container {

@@ -13,6 +13,7 @@
     <!-- App Styling Bundle -->
     <link href="template/css/blue.css" rel="stylesheet">
     <link href="template/css/style.css" rel="stylesheet">
+    <link href="template/css/responsive.css" rel="stylesheet">
     <!--Script-->
 </head>
 
@@ -24,10 +25,10 @@
         <div class="header">
 
             <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
-                <img class="pull-right" src="template/images/tree-icon-200.png">
+                <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png"></a>
             </div>
 
-            <div id="search-bar" class="col-md-5 col-sm-5 col-xs-12">
+            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
                 <input placeholder="Search" required>
             </div>
 
@@ -36,33 +37,33 @@
             </div>
 
         </div>
-        
-        
-            
-        
+
         <div class="col-md-12 title">
             <h1>Collaborative Genealogy</h1>
             <img src="template/images/tree-icon-200.png">
         </div>
-        
-        
-        
+
         <div class="col-md-12">
             <div class="lock-container">
-
                 <div class="panel-default text-center">
+                    
                     <form class="panel-body" method="POST">
+                        
                         <fieldset>
                             <input class="form-control" id="email-field" name="email" type="email" placeholder="E-mail" required>
                             <input class="form-control" name="password" type="password" placeholder="Password" required>
                         </fieldset>
+                        
                         <button type="button" id="button-login" class="col-xs-12 btn btn-primary">Login <i class="fa fa-fw fa-unlock-alt"></i></button>
-
+                    
                     </form>
+                    
                     <a class="forgot-password">Forgot password?</a>
+                    
                 </div>
             </div>
         </div>
+        
     </div>
 </body>
 

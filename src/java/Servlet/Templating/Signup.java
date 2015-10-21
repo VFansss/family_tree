@@ -5,11 +5,16 @@
  */
 package Servlet.Templating;
 
+import Classes.FreeMarker;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -34,25 +39,33 @@ public class Signup extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-        // Configurazione freemarker
-        Configuration cfg = new Configuration();
-        
-        cfg.setDefaultEncoding("UTF-8");
-            
-        cfg.setServletContextForTemplateLoading(getServletContext(), "/template");
+        Map<String, Object> data = new HashMap<>();
 
-        Template template = cfg.getTemplate("signup.html");
+        List<String[]> fields = new ArrayList();
         
-        PrintWriter out = response.getWriter();
-        try {
-            template.process(null, out);
-        } catch (TemplateException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        out.flush();
- 
+        String[] name =         {"name",        "text",         "Name"};
+        String[] surname =      {"surname",     "text",         "Surname"};
+        String[] gender =       {"gender",      "text",         "Gender"};
+        String[] birthdate =    {"birthdate",   "text",         "Birthdate"};
+        String[] birthplace =   {"birthplace",  "text",         "Birthplace"};
+        String[] email =        {"email",       "email",        "E-mail"};
+        String[] password =     {"password",    "password",     "Password"};
+        
+        fields.add(name);
+        fields.add(surname);
+        fields.add(gender);
+        fields.add(birthdate);
+        fields.add(birthplace);
+        fields.add(email);
+        fields.add(password);
+        
+        data.put("fields", fields);
+        
+        data.put("button_icon", "user");
+        data.put("action", "signup");
+        
+        FreeMarker.process("login.html",data, response, getServletContext());
         
     }
 

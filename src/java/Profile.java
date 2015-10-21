@@ -18,6 +18,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 import Classes.User;
+import Classes.UserBuilder;
 /**
  *
  * @author Gianluca
@@ -43,41 +44,32 @@ public class Profile extends HttpServlet {
         
         //Tutti gli utenti:
         //User loggeduser = new User("Gianluca", "Filippone", "ABC123", "Pescara", "17/12/1993", "Bio di prova!", "gianluca.jpg");
-        User aragorn = new User("Aragorn", "Granpasso", "DSC213", "Gondor", "1/03/2931", "Per frodo!", "aragorn.jpg");
-        User arwen = new User("Arwen", "Undomiel", "ASH359", "Valinor", "15/06/241", "Preferirei dividere una sola vita con te che affrontare tutte le ere di questo mondo da sola.", "arwen.jpg");
-        User arathorn = new User("Arathorn II", "Dunendain", "DGS830", "Gondor", "10/03/2900", "Mio figlio sembra Gesù Cristo.", "arathorn.jpg");
-        User gilraen = new User("Gilraen", "Dunendain", "ASH359", "Gondor", "15/06/2907", "Ho dato la speranza ai Dúnedain, non ne ho conservata per me.", "gilraen.jpg");
-        User eldarion = new User("Eldarion", "Dunendain", "HSB302", "Gondor", "25/12/0", "Il cantante degli Aerosmith è mio nonno, ma la mamma non lo sa.", "eld.jpg");
-       
-        User legolas = new User("Legolas", "Verdefoglia", "EHD930", "Bosco Atro", "87 T.E.", "They are taking the hobbits to Isegard!", "legolas.jpg");
-        User gimli = new User("Gimli", "Durin", "HSD732", "Moria", "2879 T.E.", "Che vengano pure! Troveranno che qui a Moria c'è ancora un nano che respira!", "gimli.jpg");
-        User boromir = new User("Boromir", "Dunendain", "SHS733", "Gondor", "2978 T.E.", "Io ti avrei seguito fratello mio, mio capitano, mio re!", "boromir.jpg");
         
         //Lista fratelli
         List<User> siblings = new LinkedList<User>();
         
-        siblings.add(legolas);
-        siblings.add(gimli);
-        siblings.add(boromir);
+        siblings.add(UserBuilder.legolas);
+        siblings.add(UserBuilder.gimli);
+        siblings.add(UserBuilder.boromir);
         
         //Lista utenti precedentemente visualizzati
         List<User> navigation = new LinkedList<User>();
         
-        navigation.add(arathorn);
-        navigation.add(gilraen);
-        navigation.add(boromir);
-        navigation.add(aragorn);
+        navigation.add(UserBuilder.arathorn);
+        navigation.add(UserBuilder.gilraen);
+        navigation.add(UserBuilder.boromir);
+        navigation.add(UserBuilder.aragorn);
         
         // Inserimento utenti nel data-model
         data.put("siblings", siblings);
         data.put("navigation", navigation);
         
-        data.put("loggeduser", aragorn);
-        data.put("currentuser", aragorn);
-        data.put("spouse", arwen);
-        data.put("father", arathorn);
-        data.put("mother", gilraen);
-        data.put("child", eldarion);
+        data.put("loggeduser", UserBuilder.aragorn);
+        data.put("currentuser", UserBuilder.getUserById(request.getParameter("id")));
+        data.put("spouse", UserBuilder.arwen);
+        data.put("father", UserBuilder.arathorn);
+        data.put("mother", UserBuilder.gilraen);
+        data.put("child", UserBuilder.eldarion);
         
         
         // Configurazione freemarker

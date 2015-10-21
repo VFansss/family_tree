@@ -5,7 +5,7 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>Profile</servlet-name>
-        <servlet-class>Profile</servlet-class>
+        <servlet-class>Servlet.Templating.Profile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
@@ -14,6 +14,14 @@
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Servlet.Templating.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>Servlet.Script.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>Servlet.Script.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
@@ -26,6 +34,14 @@
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/log</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

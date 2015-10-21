@@ -72,9 +72,11 @@ ul.breadcrumb-nav a i{
     font-size: 0.7em;
 }
 
-ul.breadcrumb-nav li:hover{
-    /*background-color: #2f6eb2*/
-    background-color: #4687ce;
+ul.breadcrumb-nav li:hover,
+ul.navbar-right li:hover{
+    /*background-color: #4687ce;*/
+    background-color: rgba(47, 110, 178, 0.4);
+    
 }
 
 h3.profile-relative-name a{
@@ -95,6 +97,28 @@ div.sibling-col{
         margin-left:10%;
         margin-right:10%;
     }
+}
+
+@media (min-width: 768px){
+    div.user-info{
+        display:none;
+    }
+}
+
+.user-info .dark-background{
+    background-color: #303030;
+}
+
+.dark h3{
+    color: #ffffff;
+}
+
+.dark p{
+    color: #676767;
+}
+
+.panel-navigation{
+    margin-bottom: 20px;
 }
 
 //Allineamento icona: riga 3860 e 16939 blue.css (originali commentati)

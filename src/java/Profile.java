@@ -38,34 +38,42 @@ public class Profile extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        // Build the data-model
+        //COSTRUZIONE DATA MODEL
         Map<String, Object> data = new HashMap<String, Object>();        
-
-        User loggeduser = new User("Gianluca", "Filippone", "ABC123", "Pescara", "17/12/1993", "Bio di prova!", "gianluca.jpg");
-        User currentuser = new User("Aragorn", "Granpasso", "DSC213", "Gondor", "1/03/2931", "Per frodo!", "aragorn.jpg");
-        User spouse = new User("Arwen", "Undomiel", "ASH359", "Valinor", "15/06/241", "Preferirei dividere una sola vita con te che affrontare tutte le ere di questo mondo da sola.", "arwen.jpg");
-        User father = new User("Arathorn II", "Dunendain", "DGS830", "Gondor", "10/03/2900", "Mio figlio sembra Gesù Cristo.", "arathorn.jpg");
-        User mother = new User("Gilraen", "Dunendain", "ASH359", "Gondor", "15/06/2907", "Ho dato la speranza ai Dúnedain, non ne ho conservata per me.", "gilraen.jpg");
-        User child = new User("Eldarion", "Dunendain", "HSB302", "Gondor", "25/12/0", "Il cantante degli Aerosmith è mio nonno, ma la mamma non lo sa.", "eld.jpg");
         
-        List<User> siblings = new LinkedList<User>();
-        
+        //Tutti gli utenti:
+        //User loggeduser = new User("Gianluca", "Filippone", "ABC123", "Pescara", "17/12/1993", "Bio di prova!", "gianluca.jpg");
+        User aragorn = new User("Aragorn", "Granpasso", "DSC213", "Gondor", "1/03/2931", "Per frodo!", "aragorn.jpg");
+        User arwen = new User("Arwen", "Undomiel", "ASH359", "Valinor", "15/06/241", "Preferirei dividere una sola vita con te che affrontare tutte le ere di questo mondo da sola.", "arwen.jpg");
+        User arathorn = new User("Arathorn II", "Dunendain", "DGS830", "Gondor", "10/03/2900", "Mio figlio sembra Gesù Cristo.", "arathorn.jpg");
+        User gilraen = new User("Gilraen", "Dunendain", "ASH359", "Gondor", "15/06/2907", "Ho dato la speranza ai Dúnedain, non ne ho conservata per me.", "gilraen.jpg");
+        User eldarion = new User("Eldarion", "Dunendain", "HSB302", "Gondor", "25/12/0", "Il cantante degli Aerosmith è mio nonno, ma la mamma non lo sa.", "eld.jpg");
+       
         User legolas = new User("Legolas", "Verdefoglia", "EHD930", "Bosco Atro", "87 T.E.", "They are taking the hobbits to Isegard!", "legolas.jpg");
         User gimli = new User("Gimli", "Durin", "HSD732", "Moria", "2879 T.E.", "Che vengano pure! Troveranno che qui a Moria c'è ancora un nano che respira!", "gimli.jpg");
         User boromir = new User("Boromir", "Dunendain", "SHS733", "Gondor", "2978 T.E.", "Io ti avrei seguito fratello mio, mio capitano, mio re!", "boromir.jpg");
+        
+        //Lista fratelli
+        List<User> siblings = new LinkedList<User>();
         
         siblings.add(legolas);
         siblings.add(gimli);
         siblings.add(boromir);
         
+        //Lista utenti precedentemente visualizzati
+        List<user> navigation = new LinkedList<User>();
+        
+        
+        
+        // Inserimento utenti nel data-model
         data.put("siblings", siblings);
         
-        data.put("loggeduser", currentuser);
-        data.put("currentuser", currentuser);
-        data.put("spouse", spouse);
-        data.put("father", father);
-        data.put("mother", mother);
-        data.put("child", child);
+        data.put("loggeduser", aragorn);
+        data.put("currentuser", aragorn);
+        data.put("spouse", arwen);
+        data.put("father", arathorn);
+        data.put("mother", gilraen);
+        data.put("child", eldarion);
         
         
         // Configurazione freemarker
@@ -75,8 +83,8 @@ public class Profile extends HttpServlet {
             
         cfg.setServletContextForTemplateLoading(getServletContext(), "/template");
 
-        //Template template = cfg.getTemplate("profile.html");
-        Template template = cfg.getTemplate("profile2.html");
+        Template template = cfg.getTemplate("profile.html");
+        //Template template = cfg.getTemplate("profile2.html");
         
         PrintWriter out = response.getWriter();
         try{

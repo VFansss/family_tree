@@ -3,9 +3,9 @@
 /*                LOGIN                     */
 /*==========================================*/
 
-.layer{
+body.login .layer{
     background: #000;
-    opacity: 0.7;
+    opacity: 0.8;
     position: fixed;
     top:0;
     width: 100%;
@@ -13,40 +13,31 @@
     background-repeat: no-repeat;
 }
 
-.content{
+body.login .content{
     margin-top:15px; 
 }   
+
+body.login .header{
+    height: 35px;
+}
 
 #tree-icon img{
     height: 40px;
     width: 40px;
 }
 
-#search-bar{
-    display: inline-block;
-    position: relative;
-    margin-left: 5px; 
-}
-
 #search-bar input{
     color: rgba(255,255,255,.5);
     padding: 0 10px 2px 39px;
-    
     background: rgba(0,0,0,.13);
     font-weight: 400;
     line-height: inherit;
     font-size: 15px;
     height: 34px;   
     border: 0;
-    border-radius: 3px;
+    border-radius: 4px;
     border: 1px solid #4687ce;
     width: 100%;
-    
-}
-
-.button-top-right a{
-    min-width:72px;
-    width:100%;
 }
 
 #search-bar::before{
@@ -54,27 +45,51 @@
     content:"\f002";
     width: 50px;
     padding: 3px 12px;
-    
-    transition: 150ms color;
     position: absolute;
     font-size: 20px;
     color: inherit;
     z-index: 2;
-
 }
 
-.login h1{
+body.login .button-top-right a{
+    min-width:72px;
+    width:100%;
+}
+
+body.login .title h1{
     font-size: 60px;
     font-weight: bolder;
-    margin: 50px auto;
     color: #fff;
+    margin: 50px 0;
+    display: block;
 }
 
-.login .title{
+body.login .title{
     text-align: center;
 }
 
-.login form button{
+body.login .title img{
+    display:none;
+}
+
+body.login form input{
+    font-size: 16px;
+    background-color: #fff;
+    height: 100%;
+    padding: 10px 15px;
+}
+
+body.login form input:first-child {
+   border-top-right-radius: 4px;
+   border-top-left-radius: 4px;
+}
+
+body.login form input:last-child {
+   border-bottom-right-radius: 4px;
+   border-bottom-left-radius: 4px;
+}
+
+body.login form button{
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
@@ -83,37 +98,17 @@
     border-radius: 3px;
 }
 
-.login form input{
-    font-size: 16px;
-    background-color: #fff;
-    height: 100%;
-    padding: 10px 15px;
-}
-
-.login form fieldset input:first-child {
-   border-top-right-radius: 3px;
-   border-top-left-radius: 3px;
-}
-
-.login form fieldset input:last-child {
-   border-bottom-right-radius: 3px;
-   border-bottom-left-radius: 3px;
-}
-
-
 body.login .lock-container {
     height: auto;
 }
 
-.forgot-password {
+body.login .forgot-password {
     cursor: pointer;
     color: white;
     display: block;
 }
 
-.forgot-password:hover {
+body.login .forgot-password:hover {
     color: #fff;
     text-decoration: none;
 }
-
-

@@ -1,0 +1,30 @@
+
+/*==========================================*/
+/*                LOGIN                     */
+/*==========================================*/
+
+/* Small */
+@media (max-width: 768px) {
+    
+    #tree-icon{
+        display: none;
+    }
+    #search-bar{
+        margin-bottom: 5px;
+    }
+    
+    body.login .title h1{
+        display:none;
+    }
+    
+    body.login .title img {
+        width: 200px;
+        height: 200px;
+        margin: auto;
+        display: block;
+    }
+    
+    body.login .header{
+        height: 100px;
+    }
+}

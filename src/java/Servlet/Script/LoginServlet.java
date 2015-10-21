@@ -5,6 +5,7 @@
  */
 package Servlet.Script;
 
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -52,6 +53,7 @@ public class LoginServlet extends HttpServlet {
             //Altrimenti genera una nuova sessione
             HttpSession session = request.getSession();
             session.setAttribute("id", tolog.getId());
+            session.setAttribute("navigator", new ArrayList<User>());
             request.getRequestDispatcher("profile?id="+tolog.getId()).include(request, response); 
         }
     }

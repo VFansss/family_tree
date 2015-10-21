@@ -61,7 +61,7 @@ public class Profile extends HttpServlet {
         siblings.add(boromir);
         
         //Lista utenti precedentemente visualizzati
-        List<user> navigation = new LinkedList<User>();
+        List<User> navigation = new LinkedList<User>();
         
         
         

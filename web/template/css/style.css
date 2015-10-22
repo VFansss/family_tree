@@ -84,15 +84,17 @@ footer .ball{
     cursor: pointer;
     text-align: center;
     color: #4687ce;
+    opacity: 0.75;
 }
 
 footer .ball:hover{
     color: #4687ce;
+    opacity: 1;
 }
 
 footer .ball i{
     display: block;
-    margin: 7px auto;
+    margin: 8px auto;
 }
 
 /*==========================================*/
@@ -149,6 +151,19 @@ section.login .forgot-password {
 
 section.login .forgot-password:hover {
     text-decoration: none;
+}
+
+section.login .error{
+    padding: 14px 15px;
+    color: #fff;
+    background: rgba(0,0,0,0.33);
+    margin: 8px 0 3px;
+    border-radius: 4px;
+}
+
+section.login .error p{
+    margin: 0 0 0 7px;
+    display: inline-block;
 }
 
 /*==========================================*/

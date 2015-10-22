@@ -55,8 +55,16 @@ public class Signup extends HttpServlet {
         fields.add(password);
         
         data.put("fields", fields);
-
         data.put("action", "signup");
+        
+        String msn = request.getParameter("msn");
+        boolean error = false;
+        
+        if(msn != null){
+            error = true;
+            data.put("msn", msn);
+        }
+        data.put("error", error);
         
         FreeMarker.process("login.html",data, response, getServletContext());
         

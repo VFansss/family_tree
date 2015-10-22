@@ -74,10 +74,11 @@
                                 <#assign button_icon = "user">
                             </#if>
                             
-                            <div class="error">
-                                <i class="fa fa-times"></i><p>Password is not valid</p>
-                                
-                            </div>
+                            <#if error == true>
+                                <div class="error">
+                                    <i class="fa fa-times"></i><p>${msn}</p>
+                                </div>
+                            </#if>
                             <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
 
                         </form>
@@ -93,16 +94,7 @@
 
         </section>
         
-        <footer>
-                <a class="ball logout pull-right" title="Logout">
-                    <i class="fa fa-sign-out fa-2x"></i>
-                </a>
-                
-                <a class="ball settings pull-right" title="Settings">
-                    <i class="fa fa-cog fa-2x"></i>
-                </a>
-
-        </footer>
+        
         
     </body>
 

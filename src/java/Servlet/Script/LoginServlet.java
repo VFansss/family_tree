@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Classes.*;
+import java.net.URLEncoder;
 
 /**
  *
@@ -46,9 +47,8 @@ public class LoginServlet extends HttpServlet {
         
         //Se il nome inserito non è presente tra gli utenti, viene segnalato un errore
         if (tolog==null){
-            PrintWriter out = response.getWriter();
-            out.println("ERRORE");
-            out.flush();
+            response.sendRedirect("login?msn=" + URLEncoder.encode("User does not exist", "UTF-8"));
+            
         } else {
             //Altrimenti genera una nuova sessione
             HttpSession session = request.getSession();

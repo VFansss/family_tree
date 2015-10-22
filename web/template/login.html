@@ -20,84 +20,90 @@
        
     </head>
     <body>
-        
         <div class="layer"></div>
+        
+      
+    <header>
 
-        <div class="content">
+            <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
+                <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+            </div>
 
-            <header>
+            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
+                <form method="POST" >
+                    <input type="button" />
+                    <input placeholder="Search" type="text" required />
 
-                <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
-                    <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
-                </div>
+                </form>
+            </div>
 
-                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
-                    <form method="POST" >
-                        <input type="button" />
-                        <input placeholder="Search" type="text" required />
-                        
-                    </form>
-                </div>
+            <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
 
-                <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
+                <#if action == "login">
+                    <#assign other_action = "signup">
+                <#else>
+                    <#assign other_action = "login">
+                </#if>
 
-                    <#if action == "login">
-                        <#assign other_action = "signup">
-                    <#else>
-                        <#assign other_action = "login">
-                    </#if>
+                <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
+            </div>
 
-                    <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
-                </div>
+        </header>
 
-            </header>
-            
-            <section class="login">
-                
-                <div class="col-md-12 title text-center">
-                    <h1>Collaborative Genealogy</h1>
-                    <img src="template/images/tree-icon-200.png" alt="tree logo" />
-                </div>
+        <section class="login">
 
-                <div class="col-md-12 test">
-                    <div class="lock-container">
-                        <div class="panel-default text-center">
+            <div class="col-md-12 title text-center">
+                <h1>Collaborative Genealogy</h1>
+                <img src="template/images/tree-icon-200.png" alt="tree logo" />
+            </div>
 
-                            <form action="log" class="panel-body main-form" method="POST">
+            <div class="col-md-12">
+                <div class="lock-container">
+                    <div class="panel-default text-center">
 
-                                <fieldset>
-                                    <#list fields as field>
-                                        <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required />
-                                    </#list>
-                                </fieldset>
+                        <form action="log" class="panel-body main-form" method="POST">
 
-                                <#if action == "login">
-                                    <#assign button_icon = "unlock-alt">
-                                <#else>
-                                    <#assign button_icon = "user">
-                                </#if>
-
-                                <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
-
-                            </form>
+                            <fieldset>
+                                <#list fields as field>
+                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required />
+                                </#list>
+                            </fieldset>
 
                             <#if action == "login">
-                                <a class="forgot-password">Forgot password?</a>
+                                <#assign button_icon = "unlock-alt">
+                            <#else>
+                                <#assign button_icon = "user">
                             </#if>
 
+                            <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
 
-                        </div>
+                        </form>
+
+                        <#if action == "login">
+                            <a class="forgot-password">Forgot password?</a>
+                        </#if>
+
+
                     </div>
                 </div>
+            </div>
+
+        </section>
+        
+        <footer>
+            <div class="col-md-12">
                 
-            </section>
-            
-            <footer>
-                <div class="ball"></div>
+                <a class="ball logout pull-right" title="Logout">
+                    <i class="fa fa-sign-out fa-2x"></i>
+                </a>
                 
-            </footer>
-            
-        </div>
+                <a class="ball settings pull-right" title="Settings">
+                    <i class="fa fa-cog fa-2x"></i>
+                </a>
+
+            </div>
+        </footer>
+        
     </body>
 
 </html>

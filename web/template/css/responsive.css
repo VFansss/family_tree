@@ -27,4 +27,27 @@
     header{
         height: 100px;
     }
+    
 }
+
+@media (min-width: 769px) {
+    footer .ball{
+        position: fixed;
+        left: 7px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.3em;
+    }
+    
+    .logout{
+        bottom: 5px;
+    }
+    
+     .settings{
+        bottom: 70px;
+    }
+    
+    
+    
+}
+

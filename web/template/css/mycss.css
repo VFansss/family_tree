@@ -99,13 +99,7 @@ div.sibling-col{
     }
 }
 
-@media (min-width: 768px){
-    div.user-info{
-        display:none;
-    }
-}
-
-.user-info .dark-background{
+.dark-background{
     background-color: #303030;
 }
 

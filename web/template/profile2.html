@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>${action?cap_first} - Collaborative Genealogy</title>
+        <title>${currentuser.name} - Collaborative Genealogy</title>
         <!-- icon -->
         <link rel="shortcut icon" href="template/images/favicon.ico" />
         <!-- App Styling Bundle -->
@@ -39,54 +39,39 @@
                 </div>
 
                 <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
-
-                    <#if action == "login">
-                        <#assign other_action = "signup">
-                    <#else>
-                        <#assign other_action = "login">
-                    </#if>
-
-                    <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
+                    <a href="profile?id=${loggeduser.id}" class="btn btn-primary pull-right">${loggeduser.name}</a>
                 </div>
 
             </div>
 
-            <div class="col-md-12 title text-center">
+            <!-- <div class="col-md-12 title text-center">
                 <h1>Collaborative Genealogy</h1>
                 <img src="template/images/tree-icon-200.png" alt="tree logo" />
-            </div>
-
-            <div class="col-md-12">
-                <div class="lock-container">
-                    <div class="panel-default text-center">
-
-                        <form action="log" class="panel-body main-form" method="POST">
-
-                            <fieldset>
-                                <#list fields as field>
-                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" required />
-                                </#list>
-                            </fieldset>
-                            
-                            <#if action == "login">
-                                <#assign button_icon = "unlock-alt">
-                            <#else>
-                                <#assign button_icon = "user">
-                            </#if>
-                            
-                            <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
-
-                        </form>
-                        
-                        <#if action == "login">
-                            <a class="forgot-password">Forgot password?</a>
-                        </#if>
-                        
-
+            </div> -->
+            <div id="content">
+                <div class="container-fluid">
+                    <!-- Blocco informazioni utente corrente -->
+                    <div class="col-md-12 user-info main-tile">
+                        <!-- <div class="panel panel-default"> -->
+                            <div class="panel dark dark-background">    
+                                <div class="relative-image col-md-2">
+                                    <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
+                                </div>
+                                <div class="col-md-4 relative-info">
+                                    <h3 class="profile-relative-name">${currentuser.name} ${currentuser.surname}</h3>
+                                    <p><i class="fa fa-calendar"></i> ${currentuser.birthdate}</p>
+                                    <p><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</p>
+                                </div>
+                                <div class="col-md-12 relative-bio">
+                                    <p>${currentuser.bio}</p>
+                                </div>
+                            </div>
+                        <!-- </div> -->
                     </div>
+                    <!-- /blocco -->
                 </div>
             </div>
-
+            
         </div>
     </body>
 

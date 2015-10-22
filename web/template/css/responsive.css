@@ -28,6 +28,10 @@
         height: 100px;
     }
     
+    div.users{
+    margin: 0;
+}
+    
 }
 
 @media (min-width: 769px) {

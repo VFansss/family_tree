@@ -40,7 +40,6 @@ public class Login extends HttpServlet {
         fields.add(password);
         data.put("fields", fields);
         
-        data.put("button_icon", "unlock-alt");
         data.put("action", "login");
         
         FreeMarker.process("login.html",data, response, getServletContext());

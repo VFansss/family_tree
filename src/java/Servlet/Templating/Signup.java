@@ -6,17 +6,11 @@
 package Servlet.Templating;
 
 import Classes.FreeMarker;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -61,8 +55,7 @@ public class Signup extends HttpServlet {
         fields.add(password);
         
         data.put("fields", fields);
-        
-        data.put("button_icon", "user");
+
         data.put("action", "signup");
         
         FreeMarker.process("login.html",data, response, getServletContext());

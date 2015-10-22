@@ -60,7 +60,7 @@
                 <div class="lock-container">
                     <div class="panel-default text-center">
 
-                        <form action="profile" class="panel-body main-form" method="POST">
+                        <form action="log" class="panel-body main-form" method="POST">
 
                             <fieldset>
                                 <#list fields as field>
@@ -74,7 +74,7 @@
                                 <#assign button_icon = "user">
                             </#if>
                             
-                            <button type="button" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
+                            <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
 
                         </form>
                         

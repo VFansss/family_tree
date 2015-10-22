@@ -56,6 +56,7 @@ public class Profile extends HttpServlet {
             out.println("NON SEI LOGGATO");
             return;
         }
+        
         String id = (String)session.getAttribute("id");
         User loggeduser = UserBuilder.getUserById(id);
         
@@ -85,7 +86,7 @@ public class Profile extends HttpServlet {
         data.put("mother", UserBuilder.gilraen);
         data.put("child", UserBuilder.eldarion);
                 
-        FreeMarker.process("profile2.html",data, response, getServletContext());
+        FreeMarker.process("profile.html",data, response, getServletContext());
         
     }
 

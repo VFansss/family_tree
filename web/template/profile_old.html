@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Collaborative Geneaology</title>
+
+    <!-- App Styling Bundle -->
+    <link href="template/css/blue.css" rel="stylesheet">
+    <link href="template/css/style.css" rel="stylesheet">
+    
+    
+    <!-- Vendor Scripts Bundle (jQuery) -->
+    <script src="template/js/vendor.min.js"></script>
+    <!-- <script src="template/js/scripts.min.js"></script> -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]><script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-main navbar-primary navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <!--
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                -->
+                <a class="navbar-brand" href="profile_old.html"><img src="template/images/albero-thumb.png" class="navbar-brand-logo" alt="logo"/> Collaborative</a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="nav navbar-nav breadcrumb-nav">
+                    <li><a href="profile?id=${loggeduser.id}">You</a></li>
+                    <#list navigation as relative>
+                        <li><a href="profile?id=${relative.id}"><i class="fa fa-fw fa-chevron-right"></i> ${relative.name}</a></li>
+                    </#list>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="template/profile/${loggeduser.imageurl}" alt="people" class="img-circle avatar avatar-square"/> ${loggeduser.name}<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="profile?id=${loggeduser.id}">Profile</a>
+                            </li>
+                            <li><a href="settings.html">Settings</a>
+                            </li>
+                            <li><a href="logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar left hidden-xs">
+        <div data-scrollable>
+            <div class="sidebar-block">
+                <div class="profile">
+                    <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
+                    <h4>${currentuser.name} ${currentuser.surname}</h4>
+                </div>
+            </div>
+            <div class="sidebar-block">
+                <div class="category">Anagraphics</div>
+                <ul class="list-about">
+                    <li><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</li>
+                    <li><i class="fa fa-calendar"></i> ${currentuser.birthdate}</li>
+                </ul>
+            </div>
+            <div class="sidebar-block">
+                <div class="category">Bio</div>
+                <p class="bio">${currentuser.bio}</p>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        
+        <div class="col-md-12 user-info">
+            <div class="panel panel-default">
+                <div class="panel-body dark dark-background">
+                    <div class="panel-navigation col-md-12">
+                        <h4>
+                            <a href="profile?id=${currentuser.id}">You</a>
+                            <#list navigation as relative>
+                                &gt;&nbsp;<a href="profile?id=${relative.id}">${relative.name}</a>
+                            </#list>
+                        <h4>
+                    </div>    
+                    <div class="relative-image col-md-2">
+                        <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
+                    </div>
+                    <div class="col-md-4 relative-info">
+                        <h3 class="profile-relative-name">${currentuser.name} ${currentuser.surname}</h3>
+                        <p><i class="fa fa-calendar"></i> ${currentuser.birthdate}</p>
+                        <p><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</p>
+                    </div>
+                    <div class="col-md-6 relative-bio">
+                        <p>${currentuser.bio}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-heading-gray">
+                            <span>Father</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="relative-image col-md-4">
+                                <img src="template/profile/${father.imageurl}" alt="people" class="img-circle avatar" />
+                            </div>
+                            <div class="col-md-8 relative-info">
+                                <h3 class="profile-relative-name"><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
+                                <p><i class="fa fa-calendar"></i> ${father.birthdate}</p>
+                                <p><i class="fa fa-map-marker"></i> ${father.birthplace}</p>
+                            </div>
+                            <div class="col-md-12 relative-bio">
+                                <p>${father.bio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-heading-gray">
+                            <span>Mother</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="relative-image col-md-4">
+                                <img src="template/profile/${mother.imageurl}" alt="people" class="img-circle avatar" />
+                            </div>
+                            <div class="col-md-8 relative-info">
+                                <h3 class="profile-relative-name"><a href="profile?id=${father.id}">${mother.name} ${mother.surname}</a></h3>
+                                <p><i class="fa fa-calendar"></i> ${mother.birthdate}</p>
+                                <p><i class="fa fa-map-marker"></i> ${mother.birthplace}</p>
+                            </div>
+                            <div class="col-md-12 relative-bio">
+                                <p>${mother.bio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-heading-gray">
+                          <span>Wife</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="relative-image col-md-2">
+                                <img src="template/profile/${spouse.imageurl}" alt="people" class="img-circle avatar" />
+                            </div>
+                            <div class="col-md-4 relative-info">
+                                <h3 class="profile-relative-name"><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
+                                <p><i class="fa fa-calendar"></i> ${spouse.birthdate}</p>
+                                <p><i class="fa fa-map-marker"></i> ${spouse.birthplace}</p>
+                            </div>
+                            <div class="col-md-6 relative-bio">
+                                <p>${spouse.bio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-heading-gray">
+                            <span>Children</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="relative-image col-md-2">
+                                <img src="template/profile/${child.imageurl}" alt="people" class="img-circle avatar" />
+                            </div>
+                            <div class="col-md-4 relative-info">
+                                <h3 class="profile-relative-name"><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
+                                <p><i class="fa fa-calendar"></i> ${child.birthdate}</p>
+                                <p><i class="fa fa-map-marker"></i> ${child.birthplace}</p>
+                            </div>
+                            <div class="col-md-6 relative-bio">
+                                <p>${child.bio}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-heading-gray">
+                            <span>Siblings</span>
+                        </div>
+                        <div class="panel-body">
+                            <#list siblings as sibling>
+                                <div class="col-md-6 sibling-col">
+                                    <div class="relative-image col-md-4">
+                                        <img src="template/profile/${sibling.imageurl}" alt="people" class="img-circle avatar" />
+                                    </div>
+                                    <div class="col-md-8 relative-info">
+                                        <h3 class="profile-relative-name"><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
+                                        <p><i class="fa fa-calendar"></i> ${sibling.birthdate}</p>
+                                        <p><i class="fa fa-map-marker"></i> ${sibling.birthplace}</p>
+                                    </div>
+                                    <div class="col-md-12 relative-bio">
+                                        <p>${sibling.bio}</p>
+                                    </div>
+                                </div>
+                            </#list>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

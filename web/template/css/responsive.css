@@ -32,7 +32,6 @@
         margin: 0;
         padding: 0;
     }
-    
 }
 
 @media (min-width: 769px) {
@@ -48,11 +47,31 @@
         bottom: 5px;
     }
     
-     .settings{
+    .settings{
         bottom: 70px;
     }
-    
-    
-    
 }
 
+@media (min-width: 992px) {
+    .top-name{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .main-name{
+        display:none;
+    }
+    
+    .top-name{
+        text-align: center;
+    }
+    
+    .inrow-div div{
+        display: inline-block;
+    }
+    
+    .relative-anagraphics-info{
+        margin-left: 20px;
+    }
+}

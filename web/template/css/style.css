@@ -181,34 +181,38 @@ img.avatar-square{
     height: 25px;
 }
 
-div.profile .img-circle {
+/*div.profile .img-circle {
     width: 110px;
     height: 110px;
     margin: auto;
     padding: 0;
     margin-top: -24px;
-}
+}*/
 
-div.relative-image .img-circle{
-    width: 100px;
-    height: 100px;
-    margin: auto;
+/*div.relative-image{
+    width: 110px;
+    height: 110px;
+}*/
+
+.main-tile .img-circle{
+    width: 110px;
+    height: 110px;
     padding: 0;
 }
 
-div.relative-info h3{
-    margin-top: 0;
+div.relative-anagraphics-info{
+    margin-top: 10px;
 }
 
 div.relative-bio{
     margin-top: 10px;
 }
 
-h3.profile-relative-name a{
+h3.relative-name a{
     color: #4d4d4d;
 }
 
-h3.profile-relative-name a:hover{
+h3.relative-name a:hover{
     color: #4d4d4d;
 }
 
@@ -246,6 +250,10 @@ div.blue-background{
     color: #404040;
 }
 
-.blue-background .relative-info p{
+.blue-background .relative-anagraphics-info p{
     font-weight: bold;
+}
+
+.user-info h3{
+    margin-top: 0;
 }

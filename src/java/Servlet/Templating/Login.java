@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
         Map<String, Object> data = new HashMap<>();
 
         List<String[]> fields = new ArrayList();
-        String[] email = {"email", "email", "E-mail"};
+        String[] email = {"email", "text", "E-mail"};
         String[] password = {"password", "password", "Password"};
         fields.add(email);
         fields.add(password);

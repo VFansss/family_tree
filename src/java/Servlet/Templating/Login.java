@@ -30,18 +30,24 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        Map<String, Object> data = new HashMap<>();
 
+        Map<String, Object> data = new HashMap<>();
         List<String[]> fields = new ArrayList();
         String[] email = {"email", "text", "E-mail"};
         String[] password = {"password", "password", "Password"};
         fields.add(email);
         fields.add(password);
         data.put("fields", fields);
-        
         data.put("action", "login");
         
+        String msn = request.getParameter("msn");
+        boolean error = false;
+        
+        if(msn != null){
+            error = true;
+            data.put("msn", msn);
+        }
+        data.put("error", error);
         FreeMarker.process("login.html",data, response, getServletContext());
         
     }

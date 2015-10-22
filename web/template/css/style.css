@@ -6,7 +6,7 @@ button{
     outline: none !important;
 }
 
-body.login .layer{
+.layer{
     background: #000;
     opacity: 0.8;
     position: fixed;
@@ -16,11 +16,11 @@ body.login .layer{
     background-repeat: no-repeat;
 }
 
-body.login .content{
+.content{
     margin-top:15px; 
 }   
 
-body.login .header{
+header{
     height: 35px;
 }
 
@@ -69,12 +69,12 @@ body.login .header{
     font-size: 20px;
 }
 
-body.login .button-top-right a{
+header .button-top-right a{
     min-width:72px;
     width:100%;
 }
 
-body.login .title h1{
+section.login .title h1{
     font-family: Arvo;
     font-size: 60px;
     font-weight: bolder;
@@ -83,28 +83,28 @@ body.login .title h1{
     display: block;
 }
 
-body.login .title img{
+section.login .title img{
     display:none;
 }
 
-body.login form.main-form input{
+section.login form.main-form input{
     font-size: 16px;
     background-color: #fff;
     height: 100%;
     padding: 10px 15px;
 }
 
-body.login form.main-form input:first-child {
+section.login form.main-form input:first-child {
    border-top-right-radius: 4px;
    border-top-left-radius: 4px;
 }
 
-body.login form.main-form input:last-child {
+section.login form.main-form input:last-child {
    border-bottom-right-radius: 4px;
    border-bottom-left-radius: 4px;
 }
 
-body.login form.main-form button{
+section.login form.main-form button{
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
@@ -113,15 +113,15 @@ body.login form.main-form button{
     border-radius: 3px;
 }
 
-body.login .lock-container {
+section.login .lock-container {
     height: auto;
 }
 
-body.login .forgot-password {
+section.login .forgot-password {
     cursor: pointer;
     color: white;
 }
 
-body.login .forgot-password:hover {
+section.login .forgot-password:hover {
     text-decoration: none;
 }

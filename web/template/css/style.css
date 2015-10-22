@@ -2,9 +2,6 @@
 /*                GENERAL                   */
 /*==========================================*/ *
 
-footer{
-    z-index: 10;
-}
 button{
     outline: none !important;
 }

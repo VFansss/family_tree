@@ -17,7 +17,7 @@ button{
 }
 
 .content{
-    margin-top:15px; 
+    height:15px; 
 }   
 
 header{
@@ -124,4 +124,68 @@ section.login .forgot-password {
 
 section.login .forgot-password:hover {
     text-decoration: none;
+}
+
+/*==========================================*/
+/*                PROFILE                   */
+/*==========================================*/
+/*Recuperato da mycss.css*/
+
+.avatar {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+img.avatar-square{
+    width: 40px;
+    height: 40px;
+}
+
+div.profile .img-circle {
+    width: 110px;
+    height: 110px;
+    margin: auto;
+    padding: 0;
+    margin-top: -24px;
+}
+
+div.relative-image .img-circle{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    padding: 0;
+}
+
+div.relative-info h3{
+    margin-top: 0;
+}
+
+div.relative-bio{
+    margin-top: 10px;
+}
+
+h3.profile-relative-name a{
+    color: #4d4d4d;
+}
+
+h3.profile-relative-name a:hover{
+    color: #4d4d4d;
+}
+
+.dark-background{
+    background-color: rgba(10, 10, 10, 0.4);
+}
+
+.dark h3{
+    color: #ffffff;
+}
+
+.dark p{
+    color: #676767;
+}
+
+.main-tile{
+    margin-left: 20%;
+    margin-right: 20%;
+    border:1px solid red;
 }

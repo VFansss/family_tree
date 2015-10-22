@@ -39,7 +39,10 @@
                 </div>
 
                 <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
-                    <a href="profile?id=${loggeduser.id}" class="btn btn-primary pull-right">${loggeduser.name}</a>
+                    <a href="profile?id=${loggeduser.id}" class="btn btn-primary pull-right">
+                            <img src="template/profile/${loggeduser.imageurl}" alt="people" class="img-circle avatar avatar-square"/>
+                            &nbsp;${loggeduser.name}
+                    </a>
                 </div>
 
             </header>
@@ -50,29 +53,27 @@
             </div> -->
             <section class="login">
                 
-                <div id="content">
-                    <div class="container-fluid">
-                        <!-- Blocco informazioni utente corrente -->
-                        <div class="col-md-12 user-info main-tile">
-                            <!-- <div class="panel panel-default"> -->
-                                <div class="panel dark dark-background">    
-                                    <div class="relative-image col-md-2">
-                                        <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
-                                    </div>
-                                    <div class="col-md-4 relative-info">
-                                        <h3 class="profile-relative-name">${currentuser.name} ${currentuser.surname}</h3>
-                                        <p><i class="fa fa-calendar"></i> ${currentuser.birthdate}</p>
-                                        <p><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</p>
-                                    </div>
-                                    <div class="col-md-12 relative-bio">
-                                        <p>${currentuser.bio}</p>
-                                    </div>
+                <!--<div id="content">-->
+        
+                    <div class="col-md-12 user-info main-tile">
+                        <!--<div class="panel panel-default">-->
+                            <div class="panel-body dark dark-background">   
+                                <div class="relative-image col-md-2">
+                                    <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
                                 </div>
-                            <!-- </div> -->
-                        </div>
-                        <!-- /blocco -->
+                                <div class="col-md-4 relative-info">
+                                    <h3 class="profile-relative-name">${currentuser.name} ${currentuser.surname}</h3>
+                                    <p><i class="fa fa-calendar"></i> ${currentuser.birthdate}</p>
+                                    <p><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</p>
+                                </div>
+                                <div class="col-md-6 relative-bio">
+                                    <p>${currentuser.bio}</p>
+                                </div>
+                            </div>
+                        <!--</div> -->
                     </div>
-                </div>
+                <!-- </div>-->
+                
             </section>
             
             <footer>

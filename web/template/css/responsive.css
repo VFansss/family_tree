@@ -13,18 +13,18 @@
         margin-bottom: 5px;
     }
     
-    body.login .title h1{
+    section.login .title h1{
         display:none;
     }
     
-    body.login .title img {
+    section.login .title img {
         width: 200px;
         height: 200px;
         margin: auto;
         display: block;
     }
     
-    body.login .header{
+    header{
         height: 100px;
     }
 }

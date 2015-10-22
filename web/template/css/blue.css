@@ -16184,7 +16184,7 @@ ul.friends-list li:nth-child(6n) {
     opacity: 1;
   }
 }
-body.login {
+body {
   background: url('../images/lock-1.jpg') no-repeat fixed;
   padding-top: 0;
   background-position: 25% 0%;
@@ -16199,12 +16199,12 @@ body.login #content {
   bottom: 0;
   right: 0;
 }
-body.login .lock-container {
+section.login .lock-container {
   margin: auto;
   max-width: 300px;
 }
 @media (min-width: 480px) {
-  body.login .lock-container {
+  section.login .lock-container {
     bottom: 0;
     height: 550px;
     left: 0;
@@ -16213,26 +16213,26 @@ body.login .lock-container {
     right: 0;
   }
 }
-body.login .lock-container h1 {
+section.login .lock-container h1 {
   text-align: center;
   color: #fff;
   font-size: 28px;
 }
-body.login .lock-container .panel {
+section.login .lock-container .panel {
   max-width: 300px !important;
   background: #fff;
   position: relative;
 }
-body.login .lock-container .panel img {
+section.login .lock-container .panel img {
   margin: 20px 0 10px;
 }
-body.login .lock-container .panel input {
+section.login .lock-container .panel input {
   margin-bottom: 10px;
 }
-body.login .lock-container .panel .btn {
+section.login .lock-container .panel .btn {
   margin-top: 10px;
 }
-body.login .lock-container .panel .forgot-password {
+section.login .lock-container .panel .forgot-password {
   margin: 10px 0 0;
   font-weight: 500;
   color: #4687ce;

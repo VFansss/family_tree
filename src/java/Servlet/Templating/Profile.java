@@ -85,7 +85,7 @@ public class Profile extends HttpServlet {
         data.put("mother", UserBuilder.gilraen);
         data.put("child", UserBuilder.eldarion);
                 
-        FreeMarker.process("profile.html",data, response, getServletContext());
+        FreeMarker.process("profile2.html",data, response, getServletContext());
         
     }
 

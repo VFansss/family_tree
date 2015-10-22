@@ -220,14 +220,26 @@ h3.profile-relative-name a:hover{
 
 
 div.users{
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 
 div.blue-background{
-    background-color: rgba(70, 135, 206, 0.4)
+    background-color: rgba(70, 135, 206, 0.8)
 }
 
 .main-tile .blue-background{
     border-radius: 4px;
+}
+
+.blue-background h3{
+    color: #ffffff;
+}
+
+.blue-background p{
+    color: #404040;
+}
+
+.blue-background .relative-info p{
+    font-weight: bold;
 }

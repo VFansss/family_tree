@@ -16205,12 +16205,12 @@ section.login .lock-container {
 }
 @media (min-width: 480px) {
   section.login .lock-container {
-    bottom: 0;
     height: 550px;
+/*  bottom: 0;
     left: 0;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 0;*/
   }
 }
 section.login .lock-container h1 {

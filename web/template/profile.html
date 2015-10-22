@@ -57,15 +57,15 @@
         
                     <div class="col-md-12 user-info main-tile">
                         <div class="panel panel-body blue-background">
-                            <div class="relative-image col-md-2">
-                                <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
-                            </div>
                             <div class="col-md-4 relative-info">
-                                <h3 class="profile-relative-name">${currentuser.name} ${currentuser.surname}</h3>
+                                <div class="relative-image">
+                                    <img src="template/profile/${currentuser.imageurl}" alt="people" class="img-circle avatar" />
+                                </div>
                                 <p><i class="fa fa-calendar"></i> ${currentuser.birthdate}</p>
                                 <p><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</p>
                             </div>
-                            <div class="col-md-6 relative-bio">
+                            <div class="col-md-8 relative-bio">
+                                <h3 class="profile-relative-name">${currentuser.name} ${currentuser.surname}</h3>
                                 <p>${currentuser.bio}</p>
                             </div>
                         </div>

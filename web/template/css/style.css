@@ -196,11 +196,16 @@ h3.profile-relative-name a:hover{
     color: #676767;
 }
 
-.panel-default{
-    background:none;
-    border: 1px solid green;
+
+div.users{
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
-.main-tile{
+div.blue-background{
+    background-color: rgba(70, 135, 206, 0.4)
+}
 
+.main-tile .blue-background{
+    border-radius: 4px;
 }

@@ -37,7 +37,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session=request.getSession();  
         session.invalidate();  
         
-        request.getRequestDispatcher("login").include(request, response);  
+        request.getRequestDispatcher("login").forward(request, response);  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

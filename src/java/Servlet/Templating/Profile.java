@@ -74,6 +74,11 @@ public class Profile extends HttpServlet {
         siblings.add(UserBuilder.gimli);
         siblings.add(UserBuilder.boromir);
         
+        //Lista figli
+        List<User> children = new LinkedList<User>();
+        
+        children.add(UserBuilder.eldarion);
+        
         //Lista utenti precedentemente visualizzati
         List<User> navigation = new LinkedList<User>();
         
@@ -85,13 +90,14 @@ public class Profile extends HttpServlet {
         // Inserimento utenti nel data-model
         data.put("siblings", siblings);
         data.put("navigation", navigation);
-        
+        data.put("children", children);
+
         data.put("loggeduser", loggeduser);
         data.put("currentuser", currentuser);
+        
         data.put("spouse", UserBuilder.arwen);
         data.put("father", UserBuilder.arathorn);
         data.put("mother", UserBuilder.gilraen);
-        data.put("child", UserBuilder.eldarion);
                 
         FreeMarker.process("profile.html",data, response, getServletContext());
         

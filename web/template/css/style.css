@@ -267,3 +267,26 @@ div.blue-background{
     background-color: rgba(20, 20, 20, 0.8);
     border-radius: 4px;
 }
+
+div.tile-divisor{
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.tile-divisor a{
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+/* NORMALIZZAZIONE TILES */
+
+div.panel{
+    margin:0;
+}
+
+div.user-info,
+.main-tile,
+.relative-tile{
+    margin-bottom: 20px;
+}

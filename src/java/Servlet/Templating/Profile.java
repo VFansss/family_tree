@@ -60,6 +60,13 @@ public class Profile extends HttpServlet {
         String id = (String)session.getAttribute("id");
         User loggeduser = UserBuilder.getUserById(id);
         
+        User currentuser;
+        
+        if (request.getParameter("id")!=null){
+            currentuser = UserBuilder.getUserById(request.getParameter("id"));
+        } else {
+            currentuser = loggeduser;
+        }        
         //Lista fratelli
         List<User> siblings = new LinkedList<User>();
         
@@ -80,7 +87,7 @@ public class Profile extends HttpServlet {
         data.put("navigation", navigation);
         
         data.put("loggeduser", loggeduser);
-        data.put("currentuser", UserBuilder.getUserById(request.getParameter("id")));
+        data.put("currentuser", currentuser);
         data.put("spouse", UserBuilder.arwen);
         data.put("father", UserBuilder.arathorn);
         data.put("mother", UserBuilder.gilraen);

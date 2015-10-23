@@ -14,10 +14,11 @@ import java.util.*;
 public class UserBuilder {
     
     static String lorem = "Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    static String arathorn_message = "Fatemi sapere che ne pensate delle virgolette intorno alla bio dell'utente di cui si sta visualizzando il profilo. Ah, non sarebbe schifoso se la barra in alto rimanesse fissa...";
     
     public static User aragorn = new User("Aragorn", "Granpasso", "DSC213", "Gondor", "1/03/2931", lorem, "aragorn.jpg");
     public static User arwen = new User("Arwen", "Undomiel", "ASH359", "Valinor", "15/06/241", "Preferirei dividere una sola vita con te che affrontare tutte le ere di questo mondo da sola.", "arwen.jpg");
-    public static User arathorn = new User("Arathorn II", "Dunendain", "DGS830", "Gondor", "10/03/2900", "Mio figlio sembra Gesù Cristo.", "arathorn.jpg");
+    public static User arathorn = new User("Arathorn II", "Dunendain", "DGS830", "Gondor", "10/03/2900", arathorn_message, "arathorn.jpg");
     public static User gilraen = new User("Gilraen", "Dunendain", "AMH559", "Gondor", "15/06/2907", "Ho dato la speranza ai Dúnedain, non ne ho conservata per me.", "gilraen.jpg");
     public static User eldarion = new User("Eldarion", "Dunendain", "HSB302", "Gondor", "25/12/0", "Il cantante degli Aerosmith è mio nonno, ma la mamma non lo sa.", "eld.jpg");
 

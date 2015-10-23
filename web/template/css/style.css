@@ -200,6 +200,11 @@ img.avatar-square{
     padding: 0;
 }
 
+.relative-tile .img-circle{
+    width:100px;
+    height:100px;
+}
+
 div.relative-anagraphics-info{
     margin-top: 10px;
 }
@@ -256,4 +261,9 @@ div.blue-background{
 
 .user-info h3{
     margin-top: 0;
+}
+
+.light-background{
+    background-color: rgba(20, 20, 20, 0.8);
+    border-radius: 4px;
 }

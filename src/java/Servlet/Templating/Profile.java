@@ -57,8 +57,8 @@ public class Profile extends HttpServlet {
             return;
         }
         
-        String id = (String)session.getAttribute("id");
-        User loggeduser = UserBuilder.getUserById(id);
+        String logged_id = (String)session.getAttribute("id");
+        User loggeduser = UserBuilder.getUserById(logged_id);
         
         User currentuser;
         
@@ -80,12 +80,37 @@ public class Profile extends HttpServlet {
         children.add(UserBuilder.eldarion);
         
         //Lista utenti precedentemente visualizzati
-        List<User> navigation = new LinkedList<User>();
+//        List<User> navigation = new LinkedList<User>();
+//        
+//        navigation.add(UserBuilder.arathorn);
+//        navigation.add(UserBuilder.gilraen);
+//        navigation.add(UserBuilder.boromir);
+//        navigation.add(UserBuilder.aragorn);
         
-        navigation.add(UserBuilder.arathorn);
-        navigation.add(UserBuilder.gilraen);
-        navigation.add(UserBuilder.boromir);
-        //navigation.add(UserBuilder.aragorn);
+        /*********NAVIGAZIONE*************/
+        
+        //Si recupera la lista degli utenti visitati
+        List<User> navigation = (List<User>)session.getAttribute("navigation");
+        
+        //Se si sta visitando il proprio profilo, si svuota la lista
+        if(currentuser.getId().equals(logged_id)){
+            navigation.clear();
+        
+        } else {
+            //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
+            int i = 0;
+            for(User visited: navigation){
+                if (visited.getId().equals(request.getParameter("id"))){
+                    break;
+                }
+                i++;
+            }
+            navigation = navigation.subList(0,i--);
+            navigation.add(currentuser);
+        }
+        
+        session.setAttribute("navigation", navigation);
+        
         
         // Inserimento utenti nel data-model
         data.put("siblings", siblings);

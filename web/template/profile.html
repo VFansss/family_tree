@@ -205,12 +205,24 @@
             </section>
             
            <footer>
-                <a class="ball logout pull-right" title="Logout">
+                <!-- <a class="ball logout pull-right" title="Logout">
                     <i class="fa fa-sign-out fa-2x"></i>
-                </a>
+                </a> -->
                 
-                <a class="ball settings pull-right" title="Settings">
-                    <i class="fa fa-cog fa-2x"></i>
+                <div class="breadcrumb-nav">
+                    <a href="#" class="ball settings icon pull-right" title="Settings">
+                        <i class="fa fa-cog fa-2x"></i>
+                    </a>
+                
+                    <#list navigation as user>
+                        <a href="profile?id=${user.id}" class="ball pull-left breadcrumb-nav" title="${user.name}">
+                            <img src="template/profile/${user.imageurl}" class="img-circle avatar" alt="profile" />
+                        </a>
+                    </#list>
+                </div>
+                
+                <a href="profile?id=${loggeduser.id}" class="ball profile-link pull-right" title="Your Profile">
+                    <img src="template/profile/${loggeduser.imageurl}" class="img-circle avatar" alt="profile" />
                 </a>
 
         </footer>

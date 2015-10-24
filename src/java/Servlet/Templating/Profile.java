@@ -85,7 +85,7 @@ public class Profile extends HttpServlet {
         navigation.add(UserBuilder.arathorn);
         navigation.add(UserBuilder.gilraen);
         navigation.add(UserBuilder.boromir);
-        navigation.add(UserBuilder.aragorn);
+        //navigation.add(UserBuilder.aragorn);
         
         // Inserimento utenti nel data-model
         data.put("siblings", siblings);

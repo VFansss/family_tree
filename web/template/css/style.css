@@ -88,11 +88,11 @@ footer .ball{
     
 }
 
-footer .ball:not(.active){
-    opacity: 0.4;
+footer .ball.icon:not(.active){
+    opacity: 0.6;
 }
 
-footer .ball:not(.active):hover{
+footer .ball.icon:not(.active):hover{
     color: #4687ce;
     opacity: 1;
     -webkit-transition: opacity 0.2s;
@@ -101,9 +101,19 @@ footer .ball:not(.active):hover{
     transition: opacity 0.2s;
 }
 
-footer .ball i{
+footer .ball.icon i{
     display: block;
     margin: 8px auto;
+}
+
+.ball .img-circle{
+    height: 40px;
+    width: 40px;
+}
+
+footer.breadcrumb-nav{
+    display: block;
+    float: left;
 }
 
 footer .active{

@@ -45,6 +45,21 @@
     
     .settings{ bottom: 10px; }
     .tree{ bottom: 70px; }
+    
+    .ball.profile-link{
+        top: 70px;
+    }
+    
+    .breadcrumb-nav.ball{
+        position:relative;
+    }
+    
+    .breadcrumb-nav{
+        position:fixed;
+        width: 50px;
+        top:60px;
+        display: inline-block;
+    }
 }
 
 @media (min-width: 992px) {

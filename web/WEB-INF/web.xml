@@ -16,6 +16,10 @@
         <servlet-class>Servlet.Templating.Login</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Test</servlet-name>
+        <servlet-class>Servlet.Test</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>Servlet.Script.LoginServlet</servlet-class>
     </servlet>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>

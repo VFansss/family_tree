@@ -43,13 +43,8 @@
         font-size: 1.2em;
     }
     
-    .logout{
-        bottom: 5px;
-    }
-    
-    .settings{
-        bottom: 70px;
-    }
+    .settings{ bottom: 10px; }
+    .tree{ bottom: 70px; }
 }
 
 @media (min-width: 992px) {

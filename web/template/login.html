@@ -23,28 +23,29 @@
         
       
         <header>
+            <div class="navbar-wrapper">
+                <div id="tree-icon">
+                    <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+                </div>
 
-            <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
-                <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
-            </div>
+                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
+                    <form method="POST" >
+                        <input type="button" />
+                        <input placeholder="Search" type="text" required />
 
-            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
-                <form method="POST" >
-                    <input type="button" />
-                    <input placeholder="Search" type="text" required />
+                    </form>
+                </div>
 
-                </form>
-            </div>
+                <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
 
-            <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
+                    <#if action == "login">
+                        <#assign other_action = "signup">
+                    <#else>
+                        <#assign other_action = "login">
+                    </#if>
 
-                <#if action == "login">
-                    <#assign other_action = "signup">
-                <#else>
-                    <#assign other_action = "login">
-                </#if>
-
-                <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
+                    <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
+                </div>
             </div>
 
         </header>

@@ -25,26 +25,26 @@
         <div class="content">
 
             <header>
+                <div class="navbar-wrapper">
+                    <div id="tree-icon">
+                        <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+                    </div>
 
-                <div id="tree-icon" class="col-md-1 col-sm-1 col-xs-1">
-                    <a href="/Collaborative_Genealogy"><img class="pull-right" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+                    <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
+                        <form method="POST" >
+                            <input type="button" />
+                            <input placeholder="Search" type="text" required />
+
+                        </form>
+                    </div>
+
+                    <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
+                        <a href="logout" class="btn btn-primary pull-right">
+                                <!--<img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle avatar avatar-square"/>-->
+                                &nbsp;Logout
+                        </a>
+                    </div>
                 </div>
-
-                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
-                    <form method="POST" >
-                        <input type="button" />
-                        <input placeholder="Search" type="text" required />
-                        
-                    </form>
-                </div>
-
-                <div class="col-md-1 col-sm-1 col-xs-12 button-top-right pull-right">
-                    <a href="logout" class="btn btn-primary pull-right">
-                            <!--<img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle avatar avatar-square"/>-->
-                            &nbsp;Logout
-                    </a>
-                </div>
-
             </header>
 
             <section>
@@ -208,23 +208,24 @@
                 <!-- <a class="ball logout pull-right" title="Logout">
                     <i class="fa fa-sign-out fa-2x"></i>
                 </a> -->
-                
-                <div class="breadcrumb-nav">
+                <div class="button-wrapper">
+                    <div class="breadcrumb-nav">
+                        <#list navigation as user>
+                            <a href="profile?id=${user.id}" class="ball pull-left breadcrumb-nav" title="${user.name}">
+                                <img src="template/profile/${user.imageurl}" class="img-circle avatar" alt="profile" />
+                            </a>
+                        </#list>
+                    </div>
+
+                    <a href="profile?id=${loggeduser.id}" class="ball profile-link pull-right" title="Your Profile">
+                        <img src="template/profile/${loggeduser.imageurl}" class="img-circle avatar" alt="profile" />
+                    </a>
+
                     <a href="#" class="ball settings icon pull-right" title="Settings">
                         <i class="fa fa-cog fa-2x"></i>
                     </a>
-                
-                    <#list navigation as user>
-                        <a href="profile?id=${user.id}" class="ball pull-left breadcrumb-nav" title="${user.name}">
-                            <img src="template/profile/${user.imageurl}" class="img-circle avatar" alt="profile" />
-                        </a>
-                    </#list>
                 </div>
                 
-                <a href="profile?id=${loggeduser.id}" class="ball profile-link pull-right" title="Your Profile">
-                    <img src="template/profile/${loggeduser.imageurl}" class="img-circle avatar" alt="profile" />
-                </a>
-
         </footer>
             
         </div>

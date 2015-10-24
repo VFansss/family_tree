@@ -52,7 +52,7 @@
                 <div class="container-fluid users">
                     
                     <!-- Current user -->
-                    <div class="col-md-12 user-info main-tile">
+                    <div class="col-md-12 user-info main-tile rounded-tile">
                         <div class="panel panel-body blue-background">
                             <div class="col-md-12 relative-name top-name">
                                 <h3>${currentuser.name} ${currentuser.surname}</h3>
@@ -78,7 +78,7 @@
                     </div>
                     
                     <!-- Parent tile -->
-                    <div class="col-md-12 user-info relative-tile">
+                    <div class="col-md-12 user-info relative-tile rounded-tile">
                         <!-- Father -->
                         <div class="panel panel-body dark-background">
                             <div class="col-md-12 relative-name top-name">
@@ -124,7 +124,7 @@
                     </div>
                     
                     <!-- Husband/Wife -->
-                    <div class="col-md-12 user-info relative-tile">
+                    <div class="col-md-12 user-info relative-tile rounded-tile">
                         <div class="panel panel-body dark-background">
                             <div class="col-md-12 relative-name top-name">
                                 <h3>${spouse.name} ${spouse.surname}</h3>
@@ -150,7 +150,7 @@
                     </div>
                     
                     <!-- Children -->
-                    <div class="col-md-12 user-info relative-tile">
+                    <div class="col-md-12 user-info relative-tile rounded-tile">
                         <#list children as child>
                             <div class="panel panel-body dark-background">
                                 <div class="col-md-12 relative-name top-name">
@@ -178,7 +178,7 @@
                     </div>
                     
                     <!-- Siblings -->
-                    <div class="col-md-12 user-info relative-tile">
+                    <div class="col-md-12 user-info relative-tile rounded-tile">
                         <#list siblings as sibling>
                             <div class="panel panel-body dark-background">
                                 <div class="col-md-12 relative-name top-name">

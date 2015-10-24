@@ -51,10 +51,11 @@ public class Profile extends HttpServlet {
         
         //Se non è stata generata la sessione
         if(session==null){
-            //request.getRequestDispatcher("login").include(request, response);
-            PrintWriter out = response.getWriter();
-            out.println("NON SEI LOGGATO");
-            return;
+            request.setAttribute("msn", "Please log in to see this page"); //Da migliorare il sistema su Login.java
+            request.getRequestDispatcher("login").include(request, response);
+//            PrintWriter out = response.getWriter();
+//            out.println("NON SEI LOGGATO");
+//            return;
         }
         
         String logged_id = (String)session.getAttribute("id");
@@ -78,14 +79,6 @@ public class Profile extends HttpServlet {
         List<User> children = new LinkedList<User>();
         
         children.add(UserBuilder.eldarion);
-        
-        //Lista utenti precedentemente visualizzati
-//        List<User> navigation = new LinkedList<User>();
-//        
-//        navigation.add(UserBuilder.arathorn);
-//        navigation.add(UserBuilder.gilraen);
-//        navigation.add(UserBuilder.boromir);
-//        navigation.add(UserBuilder.aragorn);
         
         /*********NAVIGAZIONE*************/
         

@@ -19,6 +19,10 @@
     #search-bar{
         margin-bottom: 5px;
     }
+    
+    header .button-top-right a{
+        max-width: 100px;
+    }
        
     /*==========================================*/
     /*                LOGIN                     */
@@ -80,6 +84,7 @@
     }
 }
 
+/* Small + */
 @media (min-width: 769px) {
     /*==========================================*/
     /*                HEADER                    */
@@ -137,12 +142,7 @@
     
 }
 
-@media (min-width: 992px) {
-    .top-name{
-        display: none;
-    }
-}
-
+/* Large */
 @media (max-width: 991px) {
     .main-name{
         display:none;
@@ -158,5 +158,12 @@
     
     .relative-anagraphics-info{
         margin-left: 20px;
+    }
+}
+
+/* Large +*/
+@media (min-width: 992px) {
+    .top-name{
+        display: none;
     }
 }

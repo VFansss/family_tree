@@ -14,6 +14,8 @@ ul{
     list-style: none;
 }
 
+
+
 /*==========================================*/
 /*                HEADER                     */
 /*==========================================*/
@@ -75,8 +77,11 @@ header .button-top-right{
 }
 
 header .button-top-right a{
-    /*min-width:110px;*/
-    width: auto;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+   
 }
 
 
@@ -237,8 +242,13 @@ div.relative-bio{
     margin-top: 10px;
 }
 
+.relative-name h3{
+    word-wrap: break-word;
+    
+}
 h3.relative-name a{
     color: #707070;
+    
 }
 
 h3.relative-name a:hover{
@@ -327,6 +337,19 @@ div.relative-tile .panel:not(:last-child){
         margin: 3px 0;
     }
 
+    .user-button a{
+    height: 34px;
+}
+
+.user-button a img{
+    margin-top: -4px;
+    
+}
+
+.user-button a p{
+    display: inline-block;
+    margin-top: -4px;
+}
     
 /*==========================================*/
 /*                 SEARCH                   */

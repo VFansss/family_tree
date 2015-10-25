@@ -5,7 +5,7 @@
  */
 package Servlet.Templating;
 
-import Classes.FreeMarker;
+import Class.FreeMarker;
 import Classes.User;
 import Classes.UserBuilder;
 import java.util.*;

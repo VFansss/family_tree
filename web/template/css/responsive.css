@@ -92,7 +92,8 @@
     }
     
     section.profile, 
-    section.login{
+    section.login,
+    section.search{
         margin-top: 70px;
         position: relative;
     }

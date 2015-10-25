@@ -326,3 +326,32 @@ div.relative-tile .panel:not(:last-child){
         display: inline-block;
         margin: 3px 0;
     }
+
+    
+/*==========================================*/
+/*                 SEARCH                   */
+/*==========================================*/
+
+.search-filters h4{
+    color: #ddd;
+    margin-top: 0px;
+    padding-left: 15px;
+}
+
+form.filter-search-form{
+    padding-left: 15px;
+    padding-right: 15px;
+    /*width: 80%;*/
+}
+
+form.filter-search-form fieldset{
+    /*width: 80%;*/
+}
+
+.search-filters input{
+    margin-bottom: 10px;
+}
+
+.filter-search-button{
+    width: auto;
+}

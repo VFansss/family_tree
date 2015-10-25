@@ -6,23 +6,20 @@ package Servlet.Templating;
  * and open the template in the editor.
  */
 
-
+import Class.FreeMarker;
+import Class.User;
+import Class.UserList;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import java.net.URLEncoder;
 
-import Classes.User;
-import Classes.UserBuilder;
-import Classes.FreeMarker;
+
 
 /**
  *
@@ -39,86 +36,92 @@ public class Profile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //COSTRUZIONE DATA MODEL
+        
         Map<String, Object> data = new HashMap<String, Object>();
         
         //Gestione sessione
-        HttpSession session=request.getSession(false);  
+        HttpSession session = request.getSession(false);  
         
         //Se non è stata generata la sessione
         if(session==null){
-            request.setAttribute("msn", "Please log in to see this page"); //Da migliorare il sistema su Login.java
-            request.getRequestDispatcher("login").include(request, response);
-//            PrintWriter out = response.getWriter();
-//            out.println("NON SEI LOGGATO");
-//            return;
-        }
-        
-        String logged_id = (String)session.getAttribute("id");
-        User loggeduser = UserBuilder.getUserById(logged_id);
-        
-        User currentuser;
-        
-        if (request.getParameter("id")!=null){
-            currentuser = UserBuilder.getUserById(request.getParameter("id"));
-        } else {
-            currentuser = loggeduser;
-        }        
-        //Lista fratelli
-        List<User> siblings = new LinkedList<User>();
-        
-        siblings.add(UserBuilder.legolas);
-        siblings.add(UserBuilder.gimli);
-        siblings.add(UserBuilder.boromir);
-        
-        //Lista figli
-        List<User> children = new LinkedList<User>();
-        
-        children.add(UserBuilder.eldarion);
-        
-        /*********NAVIGAZIONE*************/
-        
-        //Si recupera la lista degli utenti visitati
-        List<User> navigation = (List<User>)session.getAttribute("navigation");
-        
-        //Se si sta visitando il proprio profilo, si svuota la lista
-        if(currentuser.getId().equals(logged_id)){
-            navigation.clear();
-        
-        } else {
-            //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
-            int i = 0;
-            for(User visited: navigation){
-                if (visited.getId().equals(request.getParameter("id"))){
-                    break;
-                }
-                i++;
-            }
-            navigation = navigation.subList(0,i--);
-            navigation.add(currentuser);
-        }
-        
-        session.setAttribute("navigation", navigation);
-        
-        
-        // Inserimento utenti nel data-model
-        data.put("siblings", siblings);
-        data.put("navigation", navigation);
-        data.put("children", children);
+            // Vai alla pagina di login e mostra messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
 
-        data.put("loggeduser", loggeduser);
-        data.put("currentuser", currentuser);
+        }
         
-        data.put("spouse", UserBuilder.arwen);
-        data.put("father", UserBuilder.arathorn);
-        data.put("mother", UserBuilder.gilraen);
-                
+        // Recupero dell'utente loggato
+        User user_logged = User.getUserById((String)session.getAttribute("id"));
+        
+        // Recupero dell'utente corrente
+        User user_current;
+        if (request.getParameter("id") != null){
+            user_current = User.getUserById(request.getParameter("id"));
+        } else {
+            user_current = user_logged;
+        }        
+        
+        
+        
+        /* Recupero dei parenti dell'utente corrente */
+        
+            // Recupero di padre, madre e coniuge
+            User father = user_current.getFather();
+            User mother = user_current.getMother();
+            User spouse = user_current.getSpouse();
+            
+            // Recupero dei fratelli
+            UserList siblings = new UserList();
+            siblings.addAll(user_current.getSiblings());
+
+            // Recupero dei figli
+            UserList children = new UserList();
+            children.addAll(user_current.getChildren());
+
+        /* Inserimento dei parenti nel data-model */
+            
+            data.put("user_logged", user_logged);
+            data.put("user_current", user_current);
+            
+            data.put("siblings", siblings);
+            data.put("children", children);
+
+            data.put("spouse", spouse);
+            data.put("father", father);
+            data.put("mother", mother);
+        
+        /* Gestione breadcrumb */
+        
+            // Recupero del breadcrumb
+            UserList breadcrumb = (UserList)session.getAttribute("navigation");
+
+            Iterator iter = breadcrumb.iterator();
+            boolean remove = false;
+            while(iter.hasNext()){
+                User user = (User)iter.next();
+                if(!remove){
+                    // Se l'utente corrente è uguale a quello nella lista
+                    if(user.getId().equals(user_current.getId())){
+                        // Elimina tutti gli utenti successivi
+                        remove = true;
+                    }
+                }else{
+                    iter.remove();
+                }
+
+            }
+//          
+            breadcrumb.add(user_current);
+        
+        // Inserimento del nuovo breadcrumb nella variabile di sessione
+        session.setAttribute("navigation", breadcrumb);
+        // Inserimento del breadcrumb nel data-model
+        data.put("navigation", breadcrumb);
+        // Caricamento del template
         FreeMarker.process("profile.html",data, response, getServletContext());
-        
+//        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

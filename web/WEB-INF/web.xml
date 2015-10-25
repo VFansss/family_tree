@@ -28,8 +28,8 @@
         <servlet-class>Servlet.Script.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Search</servlet-name>
-        <servlet-class>Servlet.Templating.Search</servlet-class>
+        <servlet-name>Settings</servlet-name>
+        <servlet-class>Servlet.Templating.Settings</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
@@ -56,6 +56,8 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Settings</servlet-name>
+        <url-pattern>/settings</url-pattern>
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>

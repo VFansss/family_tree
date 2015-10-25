@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classes;
+package Class;
 
 import Servlet.Templating.Signup;
 import freemarker.template.Configuration;

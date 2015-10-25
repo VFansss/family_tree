@@ -5,7 +5,7 @@
  */
 package Servlet.Templating;
 
-import Classes.FreeMarker;
+import Class.FreeMarker;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;
@@ -41,13 +41,8 @@ public class Login extends HttpServlet {
         data.put("action", "login");
         
         String msn = request.getParameter("msn");
-        boolean error = false;
-        
-        if(msn != null){
-            error = true;
-            data.put("msn", msn);
-        }
-        data.put("error", error);
+        data.put("msn", msn);
+            
         FreeMarker.process("login.html",data, response, getServletContext());
         
     }

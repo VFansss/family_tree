@@ -5,7 +5,7 @@
  */
 package Servlet.Templating;
 
-import Classes.FreeMarker;
+import Class.FreeMarker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,13 +58,7 @@ public class Signup extends HttpServlet {
         data.put("action", "signup");
         
         String msn = request.getParameter("msn");
-        boolean error = false;
-        
-        if(msn != null){
-            error = true;
-            data.put("msn", msn);
-        }
-        data.put("error", error);
+        data.put("msn", msn);
         
         FreeMarker.process("login.html",data, response, getServletContext());
         

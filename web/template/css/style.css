@@ -2,7 +2,7 @@
 /*                GENERAL                   */
 /*==========================================*/ *
 
-button{
+*{
     outline: none !important;
 }
 
@@ -98,11 +98,11 @@ footer .ball{
     
 }
 
-footer .ball.icon:not(.active){
+footer .ball:not(.active){
     opacity: 0.6;
 }
 
-footer .ball.icon:not(.active):hover{
+footer .ball:not(.active):hover{
     color: #4687ce;
     opacity: 1;
     -webkit-transition: opacity 0.2s;
@@ -111,7 +111,7 @@ footer .ball.icon:not(.active):hover{
     transition: opacity 0.2s;
 }
 
-footer .ball.icon i{
+footer .ball i{
     display: block;
     margin: 7px auto;
     /*text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);*/

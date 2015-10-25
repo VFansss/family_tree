@@ -5,6 +5,9 @@
  */
 package Servlet.Script;
 
+import Class.Database;
+import Class.User;
+import Class.UserList;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,8 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Classes.*;
 import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,28 +38,38 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
+
+        // Connessione al database
+        Database db = new Database("collaborative_genealogy");
+        if(!db.connect("admin", "admin")) return;
+
+        //Recupera l'email dell'utente
+        String email = request.getParameter("email");
+        //Recupera la password dell'utente
+        String password = request.getParameter("password");
         
-        //E' UN SISTEMA DI ESEMPIO, in mancanza di una struttura basata su database
-        
-        //Recupera da GET il nome inserito nel campo email
-        String name = request.getParameter("email");
-        
-        //Recupera l'utente
-        User tolog = UserBuilder.getUserByName(name);
-        
-        //Se il nome inserito non è presente tra gli utenti, viene segnalato un errore
-        if (tolog==null){
+        // Recupera l'utente
+        User user = User.getUserByEmail(email);
+
+        // Se l'utente non esiste
+        if(user == null){
+            // Torna alla pagine di login con messaggio di errore
             response.sendRedirect("login?msn=" + URLEncoder.encode("User does not exist", "UTF-8"));
-            
-        } else {
-            //Altrimenti genera una nuova sessione
+
+        // Se la password dell'utente è sbagliata
+        }else if(!user.checkPassword(password)){
+            // Torna alla pagine di login con messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("Password is not valid", "UTF-8"));
+
+        }else{
+            // Altrimenti, fai il login dell'utente
             HttpSession session = request.getSession();
-            session.setAttribute("id", tolog.getId());
-            session.setAttribute("navigation", new ArrayList<User>());
-            request.getRequestDispatcher("profile?id="+tolog.getId()).forward(request, response); 
+            session.setAttribute("id", user.getId());
+            session.setAttribute("navigation", new UserList());
+            response.sendRedirect("profile?id=" + user.getId());
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +84,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -84,7 +102,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

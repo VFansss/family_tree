@@ -24,13 +24,14 @@ import javax.servlet.http.HttpSession;
 public class User{
     
     private String id;
-    protected String name;
-    protected String surname;
-    protected String email;
-    protected String gender;
-    protected Date birthdate;
-    protected String birthplace;
-
+    private String name;
+    private String surname;
+    private String email;
+    private String gender;
+    private Date birthdate;
+    private String birthplace;
+    private String biography;
+    
     private HttpSession session;
     
     /**
@@ -47,6 +48,7 @@ public class User{
         this.gender = user.getString("gender");
         this.birthdate = user.getDate("birthdate");
         this.birthplace = user.getString("birthplace");
+        this.biography = user.getString("biography");
 
     }
      
@@ -78,6 +80,10 @@ public class User{
     
     public String getGender(){
         return this.gender;
+    }
+    
+    public String getBiography() {
+        return biography;
     }
     
     public String getMotherId() {
@@ -183,6 +189,12 @@ public class User{
     public boolean setGender(String gender){
         boolean result = this.updateAttribute("gender", gender);
         if(result) this.gender = gender;
+        return result;
+    }
+    
+    public boolean setBiography(String biography) {
+        boolean result = this.updateAttribute("biography", biography);
+        if(result) this.biography = biography;
         return result;
     }
     
@@ -1243,6 +1255,62 @@ public class User{
         }
     }
     
+     /**
+     * Recupera un utente attraverso il suo ID
+     * @param user_email   email utente
+     * @return          
+     */
+    public static User getUserByEmail(String user_email){
+        
+        try {
+            
+            User user = null;
+            if(user_email != null){
+            
+                try (ResultSet record = Database.selectRecord("user", "email = '" + user_email + "'")) {
+                    if(record.next()){
+                        user =  new User(record);
+                    }
+                }
+            
+            }
+            
+            return user;
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    
+    /**
+     * Recupera un utente attraverso il suo ID
+     * @param password      password utente
+     * @return          
+     */
+    public boolean checkPassword(String password){
+        
+        /*
+        
+            DA MIGLIORARE CON PASSWORD CRIPTATE
+        
+        */
+        try {
+ 
+            try (ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'")) {
+                if(record.next()){
+                    return record.getString("password").equals(password); 
+                }
+                return false;
+            }
+
+            
+            
+        } catch (SQLException ex) {
+            return false;
+        }
+        
+    }
     /**
      * Crea un nuovo utente
      * @param data      dati dell'utente

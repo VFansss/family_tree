@@ -7,6 +7,7 @@ package Servlet.Templating;
  */
 
 
+import Class.Database;
 import Class.FreeMarker;
 import Class.User;
 import Class.UserList;
@@ -41,8 +42,7 @@ public class Profile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
         //COSTRUZIONE DATA MODEL
@@ -98,39 +98,44 @@ public class Profile extends HttpServlet {
             data.put("father", father);
             data.put("mother", mother);
         
-        /*********NAVIGAZIONE*************/
+        /* Gestione breadcrumb */
         
-        //Si recupera la lista degli utenti visitati
-        UserList navigation = (UserList)session.getAttribute("navigation");
+            //Si recupera la lista degli utenti visitati
+            UserList breadcrumb = (UserList)session.getAttribute("navigation");
 
-        //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
- 
-        Iterator iter = navigation.iterator();
-        boolean remove = false;
-        while(iter.hasNext()){
-            User user = (User)iter.next();
-            if(!remove){
-                // Se l'utente corrente è uguale a quello nella lista
-                if(user.getId().equals(user_current.getId())){
-                    // Elimina tutti gli utenti successivi
-                    remove = true;
+            //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
+
+            Iterator iter = breadcrumb.iterator();
+            boolean remove = false;
+            while(iter.hasNext()){
+                User user = (User)iter.next();
+                if(!remove){
+                    // Se l'utente corrente è uguale a quello nella lista
+                    if(user.getId().equals(user_current.getId())){
+                        // Elimina tutti gli utenti successivi
+                        remove = true;
+                    }
+                }else{
+                    iter.remove();
                 }
-            }else{
-                iter.remove();
+
             }
+//          
+            breadcrumb.add(user_current);
+//        PrintWriter out = response.getWriter();
+//        Database.setOut(out);
+//        for(User element: navigation){
+//            Database.out.println(element.getName());
+//        }
 
-        }
-
-        navigation.add(user_current);
         
-        
-        session.setAttribute("navigation", navigation);
-        
-        data.put("navigation", navigation);
-        
-                
+        // Inserimento del nuovo breadcrumb nella variabile di sessione
+        session.setAttribute("navigation", breadcrumb);
+        // Inserimento del breadcrumb neld data-model
+        data.put("navigation", breadcrumb);
+        // Caricamento del template
         FreeMarker.process("profile.html",data, response, getServletContext());
-        
+//        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

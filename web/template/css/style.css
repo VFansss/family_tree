@@ -138,9 +138,6 @@ footer .active{
 /*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
-section.login{
-    margin: auto;
-}
 
 section.login .title h1{
     font-family: Arvo;
@@ -155,24 +152,24 @@ section.login .title img{
     display:none;
 }
 
-section.login form.main-form input{
+section.login form input{
     font-size: 16px;
     background-color: #fff;
     height: 100%;
     padding: 10px 15px;
 }
 
-section.login form.main-form input:first-child {
+section.login form input:first-child {
    border-top-right-radius: 4px;
    border-top-left-radius: 4px;
 }
 
-section.login form.main-form input:last-child {
+section.login form input:last-child {
    border-bottom-right-radius: 4px;
    border-bottom-left-radius: 4px;
 }
 
-section.login form.main-form button{
+section.login form button{
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
@@ -353,6 +350,22 @@ div.relative-tile .panel:not(:last-child){
 .user-button a p{
     display: inline-block;
     margin-top: -4px;
+}
+
+/*==========================================*/
+/*                SETTINGS                  */
+/*==========================================*/
+
+section.settings .avatar{
+    border-radius: 4px;
+    background-color: white;
+}
+
+section.settings img{
+    border-radius: 100%;
+    height: 150px;
+    width: 150px;
+    margin: 20px 0;
 }
     
 /*==========================================*/

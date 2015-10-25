@@ -96,11 +96,13 @@
 /*        z-index: 999;*/
     }
     
-    section.profile, 
-    section.login,
-    section.search{
+    
+    /*==========================================*/
+    /*                HEADER                    */
+    /*==========================================*/
+    
+    section{
         margin-top: 70px;
-        position: relative;
     }
     
     

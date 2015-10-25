@@ -31,6 +31,10 @@
         <servlet-name>Settings</servlet-name>
         <servlet-class>Servlet.Templating.Settings</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Serlet.Templating.Search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>

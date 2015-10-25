@@ -39,7 +39,7 @@ public class Profile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //COSTRUZIONE DATA MODEL
+        
         Map<String, Object> data = new HashMap<String, Object>();
         
         //Gestione sessione
@@ -52,12 +52,12 @@ public class Profile extends HttpServlet {
 
         }
         
-        String logged_id = (String)session.getAttribute("id");
-        User user_logged = User.getUserById(logged_id);
+        // Recupero dell'utente loggato
+        User user_logged = User.getUserById((String)session.getAttribute("id"));
         
+        // Recupero dell'utente corrente
         User user_current;
-        
-        if (request.getParameter("id")!=null){
+        if (request.getParameter("id") != null){
             user_current = User.getUserById(request.getParameter("id"));
         } else {
             user_current = user_logged;
@@ -94,10 +94,8 @@ public class Profile extends HttpServlet {
         
         /* Gestione breadcrumb */
         
-            //Si recupera la lista degli utenti visitati
+            // Recupero del breadcrumb
             UserList breadcrumb = (UserList)session.getAttribute("navigation");
-
-            //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
 
             Iterator iter = breadcrumb.iterator();
             boolean remove = false;
@@ -116,16 +114,10 @@ public class Profile extends HttpServlet {
             }
 //          
             breadcrumb.add(user_current);
-//        PrintWriter out = response.getWriter();
-//        Database.setOut(out);
-//        for(User element: navigation){
-//            Database.out.println(element.getName());
-//        }
-
         
         // Inserimento del nuovo breadcrumb nella variabile di sessione
         session.setAttribute("navigation", breadcrumb);
-        // Inserimento del breadcrumb neld data-model
+        // Inserimento del breadcrumb nel data-model
         data.put("navigation", breadcrumb);
         // Caricamento del template
         FreeMarker.process("profile.html",data, response, getServletContext());

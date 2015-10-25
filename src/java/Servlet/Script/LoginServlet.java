@@ -39,10 +39,15 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-
+        
+        PrintWriter out = response.getWriter();
+        
         // Connessione al database
         Database db = new Database("collaborative_genealogy");
-        if(!db.connect("admin", "admin")) return;
+        if(!db.connect("admin", "admin")){
+            out.println("ERRORE CONNESSIONE A DATABASE");
+            return;
+        }
 
         //Recupera l'email dell'utente
         String email = request.getParameter("email");

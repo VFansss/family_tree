@@ -7,6 +7,9 @@ package Servlet.Templating;
  */
 
 import Class.FreeMarker;
+import Class.Tree.GenealogicalTree;
+import Class.Tree.NodeList;
+import Class.Tree.TreeNode;
 import Class.User;
 import Class.UserList;
 import java.io.IOException;
@@ -54,7 +57,7 @@ public class Profile extends HttpServlet {
         
         // Recupero dell'utente loggato
         User user_logged = User.getUserById((String)session.getAttribute("id"));
-        
+
         // Recupero dell'utente corrente
         User user_current;
         if (request.getParameter("id") != null){
@@ -63,22 +66,20 @@ public class Profile extends HttpServlet {
             user_current = user_logged;
         }        
         
-        
+        GenealogicalTree family_tree = (GenealogicalTree) session.getAttribute("family_tree");
         
         /* Recupero dei parenti dell'utente corrente */
         
             // Recupero di padre, madre e coniuge
-            User father = user_current.getFather();
-            User mother = user_current.getMother();
-            User spouse = user_current.getSpouse();
+            TreeNode father = family_tree.getUser(user_current.getFather());
+            TreeNode mother = family_tree.getUser(user_current.getMother());
+            TreeNode spouse = family_tree.getUser(user_current.getSpouse());
             
             // Recupero dei fratelli
-            UserList siblings = new UserList();
-            siblings.addAll(user_current.getSiblings());
+            NodeList siblings = family_tree.getUsers(user_current.getSiblings());
 
             // Recupero dei figli
-            UserList children = new UserList();
-            children.addAll(user_current.getChildren());
+            NodeList children = family_tree.getUsers(user_current.getChildren());
 
         /* Inserimento dei parenti nel data-model */
             
@@ -95,15 +96,15 @@ public class Profile extends HttpServlet {
         /* Gestione breadcrumb */
         
             // Recupero del breadcrumb
-            UserList breadcrumb = (UserList)session.getAttribute("navigation");
+            NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
 
             Iterator iter = breadcrumb.iterator();
             boolean remove = false;
             while(iter.hasNext()){
-                User user = (User)iter.next();
+                TreeNode node = (TreeNode)iter.next();
                 if(!remove){
                     // Se l'utente corrente è uguale a quello nella lista
-                    if(user.getId().equals(user_current.getId())){
+                    if(node.getUser().getId().equals(user_current.getId())){
                         // Elimina tutti gli utenti successivi
                         remove = true;
                     }
@@ -112,13 +113,13 @@ public class Profile extends HttpServlet {
                 }
 
             }
-//          
-            breadcrumb.add(user_current);
+          
+            breadcrumb.add(family_tree.getUser(user_current));
         
         // Inserimento del nuovo breadcrumb nella variabile di sessione
-        session.setAttribute("navigation", breadcrumb);
+        session.setAttribute("breadcrumb", breadcrumb);
         // Inserimento del breadcrumb nel data-model
-        data.put("navigation", breadcrumb);
+        data.put("breadcrumb", breadcrumb);
         // Caricamento del template
         FreeMarker.process("profile.html",data, response, getServletContext());
 //        

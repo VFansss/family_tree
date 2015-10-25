@@ -26,14 +26,13 @@ public class NodeList extends ArrayList<TreeNode>{
         }
         return false;
     }
-    
+
     /** Debugging: mostra tutti i nomi degli membri dell'albero genalogico con relativa etichetta
      */
     public void analize(){
         for(TreeNode element: this){
             Database.out.println(element.getUser().getName() + ": " + element.getLabel());
         }
-        
     }
 
 }

@@ -27,7 +27,7 @@ public class TreeNode {
     
     public static String getNewLabel(String label, String relationship){
         
-        if(label.contains("I")) return relationship;
+        if(label.contains("You")) return relationship;
         
          // Se l'utente non ha una label, allora non l'avranno tutti gli utenti che aggiungerà all'albero
         if(label.equals("")) return "";

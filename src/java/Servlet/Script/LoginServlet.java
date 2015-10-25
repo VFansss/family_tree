@@ -6,6 +6,8 @@
 package Servlet.Script;
 
 import Class.Database;
+import Class.Tree.GenealogicalTree;
+import Class.Tree.NodeList;
 import Class.User;
 import Class.UserList;
 import java.util.*;
@@ -50,24 +52,28 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         
         // Recupera l'utente
-        User user = User.getUserByEmail(email);
+        User user_to_log = User.getUserByEmail(email);
 
         // Se l'utente non esiste
-        if(user == null){
+        if(user_to_log == null){
             // Torna alla pagine di login con messaggio di errore
             response.sendRedirect("login?msn=" + URLEncoder.encode("User does not exist", "UTF-8"));
 
         // Se la password dell'utente è sbagliata
-        }else if(!user.checkPassword(password)){
+        }else if(!user_to_log.checkPassword(password)){
             // Torna alla pagine di login con messaggio di errore
             response.sendRedirect("login?msn=" + URLEncoder.encode("Password is not valid", "UTF-8"));
 
         }else{
             // Altrimenti, fai il login dell'utente
             HttpSession session = request.getSession();
-            session.setAttribute("id", user.getId());
-            session.setAttribute("navigation", new UserList());
-            response.sendRedirect("profile?id=" + user.getId());
+            session.setAttribute("id", user_to_log.getId());
+            session.setAttribute("breadcrumb", new NodeList());
+            
+            GenealogicalTree family_tree = user_to_log.getFamilyTree();
+            family_tree.getFamilyTree();
+            session.setAttribute("family_tree", family_tree);
+            response.sendRedirect("profile?id=" + user_to_log.getId());
         }
 
     }

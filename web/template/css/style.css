@@ -69,9 +69,14 @@ header{
     font-size: 20px;
 }
 
+header .button-top-right{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
 header .button-top-right a{
-    min-width:100px;
-    width:100%;
+    /*min-width:110px;*/
+    width: auto;
 }
 
 

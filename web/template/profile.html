@@ -29,32 +29,33 @@
                         <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
                     </div>
 
-                    <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
+                    <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
                         <form method="POST" >
                             <input type="button" />
                             <input placeholder="Search" type="text" required />
 
                         </form>
                     </div>
-                    <div class="col-md-1 col-sm-1 button-top-right xs-hidden pull-right">
+                    <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
                         <a href="logout" class="btn btn-primary pull-right">
-                                <!--<img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle avatar avatar-square"/>-->
-                                &nbsp;Logout
+                                <img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle avatar avatar-square"/>
+                                &nbsp;${loggeduser.name}
                         </a>
                     </div>
                 
             </header>
 
             <section class="profile">
-                <div class="col-md-12 breadcrumb-nav">
-                    
+                
+                <div class="col-md-12 breadcrumb-nav">                 
+                    <!-- <a href="profile?id=${loggeduser.id}" class="ball breadcrumb-nav" title="Your Profile">
+                        <img src="template/profile/${loggeduser.imageurl}" class="img-circle avatar" alt="profile" />
+                    </a> -->      
                     <#list navigation as user>
                         <a href="profile?id=${user.id}" class="ball breadcrumb-nav" title="${user.name}">
                             <img src="template/profile/${user.imageurl}" class="img-circle avatar" alt="profile" />
                         </a>
-                    </#list>
-                    
-
+                    </#list>            
                 </div>
                 
                 <div class="container-fluid users">
@@ -217,7 +218,7 @@
                 <ul>
                     <li>
                         <a href="#" class="ball tree icon active" title="Settings">
-                            <i class="fa fa-tree fa-2x"></i>
+                            <i class="fa fa-user fa-2x"></i>
                         </a>
                     </li>
 

@@ -86,13 +86,9 @@ public class Settings extends HttpServlet {
             data.put("user_log", user_log);
             
             String msn = request.getParameter("msn");
-            boolean error = false;
-
-            if(msn != null){
-                error = true;
-                data.put("msn", msn);
-            }
-            data.put("error", error);
+            data.put("msn", msn);
+           
+            
             FreeMarker.process("settings.html",data, response, getServletContext());
 //        }
         

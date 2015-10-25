@@ -58,7 +58,7 @@
                                 </#list>
                             </fieldset>
                    
-                            <#if error == true>
+                            <#if msn??>
                                 <div class="error">
                                     <i class="fa fa-times"></i><p>${msn}</p>
                                 </div>
@@ -77,19 +77,19 @@
   
                 <ul>
                     <li>
-                        <a href="#" class="ball tree icon " title="Settings">
-                            <i class="fa fa-tree fa-2x"></i>
+                        <a href="profile?id=${user_log.id}" class="ball tree " title="Settings">
+                            <i class="fa fa-user fa-2x"></i>
                         </a>
                     </li>
 
                     <li>
-                        <a href="#" class="ball settings icon active" title="Settings">
+                        <a href="#" class="ball settings active" title="Settings">
                             <i class="fa fa-cog fa-2x"></i>
                         </a>
                     </li>
                     
                     <li>
-                        <a href="logout" class="ball logout icon " title="Settings">
+                        <a href="logout" class="ball logout " title="Settings">
                             <i class="fa fa-sign-out fa-2x"></i>
                         </a>
                     </li>

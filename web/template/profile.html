@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>${currentuser.name} - Collaborative Genealogy</title>
+        <title>${user_current.name} - Collaborative Genealogy</title>
         <!-- icon -->
         <link rel="shortcut icon" href="template/images/favicon.ico" />
         <!-- App Styling Bundle -->
@@ -19,11 +19,8 @@
      
        
     </head>
+    
     <body>
-        <div class="layer"></div>
-
-        <div class="content">
-
             <header>
                     <div class="xs-hidden" id="tree-icon">
                         <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
@@ -37,9 +34,9 @@
                         </form>
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
-                        <a href="logout" class="btn btn-primary pull-right">
-                                <img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle avatar avatar-square"/>
-                                &nbsp;${loggeduser.name}
+                        <a href="profile?id=${user_logged.id}" class="btn btn-primary pull-right">
+                                <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle avatar avatar-square"/>
+                                &nbsp;${user_logged.name}
                         </a>
                     </div>
                 
@@ -48,36 +45,38 @@
             <section class="profile">
                 
                 <div class="col-md-12 breadcrumb-nav">                 
-                    <!-- <a href="profile?id=${loggeduser.id}" class="ball breadcrumb-nav" title="Your Profile">
-                        <img src="template/profile/${loggeduser.imageurl}" class="img-circle avatar" alt="profile" />
-                    </a> -->      
+                    
                     <#list navigation as user>
                         <a href="profile?id=${user.id}" class="ball breadcrumb-nav" title="${user.name}">
-                            <img src="template/profile/${user.imageurl}" class="img-circle avatar" alt="profile" />
+                            <img src="template/profile/${user.id}.jpg" class="img-circle avatar" alt="profile" />
                         </a>
                     </#list>            
                 </div>
                 
                 <div class="container-fluid users">
-                    
+               
                     <!-- Current user -->
                     <div class="col-md-12 user-info main-tile rounded-tile">
                         <div class="panel panel-body blue-background">
                             <div class="col-md-12 relative-name top-name">
-                                <h3>${currentuser.name} ${currentuser.surname}</h3>
+                                <h3>${user_current.name} ${user_current.surname}</h3>
                             </div>
                             <div class="col-md-3 inrow-div">
                                 <div class="img-circle">
-                                    <img src="template/profile/${currentuser.imageurl}" alt="profile image" class="img-circle avatar" />
+                                    <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle avatar" />
                                 </div>
                                 <div class="relative-anagraphics-info">
-                                    <p><i class="fa fa-calendar"></i> ${currentuser.birthdate}</p>
-                                    <p><i class="fa fa-map-marker"></i> ${currentuser.birthplace}</p>
+                                    <p><i class="fa fa-calendar"></i> ${user_current.birthdate}</p>
+                                    <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
                                 </div>
                             </div>
                             <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name">${currentuser.name} ${currentuser.surname}</h3>
-                                <p><i class="fa fa-quote-left top-quote"></i> ${currentuser.bio} <i class="fa fa-quote-right top-quote"></i></p>
+                                <h3 class="relative-name main-name">${user_current.name} ${user_current.surname}</h3>
+                                <#if user_current.biography??>
+                                    <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
+                                <#else>
+                                    <p class="bio-miss">biography missing</p>
+                                </#if>
                             </div>
                         </div>
                     </div>
@@ -88,156 +87,194 @@
                     
                     <!-- Parent tile -->
                     <div class="col-md-12 user-info relative-tile rounded-tile">
-                        <!-- Father -->
-                        <div class="panel panel-body dark-background">
-                            <div class="col-md-12 relative-name top-name">
-                                <h3><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
-                            </div>
-                            <div class="col-md-3 inrow-div">
-                                <div class="img-circle">
-                                    <img src="template/profile/${father.imageurl}" alt="profile image" class="img-circle avatar" />
+                        
+                        <#if father??>
+                        
+                            <!-- Father -->
+                            <div class="panel panel-body dark-background">
+                                <div class="col-md-12 relative-name top-name">
+                                    <h3><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
                                 </div>
-                                <div class="relative-anagraphics-info">
-                                    <p><i class="fa fa-calendar"></i> ${father.birthdate}</p>
-                                    <p><i class="fa fa-map-marker"></i> ${father.birthplace}</p>
+                                <div class="col-md-3 inrow-div">
+                                    <div class="img-circle">
+                                        <img src="template/profile/${father.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                    </div>
+                                    <div class="relative-anagraphics-info">
+                                        <p><i class="fa fa-calendar"></i> ${father.birthdate}</p>
+                                        <p><i class="fa fa-map-marker"></i> ${father.birthplace}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 relative-bio relative-name">
+                                    <h3 class="relative-name main-name"><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
+                                    <#if father.biography??>
+                                        <p>${father.biography}</p>
+                                    <#else>
+                                        <p class="bio-miss">biography missing</p>
+                                    </#if>
                                 </div>
                             </div>
-                            <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name"><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
-                                <p>${father.bio}</p>
-                            </div>
-                        </div>
+                        </#if>
+                        
                         <!-- Mother -->
-                        <div class="panel panel-body dark-background">
-                            <div class="col-md-12 relative-name top-name">
-                                <h3><a href="profile?id=${mother.id}">${mother.name} ${mother.surname}</a></h3>
-                            </div>
-                            <div class="col-md-3 inrow-div">
-                                <div class="img-circle">
-                                    <img src="template/profile/${mother.imageurl}" alt="profile image" class="img-circle avatar" />
+                        <#if mother??>
+                            <div class="panel panel-body dark-background">
+                                <div class="col-md-12 relative-name top-name">
+                                    <h3><a href="profile?id=${mother.id}">${mother.name} ${mother.surname}</a></h3>
                                 </div>
-                                <div class="relative-anagraphics-info">
-                                    <p><i class="fa fa-calendar"></i> ${mother.birthdate}</p>
-                                    <p><i class="fa fa-map-marker"></i> ${mother.birthplace}</p>
+                                <div class="col-md-3 inrow-div">
+                                    <div class="img-circle">
+                                        <img src="template/profile/${mother.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                    </div>
+                                    <div class="relative-anagraphics-info">
+                                        <p><i class="fa fa-calendar"></i> ${mother.birthdate}</p>
+                                        <p><i class="fa fa-map-marker"></i> ${mother.birthplace}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 relative-bio relative-name">
+                                    <h3 class="relative-name main-name"><a href="profile?id=${mother.id}">${mother.name} ${mother.surname}</a></h3>
+                                    <#if mother.biography??>
+                                        <p>${mother.biography}</p>
+                                    <#else>
+                                        <p class="bio-miss">biography missing</p>
+                                    </#if>
                                 </div>
                             </div>
-                            <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name"><a href="profile?id=${mother.id}">${mother.name} ${mother.surname}</a></h3>
-                                <p>${mother.bio}</p>
-                            </div>
-                        </div>
+                        
+                        </#if>
                     </div>
+                    
+                    
                     
                     <div class="col-md-12 tile-divisor parents-divisor">
                         <a href="#">Spouse <i class="fa fa-chevron-down"></i></a>
                     </div>
                     
-                    <!-- Husband/Wife -->
-                    <div class="col-md-12 user-info relative-tile rounded-tile">
-                        <div class="panel panel-body dark-background">
-                            <div class="col-md-12 relative-name top-name">
-                                <h3><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
-                            </div>
-                            <div class="col-md-3 inrow-div">
-                                <div class="img-circle">
-                                    <img src="template/profile/${spouse.imageurl}" alt="profile image" class="img-circle avatar" />
+                    <#if spouse??>
+                        <!-- Husband/Wife -->
+                    
+                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                            <div class="panel panel-body dark-background">
+                                <div class="col-md-12 relative-name top-name">
+                                    <h3><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
                                 </div>
-                                <div class="relative-anagraphics-info">
-                                    <p><i class="fa fa-calendar"></i> ${spouse.birthdate}</p>
-                                    <p><i class="fa fa-map-marker"></i> ${spouse.birthplace}</p>
+                                <div class="col-md-3 inrow-div">
+                                    <div class="img-circle">
+                                        <img src="template/profile/${spouse.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                    </div>
+                                    <div class="relative-anagraphics-info">
+                                        <p><i class="fa fa-calendar"></i> ${spouse.birthdate}</p>
+                                        <p><i class="fa fa-map-marker"></i> ${spouse.birthplace}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name"><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
-                                <p>${spouse.bio}</p>
+                                <div class="col-md-9 relative-bio relative-name">
+                                    <h3 class="relative-name main-name"><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
+                                    <#if spouse.biography??>
+                                        <p>${spouse.biography}</p>
+                                    <#else>
+                                        <p class="bio-miss">biography missing</p>
+                                    </#if>
+                                </div>    
                             </div>    
-                        </div>    
-                    </div>
+                        </div>
+                    </#if>
+                    
                     
                     <div class="col-md-12 tile-divisor parents-divisor">
                         <a href="#">Children <i class="fa fa-chevron-down"></i></a>
                     </div>
-                    
-                    <!-- Children -->
-                    <div class="col-md-12 user-info relative-tile rounded-tile">
-                        <#list children as child>
-                            <div class="panel panel-body dark-background">
-                                <div class="col-md-12 relative-name top-name">
-                                    <h3><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
-                                </div>
-                                <div class="col-md-3 inrow-div">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${child.imageurl}" alt="profile image" class="img-circle avatar" />
+
+                    <#if children??>
+                        <!-- Children -->
+                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                            <#list children as child>
+                                <div class="panel panel-body dark-background">
+                                    <div class="col-md-12 relative-name top-name">
+                                        <h3><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
                                     </div>
-                                    <div class="relative-anagraphics-info">
-                                        <p><i class="fa fa-calendar"></i> ${child.birthdate}</p>
-                                        <p><i class="fa fa-map-marker"></i> ${child.birthplace}</p>
+                                    <div class="col-md-3 inrow-div">
+                                        <div class="img-circle">
+                                            <img src="template/profile/${child.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        </div>
+                                        <div class="relative-anagraphics-info">
+                                            <p><i class="fa fa-calendar"></i> ${child.birthdate}</p>
+                                            <p><i class="fa fa-map-marker"></i> ${child.birthplace}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 relative-bio relative-name">
+                                        <h3 class="relative-name main-name"><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
+                                        <#if child.biography??>
+                                            <p>${child.biography}</p>
+                                        <#else>
+                                            <p class="bio-miss">biography missing</p>
+                                        </#if>
                                     </div>
                                 </div>
-                                <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name"><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
-                                    <p>${child.bio}</p>
-                                </div>
-                            </div>
-                        </#list>
-                    </div>
+                            </#list>
+                        </div>
+                    </#if>
                     
+                   
                     <div class="col-md-12 tile-divisor parents-divisor">
                         <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
                     </div>
                     
-                    <!-- Siblings -->
-                    <div class="col-md-12 user-info relative-tile rounded-tile">
-                        <#list siblings as sibling>
-                            <div class="panel panel-body dark-background">
-                                <div class="col-md-12 relative-name top-name">
-                                    <h3><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
-                                </div>
-                                <div class="col-md-3 inrow-div">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${sibling.imageurl}" alt="profile image" class="img-circle avatar" />
+                     <#if children??>
+                        <!-- Siblings -->
+                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                            <#list siblings as sibling>
+                                <div class="panel panel-body dark-background">
+                                    <div class="col-md-12 relative-name top-name">
+                                        <h3><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
                                     </div>
-                                    <div class="relative-anagraphics-info">
-                                        <p><i class="fa fa-calendar"></i> ${sibling.birthdate}</p>
-                                        <p><i class="fa fa-map-marker"></i> ${sibling.birthplace}</p>
+                                    <div class="col-md-3 inrow-div">
+                                        <div class="img-circle">
+                                            <img src="template/profile/${sibling.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        </div>
+                                        <div class="relative-anagraphics-info">
+                                            <p><i class="fa fa-calendar"></i> ${sibling.birthdate}</p>
+                                            <p><i class="fa fa-map-marker"></i> ${sibling.birthplace}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 relative-bio relative-name">
+                                        <h3 class="relative-name main-name"><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
+                                        <#if sibling.biography??>
+                                            <p>${sibling.biography}</p>
+                                        <#else>
+                                            <p class="bio-miss">biography missing</p>
+                                        </#if>
                                     </div>
                                 </div>
-                                <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name"><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
-                                    <p>${sibling.bio}</p>
-                                </div>
-                            </div>
-                        </#list>
-                    </div>
+                            </#list>
+                        </div>
+                    </#if>
                 </div>
                 
             </section>
             
-           <footer>
+            <footer>
   
                 <ul>
                     <li>
-                        <a href="#" class="ball tree icon active" title="Settings">
+                        <a href="#" class="ball tree active" title="Settings">
                             <i class="fa fa-user fa-2x"></i>
                         </a>
                     </li>
 
                     <li>
-                        <a href="#" class="ball settings icon " title="Settings">
+                        <a href="settings" class="ball settings " title="Settings">
                             <i class="fa fa-cog fa-2x"></i>
                         </a>
                     </li>
                     
                     <li>
-                        <a href="logout" class="ball logout icon " title="Settings">
+                        <a href="logout" class="ball logout " title="Settings">
                             <i class="fa fa-sign-out fa-2x"></i>
                         </a>
                     </li>
                 </ul>
                
         </footer>
-            
-        </div>
+      
     </body>
 
 </html>

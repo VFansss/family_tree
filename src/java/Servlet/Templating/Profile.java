@@ -6,23 +6,17 @@ package Servlet.Templating;
  * and open the template in the editor.
  */
 
-
-import Class.Database;
 import Class.FreeMarker;
 import Class.User;
 import Class.UserList;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import java.net.URLEncoder;
 
 
@@ -59,14 +53,14 @@ public class Profile extends HttpServlet {
         }
         
         String logged_id = (String)session.getAttribute("id");
-        User user_log = User.getUserById(logged_id);
+        User user_logged = User.getUserById(logged_id);
         
         User user_current;
         
         if (request.getParameter("id")!=null){
             user_current = User.getUserById(request.getParameter("id"));
         } else {
-            user_current = user_log;
+            user_current = user_logged;
         }        
         
         
@@ -87,12 +81,12 @@ public class Profile extends HttpServlet {
             children.addAll(user_current.getChildren());
 
         /* Inserimento dei parenti nel data-model */
+            
+            data.put("user_logged", user_logged);
+            data.put("user_current", user_current);
+            
             data.put("siblings", siblings);
-
             data.put("children", children);
-
-            data.put("loggeduser", user_log);
-            data.put("currentuser", user_current);
 
             data.put("spouse", spouse);
             data.put("father", father);

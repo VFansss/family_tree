@@ -23,37 +23,34 @@
         
       
         <header>
-            <div class="navbar-wrapper">
-                <div id="tree-icon">
-                    <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
-                </div>
-
-                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
-                    <form method="POST" >
-                        <input type="button" />
-                        <input placeholder="Search" type="text" required />
-
-                    </form>
-                </div>
-
-                <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
-
-                    <#if action == "login">
-                        <#assign other_action = "signup">
-                    <#else>
-                        <#assign other_action = "login">
-                    </#if>
-
-                    <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
-                </div>
+            <div class="xs-hidden" id="tree-icon">
+                <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
             </div>
 
+            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
+                <form method="POST" >
+                    <input type="button" />
+                    <input placeholder="Search" type="text" required />
+
+                </form>
+            </div>
+
+            <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
+
+                <#if action == "login">
+                    <#assign other_action = "signup">
+                <#else>
+                    <#assign other_action = "login">
+                </#if>
+
+                <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
+            </div>
         </header>
 
         <section class="login">
 
             <div class="col-md-12 title text-center">
-                <h1>Collaborative Genealogy</h1>
+                <h1 class="xs-hidden">Collaborative Genealogy</h1>
                 <img src="template/images/tree-icon-200.png" alt="tree logo" />
             </div>
 
@@ -96,17 +93,28 @@
         </section>
         
         <footer>
-                
-                <a class="ball settings pull-right " title="Settings">
-                    <i class="fa fa-cog fa-2x"></i>
-                </a>
-            
-                <a class="ball tree pull-right active" title="Family tree">
-                    <i class="fa fa-tree fa-2x"></i>
-                </a>
+  
+            <ul>
+                <li>
+                    <a href="#" class="ball tree icon " title="Settings">
+                        <i class="fa fa-tree fa-2x"></i>
+                    </a>
+                </li>
 
+                <li>
+                    <a href="#" class="ball settings icon active" title="Settings">
+                        <i class="fa fa-cog fa-2x"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="ball logout icon" title="Settings">
+                        <i class="fa fa-sign-out fa-2x"></i>
+                    </a>
+                </li>
+            </ul>
+               
         </footer>
-        
         
     </body>
 

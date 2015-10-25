@@ -1,52 +1,113 @@
 
-/*==========================================*/
-/*                LOGIN                     */
-/*==========================================*/
+
 
 /* Small */
 @media (max-width: 768px) {
-    
-    #tree-icon{
-        display: none;
+    section{
+        /*padding-bottom: 45px;*/
     }
+    
+    .xs-hidden{
+        display:none !important;
+    }
+    
+    /*==========================================*/
+    /*                HEADER                     */
+    /*==========================================*/
+   
+    
     #search-bar{
         margin-bottom: 5px;
     }
+       
+    /*==========================================*/
+    /*                LOGIN                     */
+    /*==========================================*/
     
-    section.login .title h1{
-        display:none;
-    }
-    
+     
     section.login .title img {
         width: 200px;
         height: 200px;
         margin: auto;
         display: block;
     }
+
+    /*==========================================*/
+    /*                FOOTER                   */
+    /*==========================================*/
     
-    header{
-        height: 50px;
+    footer{
+        width: 100%;
+        background: rgba(20, 20, 20, 0.8);
+/*        position: fixed;
+        bottom: 0;*/
     }
     
-    div.users{
-        margin: 60px 0 0 0;
+    footer ul{
+        margin: 0;
         padding: 0;
     }
     
-    footer .button-wrapper{
-        position: absolute;
-        top:50px;
-        width: 100%;
+    footer ul li{
+        text-align: center;
         display: inline-block;
-        padding: 0px 10px 0px 10px;
+        width: 32%;
+        margin: 0;
+        padding: 0;
+        padding:5px 0;
     }
     
-    header .navbar-wrapper{
-        position: absolute;
+ 
+   
+    
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+    
+    div.users{
+        padding: 0;
+        margin: 0;
+    }   
+    
+    .breadcrumb-nav{
+        margin: 5px 0;
+        
+    }
+    
+    .breadcrumb-nav a{
+        display: inline-block;
+        margin: 3px 0;
     }
 }
 
 @media (min-width: 769px) {
+    /*==========================================*/
+    /*                HEADER                    */
+    /*==========================================*/
+    header{
+        top: 15px;
+        position:fixed;
+        width:100%;
+        z-index: 999;
+    }
+    
+    section.profile, 
+    section.login{
+        margin-top: 70px;
+        position: relative;
+    }
+    
+    
+    div.users{
+         z-index: 9999;
+    }
+    /*==========================================*/
+    /*                FOOTER                    */
+    /*==========================================*/
+    
+    footer .logout{
+        display: none;
+    }
     footer .ball{
         position: fixed;
         left: 7px;
@@ -58,9 +119,9 @@
     .settings{ bottom: 10px; }
     .tree{ bottom: 70px; }
     
-    .ball.profile-link{
-        top: 70px;
-    }
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
     
     .breadcrumb-nav.ball{
         position:relative;
@@ -69,9 +130,9 @@
     .breadcrumb-nav{
         position:fixed;
         width: 50px;
-        top:60px;
         display: inline-block;
     }
+    
 }
 
 @media (min-width: 992px) {

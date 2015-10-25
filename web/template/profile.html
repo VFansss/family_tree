@@ -99,7 +99,7 @@
                         <!-- Father -->
                         <div class="panel panel-body dark-background">
                             <div class="col-md-12 relative-name top-name">
-                                <h3>${father.name} ${father.surname}</h3>
+                                <h3><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
                             </div>
                             <div class="col-md-3 inrow-div">
                                 <div class="img-circle">
@@ -111,14 +111,14 @@
                                 </div>
                             </div>
                             <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name">${father.name} ${father.surname}</h3>
+                                <h3 class="relative-name main-name"><a href="profile?id=${father.id}">${father.name} ${father.surname}</a></h3>
                                 <p>${father.bio}</p>
                             </div>
                         </div>
                         <!-- Mother -->
                         <div class="panel panel-body dark-background">
                             <div class="col-md-12 relative-name top-name">
-                                <h3>${mother.name} ${mother.surname}</h3>
+                                <h3><a href="profile?id=${mother.id}">${mother.name} ${mother.surname}</a></h3>
                             </div>
                             <div class="col-md-3 inrow-div">
                                 <div class="img-circle">
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name">${mother.name} ${mother.surname}</h3>
+                                <h3 class="relative-name main-name"><a href="profile?id=${mother.id}">${mother.name} ${mother.surname}</a></h3>
                                 <p>${mother.bio}</p>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                     <div class="col-md-12 user-info relative-tile rounded-tile">
                         <div class="panel panel-body dark-background">
                             <div class="col-md-12 relative-name top-name">
-                                <h3>${spouse.name} ${spouse.surname}</h3>
+                                <h3><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
                             </div>
                             <div class="col-md-3 inrow-div">
                                 <div class="img-circle">
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
                             <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name">${spouse.name} ${spouse.surname}</h3>
+                                <h3 class="relative-name main-name"><a href="profile?id=${spouse.id}">${spouse.name} ${spouse.surname}</a></h3>
                                 <p>${spouse.bio}</p>
                             </div>    
                         </div>    
@@ -171,7 +171,7 @@
                         <#list children as child>
                             <div class="panel panel-body dark-background">
                                 <div class="col-md-12 relative-name top-name">
-                                    <h3>${child.name} ${child.surname}</h3>
+                                    <h3><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
                                 </div>
                                 <div class="col-md-3 inrow-div">
                                     <div class="img-circle">
@@ -183,7 +183,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name">${child.name} ${child.surname}</h3>
+                                    <h3 class="relative-name main-name"><a href="profile?id=${child.id}">${child.name} ${child.surname}</a></h3>
                                     <p>${child.bio}</p>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                         <#list siblings as sibling>
                             <div class="panel panel-body dark-background">
                                 <div class="col-md-12 relative-name top-name">
-                                    <h3>${sibling.name} ${sibling.surname}</h3>
+                                    <h3><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
                                 </div>
                                 <div class="col-md-3 inrow-div">
                                     <div class="img-circle">
@@ -211,7 +211,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name">${sibling.name} ${sibling.surname}</h3>
+                                    <h3 class="relative-name main-name"><a href="profile?id=${sibling.id}">${sibling.name} ${sibling.surname}</a></h3>
                                     <p>${sibling.bio}</p>
                                 </div>
                             </div>

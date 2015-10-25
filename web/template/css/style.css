@@ -229,11 +229,11 @@ div.relative-bio{
 }
 
 h3.relative-name a{
-    color: #4d4d4d;
+    color: #707070;
 }
 
 h3.relative-name a:hover{
-    color: #4d4d4d;
+    text-decoration: underline !important;
 }
 
 div.users{
@@ -280,9 +280,7 @@ div.blue-background{
     border-bottom-right-radius: 4px;
 }
 
-.dark-background h3,
 .dark-background p{
-    /*color: rgb(70, 135, 206);*/
     color: #707070;
 }
 

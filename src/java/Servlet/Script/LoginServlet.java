@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
             //Altrimenti genera una nuova sessione
             HttpSession session = request.getSession();
             session.setAttribute("id", tolog.getId());
-            session.setAttribute("navigator", new ArrayList<User>());
+            session.setAttribute("navigation", new ArrayList<User>());
             request.getRequestDispatcher("profile?id="+tolog.getId()).forward(request, response); 
         }
     }

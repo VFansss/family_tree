@@ -51,14 +51,15 @@ public class Profile extends HttpServlet {
         
         //Se non è stata generata la sessione
         if(session==null){
-            //request.getRequestDispatcher("login").include(request, response);
-            PrintWriter out = response.getWriter();
-            out.println("NON SEI LOGGATO");
-            return;
+            request.setAttribute("msn", "Please log in to see this page"); //Da migliorare il sistema su Login.java
+            request.getRequestDispatcher("login").include(request, response);
+//            PrintWriter out = response.getWriter();
+//            out.println("NON SEI LOGGATO");
+//            return;
         }
         
-        String id = (String)session.getAttribute("id");
-        User loggeduser = UserBuilder.getUserById(id);
+        String logged_id = (String)session.getAttribute("id");
+        User loggeduser = UserBuilder.getUserById(logged_id);
         
         User currentuser;
         
@@ -79,13 +80,30 @@ public class Profile extends HttpServlet {
         
         children.add(UserBuilder.eldarion);
         
-        //Lista utenti precedentemente visualizzati
-        List<User> navigation = new LinkedList<User>();
+        /*********NAVIGAZIONE*************/
         
-        navigation.add(UserBuilder.arathorn);
-        navigation.add(UserBuilder.gilraen);
-        navigation.add(UserBuilder.boromir);
-        //navigation.add(UserBuilder.aragorn);
+        //Si recupera la lista degli utenti visitati
+        List<User> navigation = (List<User>)session.getAttribute("navigation");
+        
+        //Se si sta visitando il proprio profilo, si svuota la lista
+        if(currentuser.getId().equals(logged_id)){
+            navigation.clear();
+        
+        } else {
+            //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
+            int i = 0;
+            for(User visited: navigation){
+                if (visited.getId().equals(request.getParameter("id"))){
+                    break;
+                }
+                i++;
+            }
+            navigation = navigation.subList(0,i--);
+            navigation.add(currentuser);
+        }
+        
+        session.setAttribute("navigation", navigation);
+        
         
         // Inserimento utenti nel data-model
         data.put("siblings", siblings);

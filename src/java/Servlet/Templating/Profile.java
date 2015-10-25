@@ -7,6 +7,9 @@ package Servlet.Templating;
  */
 
 import Class.FreeMarker;
+import Class.Tree.GenealogicalTree;
+import Class.Tree.NodeList;
+import Class.Tree.TreeNode;
 import Class.User;
 import Class.UserList;
 import java.io.IOException;
@@ -50,78 +53,81 @@ public class Profile extends HttpServlet {
             // Vai alla pagina di login e mostra messaggio di errore
             response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
 
-        }
+        }else{
         
-        // Recupero dell'utente loggato
-        User user_logged = User.getUserById((String)session.getAttribute("id"));
-        
-        // Recupero dell'utente corrente
-        User user_current;
-        if (request.getParameter("id") != null){
-            user_current = User.getUserById(request.getParameter("id"));
-        } else {
-            user_current = user_logged;
-        }        
-        
-        
-        
-        /* Recupero dei parenti dell'utente corrente */
-        
-            // Recupero di padre, madre e coniuge
-            User father = user_current.getFather();
-            User mother = user_current.getMother();
-            User spouse = user_current.getSpouse();
-            
-            // Recupero dei fratelli
-            UserList siblings = new UserList();
-            siblings.addAll(user_current.getSiblings());
+            // Recupero dell'utente loggato
+            User user_logged = User.getUserById((String)session.getAttribute("id"));
 
-            // Recupero dei figli
-            UserList children = new UserList();
-            children.addAll(user_current.getChildren());
+            // Recupero dell'utente corrente
+            User user_current;
+            if (request.getParameter("id") != null){
+                user_current = User.getUserById(request.getParameter("id"));
+            } else {
+                user_current = user_logged;
+            }        
 
-        /* Inserimento dei parenti nel data-model */
-            
-            data.put("user_logged", user_logged);
-            data.put("user_current", user_current);
-            
-            data.put("siblings", siblings);
-            data.put("children", children);
+            GenealogicalTree family_tree = (GenealogicalTree) session.getAttribute("family_tree");
 
-            data.put("spouse", spouse);
-            data.put("father", father);
-            data.put("mother", mother);
-        
-        /* Gestione breadcrumb */
-        
-            // Recupero del breadcrumb
-            UserList breadcrumb = (UserList)session.getAttribute("navigation");
+            /* Recupero dei parenti dell'utente corrente */
 
-            Iterator iter = breadcrumb.iterator();
-            boolean remove = false;
-            while(iter.hasNext()){
-                User user = (User)iter.next();
-                if(!remove){
-                    // Se l'utente corrente è uguale a quello nella lista
-                    if(user.getId().equals(user_current.getId())){
-                        // Elimina tutti gli utenti successivi
-                        remove = true;
-                    }
+                // Recupero di padre, madre e coniuge
+                TreeNode father = family_tree.getUser(user_current.getFather());
+                TreeNode mother = family_tree.getUser(user_current.getMother());
+                TreeNode spouse = family_tree.getUser(user_current.getSpouse());
+
+                // Recupero dei fratelli
+                NodeList siblings = family_tree.getUsers(user_current.getSiblings());
+
+                // Recupero dei figli
+                NodeList children = family_tree.getUsers(user_current.getChildren());
+
+            /* Inserimento dei parenti nel data-model */
+
+                data.put("user_logged", user_logged);
+                data.put("user_current", user_current);
+
+                data.put("siblings", siblings);
+                data.put("children", children);
+
+                data.put("spouse", spouse);
+                data.put("father", father);
+                data.put("mother", mother);
+
+            /* Gestione breadcrumb */
+
+                // Recupero del breadcrumb
+                NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
+                if(user_current.equals(user_logged)){
+                    breadcrumb.clear();
+                    
                 }else{
-                    iter.remove();
-                }
+                    Iterator iter = breadcrumb.iterator();
+                    boolean remove = false;
+                    while(iter.hasNext()){
+                        TreeNode node = (TreeNode)iter.next();
+                        if(!remove){
+                            // Se l'utente corrente è uguale a quello nella lista
+                            if(node.getUser().getId().equals(user_current.getId())){
+                                // Elimina tutti gli utenti successivi
+                                remove = true;
+                            }
+                        }else{
+                            iter.remove();
+                        }
 
-            }
-//          
-            breadcrumb.add(user_current);
-        
-        // Inserimento del nuovo breadcrumb nella variabile di sessione
-        session.setAttribute("navigation", breadcrumb);
-        // Inserimento del breadcrumb nel data-model
-        data.put("navigation", breadcrumb);
-        // Caricamento del template
-        FreeMarker.process("profile.html",data, response, getServletContext());
-//        
+                    }
+                }
+                
+
+                breadcrumb.add(family_tree.getUser(user_current));
+
+            // Inserimento del nuovo breadcrumb nella variabile di sessione
+            session.setAttribute("breadcrumb", breadcrumb);
+            // Inserimento del breadcrumb nel data-model
+            data.put("breadcrumb", breadcrumb);
+            // Caricamento del template
+            FreeMarker.process("profile.html",data, response, getServletContext());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

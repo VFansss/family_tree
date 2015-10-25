@@ -19,7 +19,7 @@ public class GenealogicalTree{
     
     public GenealogicalTree(User user){
         this.family_tree = new NodeList();
-        this.family_tree.add(new TreeNode(user, "I")); 
+        this.family_tree.add(new TreeNode(user, "You")); 
     }
     
 
@@ -136,5 +136,23 @@ public class GenealogicalTree{
         
     }
     
+    
+    public TreeNode getUser(User user){
+        for(TreeNode element: this.family_tree){
+            if(element.getUser().equals(user)) return element;
+        }
+        return null;
+    }
+    
+    public NodeList getUsers(UserList users){
+        NodeList relatives = new NodeList();
+        for(User relative: users){
+            for(TreeNode element: this.family_tree){
+                if(element.getUser().equals(relative)) relatives.add(element);
+            }
+        }
+        
+        return relatives;
+    }
 
 }

@@ -48,49 +48,51 @@ public class Settings extends HttpServlet {
         
         
         //Gestione sessione
-//        HttpSession session = request.getSession(false);  
+        HttpSession session = request.getSession(false);  
         
-//        //Se non è stata generata la sessione
-//        if(session==null){
-//            // Vai alla pagina di login e mostra messaggio di errore
-//            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
-//
-//        }else{
+        //Se non è stata generata la sessione
+        if(session==null){
+            // Vai alla pagina di login e mostra messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
+
+        }else{
         
             Database db = new Database("collaborative_genealogy");
             
             if(!db.connect("admin", "admin")) return;
             
-            User user_log = User.getUserById("C");
+            User user_logged = User.getUserById("C");
 
             Map<String, Object> data = new HashMap<>();
 
             List<String[]> fields = new ArrayList();
 
-            String[] name =         {"name",        "text",     "Name",         user_log.getName()};
-            String[] surname =      {"surname",     "text",     "Surname",      user_log.getSurname()};
-            String[] gender =       {"gender",      "text",     "Gender",       user_log.getGender()};
-            String[] birthplace =   {"birthplace",  "text",     "Birthplace",   user_log.getBirthplace()};
-            String[] email =        {"email",       "email",    "E-mail",       user_log.getEmail()};
+            String[] name =         {"name",        "text",     "Name",         user_logged.getName()};
+            String[] surname =      {"surname",     "text",     "Surname",      user_logged.getSurname()};
+            String[] gender =       {"gender",      "text",     "Gender",       user_logged.getGender()};
+            String[] birthdate =    {"birthplace",  "text",     "Birthplace",   user_logged.getBirthdate().toString()};
+            String[] birthplace =   {"birthplace",  "text",     "Birthplace",   user_logged.getBirthplace()};
+            String[] email =        {"email",       "email",    "E-mail",       user_logged.getEmail()};
             String[] password =     {"password",    "password", "Password",     ""};
 
             fields.add(name);
             fields.add(surname);
             fields.add(gender);
+            fields.add(birthdate);
             fields.add(birthplace);
             fields.add(email);
             fields.add(password);
 
             data.put("fields", fields);
             
-            data.put("user_log", user_log);
+            data.put("user_logged", user_logged);
             
             String msn = request.getParameter("msn");
             data.put("msn", msn);
            
             
             FreeMarker.process("settings.html",data, response, getServletContext());
-//        }
+        }
         
         
         

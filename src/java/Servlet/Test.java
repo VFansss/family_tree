@@ -48,9 +48,7 @@ public class Test extends HttpServlet {
             out.println("<!DOCTYPE html><html><head><title>Servlet Test</title></head><body>");
             User marco = User.getUserById("C");User fede = User.getUserById("O");
             
-            Set<User> test = new HashSet<>();
-            User  a = null;
-            test.add(a);
+        
             
 //            test.add(marco);
             

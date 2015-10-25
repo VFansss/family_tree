@@ -81,77 +81,78 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12 tile-divisor parents-divisor">
-                        <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
-                    </div>
+                    <#if father?? || mother??>
+                        <div class="col-md-12 tile-divisor parents-divisor">
+                            <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
+                        </div>
                     
-                    <!-- Parent tile -->
-                    <div class="col-md-12 user-info relative-tile rounded-tile">
-                        
-                        <#if father??>
-                        
-                            <!-- Father -->
-                            <div class="panel panel-body dark-background">
-                                <div class="col-md-12 relative-name top-name">
-                                    <h3><a href="profile?id=${father.user.id}">${father.user.name} ${father.user.surname}</a></h3>
-                                </div>
-                                <div class="col-md-3 inrow-div">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                        <!-- Parent tile -->
+                        <div class="col-md-12 user-info relative-tile rounded-tile">
+
+                            <#if father??>
+
+                                <!-- Father -->
+                                <div class="panel panel-body dark-background">
+                                    <div class="col-md-12 relative-name top-name">
+                                        <h3><a href="profile?id=${father.user.id}">${father.user.name} ${father.user.surname}</a></h3>
                                     </div>
-                                    <div class="relative-anagraphics-info">
-                                        <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
-                                        <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
-                                        <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
+                                    <div class="col-md-3 inrow-div">
+                                        <div class="img-circle">
+                                            <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        </div>
+                                        <div class="relative-anagraphics-info">
+                                            <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
+                                            <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
+                                            <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name"><a href="profile?id=${father.user.id}">${father.user.name} ${father.user.surname}</a></h3>
-                                    <#if father.user.biography??>
-                                        <p>${father.user.biography}</p>
-                                    <#else>
-                                        <p class="bio-miss">biography missing</p>
-                                    </#if>
-                                </div>
-                            </div>
-                        </#if>
-                        
-                        <!-- Mother -->
-                        <#if mother??>
-                            <div class="panel panel-body dark-background">
-                                <div class="col-md-12 relative-name top-name">
-                                    <h3><a href="profile?id=${mother.user.id}">${mother.user.name} ${mother.user.surname}</a></h3>
-                                </div>
-                                <div class="col-md-3 inrow-div">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle avatar" />
-                                    </div>
-                                    <div class="relative-anagraphics-info">
-                                        <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
-                                        <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
-                                        <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
+                                    <div class="col-md-9 relative-bio relative-name">
+                                        <h3 class="relative-name main-name"><a href="profile?id=${father.user.id}">${father.user.name} ${father.user.surname}</a></h3>
+                                        <#if father.user.biography??>
+                                            <p>${father.user.biography}</p>
+                                        <#else>
+                                            <p class="bio-miss">biography missing</p>
+                                        </#if>
                                     </div>
                                 </div>
-                                <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name"><a href="profile?id=${mother.user.id}">${mother.user.name} ${mother.user.surname}</a></h3>
-                                    <#if mother.user.biography??>
-                                        <p>${mother.user.biography}</p>
-                                    <#else>
-                                        <p class="bio-miss">biography missing</p>
-                                    </#if>
+                            </#if>
+
+                            <!-- Mother -->
+                            <#if mother??>
+                                <div class="panel panel-body dark-background">
+                                    <div class="col-md-12 relative-name top-name">
+                                        <h3><a href="profile?id=${mother.user.id}">${mother.user.name} ${mother.user.surname}</a></h3>
+                                    </div>
+                                    <div class="col-md-3 inrow-div">
+                                        <div class="img-circle">
+                                            <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        </div>
+                                        <div class="relative-anagraphics-info">
+                                            <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
+                                            <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
+                                            <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 relative-bio relative-name">
+                                        <h3 class="relative-name main-name"><a href="profile?id=${mother.user.id}">${mother.user.name} ${mother.user.surname}</a></h3>
+                                        <#if mother.user.biography??>
+                                            <p>${mother.user.biography}</p>
+                                        <#else>
+                                            <p class="bio-miss">biography missing</p>
+                                        </#if>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                        </#if>
-                    </div>
-                    
-                    
-                    
-                    <div class="col-md-12 tile-divisor parents-divisor">
-                        <a href="#">Spouse <i class="fa fa-chevron-down"></i></a>
-                    </div>
+
+                            </#if>
+                        </div>
+                    </#if>
                     
                     <#if spouse??>
+                    
+                        <div class="col-md-12 tile-divisor parents-divisor">
+                            <a href="#">Spouse <i class="fa fa-chevron-down"></i></a>
+                        </div>
+                    
                         <!-- Husband/Wife -->
                     
                         <div class="col-md-12 user-info relative-tile rounded-tile">
@@ -181,12 +182,13 @@
                         </div>
                     </#if>
                     
+                    <#if children?has_content>
                     
-                    <div class="col-md-12 tile-divisor parents-divisor">
-                        <a href="#">Children <i class="fa fa-chevron-down"></i></a>
-                    </div>
+                        <div class="col-md-12 tile-divisor parents-divisor">
+                            <a href="#">Children <i class="fa fa-chevron-down"></i></a>
+                        </div>
 
-                    <#if children??>
+                    
                         <!-- Children -->
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <#list children as child>
@@ -217,12 +219,12 @@
                         </div>
                     </#if>
                     
-                   
-                    <div class="col-md-12 tile-divisor parents-divisor">
-                        <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
-                    </div>
+                    <#if siblings?has_content>
                     
-                     <#if children??>
+                        <div class="col-md-12 tile-divisor parents-divisor">
+                            <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
+                        </div>
+                     
                         <!-- Siblings -->
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <#list siblings as sibling>
@@ -252,6 +254,7 @@
                             </#list>
                         </div>
                     </#if>
+                    
                 </div>
                 
             </section>

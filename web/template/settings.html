@@ -19,49 +19,68 @@
      
        
     </head>
+    
     <body>
 
-            <header>
-                    <div class="xs-hidden" id="tree-icon">
-                        <img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/>
-                    </div>
+        <header>
+            
+            <div class="xs-hidden" id="tree-icon">
+                <a href="/Collaborative_Genealogy"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+            </div>
 
-                    <div id="search-bar" class="col-md-4 col-sm-4 col-xs-12">
-                        <form method="POST" >
-                            <input type="button" />
-                            <input placeholder="Search" type="text" required />
+            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
+                <form method="POST" >
+                    <input type="button" value="Search"/>
+                    <input placeholder="Search" type="text" required />
+
+                </form>
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-4 button-top-right user-button pull-right">
+                <a href="profile?id=${user_logged.id}" class="btn btn-primary pull-right">
+                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle avatar avatar-square"/>
+                        <p>&nbsp;${user_logged.name}</p>
+                </a>
+            </div>
+                
+        </header>
+
+        <section class="login settings"> 
+          
+            <div class="col-md-4 col-md-offset-2">
+                
+                <div class="lock-container">
+                    <div class="panel-default text-center">
+                        
+                        
+                        <form action="change" class="panel-body" method="POST">
+                            <div class="avatar text-center">
+                                <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
+                            </div>
+                            <#if msn??>
+                                <div class="form-message">
+                                    <i class="fa fa-times"></i><p>${msn}</p>
+                                </div>
+                            </#if>
+                            <button type="submit" class="col-xs-12 btn btn-primary">Change avatar<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
 
                         </form>
-                    </div>
-                    <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
-                        <a href="profile?id=${user_logged.id}" class="btn btn-primary pull-right">
-                                <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle avatar avatar-square"/>
-                                &nbsp;${user_logged.name}
-                        </a>
-                    </div>
-                
-            </header>
 
-            <section class="login">
-                
-                <div class="col-md-12 title text-center">
-                    <img src="template/profile/${user_logged.id}.jpg" alt="profile image" />
+                    </div>
                 </div>
                 
-                <div class="col-md-12">
                 <div class="lock-container">
                     <div class="panel-default text-center">
 
-                        <form action="change" class="panel-body main-form" method="POST">
+                        <form action="change" class="panel-body" method="POST">
 
                             <fieldset>
-                                <#list fields as field>
+                                <#list first_form as field>
                                     <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}" />
                                 </#list>
                             </fieldset>
-                   
+
                             <#if msn??>
-                                <div class="error">
+                                <div class="form-message">
                                     <i class="fa fa-times"></i><p>${msn}</p>
                                 </div>
                             </#if>
@@ -72,30 +91,80 @@
                     </div>
                 </div>
             </div>
-                
-            </section>
             
-           <footer>
-  
-                <ul>
-                    <li>
-                        <a href="profile?id=${user_logged.id}" class="ball tree " title="Settings">
-                            <i class="fa fa-user fa-2x"></i>
-                        </a>
-                    </li>
+            <div class="col-md-4">
+                
+                <div class="lock-container">
+                    <div class="panel-default text-center">
 
-                    <li>
-                        <a href="#" class="ball settings active" title="Settings">
-                            <i class="fa fa-cog fa-2x"></i>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="logout" class="ball logout " title="Settings">
-                            <i class="fa fa-sign-out fa-2x"></i>
-                        </a>
-                    </li>
-                </ul>
+                        <form action="change" class="panel-body" method="POST">
+
+                            <fieldset>
+                                <#list second_form as field>
+                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}"/>
+                                </#list>
+                            </fieldset>
+
+                            <#if msn??>
+                                <div class="form-message">
+                                    <i class="fa fa-times"></i><p>${msn}</p>
+                                </div>
+                            </#if>
+                            <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
+
+                        </form>
+
+                    </div>
+                </div>
+                
+                <div class="lock-container">
+                    <div class="panel-default text-center">
+
+                        <form action="change" class="panel-body" method="POST">
+
+                            <fieldset>
+                                <#list third_form as field>
+                                    <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" />
+                                </#list>
+                            </fieldset>
+
+                            <#if msn??>
+                                <div class="form-message">
+                                    <i class="fa fa-times"></i><p>${msn}</p>
+                                </div>
+                            </#if>
+                            <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
+
+                        </form>
+
+                    </div>
+                </div>
+                
+            </div>
+
+        </section>
+            
+        <footer>
+
+            <ul>
+                <li>
+                    <a href="profile?id=${user_logged.id}" class="ball tree " title="Settings">
+                        <i class="fa fa-user fa-2x"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="ball settings active" title="Settings">
+                        <i class="fa fa-cog fa-2x"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="logout" class="ball logout " title="Settings">
+                        <i class="fa fa-sign-out fa-2x"></i>
+                    </a>
+                </li>
+            </ul>
                
         </footer>
             

@@ -153,12 +153,18 @@
         text-align: center;
     }
     
+    .responsive-inrow-div{
+        height: 100px;
+    }
+    
     .responsive-inrow-div div{
-        display: inline-block;
+        float: left;
+        display: block;
     }
     
     .relative-anagraphics-info{
         margin-left: 20px;
+        /*float:left;*/
     }
 }
 

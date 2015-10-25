@@ -88,7 +88,7 @@
         top: 15px;
         position:fixed;
         width:100%;
-        z-index: 999;
+/*        z-index: 999;*/
     }
     
     section.profile, 
@@ -99,14 +99,14 @@
     
     
     div.users{
-         z-index: 9999;
+         /*z-index: 9999;*/
     }
     /*==========================================*/
     /*                FOOTER                    */
     /*==========================================*/
     
     footer .logout{
-        display: none;
+        /*display: none;*/
     }
     footer .ball{
         position: fixed;
@@ -116,8 +116,9 @@
         font-size: 1.2em;
     }
     
-    .settings{ bottom: 10px; }
-    .tree{ bottom: 70px; }
+    .settings{ bottom: 70px; }
+    .tree{ bottom: 130px; }
+    .logout{ bottom: 10px; }
     
     /*==========================================*/
     /*                PROFILE                   */

@@ -97,22 +97,27 @@ public class Profile extends HttpServlet {
 
                 // Recupero del breadcrumb
                 NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
-
-                Iterator iter = breadcrumb.iterator();
-                boolean remove = false;
-                while(iter.hasNext()){
-                    TreeNode node = (TreeNode)iter.next();
-                    if(!remove){
-                        // Se l'utente corrente è uguale a quello nella lista
-                        if(node.getUser().getId().equals(user_current.getId())){
-                            // Elimina tutti gli utenti successivi
-                            remove = true;
+                if(user_current.equals(user_logged)){
+                    breadcrumb.clear();
+                    
+                }else{
+                    Iterator iter = breadcrumb.iterator();
+                    boolean remove = false;
+                    while(iter.hasNext()){
+                        TreeNode node = (TreeNode)iter.next();
+                        if(!remove){
+                            // Se l'utente corrente è uguale a quello nella lista
+                            if(node.getUser().getId().equals(user_current.getId())){
+                                // Elimina tutti gli utenti successivi
+                                remove = true;
+                            }
+                        }else{
+                            iter.remove();
                         }
-                    }else{
-                        iter.remove();
-                    }
 
+                    }
                 }
+                
 
                 breadcrumb.add(family_tree.getUser(user_current));
 

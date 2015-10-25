@@ -27,6 +27,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>Servlet.Script.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Servlet.Templating.Search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -50,6 +54,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

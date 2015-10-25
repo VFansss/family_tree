@@ -1243,6 +1243,62 @@ public class User{
         }
     }
     
+     /**
+     * Recupera un utente attraverso il suo ID
+     * @param user_email   email utente
+     * @return          
+     */
+    public static User getUserByEmail(String user_email){
+        
+        try {
+            
+            User user = null;
+            if(user_email != null){
+            
+                try (ResultSet record = Database.selectRecord("user", "email = '" + user_email + "'")) {
+                    if(record.next()){
+                        user =  new User(record);
+                    }
+                }
+            
+            }
+            
+            return user;
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    
+    /**
+     * Recupera un utente attraverso il suo ID
+     * @param password      password utente
+     * @return          
+     */
+    public boolean checkPassword(String password){
+        
+        /*
+        
+            DA MIGLIORARE CON PASSWORD CRIPTATE
+        
+        */
+        try {
+ 
+            try (ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'")) {
+                if(record.next()){
+                    return record.getString("password").equals(password); 
+                }
+                return false;
+            }
+
+            
+            
+        } catch (SQLException ex) {
+            return false;
+        }
+        
+    }
     /**
      * Crea un nuovo utente
      * @param data      dati dell'utente

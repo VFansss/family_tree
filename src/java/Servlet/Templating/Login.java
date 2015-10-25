@@ -5,7 +5,7 @@
  */
 package Servlet.Templating;
 
-import Classes.FreeMarker;
+import Class.FreeMarker;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;

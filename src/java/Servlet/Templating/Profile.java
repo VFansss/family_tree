@@ -7,6 +7,9 @@ package Servlet.Templating;
  */
 
 
+import Class.FreeMarker;
+import Class.User;
+import Class.UserList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -19,10 +22,9 @@ import javax.servlet.http.HttpSession;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import java.net.URLEncoder;
 
-import Classes.User;
-import Classes.UserBuilder;
-import Classes.FreeMarker;
+
 
 /**
  *
@@ -47,75 +49,85 @@ public class Profile extends HttpServlet {
         Map<String, Object> data = new HashMap<String, Object>();
         
         //Gestione sessione
-        HttpSession session=request.getSession(false);  
+        HttpSession session = request.getSession(false);  
         
         //Se non è stata generata la sessione
         if(session==null){
-            request.setAttribute("msn", "Please log in to see this page"); //Da migliorare il sistema su Login.java
-            request.getRequestDispatcher("login").include(request, response);
-//            PrintWriter out = response.getWriter();
-//            out.println("NON SEI LOGGATO");
-//            return;
+            // Vai alla pagina di login e mostra messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
+
         }
         
         String logged_id = (String)session.getAttribute("id");
-        User loggeduser = UserBuilder.getUserById(logged_id);
+        User user_log = User.getUserById(logged_id);
         
-        User currentuser;
+        User user_current;
         
         if (request.getParameter("id")!=null){
-            currentuser = UserBuilder.getUserById(request.getParameter("id"));
+            user_current = User.getUserById(request.getParameter("id"));
         } else {
-            currentuser = loggeduser;
+            user_current = user_log;
         }        
-        //Lista fratelli
-        List<User> siblings = new LinkedList<User>();
         
-        siblings.add(UserBuilder.legolas);
-        siblings.add(UserBuilder.gimli);
-        siblings.add(UserBuilder.boromir);
         
-        //Lista figli
-        List<User> children = new LinkedList<User>();
         
-        children.add(UserBuilder.eldarion);
+        /* Recupero dei parenti dell'utente corrente */
+        
+            // Recupero di padre, madre e coniuge
+            User father = user_current.getFather();
+            User mother = user_current.getMother();
+            User spouse = user_current.getSpouse();
+            
+            // Recupero dei fratelli
+            UserList siblings = new UserList();
+            siblings.addAll(user_current.getSiblings());
+
+            // Recupero dei figli
+            UserList children = new UserList();
+            children.addAll(user_current.getChildren());
+
+        /* Inserimento dei parenti nel data-model */
+            data.put("siblings", siblings);
+
+            data.put("children", children);
+
+            data.put("loggeduser", user_log);
+            data.put("currentuser", user_current);
+
+            data.put("spouse", spouse);
+            data.put("father", father);
+            data.put("mother", mother);
         
         /*********NAVIGAZIONE*************/
         
         //Si recupera la lista degli utenti visitati
-        List<User> navigation = (List<User>)session.getAttribute("navigation");
-        
-        //Se si sta visitando il proprio profilo, si svuota la lista
-        if(currentuser.getId().equals(logged_id)){
-            navigation.clear();
-        
-        } else {
-            //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
-            int i = 0;
-            for(User visited: navigation){
-                if (visited.getId().equals(request.getParameter("id"))){
-                    break;
+        UserList navigation = (UserList)session.getAttribute("navigation");
+
+        //Se altrimenti non si sta visualizzando il proprio profilo, si deve accorciare la lista
+ 
+        Iterator iter = navigation.iterator();
+        boolean remove = false;
+        while(iter.hasNext()){
+            User user = (User)iter.next();
+            if(!remove){
+                // Se l'utente corrente è uguale a quello nella lista
+                if(user.getId().equals(user_current.getId())){
+                    // Elimina tutti gli utenti successivi
+                    remove = true;
                 }
-                i++;
+            }else{
+                iter.remove();
             }
-            navigation = navigation.subList(0,i--);
-            navigation.add(currentuser);
+
         }
+
+        navigation.add(user_current);
+        
         
         session.setAttribute("navigation", navigation);
         
-        
-        // Inserimento utenti nel data-model
-        data.put("siblings", siblings);
         data.put("navigation", navigation);
-        data.put("children", children);
-
-        data.put("loggeduser", loggeduser);
-        data.put("currentuser", currentuser);
         
-        data.put("spouse", UserBuilder.arwen);
-        data.put("father", UserBuilder.arathorn);
-        data.put("mother", UserBuilder.gilraen);
                 
         FreeMarker.process("profile.html",data, response, getServletContext());
         

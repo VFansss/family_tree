@@ -80,23 +80,26 @@
                     <#list results as user>
                         <!-- Tile -->
                         <div class="col-md-12 user-info relative-tile rounded-tile">
-                            <!-- Listed user -->
                             <div class="panel panel-body dark-background">
+                                <a href="#" class="btn btn-default btn-xs add-button"><i class="fa fa-fw fa-plus"></i> Add</a>
                                 <div class="col-md-12 relative-name top-name">
-                                    <h3 class="relative-name"><a href="profile?id=${user.id}">${user.name} ${user.surname}</a></h3>
+                                    <h3 class="relative-name">${user.name} ${user.surname}</h3>
                                 </div>
                                 <div class="col-md-3 responsive-inrow-div">
                                     <div class="img-circle">
                                         <img src="template/profile/${user.imageurl}" alt="profile image" class="img-circle avatar" />
                                     </div>
-                                    <div class="relative-anagraphics-info">
+                                    <div class="relative-anagraphics-info min-hidden">
                                         <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
                                         <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name"><a href="profile?id=${user.id}">${user.name} ${user.surname}</a></h3>
-                                    <p>${user.bio}</p>
+                                    <h3 class="relative-name main-name">${user.name} ${user.surname}</h3>
+                                    <div class="relative-anagraphics-info max-hidden">
+                                        <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
+                                        <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

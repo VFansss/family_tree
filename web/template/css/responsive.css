@@ -144,7 +144,8 @@
 
 /* Large */
 @media (max-width: 991px) {
-    .main-name{
+    .main-name,
+    .max-hidden{
         display:none;
     }
     
@@ -163,7 +164,8 @@
 
 /* Large +*/
 @media (min-width: 992px) {
-    .top-name{
+    .top-name,
+    .min-hidden{
         display: none;
     }
 }

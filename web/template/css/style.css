@@ -243,11 +243,11 @@ div.relative-bio{
 }
 
 .relative-name h3{
-    word-wrap: break-word;
-    
+    word-wrap: break-word;    
 }
-h3.relative-name a{
-    color: #707070;
+.relative-name h3,
+.relative-name h3 a{
+    color: #707070 !important;
     
 }
 
@@ -266,6 +266,10 @@ div.blue-background{
 
 .main-tile .blue-background{
     border-radius: 4px;
+}
+
+.blue-background h3{
+    color: #ffffff !important;
 }
 
 .blue-background h3{
@@ -377,4 +381,14 @@ form.filter-search-form fieldset{
 
 .filter-search-button{
     width: auto;
+}
+
+.inrow-div{
+    display:inline-block;
+}
+
+.add-button{
+    position: absolute;
+    right: 30px;
+    z-index: 10;
 }

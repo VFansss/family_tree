@@ -36,7 +36,7 @@
                 </form>
             </div>
 
-            <div class="col-xs-4 button-top-right pull-right">
+            <div class="col-xs-4 inline-block button-top-right pull-right">
 
                 <#if action == "login">
                     <#assign other_action = "signup">
@@ -74,7 +74,7 @@
                             </#if>
                             
                             <#if msn??>
-                                <div class="form-message">
+                                <div class="form-message inline-block">
                                     <i class="fa fa-times"></i><p>${msn}</p>
                                 </div>
                             </#if>

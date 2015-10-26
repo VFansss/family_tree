@@ -36,6 +36,9 @@ ul{
     border-bottom-right-radius: 4px;
 }
 
+.inline-block{
+    display: inline-block
+}
 /*==========================================*/
 /*                HEADER                     */
 /*==========================================*/
@@ -111,7 +114,6 @@ header .button-top-right a img{
 }
 
 header .button-top-right a p{
-    display: inline-block;
     margin-top: -4px;
 }
 
@@ -218,7 +220,6 @@ section.login .form-message{
 
 section.login .form-message p{
     margin: 0 0 0 7px;
-    display: inline-block;
 }
 
 /*==========================================*/

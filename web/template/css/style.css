@@ -406,3 +406,20 @@ section.search .add-button{
     right: 30px;
     z-index: 10;
 }
+
+/*==========================================*/
+/*              FORM-INPUT                  */
+/*==========================================*/
+
+.search .form-control,
+.settings .form-control{
+    border: 0; 
+    border-bottom: 1px solid rgba(40, 40, 40, 1);
+    /*background-color: rgba(20, 20, 20, 0.4);*/
+    background-color: inherit;
+    color: white;
+}
+
+.search .form-control{
+    border-bottom: 1px solid rgba(200, 200, 200, 0.8);
+}

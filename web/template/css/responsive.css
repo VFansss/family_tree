@@ -162,12 +162,9 @@
     
     .responsive-row{
         height: 100px;
-    }
-    
-    .responsive-row{
         position: relative;
     }
-    
+        
     .responsive-row .anagraphics-info,
     .responsive-row .img-circle{
         position:absolute;

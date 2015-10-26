@@ -35,7 +35,7 @@
 
                 </form>
             </div>
-            <div class="col-xs-4 button-top-right pull-right">
+            <div class="col-xs-4 inline-block button-top-right pull-right">
                 <a href="profile" class="btn btn-primary pull-right">
                         <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
                         <p>&nbsp;${user_logged.name}</p>
@@ -61,7 +61,7 @@
                                         <input class="uploader" type="file" name="photo-upload" />
                                     </div>
                                     <#if msn??>
-                                        <div class="form-message">
+                                        <div class="form-message inline-block">
                                             <i class="fa fa-times"></i><p>${msn}</p>
                                         </div>
                                     </#if>

@@ -1,5 +1,6 @@
-
-// <editor-fold defaultstate="collapsed" desc="GENERAL">
+/*==========================================*/
+/*                GENERAL                   */
+/*==========================================*/ *
 
 *{
     outline: none !important;
@@ -28,9 +29,9 @@ ul{
     border-bottom-right-radius: 4px;
 }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="HEADER">
+/*==========================================*/
+/*                HEADER                     */
+/*==========================================*/
 
 header{
     height: 35px;
@@ -114,9 +115,10 @@ header .user-button a p{
     display: inline-block;
     margin-top: -4px;
 }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="FOOTER">
+/*==========================================*/
+/*                FOOTER                     */
+/*==========================================*/
 
 footer .ball{
     display: inline-block;
@@ -160,9 +162,10 @@ footer .active{
 /*    background-color: #000;*/
     /*box-shadow: 0p    x 0px 0px 1px rgba(70, 135, 206, 0.5);*/
 }
-// </editor-fold>
 
-// <editor-fold defaultstate="collapsed" desc="LOGIN">
+/*==========================================*/
+/*                LOGIN                     */
+/*==========================================*/
 
 section.login .title h1{
     font-family: Arvo;
@@ -219,9 +222,9 @@ section.login .form-message p{
     display: inline-block;
 }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="PROFILE">
+/*==========================================*/
+/*                PROFILE                   */
+/*==========================================*/
 
 section.profile .tile{
     margin-bottom: 20px;
@@ -323,9 +326,9 @@ section.profile .dark-background .delete-relative a:hover{
     color: #4687ce;
 }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="SETTINGS">
+/*==========================================*/
+/*                SETTINGS                  */
+/*==========================================*/
 
 section.settings .avatar{
     position: relative;
@@ -367,9 +370,9 @@ section.settings .avatar i:hover{
     color: #4687ce;
 }
 
-// </editor-fold>
-
-// <editor-fold defaultstate="collapsed" desc="SEARCH">
+/*==========================================*/
+/*                 SEARCH                   */
+/*==========================================*/
 
 section.search .search-filters h4{
     color: #ddd;
@@ -404,5 +407,3 @@ section.search .add-button{
     right: 30px;
     z-index: 10;
 }
-
-// </editor-fold>

@@ -48,12 +48,8 @@ public class Profile extends HttpServlet {
         HttpSession session = request.getSession(false);  
         
         //Se non è stata generata la sessione
-        if(session==null){
-            // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
-
-        }else{
-        
+        if(session != null){
+            
             // Recupero dell'utente loggato
             User user_logged = User.getUserById((String)session.getAttribute("id"));
 
@@ -63,70 +59,74 @@ public class Profile extends HttpServlet {
                 user_current = User.getUserById(request.getParameter("id"));
             } else {
                 user_current = user_logged;
-            }        
-
+            }
+            
             GenealogicalTree family_tree = (GenealogicalTree) session.getAttribute("family_tree");
 
             /* Recupero dei parenti dell'utente corrente */
-
-                // Recupero di padre, madre e coniuge
-                TreeNode father = family_tree.getUser(user_current.getFather());
-                TreeNode mother = family_tree.getUser(user_current.getMother());
-                TreeNode spouse = family_tree.getUser(user_current.getSpouse());
-
-                // Recupero dei fratelli
-                NodeList siblings = family_tree.getUsers(user_current.getSiblings());
-
-                // Recupero dei figli
-                NodeList children = family_tree.getUsers(user_current.getChildren());
-
+            
+            // Recupero di padre, madre e coniuge
+            TreeNode father = family_tree.getUser(user_current.getFather());
+            TreeNode mother = family_tree.getUser(user_current.getMother());
+            TreeNode spouse = family_tree.getUser(user_current.getSpouse());
+            
+            // Recupero dei fratelli
+            NodeList siblings = family_tree.getUsers(user_current.getSiblings());
+            
+            // Recupero dei figli
+            NodeList children = family_tree.getUsers(user_current.getChildren());
+            
             /* Inserimento dei parenti nel data-model */
-
-                data.put("user_logged", user_logged);
-                data.put("user_current", user_current);
-
-                data.put("siblings", siblings);
-                data.put("children", children);
-
-                data.put("spouse", spouse);
-                data.put("father", father);
-                data.put("mother", mother);
-
+            
+            data.put("user_logged", user_logged);
+            data.put("user_current", user_current);
+            
+            data.put("siblings", siblings);
+            data.put("children", children);
+            
+            data.put("spouse", spouse);
+            data.put("father", father);
+            data.put("mother", mother);
+            
             /* Gestione breadcrumb */
-
-                // Recupero del breadcrumb
-                NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
-                if(user_current.equals(user_logged)){
-                    breadcrumb.clear();
-                    
-                }else{
-                    Iterator iter = breadcrumb.iterator();
-                    boolean remove = false;
-                    while(iter.hasNext()){
-                        TreeNode node = (TreeNode)iter.next();
-                        if(!remove){
-                            // Se l'utente corrente è uguale a quello nella lista
-                            if(node.getUser().getId().equals(user_current.getId())){
-                                // Elimina tutti gli utenti successivi
-                                iter.remove();
-                                remove = true;
-                            }
-                        }else{
-                            iter.remove();
-                        }
-
-                    }
-                }
+            
+            // Recupero del breadcrumb
+            NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
+            if(user_current.equals(user_logged)){
+                breadcrumb.clear();
                 
-
-                breadcrumb.add(family_tree.getUser(user_current));
-
+            }else{
+                Iterator iter = breadcrumb.iterator();
+                boolean remove = false;
+                while(iter.hasNext()){
+                    TreeNode node = (TreeNode)iter.next();
+                    if(!remove){
+                        // Se l'utente corrente è uguale a quello nella lista
+                        if(node.getUser().getId().equals(user_current.getId())){
+                            // Elimina tutti gli utenti successivi
+                            iter.remove();
+                            remove = true;
+                        }
+                    }else{
+                        iter.remove();
+                    }
+                    
+                }
+            }
+            
+            
+            breadcrumb.add(family_tree.getUser(user_current));
+            
             // Inserimento del nuovo breadcrumb nella variabile di sessione
             session.setAttribute("breadcrumb", breadcrumb);
             // Inserimento del breadcrumb nel data-model
             data.put("breadcrumb", breadcrumb);
             // Caricamento del template
             FreeMarker.process("profile.html",data, response, getServletContext());
+        }else{
+            // Vai alla pagina di login e mostra messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
+
         }
     }
 

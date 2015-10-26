@@ -46,39 +46,37 @@ public class LoginServlet extends HttpServlet {
         
         // Connessione al database
         Database db = new Database("collaborative_genealogy");
-        if(!db.connect("admin", "admin")){
-            out.println("ERRORE CONNESSIONE A DATABASE");
-            return;
-        }
-
-        //Recupera l'email dell'utente
-        String email = request.getParameter("email");
-        //Recupera la password dell'utente
-        String password = request.getParameter("password");
-        
-        // Recupera l'utente
-        User user_to_log = User.getUserByEmail(email);
-
-        // Se l'utente non esiste
-        if(user_to_log == null){
-            // Torna alla pagine di login con messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("User does not exist", "UTF-8"));
-
-        // Se la password dell'utente è sbagliata
-        }else if(!user_to_log.checkPassword(password)){
-            // Torna alla pagine di login con messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("Password is not valid", "UTF-8"));
-
-        }else{
-            // Altrimenti, fai il login dell'utente
-            HttpSession session = request.getSession();
-            session.setAttribute("id", user_to_log.getId());
-            session.setAttribute("breadcrumb", new NodeList());
+        if(db.connect("admin", "admin")){
             
-            GenealogicalTree family_tree = user_to_log.getFamilyTree();
-            family_tree.getFamilyTree();
-            session.setAttribute("family_tree", family_tree);
-            response.sendRedirect("profile?id=" + user_to_log.getId());
+            //Recupera l'email dell'utente
+            String email = request.getParameter("email");
+            //Recupera la password dell'utente
+            String password = request.getParameter("password");
+
+            // Recupera l'utente
+            User user_to_log = User.getUserByEmail(email);
+
+            // Se l'utente non esiste
+            if(user_to_log == null){
+                // Torna alla pagine di login con messaggio di errore
+                response.sendRedirect("login?msn=" + URLEncoder.encode("User does not exist", "UTF-8"));
+
+            // Se la password dell'utente è sbagliata
+            }else if(!user_to_log.checkPassword(password)){
+                // Torna alla pagine di login con messaggio di errore
+                response.sendRedirect("login?msn=" + URLEncoder.encode("Password is not valid", "UTF-8"));
+
+            }else{
+                // Altrimenti, fai il login dell'utente
+                HttpSession session = request.getSession();
+                session.setAttribute("id", user_to_log.getId());
+                session.setAttribute("breadcrumb", new NodeList());
+
+                GenealogicalTree family_tree = user_to_log.getFamilyTree();
+                family_tree.getFamilyTree();
+                session.setAttribute("family_tree", family_tree);
+                response.sendRedirect("profile?id=" + user_to_log.getId());
+            }
         }
 
     }

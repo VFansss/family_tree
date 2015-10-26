@@ -41,6 +41,7 @@ public class Settings extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
+        
         response.setContentType("text/html;charset=UTF-8");
   
         //Gestione sessione

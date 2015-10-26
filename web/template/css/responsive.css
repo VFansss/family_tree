@@ -67,12 +67,7 @@
     /*==========================================*/
     /*                PROFILE                   */
     /*==========================================*/
-    
-    div.users{
-        padding: 0;
-        margin: 0;
-    }   
-    
+
     .breadcrumb-nav{
         margin: 5px 0;
         
@@ -100,11 +95,7 @@
     section{
         margin-top: 70px;
     }
-    
-    
-    div.users{
-         /*z-index: 9999;*/
-    }
+
     /*==========================================*/
     /*                FOOTER                    */
     /*==========================================*/
@@ -138,6 +129,29 @@
         display: inline-block;
     }
     
+    /*==========================================*/
+    /*                SETTINGS                  */
+    /*==========================================*/
+    .settings .wrapper{
+        width: 650px;
+        background-color: rgba(20, 20, 20, 0.8);
+        margin: 0 auto;
+        border-radius: 4px;
+        padding: 16px;
+    }
+    
+    .settings .wrapper .test{
+        /*border-right: 1px solid #404040;*/  
+    }
+    
+    .settings .form-control{
+        border: 0; 
+        border-bottom: 1px solid rgba(40, 40, 40, 1);
+        background-color: rgba(20, 20, 20, 0.4);
+        color: white;
+    }
+    
+   
 }
 
 /* Large */

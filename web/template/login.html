@@ -61,7 +61,7 @@
 
                         <form action="log" class="panel-body main-form" method="POST">
 
-                            <fieldset>
+                            <fieldset class="rounded-tile">
                                 <#list fields as field>
                                     <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}"  />
                                 </#list>
@@ -74,7 +74,7 @@
                             </#if>
                             
                             <#if msn??>
-                                <div class="error">
+                                <div class="form-message">
                                     <i class="fa fa-times"></i><p>${msn}</p>
                                 </div>
                             </#if>

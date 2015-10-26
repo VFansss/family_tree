@@ -19,7 +19,15 @@ ul{
     object-fit: cover;
 }
 
+.rounded-tile > *:first-child{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
 
+.rounded-tile > *:last-child{
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
 /*==========================================*/
 /*                HEADER                     */
 /*==========================================*/
@@ -63,7 +71,7 @@ header{
 
 #search-bar input[type=text]:focus{
     background-color:rgba(255,255,255,0.1);
-    box-shadow: 0px 0px 10px 1px rgba(255,255,255,0.1);
+    box-shadow: 0px 0px 1px 1px rgba(255,255,255,0.1);
 }
 
 #search-bar::before{
@@ -180,16 +188,6 @@ section.login form input{
     padding: 10px 15px;
 }
 
-section.login form input:first-child {
-   border-top-right-radius: 4px;
-   border-top-left-radius: 4px;
-}
-
-section.login form input:last-child {
-   border-bottom-right-radius: 4px;
-   border-bottom-left-radius: 4px;
-}
-
 section.login form button{
     font-size: 16px;
     font-weight: bold;
@@ -212,7 +210,7 @@ section.login .forgot-password:hover {
     text-decoration: none;
 }
 
-section.login .error{
+section.login .form-message{
     padding: 14px 15px;
     color: #ddd;
     background: rgba(0,0,0,0.33);
@@ -220,7 +218,7 @@ section.login .error{
     border-radius: 4px;
 }
 
-section.login .error p{
+section.login .form-message p{
     margin: 0 0 0 7px;
     display: inline-block;
 }
@@ -229,23 +227,18 @@ section.login .error p{
 /*                PROFILE                   */
 /*==========================================*/
 
-.relative-tile .img-circle{
+.tile .img-circle{
     width:100px;
     height:100px;
 }
 
-.user-info .anagraphics-info{
+.tile .anagraphics-info{
     margin-top: 10px;
     padding: 0;
 }
 
-.user-info .biography-box{
+.tile .biography-box{
     margin-top: 10px;
-}
-
-div.users{
-    margin-right: 20%;
-    margin-left: 20%;
 }
 
 div.blue-background{
@@ -266,18 +259,6 @@ div.blue-background{
 
 
 
-.rounded-tile .panel:first-child{
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-}
-
-.rounded-tile .panel:last-child{
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-
-
 div.tile-divisor{
     padding-left: 20px;
     margin-bottom: 10px;
@@ -291,7 +272,7 @@ div.tile-divisor{
 div.panel{
     margin:0;
 }
-.relative-tile{
+.tile{
     margin-bottom: 20px;
 }
 
@@ -308,11 +289,12 @@ i.top-quote{
 
 
 
-.user-info h3{
+.tile h3{
     margin-top: 0;
+    word-wrap: break-word;  
 }
 
-div.relative-tile .dark-background:not(:last-child){
+.dark-background:not(:last-child){
     border-bottom: 1px solid #2a2a2a;
 }
 
@@ -326,7 +308,6 @@ div.relative-tile .dark-background:not(:last-child){
 }
 
 .dark-background h3{
-    word-wrap: break-word;   
     color: #707070;
 }
 
@@ -359,17 +340,46 @@ div.relative-tile .dark-background:not(:last-child){
 /*==========================================*/
 
 section.settings .avatar{
-    border-radius: 4px;
-    background-color: white;
+    position: relative;
 }
 
-section.settings img{
+section.settings .avatar img{
     border-radius: 100%;
-    height: 150px;
-    width: 150px;
-    margin: 20px 0;
+    height: 220px;
+    width: 220px;
+    margin: 24px auto;
 }
-    
+
+section.settings .uploader,
+section.settings .avatar i{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    top: 30px;
+    right: 25px;
+}
+
+section.settings .uploader{
+    opacity: 0;
+}
+
+section.settings .avatar i{
+    background:white;
+    padding-top: 12px;
+    font-size: 2em;
+    color: #999;
+    -webkit-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+section.settings .avatar i:hover{
+    color: #4687ce;
+}
+
+
 /*==========================================*/
 /*                 SEARCH                   */
 /*==========================================*/

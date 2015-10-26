@@ -79,9 +79,9 @@ public class Settings extends HttpServlet {
                 /* Secondo form per il cambio dell'email*/
                     List<String[]> second_form = new ArrayList();
 
-                    String[] email =        {"email",           "Email",    "Email"         , user_logged.getEmail()};
-                    String[] new_email =    {"new_email",       "Email",    "New Email"     , ""};
-                    String[] repeat_email = {"repeat_email",    "Email",    "Repeat Email"  , ""};
+                    String[] email =        {"email",           "email",    "Email"         , user_logged.getEmail()};
+                    String[] new_email =    {"new_email",       "email",    "New Email"     , ""};
+                    String[] repeat_email = {"repeat_email",    "email",    "Repeat Email"  , ""};
 
                     second_form.add(email);
                     second_form.add(new_email);

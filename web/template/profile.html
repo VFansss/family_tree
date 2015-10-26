@@ -34,7 +34,7 @@
                     </form>
                 </div>
                 <div class="col-md-1 col-sm-1 col-xs-4 button-top-right user-button pull-right">
-                    <a href="profile?id=${user_logged.id}" class="btn btn-primary pull-right">
+                    <a href="profile" class="btn btn-primary pull-right">
                             <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle avatar avatar-square"/>
                             <p>&nbsp;${user_logged.name}</p>
                     </a>
@@ -53,15 +53,15 @@
                     </#list>            
                 </div>
                  
-                <div class="container-fluid users">
+                <div class="users">
                
                     <!-- Current user -->
-                    <div class="col-md-12 user-info relative-tile rounded-tile">
+                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded-tile">
                         <div class="panel panel-body blue-background">
                             <div class="col-md-12 top-name">
                                 <h3>${user_current.name} ${user_current.surname}</h3>
                             </div>
-                            <div class="col-md-3 responsive-row">
+                            <div class="col-md-4 responsive-row">
                                 <div class="img-circle">
                                     <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle avatar" />
                                 </div>
@@ -74,7 +74,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-md-9 biography-box">
+                            <div class="col-md-8 biography-box">
                                 <h3 class="main-name">${user_current.name} ${user_current.surname}</h3>
                                 <#if user_current.biography??>
                                     <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
@@ -86,12 +86,12 @@
                     </div>
                     
                     <#if father?? || mother??>
-                        <div class="col-md-12 tile-divisor parents-divisor">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-divisor parents-divisor">
                             <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
                         </div>
                     
                         <!-- Parent tile -->
-                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded-tile">
 
                             <#if father??>
 
@@ -107,7 +107,7 @@
                                             <h3>${father.user.name} ${father.user.surname}</h3>
                                         </a>
                                     </div>
-                                    <div class="col-md-3 responsive-row">
+                                    <div class="col-md-4 responsive-row">
                                         <div class="img-circle">
                                             <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
@@ -124,7 +124,7 @@
                                         </ul>
                                         
                                     </div>
-                                    <div class="col-md-9 biography-box">
+                                    <div class="col-md-8 biography-box">
                                         <a href="profile?id=${father.user.id}">
                                             <h3 class="main-name">${father.user.name} ${father.user.surname}</h3>
                                         </a>
@@ -149,7 +149,7 @@
                                             <h3>${mother.user.name} ${mother.user.surname}</h3>
                                         </a>
                                     </div>
-                                    <div class="col-md-3 responsive-row">
+                                    <div class="col-md-4 responsive-row">
                                         <div class="img-circle">
                                             <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
@@ -165,7 +165,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-9 biography-box">
+                                    <div class="col-md-8 biography-box">
                                         <a href="profile?id=${mother.user.id}">
                                             <h3 class="main-name">${mother.user.name} ${mother.user.surname}</h3>
                                         </a>
@@ -183,13 +183,13 @@
                     
                     <#if spouse??>
                     
-                        <div class="col-md-12 tile-divisor parents-divisor">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-divisor parents-divisor">
                             <a href="#">Spouse <i class="fa fa-chevron-down"></i></a>
                         </div>
                     
                         <!-- Husband/Wife -->
                     
-                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded-tile">
                             
                             <div class="panel panel-body dark-background">
                                 
@@ -202,7 +202,7 @@
                                         <h3>${spouse.user.name} ${spouse.user.surname}</h3>
                                     </a>
                                 </div>
-                                <div class="col-md-3 responsive-row">
+                                <div class="col-md-4 responsive-row">
                                     <div class="img-circle">
                                         <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                     </div>
@@ -218,7 +218,7 @@
                                             </li>
                                         </ul>
                                 </div>
-                                <div class="col-md-9 biography-box">
+                                <div class="col-md-8 biography-box">
                                     <a href="profile?id=${spouse.user.id}">
                                         <h3 class="main-name">${spouse.user.name} ${spouse.user.surname}</h3>
                                     </a>
@@ -234,13 +234,13 @@
                     
                     <#if children?has_content>
                     
-                        <div class="col-md-12 tile-divisor parents-divisor">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-divisor parents-divisor">
                             <a href="#">Children <i class="fa fa-chevron-down"></i></a>
                         </div>
 
                     
                         <!-- Children -->
-                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded-tile">
                             <#list children as child>
                                 <div class="panel panel-body dark-background">
     
@@ -253,7 +253,7 @@
                                             <h3>${child.user.name} ${child.user.surname}</h3>
                                         </a>
                                     </div>
-                                    <div class="col-md-3 responsive-row">
+                                    <div class="col-md-4 responsive-row">
                                         <div class="img-circle">
                                             <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
@@ -269,7 +269,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-9 biography-box">
+                                    <div class="col-md-8 biography-box">
                                         <a href="profile?id=${child.user.id}">
                                             <h3 class="main-name">${child.user.name} ${child.user.surname}</h3>
                                         </a>
@@ -286,12 +286,12 @@
                     
                     <#if siblings?has_content>
                     
-                        <div class="col-md-12 tile-divisor parents-divisor">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-divisor parents-divisor">
                             <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
                         </div>
                      
                         <!-- Siblings -->
-                        <div class="col-md-12 user-info relative-tile rounded-tile">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded-tile">
                             <#list siblings as sibling>
                                 <div class="panel panel-body dark-background">
      
@@ -304,7 +304,7 @@
                                             <h3>${sibling.user.name} ${sibling.user.surname}</h3>
                                         </a>
                                     </div>
-                                    <div class="col-md-3 responsive-row">
+                                    <div class="col-md-4 responsive-row">
                                         <div class="img-circle">
                                             <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
@@ -320,7 +320,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-9 biography-box">
+                                    <div class="col-md-8 biography-box">
                                         <a href="profile?id=${sibling.user.id}">
                                             <h3 class="main-name">${sibling.user.name} ${sibling.user.surname}</h3>
                                         </a>

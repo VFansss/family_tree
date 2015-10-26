@@ -36,6 +36,9 @@ ul{
     border-bottom-right-radius: 4px;
 }
 
+.inline-block{
+    display: inline-block
+}
 /*==========================================*/
 /*                HEADER                     */
 /*==========================================*/

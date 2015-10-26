@@ -39,8 +39,7 @@ public class Profile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { response.setContentType("text/html;charset=UTF-8");
         
         
         Map<String, Object> data = new HashMap<String, Object>();
@@ -109,6 +108,7 @@ public class Profile extends HttpServlet {
                             // Se l'utente corrente è uguale a quello nella lista
                             if(node.getUser().getId().equals(user_current.getId())){
                                 // Elimina tutti gli utenti successivi
+                                iter.remove();
                                 remove = true;
                             }
                         }else{

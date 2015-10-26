@@ -14,6 +14,10 @@ ul{
     list-style: none;
 }
 
+.img-cover {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
 
 
 /*==========================================*/
@@ -84,6 +88,10 @@ header .button-top-right a{
    
 }
 
+header .button-top-right img{
+    width: 25px;
+    height: 25px;
+}
 
 
 /*==========================================*/
@@ -210,22 +218,7 @@ section.login .error p{
 /*Recuperato da mycss.css*/
 
 
-.avatar {
-    -o-object-fit: cover;
-    object-fit: cover;
-}
-
-img.avatar-square{
-    width: 25px;
-    height: 25px;
-}
-
-.main-tile .img-circle{
-    width: 110px;
-    height: 110px;
-    padding: 0;
-}
-
+.main-tile .img-circle,
 .relative-tile .img-circle{
     width:100px;
     height:100px;

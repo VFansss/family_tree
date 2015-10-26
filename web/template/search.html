@@ -39,7 +39,7 @@
                     <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
                         <#if logged>
                         <a href="profile?id=${loggeduser.id}" class="btn btn-primary pull-right">
-                                <img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle avatar avatar-square"/>
+                                <img src="template/profile/${loggeduser.imageurl}" alt="profile image" class="img-circle img-cover"/>
                                 &nbsp;${loggeduser.name}
                         </a>
                         <#else>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="col-md-3 responsive-inrow-div">
                                     <div class="img-circle">
-                                        <img src="template/profile/${user.imageurl}" alt="profile image" class="img-circle avatar" />
+                                        <img src="template/profile/${user.imageurl}" alt="profile image" class="img-circle img-cover" />
                                     </div>
                                     <div class="relative-anagraphics-info min-hidden">
                                         <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>

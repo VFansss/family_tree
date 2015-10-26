@@ -82,6 +82,8 @@
         display: inline-block;
         margin: 3px 0;
     }
+    
+   
 }
 
 /* Small + */
@@ -146,6 +148,11 @@
 
 /* Large */
 @media (max-width: 991px) {
+    
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+    
     .main-name,
     .max-hidden{
         display:none;
@@ -155,15 +162,25 @@
         text-align: center;
     }
     
-    .responsive-inrow-div{
+    .responsive-row{
         height: 100px;
     }
     
-    .responsive-inrow-div div{
-        float: left;
-        display: block;
+    .responsive-row{
+        position: relative;
     }
     
+    .responsive-row .relative-anagraphics-info,
+    .responsive-row .img-circle{
+        position:absolute;
+        top:0;
+    }
+    
+
+    .responsive-row .relative-anagraphics-info{
+        left: 115px;
+    }
+
     .relative-anagraphics-info{
         margin-left: 20px;
         /*float:left;*/

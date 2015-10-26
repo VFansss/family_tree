@@ -56,7 +56,7 @@
                 <div class="container-fluid users">
                
                     <!-- Current user -->
-                    <div class="col-md-12 user-info main-tile rounded-tile">
+                    <div class="col-md-12 user-info relative-tile rounded-tile">
                         <div class="panel panel-body blue-background">
                             <div class="col-md-12 top-name">
                                 <h3>${user_current.name} ${user_current.surname}</h3>
@@ -65,12 +65,16 @@
                                 <div class="img-circle">
                                     <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle avatar" />
                                 </div>
-                                <div class="relative-anagraphics-info">
-                                    <p><i class="fa fa-calendar"></i> ${user_current.birthdate}</p>
-                                    <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
-                                </div>
+                                <ul class="anagraphics-info">
+                                    <li>
+                                        <p><i class="fa fa-calendar"></i> ${user_current.birthdate}</p>
+                                    </li>
+                                    <li>
+                                        <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="col-md-9 relative-bio">
+                            <div class="col-md-9 biography-box">
                                 <h3 class="main-name">${user_current.name} ${user_current.surname}</h3>
                                 <#if user_current.biography??>
                                     <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
@@ -107,13 +111,20 @@
                                         <div class="img-circle">
                                             <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
-                                        <div class="relative-anagraphics-info">
-                                            <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
-                                            <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
-                                            <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
-                                        </div>
+                                        <ul class="anagraphics-info">
+                                            <li>
+                                                <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
+                                            </li>
+                                        </ul>
+                                        
                                     </div>
-                                    <div class="col-md-9 relative-bio">
+                                    <div class="col-md-9 biography-box">
                                         <a href="profile?id=${father.user.id}">
                                             <h3 class="main-name">${father.user.name} ${father.user.surname}</h3>
                                         </a>
@@ -142,13 +153,19 @@
                                         <div class="img-circle">
                                             <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
-                                        <div class="relative-anagraphics-info">
-                                            <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
-                                            <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
-                                            <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
-                                        </div>
+                                        <ul class="anagraphics-info">
+                                            <li>
+                                                <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="col-md-9 relative-bio">
+                                    <div class="col-md-9 biography-box">
                                         <a href="profile?id=${mother.user.id}">
                                             <h3 class="main-name">${mother.user.name} ${mother.user.surname}</h3>
                                         </a>
@@ -189,13 +206,19 @@
                                     <div class="img-circle">
                                         <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                     </div>
-                                    <div class="relative-anagraphics-info">
-                                        <p><i class="fa fa-calendar"></i> ${spouse.user.birthdate}</p>
-                                        <p><i class="fa fa-map-marker"></i> ${spouse.user.birthplace}</p>
-                                        <p><i class="fa fa-user"></i> ${spouse.label?capitalize}</p>
-                                    </div>
+                                    <ul class="anagraphics-info">
+                                            <li>
+                                                <p><i class="fa fa-calendar"></i> ${spouse.user.birthdate}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-map-marker"></i> ${spouse.user.birthplace}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-user"></i> ${spouse.label?capitalize}</p>
+                                            </li>
+                                        </ul>
                                 </div>
-                                <div class="col-md-9 relative-bio">
+                                <div class="col-md-9 biography-box">
                                     <a href="profile?id=${spouse.user.id}">
                                         <h3 class="main-name">${spouse.user.name} ${spouse.user.surname}</h3>
                                     </a>
@@ -234,13 +257,19 @@
                                         <div class="img-circle">
                                             <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
-                                        <div class="relative-anagraphics-info">
-                                            <p><i class="fa fa-calendar"></i> ${child.user.birthdate}</p>
-                                            <p><i class="fa fa-map-marker"></i> ${child.user.birthplace}</p>
-                                            <p><i class="fa fa-user"></i> ${child.label?capitalize}</p>
-                                        </div>
+                                        <ul class="anagraphics-info">
+                                            <li>
+                                                <p><i class="fa fa-calendar"></i> ${child.user.birthdate}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-map-marker"></i> ${child.user.birthplace}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-user"></i> ${child.label?capitalize}</p>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="col-md-9 relative-bio">
+                                    <div class="col-md-9 biography-box">
                                         <a href="profile?id=${child.user.id}">
                                             <h3 class="main-name">${child.user.name} ${child.user.surname}</h3>
                                         </a>
@@ -279,13 +308,19 @@
                                         <div class="img-circle">
                                             <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle avatar" />
                                         </div>
-                                        <div class="relative-anagraphics-info">
-                                            <p><i class="fa fa-calendar"></i> ${sibling.user.birthdate}</p>
-                                            <p><i class="fa fa-map-marker"></i> ${sibling.user.birthplace}</p>
-                                            <p><i class="fa fa-user"></i> ${sibling.label?capitalize}</p>
-                                        </div>
+                                        <ul class="anagraphics-info">
+                                            <li>
+                                                <p><i class="fa fa-calendar"></i> ${sibling.user.birthdate}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-map-marker"></i> ${sibling.user.birthplace}</p>
+                                            </li>
+                                            <li>
+                                                <p><i class="fa fa-user"></i> ${sibling.label?capitalize}</p>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="col-md-9 relative-bio">
+                                    <div class="col-md-9 biography-box">
                                         <a href="profile?id=${sibling.user.id}">
                                             <h3 class="main-name">${sibling.user.name} ${sibling.user.surname}</h3>
                                         </a>

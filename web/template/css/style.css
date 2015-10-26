@@ -93,6 +93,19 @@ header .button-top-right img{
     height: 25px;
 }
 
+header .user-button a{
+    height: 34px;
+}
+
+header .user-button a img{
+    margin-top: -4px;
+    
+}
+
+header .user-button a p{
+    display: inline-block;
+    margin-top: -4px;
+}
 
 /*==========================================*/
 /*                FOOTER                     */
@@ -215,32 +228,19 @@ section.login .error p{
 /*==========================================*/
 /*                PROFILE                   */
 /*==========================================*/
-/*Recuperato da mycss.css*/
 
-
-.main-tile .img-circle,
 .relative-tile .img-circle{
     width:100px;
     height:100px;
 }
 
-div.relative-anagraphics-info{
+.user-info .anagraphics-info{
     margin-top: 10px;
+    padding: 0;
 }
 
-div.relative-bio{
+.user-info .biography-box{
     margin-top: 10px;
-}
-
-.dark-background h3{
-    word-wrap: break-word;   
-    color: #707070;
-    
-}
-
-
-.dark-background h3:hover{
-    text-decoration: underline !important;
 }
 
 div.users{
@@ -252,11 +252,6 @@ div.blue-background{
     background-color: rgba(70, 135, 206, 0.8)
 }
 
-.main-tile .blue-background{
-    border-radius: 4px;
-}
-
-
 .blue-background h3{
     color: #ffffff;
 }
@@ -265,14 +260,11 @@ div.blue-background{
     color: #303030;
 }
 
-.blue-background .relative-anagraphics-info p{
+.blue-background .anagraphics-info p{
     font-weight: bold;
 }
 
-.dark-background{
-    background-color: rgba(20, 20, 20, 0.8);
-    /*border-radius: 4px;*/
-}
+
 
 .rounded-tile .panel:first-child{
     border-top-left-radius: 4px;
@@ -284,9 +276,7 @@ div.blue-background{
     border-bottom-right-radius: 4px;
 }
 
-.dark-background p{
-    color: #707070;
-}
+
 
 div.tile-divisor{
     padding-left: 20px;
@@ -301,9 +291,6 @@ div.tile-divisor{
 div.panel{
     margin:0;
 }
-
-div.user-info,
-.main-tile,
 .relative-tile{
     margin-bottom: 20px;
 }
@@ -313,44 +300,48 @@ i.top-quote{
     font-size: 0.65em;
 }
 
-div.relative-tile .panel:not(:last-child){
-    border-bottom: 1px solid #2a2a2a;
-}
+
 
 .breadcrumb-nav a{
-        display: inline-block;
-        margin: 3px 0;
-    }
-
-    .user-button a{
-    height: 34px;
+    margin: 3px 0;
 }
 
-.user-button a img{
-    margin-top: -4px;
-    
-}
 
-.user-button a p{
-    display: inline-block;
-    margin-top: -4px;
-}
 
 .user-info h3{
     margin-top: 0;
 }
+
+div.relative-tile .dark-background:not(:last-child){
+    border-bottom: 1px solid #2a2a2a;
+}
+
 .dark-background{
+    background-color: rgba(20, 20, 20, 0.8);
     position: relative;
 }
 
-.user-info .delete-relative{
+.dark-background p{
+    color: #707070;
+}
+
+.dark-background h3{
+    word-wrap: break-word;   
+    color: #707070;
+}
+
+.dark-background h3:hover{
+    text-decoration: underline !important;
+}
+
+.dark-background .delete-relative{
     position: absolute;
     top: 5px;
     right: 10px;
     opacity: 0.8;
 }
 
-.user-info .delete-relative a{
+.dark-background .delete-relative a{
     color: #555;
     -webkit-transition: color 0.2s;
     -o-transition: color 0.2s;
@@ -358,10 +349,11 @@ div.relative-tile .panel:not(:last-child){
     transition: color 0.2s;
 }
 
-.user-info .delete-relative a:hover{
+.dark-background .delete-relative a:hover{
     color: #4687ce;
     
 }
+
 /*==========================================*/
 /*                SETTINGS                  */
 /*==========================================*/

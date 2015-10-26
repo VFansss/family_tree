@@ -77,13 +77,7 @@
         margin: 5px 0;
         
     }
-    
-    .breadcrumb-nav a{
-        display: inline-block;
-        margin: 3px 0;
-    }
-    
-   
+
 }
 
 /* Small + */
@@ -170,20 +164,19 @@
         position: relative;
     }
     
-    .responsive-row .relative-anagraphics-info,
+    .responsive-row .anagraphics-info,
     .responsive-row .img-circle{
         position:absolute;
         top:0;
     }
     
 
-    .responsive-row .relative-anagraphics-info{
+    .responsive-row .anagraphics-info{
         left: 115px;
     }
 
-    .relative-anagraphics-info{
+    .anagraphics-info{
         margin-left: 20px;
-        /*float:left;*/
     }
 }
 

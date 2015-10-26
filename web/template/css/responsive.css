@@ -66,6 +66,12 @@
         margin: 5px 0;
         
     }
+    
+    /*==========================================*/
+    /*                SETTINGS                  */
+    /*==========================================*/
+    
+   
 
 }
 
@@ -123,19 +129,7 @@
         display: inline-block;
     }
     
-    /*==========================================*/
-    /*                SETTINGS                  */
-    /*==========================================*/
-    .settings .wrapper{
-        width: 650px;
-        background-color: rgba(20, 20, 20, 0.8);
-        margin: 0 auto;
-        border-radius: 4px;
-        padding: 16px;
-    }
     
-    /* Le impostazioni per i campi input sono stati spostati in style.css*/
-   
 }
 
 /* Large */
@@ -173,6 +167,14 @@
     .anagraphics-info{
         margin-left: 20px;
     }
+    
+    /*==========================================*/
+    /*                SETTINGS                  */
+    /*==========================================*/
+    .settings .wrapper{
+        max-width: 300px;
+        
+    }
 }
 
 /* Large +*/
@@ -180,5 +182,10 @@
     .top-name,
     .min-hidden{
         display: none;
+    }
+    
+    .settings .wrapper{
+        width: 650px;
+        
     }
 }

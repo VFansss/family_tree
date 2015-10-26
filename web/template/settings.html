@@ -35,10 +35,10 @@
 
                 </form>
             </div>
-            <div class="col-xs-4 inline-block button-top-right pull-right">
+            <div class="col-xs-4 button-top-right pull-right">
                 <a href="profile" class="btn btn-primary pull-right">
                         <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
-                        <p>&nbsp;${user_logged.name}</p>
+                        <p class="inline-block">&nbsp;${user_logged.name}</p>
                 </a>
             </div>
                 
@@ -46,116 +46,119 @@
 
         <section class="login settings"> 
             
-            <div class="wrapper">
-                
-                <div class="row">
-                    
-                    <div class="col-md-6 test">
+            <div class="container-fluid">
+                <div class="wrapper">
 
-                        <div class="lock-container">
-                            <div class="panel-default text-center">
-                                <form action="change" class="panel-body" method="POST">
-                                    <div class="avatar text-center">
-                                        <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
-                                        <i class="fa fa-camera fa-3x"></i>
-                                        <input class="uploader" type="file" name="photo-upload" />
-                                    </div>
-                                    <#if msn??>
-                                        <div class="form-message inline-block">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
+                    <div class="row">
+
+                        <div class="col-md-6 test">
+
+                            <div class="lock-container">
+                                <div class="panel-default text-center">
+                                    <form action="change" class="panel-body" method="POST">
+                                        <div class="avatar text-center">
+                                            <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
+                                            <i class="fa fa-camera fa-3x"></i>
+                                            <input class="uploader" type="file" name="photo-upload" />
                                         </div>
-                                    </#if>
+                                        <#if msn??>
+                                            <div class="form-message inline-block">
+                                                <i class="fa fa-times"></i><p>${msn}</p>
+                                            </div>
+                                        </#if>
 
-                                </form>
+                                    </form>
 
+                                </div>
                             </div>
+
                         </div>
-                        
+
+                        <div class="col-md-6 "> 
+                            <div class="lock-container">
+                                <div class="panel-default text-center">
+
+                                    <form action="change" class="panel-body" method="POST">
+
+                                        <fieldset>
+                                            <#list first_form as field>
+                                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}" />
+                                            </#list>
+                                        </fieldset>
+
+                                        <#if msn??>
+                                            <div class="form-message">
+                                                <i class="fa fa-times"></i><p>${msn}</p>
+                                            </div>
+                                        </#if>
+                                        <button type="submit" class="col-xs-12 btn btn-primary">Change data<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>  
                     </div>
-                    
-                    <div class="col-md-6 "> 
-                        <div class="lock-container">
-                            <div class="panel-default text-center">
 
-                                <form action="change" class="panel-body" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
 
-                                    <fieldset>
-                                        <#list first_form as field>
-                                            <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}" />
-                                        </#list>
-                                    </fieldset>
+                            <div class="lock-container">
+                                <div class="panel-default text-center">
 
-                                    <#if msn??>
-                                        <div class="form-message">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
-                                        </div>
-                                    </#if>
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change data<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
+                                    <form action="change" class="panel-body" method="POST">
 
-                                </form>
+                                        <fieldset>
+                                            <#list second_form as field>
+                                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}"/>
+                                            </#list>
+                                        </fieldset>
 
+                                        <#if msn??>
+                                            <div class="form-message">
+                                                <i class="fa fa-times"></i><p>${msn}</p>
+                                            </div>
+                                        </#if>
+                                        <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
+
+                                    </form>
+
+                                </div>
                             </div>
-                        </div>
-                    </div>  
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                      
-                        <div class="lock-container">
-                            <div class="panel-default text-center">
 
-                                <form action="change" class="panel-body" method="POST">
+                        </div>    
 
-                                    <fieldset>
-                                        <#list second_form as field>
-                                            <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}"/>
-                                        </#list>
-                                    </fieldset>
+                        <div class="col-md-6">
 
-                                    <#if msn??>
-                                        <div class="form-message">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
-                                        </div>
-                                    </#if>
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
+                            <div class="lock-container">
+                                <div class="panel-default text-center">
 
-                                </form>
+                                    <form action="change" class="panel-body" method="POST">
 
+                                        <fieldset>
+                                            <#list third_form as field>
+                                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" />
+                                            </#list>
+                                        </fieldset>
+
+                                        <#if msn??>
+                                            <div class="form-message">
+                                                <i class="fa fa-times"></i><p>${msn}</p>
+                                            </div>
+                                        </#if>
+                                        <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
+
+                                    </form>
+
+                                </div>
                             </div>
-                        </div>
-                        
-                    </div>    
-                    
-                    <div class="col-md-6">
-                        
-                        <div class="lock-container">
-                            <div class="panel-default text-center">
 
-                                <form action="change" class="panel-body" method="POST">
-
-                                    <fieldset>
-                                        <#list third_form as field>
-                                            <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" />
-                                        </#list>
-                                    </fieldset>
-
-                                    <#if msn??>
-                                        <div class="form-message">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
-                                        </div>
-                                    </#if>
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
-
-                                </form>
-
-                            </div>
                         </div>
 
                     </div>
-                    
                 </div>
             </div>
+            
 
         </section>
             

@@ -36,7 +36,7 @@
                 </form>
             </div>
 
-            <div class="col-xs-4 inline-block button-top-right pull-right">
+            <div class="col-xs-4 button-top-right pull-right">
 
                 <#if action == "login">
                     <#assign other_action = "signup">
@@ -44,7 +44,9 @@
                     <#assign other_action = "login">
                 </#if>
 
-                <a href="${other_action}" class="btn btn-primary pull-right"><p>${other_action?cap_first}</p></a>
+                <a href="${other_action}" class="btn btn-primary pull-right">
+                    <p class="inline-block">${other_action?cap_first}</p>
+                </a>
             </div>
         </header>
 
@@ -74,8 +76,9 @@
                             </#if>
                             
                             <#if msn??>
-                                <div class="form-message inline-block">
-                                    <i class="fa fa-times"></i><p>${msn}</p>
+                                <div class="form-message">
+                                    <i class="fa fa-times"></i>
+                                    <p class="inline-block">${msn}</p>
                                 </div>
                             </#if>
                             <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>

@@ -7,6 +7,7 @@ package Servlet.Script;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,9 +36,10 @@ public class LogoutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session=request.getSession();  
-        session.invalidate();  
+        session.invalidate(); 
         
-        request.getRequestDispatcher("login").forward(request, response);  
+        // Vai alla pagina di login 
+        response.sendRedirect("login");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

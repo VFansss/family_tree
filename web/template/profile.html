@@ -93,6 +93,11 @@
 
                                 <!-- Father -->
                                 <div class="panel panel-body dark-background">
+                                    
+                                    <div class="delete-relative">
+                                        <a href="#"><i class="fa fa-times"></i></a>
+                                    </div>
+                                    
                                     <div class="col-md-12 top-name">
                                         <a href="profile?id=${father.user.id}">
                                             <h3>${father.user.name} ${father.user.surname}</h3>
@@ -124,6 +129,10 @@
                             <!-- Mother -->
                             <#if mother??>
                                 <div class="panel panel-body dark-background">
+                                    <div class="delete-relative">
+                                        <a href="#"><i class="fa fa-times"></i></a>
+                                    </div>
+                                    
                                     <div class="col-md-12 top-name">
                                         <a href="profile?id=${mother.user.id}">
                                             <h3>${mother.user.name} ${mother.user.surname}</h3>
@@ -164,7 +173,13 @@
                         <!-- Husband/Wife -->
                     
                         <div class="col-md-12 user-info relative-tile rounded-tile">
+                            
                             <div class="panel panel-body dark-background">
+                                
+                                <div class="delete-relative">
+                                    <a href="#"><i class="fa fa-times"></i></a>
+                                </div>
+                                
                                 <div class="col-md-12 top-name">
                                     <a href="profile?id=${spouse.user.id}">
                                         <h3>${spouse.user.name} ${spouse.user.surname}</h3>
@@ -205,6 +220,11 @@
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <#list children as child>
                                 <div class="panel panel-body dark-background">
+    
+                                    <div class="delete-relative">
+                                        <a href="#"><i class="fa fa-times"></i></a>
+                                    </div>
+                                
                                     <div class="col-md-12 top-name">
                                         <a href="profile?id=${child.user.id}">
                                             <h3>${child.user.name} ${child.user.surname}</h3>
@@ -245,6 +265,11 @@
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <#list siblings as sibling>
                                 <div class="panel panel-body dark-background">
+     
+                                    <div class="delete-relative">
+                                        <a href="#"><i class="fa fa-times"></i></a>
+                                    </div>
+                                
                                     <div class="col-md-12 top-name">
                                         <a href="profile?id=${sibling.user.id}">
                                             <h3>${sibling.user.name} ${sibling.user.surname}</h3>

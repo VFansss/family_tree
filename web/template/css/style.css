@@ -339,6 +339,29 @@ div.relative-tile .panel:not(:last-child){
 .user-info h3{
     margin-top: 0;
 }
+.dark-background{
+    position: relative;
+}
+
+.user-info .delete-relative{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    opacity: 0.8;
+}
+
+.user-info .delete-relative a{
+    color: #555;
+    -webkit-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+.user-info .delete-relative a:hover{
+    color: #4687ce;
+    
+}
 /*==========================================*/
 /*                SETTINGS                  */
 /*==========================================*/

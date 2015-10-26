@@ -1,6 +1,5 @@
-/*==========================================*/
-/*                GENERAL                   */
-/*==========================================*/ *
+
+// <editor-fold defaultstate="collapsed" desc="GENERAL">
 
 *{
     outline: none !important;
@@ -19,34 +18,35 @@ ul{
     object-fit: cover;
 }
 
-.rounded-tile > *:first-child{
+.rounded > *:first-child{
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }
 
-.rounded-tile > *:last-child{
+.rounded > *:last-child{
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
 }
-/*==========================================*/
-/*                HEADER                     */
-/*==========================================*/
+
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="HEADER">
 
 header{
     height: 35px;
     margin-bottom: 15px;
 }
 
-#tree-icon img{
+header #tree-icon img{
     margin: 0 20px;
     height: 40px;
     width: 40px;
 }
-#search-bar{
+header #search-bar{
     position:relative;
 }
 
-#search-bar input[type=button]{
+header #search-bar input[type=button]{
     opacity: 0;
     position:absolute;
     width:35px;
@@ -55,7 +55,7 @@ header{
     left: 15px;
 }
 
-#search-bar input[type=text]{
+header #search-bar input[type=text]{
     color: rgba(255,255,255,.5);
     padding: 0 10px 2px 39px;
     background: rgba(0,0,0,0.6);
@@ -69,12 +69,12 @@ header{
     width: 100%;
 }
 
-#search-bar input[type=text]:focus{
+header #search-bar input[type=text]:focus{
     background-color:rgba(255,255,255,0.1);
     box-shadow: 0px 0px 1px 1px rgba(255,255,255,0.1);
 }
 
-#search-bar::before{
+header #search-bar::before{
     font-family: FontAwesome;
     content:"\f002";
     width: 50px;
@@ -114,12 +114,10 @@ header .user-button a p{
     display: inline-block;
     margin-top: -4px;
 }
+// </editor-fold>
 
-/*==========================================*/
-/*                FOOTER                     */
-/*==========================================*/
-      
-    
+// <editor-fold defaultstate="collapsed" desc="FOOTER">
+
 footer .ball{
     display: inline-block;
     width: 40px;
@@ -152,7 +150,6 @@ footer .ball i{
     
 }
 
-
 .ball .img-circle{
     height: 40px;
     width: 40px;
@@ -163,10 +160,9 @@ footer .active{
 /*    background-color: #000;*/
     /*box-shadow: 0p    x 0px 0px 1px rgba(70, 135, 206, 0.5);*/
 }
+// </editor-fold>
 
-/*==========================================*/
-/*                LOGIN                     */
-/*==========================================*/
+// <editor-fold defaultstate="collapsed" desc="LOGIN">
 
 section.login .title h1{
     font-family: Arvo;
@@ -223,106 +219,99 @@ section.login .form-message p{
     display: inline-block;
 }
 
-/*==========================================*/
-/*                PROFILE                   */
-/*==========================================*/
+// </editor-fold>
 
-.tile .img-circle{
-    width:100px;
-    height:100px;
-}
+// <editor-fold defaultstate="collapsed" desc="PROFILE">
 
-.tile .anagraphics-info{
-    margin-top: 10px;
-    padding: 0;
-}
-
-.tile .biography-box{
-    margin-top: 10px;
-}
-
-div.blue-background{
-    background-color: rgba(70, 135, 206, 0.8)
-}
-
-.blue-background h3{
-    color: #ffffff;
-}
-
-.blue-background p{
-    color: #303030;
-}
-
-.blue-background .anagraphics-info p{
-    font-weight: bold;
-}
-
-
-
-div.tile-divisor{
-    padding-left: 20px;
-    margin-bottom: 10px;
-}
-
-.tile-divisor a{
-    font-weight: bold;
-    color: #ffffff;
-}
-
-div.panel{
-    margin:0;
-}
-.tile{
+section.profile .tile{
     margin-bottom: 20px;
 }
 
-i.top-quote{
-    vertical-align: super;
-    font-size: 0.65em;
-}
-
-
-
-.breadcrumb-nav a{
-    margin: 3px 0;
-}
-
-
-
-.tile h3{
+section.profile .tile h3{
     margin-top: 0;
     word-wrap: break-word;  
 }
 
-.dark-background:not(:last-child){
+section.profile .tile .img-circle{
+    width:100px;
+    height:100px;
+}
+
+section.profile .tile .anagraphics-info{
+    margin-top: 10px;
+    padding: 0;
+}
+
+section.profile .tile .biography-box{
+    margin-top: 10px;
+}
+
+section.profile .tile-label{
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+section.profile .tile-label a{
+    font-weight: bold;
+    color: #ffffff;
+}
+
+section.profile i.top-quote{
+    vertical-align: super;
+    font-size: 0.65em;
+}
+
+section.profile .breadcrumb-nav a{
+    margin: 3px 0;
+}
+
+section.profile .blue-background,
+section.profile .dark-background{
+    margin:0;
+}
+
+section.profile .blue-background{
+    background-color: rgba(70, 135, 206, 0.8)
+}
+
+section.profile .blue-background h3{
+    color: #ffffff;
+}
+
+section.profile .blue-background p{
+    color: #303030;
+}
+
+section.profile .blue-background .anagraphics-info p{
+    font-weight: bold;
+}
+
+section.profile .dark-background:not(:last-child){
     border-bottom: 1px solid #2a2a2a;
 }
 
-.dark-background{
+section.profile .dark-background{
     background-color: rgba(20, 20, 20, 0.8);
     position: relative;
 }
 
-.dark-background p{
+section.profile .dark-background p,
+section.profile .dark-background h3{
     color: #707070;
 }
 
-.dark-background h3{
-    color: #707070;
-}
-
-.dark-background h3:hover{
+section.profile .dark-background h3:hover{
     text-decoration: underline !important;
 }
 
-.dark-background .delete-relative{
+section.profile .dark-background .delete-relative{
     position: absolute;
     top: 5px;
     right: 10px;
     opacity: 0.8;
 }
 
-.dark-background .delete-relative a{
+section.profile .dark-background .delete-relative a{
     color: #555;
     -webkit-transition: color 0.2s;
     -o-transition: color 0.2s;
@@ -330,14 +319,13 @@ i.top-quote{
     transition: color 0.2s;
 }
 
-.dark-background .delete-relative a:hover{
+section.profile .dark-background .delete-relative a:hover{
     color: #4687ce;
-    
 }
 
-/*==========================================*/
-/*                SETTINGS                  */
-/*==========================================*/
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="SETTINGS">
 
 section.settings .avatar{
     position: relative;
@@ -379,41 +367,42 @@ section.settings .avatar i:hover{
     color: #4687ce;
 }
 
+// </editor-fold>
 
-/*==========================================*/
-/*                 SEARCH                   */
-/*==========================================*/
+// <editor-fold defaultstate="collapsed" desc="SEARCH">
 
-.search-filters h4{
+section.search .search-filters h4{
     color: #ddd;
     margin-top: 0px;
     padding-left: 15px;
 }
 
-form.filter-search-form{
+section.search form.filter-search-form{
     padding-left: 15px;
     padding-right: 15px;
     /*width: 80%;*/
 }
 
-form.filter-search-form fieldset{
+section.search form.filter-search-form fieldset{
     /*width: 80%;*/
 }
 
-.search-filters input{
+section.search .search-filters input{
     margin-bottom: 10px;
 }
 
-.filter-search-button{
+section.search .filter-search-button{
     width: auto;
 }
 
-.inrow-div{
+section.search .inrow-div{
     display:inline-block;
 }
 
-.add-button{
+section.search .add-button{
     position: absolute;
     right: 30px;
     z-index: 10;
 }
+
+// </editor-fold>

@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
                 GenealogicalTree family_tree = user_to_log.getFamilyTree();
                 family_tree.getFamilyTree();
                 session.setAttribute("family_tree", family_tree);
-                response.sendRedirect("profile?id=" + user_to_log.getId());
+                response.sendRedirect("profile");
             }
         }
 

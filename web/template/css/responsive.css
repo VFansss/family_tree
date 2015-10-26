@@ -1,12 +1,8 @@
 
+// <editor-fold defaultstate="collapsed" desc="Small">
 
-
-/* Small */
 @media (max-width: 768px) {
-    section{
-        /*padding-bottom: 45px;*/
-    }
-    
+
     .xs-hidden{
         display:none !important;
     }
@@ -16,7 +12,7 @@
     /*==========================================*/
    
     
-    #search-bar{
+    header #search-bar{
         margin-bottom: 5px;
     }
     
@@ -27,8 +23,7 @@
     /*==========================================*/
     /*                LOGIN                     */
     /*==========================================*/
-    
-     
+
     section.login .title img {
         width: 200px;
         height: 200px;
@@ -43,8 +38,6 @@
     footer{
         width: 100%;
         background: rgba(20, 20, 20, 0.8);
-/*        position: fixed;
-        bottom: 0;*/
     }
     
     footer ul{
@@ -75,7 +68,10 @@
 
 }
 
-/* Small + */
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="Small+">
+
 @media (min-width: 769px) {
     /*==========================================*/
     /*                HEADER                    */
@@ -111,9 +107,10 @@
         font-size: 1.2em;
     }
     
+    .logout{ bottom: 10px; }
     .settings{ bottom: 70px; }
     .tree{ bottom: 130px; }
-    .logout{ bottom: 10px; }
+    
     
     /*==========================================*/
     /*                PROFILE                   */
@@ -139,22 +136,20 @@
         border-radius: 4px;
         padding: 16px;
     }
-    
-    .settings .wrapper .test{
-        /*border-right: 1px solid #404040;*/  
-    }
-    
+
     .settings .form-control{
         border: 0; 
         border-bottom: 1px solid rgba(40, 40, 40, 1);
         background-color: rgba(20, 20, 20, 0.4);
         color: white;
     }
-    
-   
+
 }
 
-/* Large */
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="Large">
+
 @media (max-width: 991px) {
     
     /*==========================================*/
@@ -194,10 +189,15 @@
     }
 }
 
-/* Large +*/
+// </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="Large+">
+
 @media (min-width: 992px) {
     .top-name,
     .min-hidden{
         display: none;
     }
 }
+
+// </editor-fold>

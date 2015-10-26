@@ -232,16 +232,14 @@ div.relative-bio{
     margin-top: 10px;
 }
 
-.relative-name h3{
-    word-wrap: break-word;    
-}
-.relative-name h3,
-.relative-name h3 a{
-    color: #707070 !important;
+.dark-background h3{
+    word-wrap: break-word;   
+    color: #707070;
     
 }
 
-h3.relative-name a:hover{
+
+.dark-background h3:hover{
     text-decoration: underline !important;
 }
 
@@ -258,9 +256,6 @@ div.blue-background{
     border-radius: 4px;
 }
 
-.blue-background h3{
-    color: #ffffff !important;
-}
 
 .blue-background h3{
     color: #ffffff;
@@ -272,10 +267,6 @@ div.blue-background{
 
 .blue-background .relative-anagraphics-info p{
     font-weight: bold;
-}
-
-.user-info h3{
-    margin-top: 0;
 }
 
 .dark-background{
@@ -345,6 +336,9 @@ div.relative-tile .panel:not(:last-child){
     margin-top: -4px;
 }
 
+.user-info h3{
+    margin-top: 0;
+}
 /*==========================================*/
 /*                SETTINGS                  */
 /*==========================================*/

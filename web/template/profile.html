@@ -58,10 +58,10 @@
                     <!-- Current user -->
                     <div class="col-md-12 user-info main-tile rounded-tile">
                         <div class="panel panel-body blue-background">
-                            <div class="col-md-12 relative-name top-name">
+                            <div class="col-md-12 top-name">
                                 <h3>${user_current.name} ${user_current.surname}</h3>
                             </div>
-                            <div class="col-md-12 responsive-row">
+                            <div class="col-md-3 responsive-row">
                                 <div class="img-circle">
                                     <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle avatar" />
                                 </div>
@@ -70,8 +70,8 @@
                                     <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
                                 </div>
                             </div>
-                            <div class="col-md-9 relative-bio relative-name">
-                                <h3 class="relative-name main-name">${user_current.name} ${user_current.surname}</h3>
+                            <div class="col-md-9 relative-bio">
+                                <h3 class="main-name">${user_current.name} ${user_current.surname}</h3>
                                 <#if user_current.biography??>
                                     <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
                                 <#else>
@@ -93,8 +93,10 @@
 
                                 <!-- Father -->
                                 <div class="panel panel-body dark-background">
-                                    <div class="col-md-12 relative-name top-name">
-                                        <h3><a href="profile?id=${father.user.id}">${father.user.name} ${father.user.surname}</a></h3>
+                                    <div class="col-md-12 top-name">
+                                        <a href="profile?id=${father.user.id}">
+                                            <h3>${father.user.name} ${father.user.surname}</h3>
+                                        </a>
                                     </div>
                                     <div class="col-md-3 responsive-row">
                                         <div class="img-circle">
@@ -106,8 +108,10 @@
                                             <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-9 relative-bio relative-name">
-                                        <h3 class="relative-name main-name"><a href="profile?id=${father.user.id}">${father.user.name} ${father.user.surname}</a></h3>
+                                    <div class="col-md-9 relative-bio">
+                                        <a href="profile?id=${father.user.id}">
+                                            <h3 class="main-name">${father.user.name} ${father.user.surname}</h3>
+                                        </a>
                                         <#if father.user.biography??>
                                             <p>${father.user.biography}</p>
                                         <#else>
@@ -120,8 +124,10 @@
                             <!-- Mother -->
                             <#if mother??>
                                 <div class="panel panel-body dark-background">
-                                    <div class="col-md-12 relative-name top-name">
-                                        <h3><a href="profile?id=${mother.user.id}">${mother.user.name} ${mother.user.surname}</a></h3>
+                                    <div class="col-md-12 top-name">
+                                        <a href="profile?id=${mother.user.id}">
+                                            <h3>${mother.user.name} ${mother.user.surname}</h3>
+                                        </a>
                                     </div>
                                     <div class="col-md-3 responsive-row">
                                         <div class="img-circle">
@@ -133,8 +139,10 @@
                                             <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-9 relative-bio relative-name">
-                                        <h3 class="relative-name main-name"><a href="profile?id=${mother.user.id}">${mother.user.name} ${mother.user.surname}</a></h3>
+                                    <div class="col-md-9 relative-bio">
+                                        <a href="profile?id=${mother.user.id}">
+                                            <h3 class="main-name">${mother.user.name} ${mother.user.surname}</h3>
+                                        </a>
                                         <#if mother.user.biography??>
                                             <p>${mother.user.biography}</p>
                                         <#else>
@@ -157,8 +165,10 @@
                     
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <div class="panel panel-body dark-background">
-                                <div class="col-md-12 relative-name top-name">
-                                    <h3><a href="profile?id=${spouse.user.id}">${spouse.user.name} ${spouse.user.surname}</a></h3>
+                                <div class="col-md-12 top-name">
+                                    <a href="profile?id=${spouse.user.id}">
+                                        <h3>${spouse.user.name} ${spouse.user.surname}</h3>
+                                    </a>
                                 </div>
                                 <div class="col-md-3 responsive-row">
                                     <div class="img-circle">
@@ -170,8 +180,10 @@
                                         <p><i class="fa fa-user"></i> ${spouse.label?capitalize}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-9 relative-bio relative-name">
-                                    <h3 class="relative-name main-name"><a href="profile?id=${spouse.user.id}">${spouse.user.name} ${spouse.user.surname}</a></h3>
+                                <div class="col-md-9 relative-bio">
+                                    <a href="profile?id=${spouse.user.id}">
+                                        <h3 class="main-name">${spouse.user.name} ${spouse.user.surname}</h3>
+                                    </a>
                                     <#if spouse.user.biography??>
                                         <p>${spouse.user.biography}</p>
                                     <#else>
@@ -193,8 +205,10 @@
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <#list children as child>
                                 <div class="panel panel-body dark-background">
-                                    <div class="col-md-12 relative-name top-name">
-                                        <h3><a href="profile?id=${child.user.id}">${child.user.name} ${child.user.surname}</a></h3>
+                                    <div class="col-md-12 top-name">
+                                        <a href="profile?id=${child.user.id}">
+                                            <h3>${child.user.name} ${child.user.surname}</h3>
+                                        </a>
                                     </div>
                                     <div class="col-md-3 responsive-row">
                                         <div class="img-circle">
@@ -206,8 +220,10 @@
                                             <p><i class="fa fa-user"></i> ${child.label?capitalize}</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-9 relative-bio relative-name">
-                                        <h3 class="relative-name main-name"><a href="profile?id=${child.user.id}">${child.user.name} ${child.user.surname}</a></h3>
+                                    <div class="col-md-9 relative-bio">
+                                        <a href="profile?id=${child.user.id}">
+                                            <h3 class="main-name">${child.user.name} ${child.user.surname}</h3>
+                                        </a>
                                         <#if child.user.biography??>
                                             <p>${child.user.biography}</p>
                                         <#else>
@@ -229,8 +245,10 @@
                         <div class="col-md-12 user-info relative-tile rounded-tile">
                             <#list siblings as sibling>
                                 <div class="panel panel-body dark-background">
-                                    <div class="col-md-12 relative-name top-name">
-                                        <h3><a href="profile?id=${sibling.user.id}">${sibling.user.name} ${sibling.user.surname}</a></h3>
+                                    <div class="col-md-12 top-name">
+                                        <a href="profile?id=${sibling.user.id}">
+                                            <h3>${sibling.user.name} ${sibling.user.surname}</h3>
+                                        </a>
                                     </div>
                                     <div class="col-md-3 responsive-row">
                                         <div class="img-circle">
@@ -242,8 +260,10 @@
                                             <p><i class="fa fa-user"></i> ${sibling.label?capitalize}</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-9 relative-bio relative-name">
-                                        <h3 class="relative-name main-name"><a href="profile?id=${sibling.user.id}">${sibling.user.name} ${sibling.user.surname}</a></h3>
+                                    <div class="col-md-9 relative-bio">
+                                        <a href="profile?id=${sibling.user.id}">
+                                            <h3 class="main-name">${sibling.user.name} ${sibling.user.surname}</h3>
+                                        </a>
                                         <#if sibling.user.biography??>
                                             <p>${sibling.user.biography}</p>
                                         <#else>

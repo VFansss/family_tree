@@ -10,6 +10,13 @@ body{
     margin-top:15px; 
 } 
 
+header{
+    z-index: 0 !important;
+}
+section{
+    z-index: 100 !important;
+}
+
 ul{
     list-style: none;
 }
@@ -94,24 +101,16 @@ header .button-top-right a{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-   
-}
-
-header .button-top-right img{
-    width: 25px;
-    height: 25px;
-}
-
-header .user-button a{
     height: 34px;
 }
 
-header .user-button a img{
+header .button-top-right a img{
+    width: 25px;
+    height: 25px;
     margin-top: -4px;
-    
 }
 
-header .user-button a p{
+header .button-top-right a p{
     display: inline-block;
     margin-top: -4px;
 }

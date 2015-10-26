@@ -36,7 +36,7 @@
                 </form>
             </div>
 
-            <div class="col-md-1 col-sm-1 col-xs-4 button-top-right pull-right">
+            <div class="col-xs-4 button-top-right pull-right">
 
                 <#if action == "login">
                     <#assign other_action = "signup">
@@ -44,7 +44,7 @@
                     <#assign other_action = "login">
                 </#if>
 
-                <a href="${other_action}" class="btn btn-primary pull-right">${other_action?cap_first}</a>
+                <a href="${other_action}" class="btn btn-primary pull-right"><p>${other_action?cap_first}</p></a>
             </div>
         </header>
 

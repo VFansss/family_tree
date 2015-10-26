@@ -68,9 +68,12 @@
     }
     
     /*==========================================*/
-    /*                SETTINGS                  */
+    /*                SEARCH                  */
     /*==========================================*/
     
+    section.search .dark-background{
+        /*max-width: 500px;*/
+    }
    
 
 }
@@ -179,13 +182,27 @@
 
 /* Large +*/
 @media (min-width: 992px) {
-    .top-name,
-    .min-hidden{
+    
+    .top-name{
         display: none;
     }
     
     .settings .wrapper{
         width: 650px;
         
+    }
+    
+    section.search .dark-background{
+        padding-bottom: 120px;
+    }
+    
+    section.search .anagraphics-info,
+    section.search .img-circle{
+        position:absolute;
+        top:0;
+    }
+    
+    section.search .anagraphics-info{
+        left: 130px;
     }
 }

@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-xs-4 button-top-right pull-right">
                     <a href="profile" class="btn btn-primary pull-right ellipsis">
-                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle avatar avatar-square"/>
+                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
                         <p class="inline-block">&nbsp;${user_logged.name}</p>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                     
                     <#list breadcrumb as node>
                         <a href="profile?id=${node.user.id}" class="ball breadcrumb-nav" title="${node.user.name} - ${node.label}">
-                            <img src="template/profile/${node.user.id}.jpg" class="img-circle avatar" alt="profile" />
+                            <img src="template/profile/${node.user.id}.jpg" class="img-circle img-cover" alt="profile" />
                         </a>
                     </#list>            
                 </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-md-4 responsive-row">
                             <div class="img-circle">
-                                <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle img-cover" />
                             </div>
                             <ul class="anagraphics-info">
                                 <li>
@@ -96,19 +96,18 @@
 
                             <!-- Father -->
                             <div class="panel panel-body dark-background">
-
-                                <div class="delete-relative">
-                                    <a href="#"><i class="fa fa-times"></i></a>
-                                </div>
-
+                                <form action="#" class="delete-relative hover-blue">
+                                    <button href="#"><i class="fa fa-times"></i></button>
+                                </form>
+                                    
                                 <div class="col-md-12 top-name">
                                     <a href="profile?id=${father.user.id}">
-                                        <h3>${father.user.name} ${father.user.surname}</h3>
+                                        <h3 class="hover-blue">${father.user.name} ${father.user.surname}</h3>
                                     </a>
                                 </div>
                                 <div class="col-md-4 responsive-row">
                                     <div class="img-circle">
-                                        <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                                     </div>
                                     <ul class="anagraphics-info">
                                         <li>
@@ -125,7 +124,7 @@
                                 </div>
                                 <div class="col-md-8 biography-box">
                                     <a href="profile?id=${father.user.id}">
-                                        <h3 class="main-name">${father.user.name} ${father.user.surname}</h3>
+                                        <h3 class="main-name hover-blue">${father.user.name} ${father.user.surname}</h3>
                                     </a>
                                     <#if father.user.biography??>
                                         <p>${father.user.biography}</p>
@@ -139,18 +138,18 @@
                         <!-- Mother -->
                         <#if mother??>
                             <div class="panel panel-body dark-background">
-                                <div class="delete-relative">
-                                    <a href="#"><i class="fa fa-times"></i></a>
-                                </div>
+                                <form action="#" class="delete-relative hover-blue">
+                                    <button href="#"><i class="fa fa-times"></i></button>
+                                </form>
 
                                 <div class="col-md-12 top-name">
                                     <a href="profile?id=${mother.user.id}">
-                                        <h3>${mother.user.name} ${mother.user.surname}</h3>
+                                        <h3 class="hover-blue">${mother.user.name} ${mother.user.surname}</h3>
                                     </a>
                                 </div>
                                 <div class="col-md-4 responsive-row">
                                     <div class="img-circle">
-                                        <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                                     </div>
                                     <ul class="anagraphics-info">
                                         <li>
@@ -166,7 +165,7 @@
                                 </div>
                                 <div class="col-md-8 biography-box">
                                     <a href="profile?id=${mother.user.id}">
-                                        <h3 class="main-name">${mother.user.name} ${mother.user.surname}</h3>
+                                        <h3 class="main-name hover-blue">${mother.user.name} ${mother.user.surname}</h3>
                                     </a>
                                     <#if mother.user.biography??>
                                         <p>${mother.user.biography}</p>
@@ -199,18 +198,18 @@
 
                         <div class="panel panel-body dark-background">
 
-                            <div class="delete-relative">
-                                <a href="#"><i class="fa fa-times"></i></a>
-                            </div>
+                            <form action="#" class="delete-relative hover-blue">
+                                <button href="#"><i class="fa fa-times"></i></button>
+                            </form>
 
                             <div class="col-md-12 top-name">
                                 <a href="profile?id=${spouse.user.id}">
-                                    <h3>${spouse.user.name} ${spouse.user.surname}</h3>
+                                    <h3 class="hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
                                 </a>
                             </div>
                             <div class="col-md-4 responsive-row">
                                 <div class="img-circle">
-                                    <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                    <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                                 </div>
                                 <ul class="anagraphics-info">
                                         <li>
@@ -226,7 +225,7 @@
                             </div>
                             <div class="col-md-8 biography-box">
                                 <a href="profile?id=${spouse.user.id}">
-                                    <h3 class="main-name">${spouse.user.name} ${spouse.user.surname}</h3>
+                                    <h3 class="main-name hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
                                 </a>
                                 <#if spouse.user.biography??>
                                     <p>${spouse.user.biography}</p>
@@ -250,18 +249,18 @@
                         <#list children as child>
                             <div class="panel panel-body dark-background">
 
-                                <div class="delete-relative">
-                                    <a href="#"><i class="fa fa-times"></i></a>
-                                </div>
+                                <form action="#" class="delete-relative hover-blue">
+                                    <button href="#"><i class="fa fa-times"></i></button>
+                                </form>
 
                                 <div class="col-md-12 top-name">
                                     <a href="profile?id=${child.user.id}">
-                                        <h3>${child.user.name} ${child.user.surname}</h3>
+                                        <h3 class="hover-blue">${child.user.name} ${child.user.surname}</h3>
                                     </a>
                                 </div>
                                 <div class="col-md-4 responsive-row">
                                     <div class="img-circle">
-                                        <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                                     </div>
                                     <ul class="anagraphics-info">
                                         <li>
@@ -277,7 +276,7 @@
                                 </div>
                                 <div class="col-md-8 biography-box">
                                     <a href="profile?id=${child.user.id}">
-                                        <h3 class="main-name">${child.user.name} ${child.user.surname}</h3>
+                                        <h3 class="main-name hover-blue">${child.user.name} ${child.user.surname}</h3>
                                     </a>
                                     <#if child.user.biography??>
                                         <p>${child.user.biography}</p>
@@ -301,18 +300,18 @@
                         <#list siblings as sibling>
                             <div class="panel panel-body dark-background">
 
-                                <div class="delete-relative">
-                                    <a href="#"><i class="fa fa-times"></i></a>
-                                </div>
+                                <form action="#" class="delete-relative hover-blue">
+                                    <button href="#"><i class="fa fa-times"></i></button>
+                                </form>
 
                                 <div class="col-md-12 top-name">
                                     <a href="profile?id=${sibling.user.id}">
-                                        <h3>${sibling.user.name} ${sibling.user.surname}</h3>
+                                        <h3 class="hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
                                     </a>
                                 </div>
                                 <div class="col-md-4 responsive-row">
                                     <div class="img-circle">
-                                        <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle avatar" />
+                                        <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                                     </div>
                                     <ul class="anagraphics-info">
                                         <li>
@@ -328,7 +327,7 @@
                                 </div>
                                 <div class="col-md-8 biography-box">
                                     <a href="profile?id=${sibling.user.id}">
-                                        <h3 class="main-name">${sibling.user.name} ${sibling.user.surname}</h3>
+                                        <h3 class="main-name hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
                                     </a>
                                     <#if sibling.user.biography??>
                                         <p>${sibling.user.biography}</p>
@@ -354,13 +353,13 @@
                     </li>
 
                     <li>
-                        <a href="settings" class="ball settings " title="Settings">
+                        <a href="settings" class="ball settings hover-blue" title="Settings">
                             <i class="fa fa-cog fa-2x"></i>
                         </a>
                     </li>
                     
                     <li>
-                        <a href="logout" class="ball logout " title="Settings">
+                        <a href="logout" class="ball logout hover-blue" title="Settings">
                             <i class="fa fa-sign-out fa-2x"></i>
                         </a>
                     </li>

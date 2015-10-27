@@ -50,6 +50,17 @@ ul{
     text-overflow: ellipsis;
 }
 
+.hover-blue{
+    -webkit-transition: color 0.2s;
+    -o-transition: color 0.2s;
+    -moz-transition: color 0.2s;
+    transition: color 0.2s;
+}
+
+.hover-blue:hover{
+    color: #4687ce !important;
+}
+
 /*==========================================*/
 /*                HEADER                     */
 /*==========================================*/
@@ -145,7 +156,6 @@ footer .ball:not(.active){
 }
 
 footer .ball:not(.active):hover{
-    color: #4687ce;
     opacity: 1;
     -webkit-transition: opacity 0.2s;
     -o-transition: opacity 0.2s;
@@ -250,10 +260,6 @@ section.profile .tile .anagraphics-info{
     padding: 0;
 }
 
-section.profile .tile .biography-box{
-    margin-top: 10px;
-}
-
 section.profile .tile-label{
     padding-left: 20px;
     margin-bottom: 10px;
@@ -304,12 +310,13 @@ section.profile .dark-background{
 }
 
 section.profile .dark-background p,
+section.profile .dark-background a,
 section.profile .dark-background h3{
     color: #707070;
+    
 }
-
-section.profile .dark-background h3:hover{
-    text-decoration: underline !important;
+section.profile .dark-background h3{
+    color: inherit;
 }
 
 section.profile .dark-background .delete-relative{
@@ -317,14 +324,12 @@ section.profile .dark-background .delete-relative{
     top: 5px;
     right: 10px;
     opacity: 0.8;
+    
 }
 
-section.profile .dark-background .delete-relative a{
-    color: #555;
-    -webkit-transition: color 0.2s;
-    -o-transition: color 0.2s;
-    -moz-transition: color 0.2s;
-    transition: color 0.2s;
+section.profile .dark-background .delete-relative button{
+    background: transparent;
+    border:0;
 }
 
 section.profile .dark-background .delete-relative a:hover{
@@ -375,14 +380,6 @@ section.settings .avatar i{
     padding-top: 12px;
     font-size: 2em;
     color: #999;
-    -webkit-transition: color 0.2s;
-    -o-transition: color 0.2s;
-    -moz-transition: color 0.2s;
-    transition: color 0.2s;
-}
-
-section.settings .avatar i:hover{
-    color: #4687ce;
 }
 
 /*==========================================*/

@@ -63,7 +63,9 @@
         
     }
     
-
+    section.profile .tile .biography-box{
+        margin-top: 10px;
+    }
 
 }
 

@@ -47,7 +47,7 @@ public class Profile extends HttpServlet {
         //Gestione sessione
         HttpSession session = request.getSession(false);  
         
-        //Se non è stata generata la sessione
+        //Se è stata generata la sessione
         if(session != null){
             
             // Recupero dell'utente loggato

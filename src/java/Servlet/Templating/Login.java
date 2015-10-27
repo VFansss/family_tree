@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,21 +30,28 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Gestione sessione
+        HttpSession session = request.getSession(false);  
+        
+        //Se non è stata generata la sessione
+        if(session == null){
+            Map<String, Object> data = new HashMap<>();
+            List<String[]> fields = new ArrayList();
+            String[] email = {"email", "text", "E-mail"};
+            String[] password = {"password", "password", "Password"};
+            fields.add(email);
+            fields.add(password);
+            data.put("fields", fields);
+            data.put("action", "login");
 
-        Map<String, Object> data = new HashMap<>();
-        List<String[]> fields = new ArrayList();
-        String[] email = {"email", "text", "E-mail"};
-        String[] password = {"password", "password", "Password"};
-        fields.add(email);
-        fields.add(password);
-        data.put("fields", fields);
-        data.put("action", "login");
-        
-        String msn = request.getParameter("msn");
-        data.put("msn", msn);
-            
-        FreeMarker.process("login.html",data, response, getServletContext());
-        
+            String msn = request.getParameter("msn");
+            data.put("msn", msn);
+
+            FreeMarker.process("login.html",data, response, getServletContext());
+        }else{
+            // Altrimenti vai alla pagina dell'utente loggato
+            response.sendRedirect("profile");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

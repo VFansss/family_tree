@@ -70,11 +70,11 @@
 
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 tile-label">
                 
-                    <a href="#">Showing results for "..." <i class="fa fa-chevron-down"></i></a>
-             
+                <a href="#">Showing results for "..." <i class="fa fa-chevron-down"></i></a>
+
             </div>
             
-            <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 tile rounded">
+            <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 wrapper">
                 
                 <!--Inserimento di una riga orni due utenti-->
                 <#assign cont = 0>
@@ -87,24 +87,57 @@
                             <div class="col-md-4 col-sm-6 tile rounded">
                                 <div class="panel panel-body dark-background">
                                     
-                                    <!--<a href="#" class="btn btn-default btn-xs add-button"><i class="fa fa-fw fa-plus"></i> Add</a>-->
                                     
-                                    <div class="col-md-12 text-center" >
-                                        <h3 class="nowrap ellipsis" title="${user.name} ${user.surname}">${user.name} ${user.surname}</h3>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center" >
+                                            <h3 class="nowrap ellipsis" title="${user.name} ${user.surname}">${user.name} ${user.surname}</h3>
+                                        </div>
                                     </div>
                                     
-                                    <div class="col-md-12 responsive-row">
-                                        <div class="img-circle">
-                                            <img src="template/profile/${user.imageurl}" alt="profile image" class="img-circle img-cover" />
+                                    <div class="row">
+                                        <div class="col-md-12 responsive-row">
+                                            <div class="img-circle">
+                                                <img src="template/profile/${user.imageurl}" alt="profile image" class="img-circle img-cover" />
+                                            </div>
+                                            <ul class="anagraphics-info">
+                                                <li>
+                                                    <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
+                                                </li>
+                                                <li>
+                                                    <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="anagraphics-info">
-                                            <li>
-                                                <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
-                                            </li>
-                                            <li>
-                                                <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
-                                            </li>
-                                        </ul>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form>
+                                                <div class="col-md-6 col-sm-6 col-xs-6 relationship">
+
+                                                    <select>
+                                                        <optgroup label="Select a relationship">
+                                                            <#if user.gender == "male">
+                                                                <option value="parent">Father</option>
+                                                                <option value="spouse">Husband</option>
+                                                                <option value="sibling">Brother</option>
+                                                                <option value="child">Son</option>
+                                                            <#else>
+                                                                <option value="parent">Mother</option>
+                                                                <option value="spouse">Wife</option>
+                                                                <option value="sibling">Sister</option>
+                                                                <option value="child">Daughter</option>
+                                                            </#if>
+                                                        </optgroup>
+                                                    </select>
+                                                    <i class="fa fa-caret-down"></i>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
+                                                </div>
+                                            </form>
+                                        </div>  
+                                        
                                     </div>
                                     
                                 </div>

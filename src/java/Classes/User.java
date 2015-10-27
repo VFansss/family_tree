@@ -19,8 +19,9 @@ public class User {
     private String birthdate;
     private String bio;
     private String imageurl;
+    private String gender;
     
-    public User(String name, String surname, String id, String birthplace, String birthdate, String bio, String imageurl){
+    public User(String name, String surname, String id, String birthplace, String birthdate, String bio, String imageurl,String gender){
         this.name=name;
         this.surname=surname;
         this.birthdate=birthdate;
@@ -28,6 +29,15 @@ public class User {
         this.id=id;
         this.bio=bio;
         this.imageurl=imageurl;
+        this.gender=gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
     
     public String getName(){

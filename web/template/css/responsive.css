@@ -11,7 +11,6 @@
     /*==========================================*/
     /*                HEADER                     */
     /*==========================================*/
-   
     
     header #search-bar{
         margin-bottom: 5px;
@@ -54,10 +53,7 @@
         padding: 0;
         padding:5px 0;
     }
-    
- 
-   
-    
+
     /*==========================================*/
     /*                PROFILE                   */
     /*==========================================*/
@@ -67,29 +63,22 @@
         
     }
     
-    /*==========================================*/
-    /*                SEARCH                  */
-    /*==========================================*/
-    
-    section.search .dark-background{
-        /*max-width: 500px;*/
-    }
-   
+
 
 }
 
 /* Small + */
 @media (min-width: 769px) {
+    
     /*==========================================*/
     /*                HEADER                    */
     /*==========================================*/
+    
     header{
         top: 15px;
         position:fixed;
         width:100%;
-/*        z-index: 999;*/
     }
-    
     
     /*==========================================*/
     /*                HEADER                    */
@@ -102,10 +91,7 @@
     /*==========================================*/
     /*                FOOTER                    */
     /*==========================================*/
-    
-    footer .logout{
-        /*display: none;*/
-    }
+
     footer .ball{
         position: fixed;
         left: 7px;
@@ -122,17 +108,23 @@
     /*                PROFILE                   */
     /*==========================================*/
     
-    .breadcrumb-nav.ball{
+    section.profile .breadcrumb-nav.ball{
         position:relative;
     }
     
-    .breadcrumb-nav{
+    section.profile .breadcrumb-nav{
         position:fixed;
         width: 50px;
         display: inline-block;
     }
     
+    /*==========================================*/
+    /*                SETTINGS                  */
+    /*==========================================*/
     
+    section.settings .wrapper{
+        width: 650px;
+    }
 }
 
 /* Large */
@@ -171,30 +163,22 @@
         margin-left: 20px;
     }
     
-    /*==========================================*/
-    /*                SETTINGS                  */
-    /*==========================================*/
-    .settings .wrapper{
-        max-width: 300px;
-        
-    }
 }
 
 /* Large +*/
 @media (min-width: 992px) {
     
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+    
     .top-name{
         display: none;
     }
     
-    .settings .wrapper{
-        width: 650px;
-        
-    }
-    
-    section.search .dark-background{
-        padding-bottom: 120px;
-    }
+    /*==========================================*/
+    /*                SEARCH                    */
+    /*==========================================*/
     
     section.search .anagraphics-info,
     section.search .img-circle{

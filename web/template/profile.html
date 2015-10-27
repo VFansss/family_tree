@@ -183,7 +183,14 @@
                 <#if spouse??>
 
                     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                        <a href="#">Spouse <i class="fa fa-chevron-down"></i></a>
+                        <a href="#">
+                            <#if user_current.gender == "male">
+                                Wife 
+                            <#else>
+                                Husband
+                            </#if>    
+                            <i class="fa fa-chevron-down"></i>
+                        </a>
                     </div>
 
                     <!-- Husband/Wife -->

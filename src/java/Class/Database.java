@@ -6,7 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.sql.DataSource;
 /**
  * Author
  * @author Marco
@@ -24,10 +29,13 @@ public class Database {
      * @throws java.lang.ClassNotFoundException
      */
     public Database(String db_name) throws ClassNotFoundException{
-        // Impostazione  dela classe del driver
-        Class.forName("com.mysql.jdbc.Driver");        
+//        // Impostazione  dela classe del driver
+//        Class.forName("com.mysql.jdbc.Driver");        
         // Impostazione del nome del database
         this.db_name = db_name;
+        
+        
+        
     }
     
     public static void setOut(PrintWriter out){
@@ -39,14 +47,22 @@ public class Database {
      * @param user          user
      * @param password      password
      * @return              true se la connessione è stata effettuata con successo, false altrimenti
+     * @throws javax.servlet.ServletException
      */
-    public boolean connect(String user, String password){
+    public boolean connect(String user, String password)throws ServletException{
         try {
-            Database.db = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.db_name, user, password);
+            
+            InitialContext ctx = new InitialContext();
+            javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java:comp/env/"+this.db_name);
+            
+            Database.db  = ds.getConnection();
             return true;
-        } catch (SQLException ex) {
+            
+        } catch (NamingException | SQLException ex) {
             return false;
         }
+        
+        
     }
     
     /**

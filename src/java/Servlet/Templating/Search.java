@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.sql.*;
 /**
  *
  * @author Gianluca
@@ -40,37 +41,51 @@ public class Search extends HttpServlet {
         //Gestione sessione
         HttpSession session=request.getSession(false);
         
-        User user_logged = null;
-        boolean is_logged;
+        //User user_logged = null;
+        boolean logged = false;
         
         //Se non è stato effettuato il login...
-        if(session==null){
-
-            is_logged = false;         
-        //Se è stato effettuato il login...
-        } else { 
+        if(session!=null) { 
             
-            String logged_id = (String)session.getAttribute("user_logged");
-            
-            is_logged = true;            
+            logged = true;             
+            data.put("user_logged", (User)session.getAttribute("user_logged"));
         }
         
-        boolean connect = (boolean) this.getServletContext().getAttribute("connect");
+        String input = request.getParameter("search");
+        String[] parts = input.split(" ");
         
-        if(connect){
-            UserList results = search("marco");
-        } else {
-            //Gestione "impossibile eseguire la ricerca"
-        }
+        UserList results = search(parts);
+        
+        data.put("logged", logged);
+        data.put("results", results);
         
         FreeMarker.process("search.html",data, response, getServletContext());
         
     }
     
-    protected UserList search(String condition){
-        
-        return new UserList();
+    protected static UserList search(String[] conditions){
+        UserList results = new UserList();
+        try {        
+            if(conditions != null){ 
+                for(int i=0; i<conditions.length; i++){
+                    try (ResultSet record = Database.selectRecord("user", "name='"+conditions[i]+"'")) {
+                        while(record.next()){
+                            results.add(new User(record));  
+                        }
+                    }catch (SQLException ex){
+                        if(i-1<conditions.length) continue;
+                        else throw ex;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            results = null;
+        } finally {
+            return results;
+        }
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

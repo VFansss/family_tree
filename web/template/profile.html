@@ -71,6 +71,15 @@
                                 <li>
                                     <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
                                 </li>
+                                <#if relative_grade??>
+                                    <li>
+                                        <p><i class="fa fa-user"></i> ${relative_grade?capitalize}</p>
+                                    </li>
+                                <#else>
+                                    <li>
+                                        <p><i class="fa fa-user"></i> You</p>
+                                    </li>
+                                </#if>
                             </ul>
                         </div>
                         <div class="col-md-8 biography-box">

@@ -56,9 +56,11 @@ public class Profile extends HttpServlet {
             // Recupero dell'utente corrente
             User user_current;
             TreeNode user_current_node;
+            String relative_grade = null;
             if (request.getParameter("id") != null){
-                user_current = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id")).getUser();
-                //user_current = user_current_node.getUser();
+                user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id"));
+                user_current = user_current_node.getUser();
+                relative_grade = user_current_node.getLabel();
             } else {
                 user_current = user_logged;
             }
@@ -85,6 +87,7 @@ public class Profile extends HttpServlet {
 
                 data.put("user_logged", user_logged);
                 data.put("user_current", user_current);
+                data.put("relative_grade", relative_grade);
 
                 data.put("siblings", siblings);
                 data.put("children", children);
@@ -101,6 +104,7 @@ public class Profile extends HttpServlet {
                     breadcrumb.clear();
 
                 }else{
+                    
                     Iterator iter = breadcrumb.iterator();
                     boolean remove = false;
                     while(iter.hasNext()){
@@ -115,7 +119,6 @@ public class Profile extends HttpServlet {
                         }else{
                             iter.remove();
                         }
-
                     }
                 }
 

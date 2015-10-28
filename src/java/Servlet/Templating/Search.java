@@ -58,6 +58,7 @@ public class Search extends HttpServlet {
         
         data.put("logged", logged);
         data.put("results", results);
+        data.put("searching", input);
         
         FreeMarker.process("search.html",data, response, getServletContext());
         

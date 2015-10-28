@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.tree;
+package Class.Tree;
 
-import classes.Database;
-import classes.User;
+import Class.Database;
+import Class.User;
 import java.util.ArrayList;
 
 /**

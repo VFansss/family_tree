@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet.script;
+package Servlet.Script;
 
-import classes.Database;
-import classes.tree.GenealogicalTree;
-import classes.tree.NodeList;
-import classes.User;
-import classes.UserList;
+import Class.Database;
+import Class.Tree.GenealogicalTree;
+import Class.Tree.NodeList;
+import Class.User;
+import Class.UserList;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,8 +28,8 @@ import java.util.logging.Logger;
  *
  * @author Gianluca
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

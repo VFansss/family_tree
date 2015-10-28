@@ -5,9 +5,10 @@
  */
 package Servlet.Templating;
 
+import Class.Database;
 import Class.FreeMarker;
-import Classes.User;
-import Classes.UserBuilder;
+import Class.User;
+import Class.UserList;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,36 +43,33 @@ public class Search extends HttpServlet {
         User user_logged = null;
         boolean is_logged;
         
-        //Se non c'è nessun utente registrato
+        //Se non è stato effettuato il login...
         if(session==null){
 
-            is_logged = false;
-            
+            is_logged = false;         
+        //Se è stato effettuato il login...
         } else { 
             
-            String logged_id = (String)session.getAttribute("id");
-            user_logged = UserBuilder.getUserById(logged_id);
-            is_logged = true;
-       
+            String logged_id = (String)session.getAttribute("user_logged");
+            
+            is_logged = true;            
         }
         
-        //Lista risultati ricerca
-        List<User> results = new LinkedList<User>();
+        boolean connect = (boolean) this.getServletContext().getAttribute("connect");
         
-        results.add(UserBuilder.legolas);
-        results.add(UserBuilder.gimli);
-        results.add(UserBuilder.boromir);        
-        results.add(UserBuilder.eldarion);
-        results.add(UserBuilder.arathorn);
-        results.add(UserBuilder.arwen);
-        results.add(UserBuilder.gilraen);
-
-        data.put("loggeduser", user_logged);
-        data.put("logged", is_logged);
-        data.put("results", results);
+        if(connect){
+            UserList results = search("marco");
+        } else {
+            //Gestione "impossibile eseguire la ricerca"
+        }
         
         FreeMarker.process("search.html",data, response, getServletContext());
         
+    }
+    
+    protected UserList search(String condition){
+        
+        return new UserList();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

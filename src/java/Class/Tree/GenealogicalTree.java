@@ -134,12 +134,18 @@ public class GenealogicalTree{
         
         
         
-    }
-    
+    }   
     
     public TreeNode getUser(User user){
         for(TreeNode element: this.family_tree){
             if(element.getUser().equals(user)) return element;
+        }
+        return null;
+    }
+    
+    public TreeNode getUserById(String id){
+        for(TreeNode element: this.family_tree){
+            if(element.getUser().getId().equals(id)) return element;
         }
         return null;
     }

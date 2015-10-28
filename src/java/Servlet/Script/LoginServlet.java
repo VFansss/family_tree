@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
         
         boolean connect = (boolean) this.getServletContext().getAttribute("connect");
 
@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
             }else{
                 // Altrimenti, fai il login dell'utente
                 HttpSession session = request.getSession();
-                session.setAttribute("id", user_to_log.getId());
+                session.setAttribute("user_logged", user_to_log);
                 session.setAttribute("breadcrumb", new NodeList());
 
                 GenealogicalTree family_tree = user_to_log.getFamilyTree();

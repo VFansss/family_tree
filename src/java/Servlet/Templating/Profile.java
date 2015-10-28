@@ -51,12 +51,14 @@ public class Profile extends HttpServlet {
         if(session != null){
             
             // Recupero dell'utente loggato
-            User user_logged = User.getUserById((String)session.getAttribute("id"));
+            User user_logged = (User)session.getAttribute("user_logged");
             
             // Recupero dell'utente corrente
             User user_current;
+            TreeNode user_current_node;
             if (request.getParameter("id") != null){
-                user_current = User.getUserById(request.getParameter("id"));
+                user_current = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id")).getUser();
+                //user_current = user_current_node.getUser();
             } else {
                 user_current = user_logged;
             }

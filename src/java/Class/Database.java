@@ -18,25 +18,10 @@ import javax.sql.DataSource;
  */
 
 public class Database { 
-    private final String db_name;
     private static Connection db;
     public static PrintWriter out;
     public static String db_query;
-    
-    /**
-     * Inizializzazione database
-     * @param db_name name database
-     * @throws java.lang.ClassNotFoundException
-     */
-    public Database(String db_name) throws ClassNotFoundException{
-//        // Impostazione  dela classe del driver
-//        Class.forName("com.mysql.jdbc.Driver");        
-        // Impostazione del nome del database
-        this.db_name = db_name;
-        
-        
-        
-    }
+
     
     public static void setOut(PrintWriter out){
         Database.out = out;
@@ -49,11 +34,11 @@ public class Database {
      * @return              true se la connessione è stata effettuata con successo, false altrimenti
      * @throws javax.servlet.ServletException
      */
-    public boolean connect(String user, String password)throws ServletException{
+    public boolean connect()throws ServletException{
         try {
             
             InitialContext ctx = new InitialContext();
-            javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java:comp/env/"+this.db_name);
+            javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
             
             Database.db  = ds.getConnection();
             return true;

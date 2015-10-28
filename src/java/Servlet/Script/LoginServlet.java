@@ -44,9 +44,9 @@ public class LoginServlet extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         
-        // Connessione al database
-        Database db = new Database("collaborative_genealogy");
-        if(db.connect("admin", "admin")){
+        boolean connect = (boolean) this.getServletContext().getAttribute("connect");
+
+        if(connect){
             
             //Recupera l'email dell'utente
             String email = request.getParameter("email");

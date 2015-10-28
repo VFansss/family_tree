@@ -43,16 +43,15 @@ public class Settings extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         
         response.setContentType("text/html;charset=UTF-8");
-  
+        
+        boolean connect = (boolean) this.getServletContext().getAttribute("connect");
         //Gestione sessione
         HttpSession session = request.getSession(false);  
         
         //Se non è stata generata la sessione
         if(session != null){
-            
-            Database db = new Database("collaborative_genealogy");
-            
-            if(db.connect("admin", "admin")) {
+
+            if(connect){                
             
                 User user_logged = User.getUserById((String)session.getAttribute("id"));
                 

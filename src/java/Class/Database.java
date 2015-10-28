@@ -1,16 +1,12 @@
 package Class;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.sql.DataSource;
 /**
  * Author
@@ -20,7 +16,6 @@ import javax.sql.DataSource;
 public class Database { 
     private static Connection db;
     public static PrintWriter out;
-    public static String db_query;
 
     
     public static void setOut(PrintWriter out){
@@ -29,25 +24,17 @@ public class Database {
     
     /**
      * Connessione al database
-     * @param user          user
-     * @param password      password
      * @return              true se la connessione è stata effettuata con successo, false altrimenti
-     * @throws javax.servlet.ServletException
      */
-    public boolean connect()throws ServletException{
+    public boolean connect(){
         try {
-            
             InitialContext ctx = new InitialContext();
-            javax.sql.DataSource ds = (javax.sql.DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
-            
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
             Database.db  = ds.getConnection();
             return true;
-            
         } catch (NamingException | SQLException ex) {
             return false;
         }
-        
-        
     }
     
     /**
@@ -145,7 +132,6 @@ public class Database {
             }
         }
         query = query.substring(0, query.length() - 2);
-        Database.db_query = query;
         // Esecuzione query
         return Database.updateQuery(query);
     }
@@ -215,9 +201,9 @@ public class Database {
     }
     
     /**
-     * Resetta un attributo di una tabella  
+     * Imposta a NULL un attributo di una tabella  
      * @param table         tabella in cui è presente l'attributo
-     * @param attribute     attributo da resettare
+     * @param attribute     attributo da impostare a NULL
      * @param condition     condizione
      * @return
      */

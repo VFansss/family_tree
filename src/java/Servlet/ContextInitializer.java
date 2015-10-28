@@ -24,15 +24,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ContextListener", urlPatterns = {"/ContextListener"})
 public class ContextInitializer implements ServletContextListener {
-    private Database db;
+    
+    private static final Database db = new Database();
+    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        try {
-            db = new Database();
-            sce.getServletContext().setAttribute("connect", db.connect());
-        } catch (ServletException ex) {
-            Logger.getLogger(ContextInitializer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        sce.getServletContext().setAttribute("connect", db.connect());
         
     }
 

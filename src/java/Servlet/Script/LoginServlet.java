@@ -59,12 +59,12 @@ public class LoginServlet extends HttpServlet {
             // Se l'utente non esiste
             if(user_to_log == null){
                 // Torna alla pagine di login con messaggio di errore
-                response.sendRedirect("login?msn=" + URLEncoder.encode("User does not exist", "UTF-8"));
+                response.sendRedirect("login?msn=" + URLEncoder.encode("usr", "UTF-8"));
 
             // Se la password dell'utente è sbagliata
             }else if(!user_to_log.checkPassword(password)){
                 // Torna alla pagine di login con messaggio di errore
-                response.sendRedirect("login?msn=" + URLEncoder.encode("Password is not valid", "UTF-8"));
+                response.sendRedirect("login?msn=" + URLEncoder.encode("psw", "UTF-8"));
 
             }else{
                 // Altrimenti, fai il login dell'utente

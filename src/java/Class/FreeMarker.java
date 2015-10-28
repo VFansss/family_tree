@@ -44,13 +44,18 @@ public class FreeMarker {
         Template template = cfg.getTemplate(path_template);
         
         PrintWriter out = response.getWriter();
-        try {
+            
+        try{
             template.process(data, out);
-        } catch (TemplateException ex) {
+            
+        } catch (TemplateException ex) {     
             Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } finally{
+            out.flush();
+            out.close(); 
         }
-        out.flush();
-        out.close();
+
     }
 
     

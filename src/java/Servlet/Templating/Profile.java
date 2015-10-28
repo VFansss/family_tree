@@ -64,7 +64,7 @@ public class Profile extends HttpServlet {
             // Se l'utente corrente esiste
             if(user_current != null){
                 
-                GenealogicalTree family_tree = (GenealogicalTree) session.getAttribute("family_tree");
+                GenealogicalTree family_tree = (GenealogicalTree)session.getAttribute("family_tree");
 
                 /* Recupero dei parenti dell'utente corrente */
 
@@ -136,8 +136,7 @@ public class Profile extends HttpServlet {
             
         }else{
             // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
-
+            response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
         }
     }
 

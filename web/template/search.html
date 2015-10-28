@@ -28,12 +28,13 @@
                 </div>
 
                 <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
-                    <form method="POST" >
-                        <input type="button" value="Search"/>
+                    <form method="POST" action="search" >
+                        <input type="button" value="Search" />
                         <input placeholder="Search" type="text" required />
 
                     </form>
                 </div>
+            
                 <div class="col-xs-4 button-top-right pull-right">
                     <#if logged>
                     <a href="profile" class="btn btn-primary pull-right ">
@@ -106,39 +107,44 @@
                                                 <li>
                                                     <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
                                                 </li>
+                                                <#if !logged>
+                                                    <li>
+                                                        <p>100 relatives</p>
+                                                    </li>
+                                                </#if>
                                             </ul>
                                         </div>
                                     </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <form>
-                                                <div class="col-md-6 col-sm-6 col-xs-6 relationship">
+                                    <#if logged>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6 relationship">
 
-                                                    <select>
-                                                        <optgroup label="Select a relationship">
-                                                            <#if user.gender == "male">
-                                                                <option value="parent">Father</option>
-                                                                <option value="spouse">Husband</option>
-                                                                <option value="sibling">Brother</option>
-                                                                <option value="child">Son</option>
-                                                            <#else>
-                                                                <option value="parent">Mother</option>
-                                                                <option value="spouse">Wife</option>
-                                                                <option value="sibling">Sister</option>
-                                                                <option value="child">Daughter</option>
-                                                            </#if>
-                                                        </optgroup>
-                                                    </select>
-                                                    <i class="fa fa-caret-down"></i>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                                    <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
-                                                </div>
-                                            </form>
-                                        </div>  
-                                        
-                                    </div>
+                                                        <select>
+                                                            <optgroup label="Select a relationship">
+                                                                <#if user.gender == "male">
+                                                                    <option value="parent">Father</option>
+                                                                    <option value="spouse">Husband</option>
+                                                                    <option value="sibling">Brother</option>
+                                                                    <option value="child">Son</option>
+                                                                <#else>
+                                                                    <option value="parent">Mother</option>
+                                                                    <option value="spouse">Wife</option>
+                                                                    <option value="sibling">Sister</option>
+                                                                    <option value="child">Daughter</option>
+                                                                </#if>
+                                                            </optgroup>
+                                                        </select>
+                                                        <i class="fa fa-caret-down"></i>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
+                                                    </div>
+                                                </form>
+                                            </div>  
+                                        </div>
+                                    </#if>
                                     
                                 </div>
                             </div>

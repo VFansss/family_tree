@@ -36,15 +36,34 @@ public class Login extends HttpServlet {
         //Se non è stata generata la sessione
         if(session == null){
             Map<String, Object> data = new HashMap<>();
+            
             List<String[]> fields = new ArrayList();
             String[] email = {"email", "text", "E-mail"};
             String[] password = {"password", "password", "Password"};
             fields.add(email);
             fields.add(password);
+            
             data.put("fields", fields);
             data.put("action", "login");
-
+            
+            //Codifica del messaggio di errore sulla base del codice inviato
             String msn = request.getParameter("msn");
+            if (msn!=null){
+                switch(msn){
+                    case "log":
+                        msn = "Please log in to see this page";
+                        break;
+                    case "usr":
+                        msn = "User does not exist";
+                        break;
+                    case "psw":
+                        msn = "Incorrect password";
+                        break;
+                    default:
+                        msn=null;
+                }
+            }
+            
             data.put("msn", msn);
 
             FreeMarker.process("login.html",data, response, getServletContext());

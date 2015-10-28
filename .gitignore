@@ -1,2 +1,4 @@
 /dist/
 /build/web/
+/nbproject/private/
+/build/

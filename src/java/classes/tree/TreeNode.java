@@ -1,6 +1,6 @@
-package Class.Tree;
+package classes.tree;
 
-import Class.User;
+import classes.User;
 import java.util.Objects;
 
 

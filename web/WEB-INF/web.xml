@@ -3,76 +3,88 @@
     <welcome-file-list>
         <welcome-file>login</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>Profile</servlet-name>
-        <servlet-class>Servlet.Templating.Profile</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Signup</servlet-name>
-        <servlet-class>Servlet.Templating.Signup</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>Servlet.Templating.Login</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>Test</servlet-name>
-        <servlet-class>Servlet.Test</servlet-class>
+        <servlet-class>servlet.Test</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    
+    <!-- SCRIPT --> 
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>Servlet.Script.LoginServlet</servlet-class>
+        <servlet-name>LoginScript</servlet-name>
+        <servlet-class>servlet.script.Login</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginScript</servlet-name>
+        <url-pattern>/log</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
-        <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>Servlet.Script.LogoutServlet</servlet-class>
+        <servlet-name>LogoutScript</servlet-name>
+        <servlet-class>servlet.script.Logout</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutScript</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    
+    <!-- TEMPLATING -->
     <servlet>
-        <servlet-name>Settings</servlet-name>
-        <servlet-class>Servlet.Templating.Settings</servlet-class>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>servlet.templating.Login</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
-        <servlet-name>Search</servlet-name>
-        <servlet-class>Servlet.Templating.Search</servlet-class>
+        <servlet-name>Signup</servlet-name>
+        <servlet-class>servlet.templating.Signup</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Test</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>servlet.templating.Profile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/log</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Settings</servlet-name>
+        <servlet-class>servlet.templating.Settings</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Settings</servlet-name>
         <url-pattern>/settings</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>servlet.templating.Search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     
+    <!-- CONNECTION POOLING -->
     <resource-ref>
         <res-ref-name>collaborative_genealogy</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>

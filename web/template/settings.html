@@ -55,7 +55,7 @@
 
                             <div class="lock-container">
                                 <div class="panel-default text-center">
-                                    <form action="change" class="panel-body" method="POST">
+                                    <form action="change?action=avatar" class="panel-body" method="POST">
                                         <div class="avatar text-center">
                                             <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
                                             <i class="fa fa-camera fa-3x hover-blue"></i>
@@ -78,7 +78,7 @@
                             <div class="lock-container">
                                 <div class="panel-default text-center">
 
-                                    <form action="change" class="panel-body" method="POST">
+                                    <form action="change?action=data" class="panel-body" method="POST">
 
                                         <fieldset>
                                             <#list first_form as field>
@@ -106,7 +106,7 @@
                             <div class="lock-container">
                                 <div class="panel-default text-center">
 
-                                    <form action="change" class="panel-body" method="POST">
+                                    <form action="change?action=email" class="panel-body" method="POST">
 
                                         <fieldset>
                                             <#list second_form as field>
@@ -133,7 +133,7 @@
                             <div class="lock-container">
                                 <div class="panel-default text-center">
 
-                                    <form action="change" class="panel-body" method="POST">
+                                    <form action="change?action=password" class="panel-body" method="POST">
 
                                         <fieldset>
                                             <#list third_form as field>

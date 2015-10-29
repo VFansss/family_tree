@@ -1343,20 +1343,8 @@ public class User{
             // Genera id univoco dell'utente
             String user_id = User.createUniqueUserId(10);
             data.put("id", user_id);
-     
-        
-            // Conversione della data di nascita da String a Date
-            try {
-                String date = (String) data.get("birthdate");
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date myDate;
-                myDate = formatter.parse(date);
-                java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-                data.put("birthdate", sqlDate);
-            } catch (ParseException ex) {
-                // Se il parse della data non va a buon fine, significa che la data non è nel formato giusto
-                return false;
-            }
+            data.put("birthdate", Function.stringToDate((String) data.get("birthdate")));
+
         
             // Inserisci l'utente
             boolean result = Database.insertRecord("user", data);

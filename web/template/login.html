@@ -16,8 +16,9 @@
                     <fieldset class="rounded">
                         <#list fields as field>
                             <#if field[1] == "select">
-                                <select name="${field[0]}" class="form-control test">
-                                    <option value="male" disabled selected>Gender</option>
+                            
+                                <select name="${field[0]}" class="form-control">
+                                    <option value="" disabled selected>Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>

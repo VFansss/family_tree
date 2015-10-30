@@ -12,13 +12,8 @@
             <#if user_logged??>
                 ${user_logged.name}
             <#else>
-                <#if action??>
-                    ${action?cap_first}
-                <#else>
-                    Search
-                </#if>
-                - Collaborative Genealogy
-            </#if>
+                ${action?cap_first}
+            </#if> | Collaborative Genealogy
         </title>
         
         <!-- icon -->
@@ -59,10 +54,10 @@
                     
                 <#else>
                 
-                    <#if action == "login">
-                        <#assign other_action = "signup">
-                    <#else>
+                    <#if action == "signup" || action == "search">
                         <#assign other_action = "login">
+                    <#else>
+                        <#assign other_action = "signup">
                     </#if>
                     
                     <a href="${other_action}" class="btn btn-primary pull-right ellipsis">

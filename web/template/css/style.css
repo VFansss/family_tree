@@ -208,12 +208,16 @@ section.login form input{
 }
 
 section.login form select{
-    
-    padding: 11px 15px;
+    padding: 11px 10px;
 }
 
-.test{
-    color: red !important;
+section.login select.form-control{
+    color: #aaa;
+}
+
+section.login select.form-control option[disabled]{
+    background: #ededed;
+    font-style:italic;
 }
 
 section.login form button{

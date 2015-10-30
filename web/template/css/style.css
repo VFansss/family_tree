@@ -196,11 +196,24 @@ section.login .title img{
     display:none;
 }
 
-section.login form input{
+section.login form .form-control{
     font-size: 16px;
     background-color: #fff;
+    width: 100%;
     height: 100%;
+}
+
+section.login form input{
     padding: 10px 15px;
+}
+
+section.login form select{
+    
+    padding: 11px 15px;
+}
+
+.test{
+    color: red !important;
 }
 
 section.login form button{

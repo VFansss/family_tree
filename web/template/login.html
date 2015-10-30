@@ -15,8 +15,17 @@
 
                     <fieldset class="rounded">
                         <#list fields as field>
-                            <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}"  />
+                            <#if field[1] == "select">
+                                <select name="${field[0]}" class="form-control test">
+                                    <option value="male" disabled selected>Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            <#else>
+                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}"  />  
+                            </#if>
                         </#list>
+                        
                     </fieldset>
 
                     <#if action == "login">

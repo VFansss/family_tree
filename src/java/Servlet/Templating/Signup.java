@@ -40,7 +40,7 @@ public class Signup extends HttpServlet {
         
         String[] name =         {"name",        "text",         "Name"};
         String[] surname =      {"surname",     "text",         "Surname"};
-        String[] gender =       {"gender",      "text",         "Gender"};
+        String[] gender =       {"gender",      "select",       ""};
         String[] birthdate =    {"birthdate",   "text",         "Birthdate"};
         String[] birthplace =   {"birthplace",  "text",         "Birthplace"};
         String[] email =        {"email",       "email",        "E-mail"};

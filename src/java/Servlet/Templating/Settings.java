@@ -53,57 +53,12 @@ public class Settings extends HttpServlet {
             
             User user_logged = (User)session.getAttribute("user_logged");
 
-            /* Primo form per il cambio dei dati*/
-
-                Map<String, Object> data = new HashMap<>();
-
-                List<String[]> first_form = new ArrayList();
-
-                String[] name =         {"name",        "text",     "Name",         user_logged.getName()                   };
-                String[] surname =      {"surname",     "text",     "Surname",      user_logged.getSurname()                };
-                String[] gender =       {"gender",      "text",     "Gender",       user_logged.getGender()                 };
-                String[] birthdate =    {"birthplace",  "text",     "Birthplace",   user_logged.getBirthdate().toString()   };
-                String[] birthplace =   {"birthplace",  "text",     "Birthplace",   user_logged.getBirthplace()             };
-
-                first_form.add(name);
-                first_form.add(surname);
-                first_form.add(gender);
-                first_form.add(birthdate);
-                first_form.add(birthplace);
-
-                data.put("first_form", first_form);
-
-            /* Secondo form per il cambio dell'email*/
-                List<String[]> second_form = new ArrayList();
-
-                String[] email =        {"email",           "email",    "Email"         , user_logged.getEmail()};
-                String[] new_email =    {"new_email",       "email",    "New Email"     , ""};
-                String[] repeat_email = {"repeat_email",    "email",    "Repeat Email"  , ""};
-
-                second_form.add(email);
-                second_form.add(new_email);
-                second_form.add(repeat_email);
-
-                data.put("second_form", second_form);
-
-            /* Terzo form per il cambio della password*/
-                List<String[]> third_form = new ArrayList();
-
-                String[] password =             {"password",        "password", "Password"          };
-                String[] new_password =         {"new_password",    "password", "New Password"      };
-                String[] repeat_password =      {"repeat_password", "password", "Repeat Password"   };
-
-                third_form.add(password);
-                third_form.add(new_password);
-                third_form.add(repeat_password);
-
-                data.put("third_form", third_form);
+            Map<String, Object> data = new HashMap<>();
 
             data.put("user_logged", user_logged);
 
             String msn = request.getParameter("msn");
             data.put("msn", msn);
-
 
             FreeMarker.process("settings.html",data, response, getServletContext());
             

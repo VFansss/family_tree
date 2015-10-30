@@ -81,9 +81,12 @@
                                     <form action="change?action=data" class="panel-body" method="POST">
 
                                         <fieldset>
-                                            <#list first_form as field>
-                                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}" />
-                                            </#list>
+                                            
+                                            <input class="form-control" type="text" name="name" placeholder="name" value="${user_logged.name}" required />
+                                            <input class="form-control" type="text" name="surname" placeholder="surname" value="${user_logged.surname}" required />
+                                            <input class="form-control" type="text" name="gender" placeholder="gender" value="${user_logged.gender?cap_first}" required />
+                                            <input class="form-control" type="text" name="birthdate" placeholder="birthdate (gg/mm/yyyy)" value="${user_logged.birthdate}" required />
+                                            <input class="form-control" type="text" name="birthplace" placeholder="birthplace" value="${user_logged.birthplace}" required />
                                         </fieldset>
 
                                         <#if msn??>
@@ -109,9 +112,9 @@
                                     <form action="change?action=email" class="panel-body" method="POST">
 
                                         <fieldset>
-                                            <#list second_form as field>
-                                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" value="${field[3]}"/>
-                                            </#list>
+                                            <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" disabled />
+                                            <input class="form-control"  type="email" name="new_email" placeholder="New email" value="" required/>
+                                            <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" value="" required />
                                         </fieldset>
 
                                         <#if msn??>
@@ -136,9 +139,9 @@
                                     <form action="change?action=password" class="panel-body" method="POST">
 
                                         <fieldset>
-                                            <#list third_form as field>
-                                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}" />
-                                            </#list>
+                                            <input class="form-control"  type="password" name="current_password" placeholder="Current password" required />
+                                            <input class="form-control"  type="password" name="new_password" placeholder="New password" value="" required/>
+                                            <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" required />
                                         </fieldset>
 
                                         <#if msn??>

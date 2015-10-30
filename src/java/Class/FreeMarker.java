@@ -11,6 +11,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +45,13 @@ public class FreeMarker {
         Template template = cfg.getTemplate(path_template);
         
         PrintWriter out = response.getWriter();
-            
+        
+        String strin = "1994-09-01";
+        Date asd= Function.convertDateFormat(Function.stringToDate(strin));
+        out.println(asd.toString());
+        if(asd == null){
+        out.println("ciao");
+        }
         try{
             template.process(data, out);
             
@@ -55,6 +62,8 @@ public class FreeMarker {
             out.flush();
             out.close(); 
         }
+        
+        
 
     }
 

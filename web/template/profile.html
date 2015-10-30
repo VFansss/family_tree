@@ -60,87 +60,17 @@
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
 
                 <#if father??>
-
                     <!-- Father -->
-                    <div class="panel panel-body dark-background">
-                        <form action="#" class="delete-relative hover-blue">
-                            <button href="#"><i class="fa fa-times"></i></button>
-                        </form>
-
-                        <div class="col-md-12 top-name">
-                            <a href="profile?id=${father.user.id}">
-                                <h3 class="hover-blue">${father.user.name} ${father.user.surname}</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 responsive-row">
-                            <div class="img-circle">
-                                <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                            </div>
-                            <ul class="anagraphics-info">
-                                <li>
-                                    <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
-                                </li>
-                            </ul>
-
-                        </div>
-                        <div class="col-md-8 biography-box">
-                            <a href="profile?id=${father.user.id}">
-                                <h3 class="main-name hover-blue">${father.user.name} ${father.user.surname}</h3>
-                            </a>
-                            <#if father.user.biography??>
-                                <p>${father.user.biography}</p>
-                            <#else>
-                                <p class="bio-miss">biography missing</p>
-                            </#if>
-                        </div>
-                    </div>
+                    <#assign relative = father>
+                    <#include "profile-tile.html">
                 </#if>
 
                 <!-- Mother -->
                 <#if mother??>
-                    <div class="panel panel-body dark-background">
-                        <form action="#" class="delete-relative hover-blue">
-                            <button href="#"><i class="fa fa-times"></i></button>
-                        </form>
-
-                        <div class="col-md-12 top-name">
-                            <a href="profile?id=${mother.user.id}">
-                                <h3 class="hover-blue">${mother.user.name} ${mother.user.surname}</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 responsive-row">
-                            <div class="img-circle">
-                                <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                            </div>
-                            <ul class="anagraphics-info">
-                                <li>
-                                    <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-8 biography-box">
-                            <a href="profile?id=${mother.user.id}">
-                                <h3 class="main-name hover-blue">${mother.user.name} ${mother.user.surname}</h3>
-                            </a>
-                            <#if mother.user.biography??>
-                                <p>${mother.user.biography}</p>
-                            <#else>
-                                <p class="bio-miss">biography missing</p>
-                            </#if>
-                        </div>
-                    </div>
+                    
+                    <!-- Father -->
+                    <#assign relative = mother>
+                    <#include "profile-tile.html">
 
                 </#if>
             </div>
@@ -160,48 +90,11 @@
             </div>
 
             <!-- Husband/Wife -->
-
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-
-                <div class="panel panel-body dark-background">
-
-                    <form action="#" class="delete-relative hover-blue">
-                        <button href="#"><i class="fa fa-times"></i></button>
-                    </form>
-
-                    <div class="col-md-12 top-name">
-                        <a href="profile?id=${spouse.user.id}">
-                            <h3 class="hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
-                        </a>
-                    </div>
-                    <div class="col-md-4 responsive-row">
-                        <div class="img-circle">
-                            <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                        </div>
-                        <ul class="anagraphics-info">
-                                <li>
-                                    <p><i class="fa fa-calendar"></i> ${spouse.user.birthdate}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-map-marker"></i> ${spouse.user.birthplace}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-user"></i> ${spouse.label?capitalize}</p>
-                                </li>
-                            </ul>
-                    </div>
-                    <div class="col-md-8 biography-box">
-                        <a href="profile?id=${spouse.user.id}">
-                            <h3 class="main-name hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
-                        </a>
-                        <#if spouse.user.biography??>
-                            <p>${spouse.user.biography}</p>
-                        <#else>
-                            <p class="bio-miss">biography missing</p>
-                        </#if>
-                    </div>    
-                </div>    
+            <#assign relative = spouse>
+            <#include "profile-tile.html">
             </div>
+            
         </#if>
 
         <#if children?has_content>
@@ -214,44 +107,8 @@
             <!-- Children -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
                 <#list children as child>
-                    <div class="panel panel-body dark-background">
-
-                        <form action="#" class="delete-relative hover-blue">
-                            <button href="#"><i class="fa fa-times"></i></button>
-                        </form>
-
-                        <div class="col-md-12 top-name">
-                            <a href="profile?id=${child.user.id}">
-                                <h3 class="hover-blue">${child.user.name} ${child.user.surname}</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 responsive-row">
-                            <div class="img-circle">
-                                <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                            </div>
-                            <ul class="anagraphics-info">
-                                <li>
-                                    <p><i class="fa fa-calendar"></i> ${child.user.birthdate}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-map-marker"></i> ${child.user.birthplace}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-user"></i> ${child.label?capitalize}</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-8 biography-box">
-                            <a href="profile?id=${child.user.id}">
-                                <h3 class="main-name hover-blue">${child.user.name} ${child.user.surname}</h3>
-                            </a>
-                            <#if child.user.biography??>
-                                <p>${child.user.biography}</p>
-                            <#else>
-                                <p class="bio-miss">biography missing</p>
-                            </#if>
-                        </div>
-                    </div>
+                    <#assign relative = child>
+                    <#include "profile-tile.html">
                 </#list>
             </div>
         </#if>
@@ -265,44 +122,8 @@
             <!-- Siblings -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
                 <#list siblings as sibling>
-                    <div class="panel panel-body dark-background">
-
-                        <form action="#" class="delete-relative hover-blue">
-                            <button href="#"><i class="fa fa-times"></i></button>
-                        </form>
-
-                        <div class="col-md-12 top-name">
-                            <a href="profile?id=${sibling.user.id}">
-                                <h3 class="hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 responsive-row">
-                            <div class="img-circle">
-                                <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                            </div>
-                            <ul class="anagraphics-info">
-                                <li>
-                                    <p><i class="fa fa-calendar"></i> ${sibling.user.birthdate}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-map-marker"></i> ${sibling.user.birthplace}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fa fa-user"></i> ${sibling.label?capitalize}</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-8 biography-box">
-                            <a href="profile?id=${sibling.user.id}">
-                                <h3 class="main-name hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
-                            </a>
-                            <#if sibling.user.biography??>
-                                <p>${sibling.user.biography}</p>
-                            <#else>
-                                <p class="bio-miss">biography missing</p>
-                            </#if>
-                        </div>
-                    </div>
+                    <#assign relative = sibling>
+                    <#include "profile-tile.html">
                 </#list>
             </div>
         </#if>

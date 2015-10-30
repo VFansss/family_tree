@@ -1,0 +1,39 @@
+
+<div class="panel panel-body dark-background">
+    <form action="#" class="delete-relative hover-blue">
+        <button href="#"><i class="fa fa-times"></i></button>
+    </form>
+
+    <div class="col-md-12 top-name">
+        <a href="profile?id=${relative.user.id}">
+            <h3 class="hover-blue">${relative.user.name} ${relative.user.surname}</h3>
+        </a>
+    </div>
+    <div class="col-md-4 responsive-row">
+        <div class="img-circle">
+            <img src="template/profile/${relative.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
+        </div>
+        <ul class="anagraphics-info">
+            <li>
+                <p><i class="fa fa-calendar"></i> ${relative.user.birthdate}</p>
+            </li>
+            <li>
+                <p><i class="fa fa-map-marker"></i> ${relative.user.birthplace}</p>
+            </li>
+            <li>
+                <p><i class="fa fa-user"></i> ${relative.label?capitalize}</p>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-md-8 biography-box">
+        <a href="profile?id=${relative.user.id}">
+            <h3 class="main-name hover-blue">${relative.user.name} ${relative.user.surname}</h3>
+        </a>
+        <#if relative.user.biography??>
+            <p>${relative.user.biography}</p>
+        <#else>
+            <p class="bio-miss">biography missing</p>
+        </#if>
+    </div>
+</div>

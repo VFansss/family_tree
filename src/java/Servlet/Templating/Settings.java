@@ -43,8 +43,6 @@ public class Settings extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         
         response.setContentType("text/html;charset=UTF-8");
-        
-        boolean connect = (boolean) this.getServletContext().getAttribute("connect");
         //Gestione sessione
         HttpSession session = request.getSession(false);  
         

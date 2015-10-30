@@ -41,8 +41,7 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
-        
-       
+ 
         //Recupera l'email dell'utente
         String email = request.getParameter("email");
         //Recupera la password dell'utente
@@ -67,9 +66,7 @@ public class Login extends HttpServlet {
             session.setAttribute("user_logged", user_to_log);
             session.setAttribute("breadcrumb", new NodeList());
 
-            GenealogicalTree family_tree = user_to_log.getFamilyTree();
-            family_tree.getFamilyTree();
-            session.setAttribute("family_tree", family_tree);
+            session.setAttribute("family_tree", user_to_log.getFamilyTree());
             response.sendRedirect("profile");
         }
         

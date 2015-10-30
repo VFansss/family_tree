@@ -39,7 +39,13 @@
                                     <fieldset>
                                         <input class="form-control" type="text" name="name" placeholder="name" value="${user_logged.name}" required />
                                         <input class="form-control" type="text" name="surname" placeholder="surname" value="${user_logged.surname}" required />
-                                        <input class="form-control" type="text" name="gender" placeholder="gender" value="${user_logged.gender?cap_first}" required />
+                                        
+                                            <select name="gender" class="form-control" >
+                                                <option value="" disabled selected>Gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        
                                         <input class="form-control" type="text" name="birthdate" placeholder="birthdate (gg/mm/yyyy)" value="${user_logged.birthdate}" required />
                                         <input class="form-control" type="text" name="birthplace" placeholder="birthplace" value="${user_logged.birthplace}" required />
                                     </fieldset>

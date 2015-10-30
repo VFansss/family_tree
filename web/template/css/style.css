@@ -198,20 +198,16 @@ section.login .title img{
 
 section.login form .form-control{
     font-size: 16px;
-    background-color: #fff;
     width: 100%;
     height: 100%;
 }
 
-section.login form input{
+section.login input.form-control{
     padding: 10px 15px;
 }
 
-section.login form select{
-    padding: 11px 10px;
-}
-
 section.login select.form-control{
+    padding: 11px 10px;
     color: #bbb;
 }
 
@@ -370,7 +366,11 @@ section.settings .wrapper{
 section.settings .avatar{
     position: relative;
 }
-
+    
+section.settings select.form-control{
+    color: #fff;
+    background-color: transparent;
+} 
 section.settings .avatar img{
     border-radius: 100%;
     height: 220px;
@@ -436,31 +436,10 @@ section.search .responsive-row{
     height: 120px;
 }
 
-section.search select.relationship{
+section.search .relationship{
     position: relative;
 } 
 
-section.search .relationship select{
-    appearance:none;
-    -moz-appearance:none; 
-    -webkit-appearance:none; 
-    border-radius: 4px;
-    border:0;
-    height: 22px;
-    width: 100%;
-    background-color: transparent;
-    color: #fff;
-    z-index: 100;
-}
-
-section.search .relationship option{
-    background-color: #fff;
-}
-
-section.search .relationship optgroup{
-    color: #000;
-    background-color: #eee;
-}
 
 section.search .relationship i{
     position: absolute;
@@ -491,3 +470,22 @@ section.search .form-control{
     border-bottom: 1px solid rgba(200, 200, 200, 0.8);
 }
 
+section.search select.form-control, 
+section.settings select.form-control{
+    appearance:none;
+    -moz-appearance:none; 
+    -webkit-appearance:none; 
+}
+
+select.form-control{
+    
+    border:0;
+    height: 22px;
+    width: 100%;
+    z-index: 100;
+}
+
+select.form-control option{
+    background-color: #fff;
+    color:#000;
+}

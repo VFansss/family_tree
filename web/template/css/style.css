@@ -212,7 +212,7 @@ section.login form select{
 }
 
 section.login select.form-control{
-    color: #aaa;
+    color: #bbb;
 }
 
 section.login select.form-control option[disabled]{

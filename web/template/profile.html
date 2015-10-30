@@ -9,7 +9,8 @@
                 <a href="profile?id=${node.user.id}" class="ball breadcrumb-nav" title="${node.user.name} - ${node.label}">
                     <img src="template/profile/${node.user.id}.jpg" class="img-circle img-cover" alt="profile" />
                 </a>
-            </#list>            
+            </#list>  
+            
         </div>
 
         <!-- Current user -->
@@ -29,15 +30,15 @@
                         <li>
                             <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
                         </li>
-                        <#if relative_grade??>
-                            <li>
-                                <p><i class="fa fa-user"></i> ${relative_grade?capitalize}</p>
-                            </li>
-                        <#else>
-                            <li>
-                                <p><i class="fa fa-user"></i> You</p>
-                            </li>
-                        </#if>
+                        <li>
+                            <p><i class="fa fa-user"></i>
+                                <#if relative_grade??>
+                                    ${relative_grade?capitalize}                       
+                                <#else>
+                                    You
+                                </#if>
+                            </p>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-8 biography-box">
@@ -52,30 +53,30 @@
         </div>
 
         <#if father?? || mother??>
+        
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
                 <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
             </div>
 
             <!-- Parent tile -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-
+                
+                <!-- Father -->
                 <#if father??>
-                    <!-- Father -->
                     <#assign relative = father>
                     <#include "profile-tile.html">
                 </#if>
 
                 <!-- Mother -->
                 <#if mother??>
-                    
-                    <!-- Father -->
                     <#assign relative = mother>
                     <#include "profile-tile.html">
-
                 </#if>
+                
             </div>
         </#if>
 
+        <!-- Husband/Wife -->
         <#if spouse??>
 
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
@@ -88,23 +89,21 @@
                     <i class="fa fa-chevron-down"></i>
                 </a>
             </div>
-
-            <!-- Husband/Wife -->
+        
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-            <#assign relative = spouse>
-            <#include "profile-tile.html">
+                <#assign relative = spouse>
+                <#include "profile-tile.html">
             </div>
             
         </#if>
 
+        <!-- Children -->
         <#if children?has_content>
 
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
                 <a href="#">Children <i class="fa fa-chevron-down"></i></a>
             </div>
-
-
-            <!-- Children -->
+            
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
                 <#list children as child>
                     <#assign relative = child>
@@ -113,13 +112,13 @@
             </div>
         </#if>
 
+         <!-- Siblings -->
         <#if siblings?has_content>
 
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
                 <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
             </div>
-
-            <!-- Siblings -->
+           
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
                 <#list siblings as sibling>
                     <#assign relative = sibling>

@@ -42,42 +42,37 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
         
-        //PrintWriter out = response.getWriter();
-        
-        boolean connect = (boolean) this.getServletContext().getAttribute("connect");
+       
+        //Recupera l'email dell'utente
+        String email = request.getParameter("email");
+        //Recupera la password dell'utente
+        String password = request.getParameter("password");
 
-        if(connect){
-            
-            //Recupera l'email dell'utente
-            String email = request.getParameter("email");
-            //Recupera la password dell'utente
-            String password = request.getParameter("password");
+        // Recupera l'utente
+        User user_to_log = User.getUserByEmail(email);
 
-            // Recupera l'utente
-            User user_to_log = User.getUserByEmail(email);
+        // Se l'utente non esiste
+        if(user_to_log == null){
+            // Torna alla pagine di login con messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("usr", "UTF-8"));
 
-            // Se l'utente non esiste
-            if(user_to_log == null){
-                // Torna alla pagine di login con messaggio di errore
-                response.sendRedirect("login?msn=" + URLEncoder.encode("usr", "UTF-8"));
+        // Se la password dell'utente è sbagliata
+        }else if(!user_to_log.checkPassword(password)){
+            // Torna alla pagine di login con messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("psw", "UTF-8"));
 
-            // Se la password dell'utente è sbagliata
-            }else if(!user_to_log.checkPassword(password)){
-                // Torna alla pagine di login con messaggio di errore
-                response.sendRedirect("login?msn=" + URLEncoder.encode("psw", "UTF-8"));
+        }else{
+            // Altrimenti, fai il login dell'utente
+            HttpSession session = request.getSession();
+            session.setAttribute("user_logged", user_to_log);
+            session.setAttribute("breadcrumb", new NodeList());
 
-            }else{
-                // Altrimenti, fai il login dell'utente
-                HttpSession session = request.getSession();
-                session.setAttribute("user_logged", user_to_log);
-                session.setAttribute("breadcrumb", new NodeList());
-
-                GenealogicalTree family_tree = user_to_log.getFamilyTree();
-                family_tree.getFamilyTree();
-                session.setAttribute("family_tree", family_tree);
-                response.sendRedirect("profile");
-            }
+            GenealogicalTree family_tree = user_to_log.getFamilyTree();
+            family_tree.getFamilyTree();
+            session.setAttribute("family_tree", family_tree);
+            response.sendRedirect("profile");
         }
+        
 
     }
 

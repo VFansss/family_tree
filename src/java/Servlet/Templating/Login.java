@@ -5,6 +5,7 @@
  */
 package Servlet.Templating;
 
+import Class.Database;
 import Class.FreeMarker;
 import java.io.IOException;
 import java.util.*;
@@ -32,44 +33,45 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Gestione sessione
         HttpSession session = request.getSession(false);  
-        
-        //Se non è stata generata la sessione
-        if(session == null){
-            Map<String, Object> data = new HashMap<>();
-            
-            List<String[]> fields = new ArrayList();
-            String[] email = {"email", "text", "E-mail"};
-            String[] password = {"password", "password", "Password"};
-            fields.add(email);
-            fields.add(password);
-            
-            data.put("fields", fields);
-            data.put("action", "login");
-            
-            //Codifica del messaggio di errore sulla base del codice inviato
-            String msn = request.getParameter("msn");
-            if (msn!=null){
-                switch(msn){
-                    case "log":
-                        msn = "Please log in to see this page";
-                        break;
-                    case "usr":
-                        msn = "User does not exist";
-                        break;
-                    case "psw":
-                        msn = "Incorrect password";
-                        break;
-                    default:
-                        msn=null;
-                }
-            }
-            
-            data.put("msn", msn);
+        if(Database.isConnected()){
+            //Se non è stata generata la sessione
+            if(session == null){
+                Map<String, Object> data = new HashMap<>();
 
-            FreeMarker.process("login.html",data, response, getServletContext());
-        }else{
-            // Altrimenti vai alla pagina dell'utente loggato
-            response.sendRedirect("profile");
+                List<String[]> fields = new ArrayList();
+                String[] email = {"email", "text", "E-mail"};
+                String[] password = {"password", "password", "Password"};
+                fields.add(email);
+                fields.add(password);
+
+                data.put("fields", fields);
+                data.put("action", "login");
+
+                //Codifica del messaggio di errore sulla base del codice inviato
+                String msn = request.getParameter("msn");
+                if (msn!=null){
+                    switch(msn){
+                        case "log":
+                            msn = "Please log in to see this page";
+                            break;
+                        case "usr":
+                            msn = "User does not exist";
+                            break;
+                        case "psw":
+                            msn = "Incorrect password";
+                            break;
+                        default:
+                            msn=null;
+                    }
+                }
+
+                data.put("msn", msn);
+
+                FreeMarker.process("login.html",data, response, getServletContext());
+            }else{
+                // Altrimenti vai alla pagina dell'utente loggato
+                response.sendRedirect("profile");
+            }
         }
     }
 

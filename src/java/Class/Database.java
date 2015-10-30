@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 public class Database { 
     private static Connection db;
     public static PrintWriter out;
+    private static boolean connect;
 
     
     public static void setOut(PrintWriter out){
@@ -24,29 +25,33 @@ public class Database {
     
     /**
      * Connessione al database
-     * @return              true se la connessione è stata effettuata con successo, false altrimenti
      */
-    public boolean connect(){
+    public static void connect(){
         try {
             InitialContext ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
             Database.db  = ds.getConnection();
-            return true;
+            connect = true;
         } catch (NamingException | SQLException ex) {
-            return false;
+            connect = false;
         }
     }
     
+    public static boolean isConnected(){
+        return Database.connect;
+    }
+    
+     
     /**
      * Chiusura connessione al database
      * @return  true se la connessione è stata chiusa con successo, false altrimenti
      */
-    public boolean close(){
+    public static void close(){
         try { 
             Database.db.close();
-            return true;
+            connect = false;
         } catch (SQLException ex) {
-            return false;
+            
         }
     }
     

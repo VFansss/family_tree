@@ -1,194 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
+<#include "frame_public.html">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>${user_logged.name?cap_first} - Collaborative Genealogy</title>
-        <!-- icon -->
-        <link rel="shortcut icon" href="template/images/favicon.ico" />
-        <!-- App Styling Bundle -->
-        <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
-        <link href="template/css/blue.css" rel="stylesheet">
-        <link href="template/css/style.css" rel="stylesheet">
-        <link href="template/css/responsive.css" rel="stylesheet">
-        <!--Script-->
-     
-       
-    </head>
-    
-    <body>
+    <section class="login settings"> 
 
-        <header>
-            
-            <div class="xs-hidden" id="tree-icon">
-                <a href="/Collaborative_Genealogy/"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
-            </div>
+        <div class="container-fluid">
+            <div class="wrapper">
 
-            <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
-                <form method="POST" >
-                    <input type="button" value="Search"/>
-                    <input placeholder="Search" type="text" name="search" required />
+                <div class="row">
 
-                </form>
-            </div>
-            <div class="col-xs-4 button-top-right pull-right">
-                <a href="profile" class="btn btn-primary pull-right ellipsis">
-                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
-                        <p class="inline-block">&nbsp;${user_logged.name}</p>
-                </a>
-            </div>
-                
-        </header>
+                    <div class="col-md-6 col-sm-6">
 
-        <section class="login settings"> 
-            
-            <div class="container-fluid">
-                <div class="wrapper">
-
-                    <div class="row">
-
-                        <div class="col-md-6 col-sm-6">
-
-                            <div class="lock-container">
-                                <div class="panel-default text-center">
-                                    <form action="change?action=avatar" class="panel-body" method="POST">
-                                        <div class="avatar text-center">
-                                            <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
-                                            <i class="fa fa-camera fa-3x hover-blue"></i>
-                                            <input class="uploader" type="file" name="photo-upload" />
+                        <div class="lock-container">
+                            <div class="panel-default text-center">
+                                <form action="change?action=avatar" class="panel-body" method="POST">
+                                    <div class="avatar text-center">
+                                        <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
+                                        <i class="fa fa-camera fa-3x hover-blue"></i>
+                                        <input class="uploader" type="file" name="photo-upload" />
+                                    </div>
+                                    <#if msn??>
+                                        <div class="form-message inline-block">
+                                            <i class="fa fa-times"></i><p>${msn}</p>
                                         </div>
-                                        <#if msn??>
-                                            <div class="form-message inline-block">
-                                                <i class="fa fa-times"></i><p>${msn}</p>
-                                            </div>
-                                        </#if>
+                                    </#if>
 
-                                    </form>
+                                </form>
 
-                                </div>
                             </div>
-
-                        </div>
-
-                        <div class="col-md-6 col-sm-6"> 
-                            <div class="lock-container">
-                                <div class="panel-default text-center">
-
-                                    <form action="change?action=data" class="panel-body" method="POST">
-
-                                        <fieldset>
-                                            
-                                            <input class="form-control" type="text" name="name" placeholder="name" value="${user_logged.name}" required />
-                                            <input class="form-control" type="text" name="surname" placeholder="surname" value="${user_logged.surname}" required />
-                                            <input class="form-control" type="text" name="gender" placeholder="gender" value="${user_logged.gender?cap_first}" required />
-                                            <input class="form-control" type="text" name="birthdate" placeholder="birthdate (gg/mm/yyyy)" value="${user_logged.birthdate}" required />
-                                            <input class="form-control" type="text" name="birthplace" placeholder="birthplace" value="${user_logged.birthplace}" required />
-                                        </fieldset>
-
-                                        <#if msn??>
-                                            <div class="form-message">
-                                                <i class="fa fa-times"></i><p>${msn}</p>
-                                            </div>
-                                        </#if>
-                                        <button type="submit" class="col-xs-12 btn btn-primary">Change data<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
-
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-
-                            <div class="lock-container">
-                                <div class="panel-default text-center">
-
-                                    <form action="change?action=email" class="panel-body" method="POST">
-
-                                        <fieldset>
-                                            <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" disabled />
-                                            <input class="form-control"  type="email" name="new_email" placeholder="New email" value="" required/>
-                                            <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" value="" required />
-                                        </fieldset>
-
-                                        <#if msn??>
-                                            <div class="form-message">
-                                                <i class="fa fa-times"></i><p>${msn}</p>
-                                            </div>
-                                        </#if>
-                                        <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
-
-                                    </form>
-
-                                </div>
-                            </div>
-
-                        </div>    
-
-                        <div class="col-md-6 col-sm-6">
-
-                            <div class="lock-container">
-                                <div class="panel-default text-center">
-
-                                    <form action="change?action=password" class="panel-body" method="POST">
-
-                                        <fieldset>
-                                            <input class="form-control"  type="password" name="current_password" placeholder="Current password" required />
-                                            <input class="form-control"  type="password" name="new_password" placeholder="New password" value="" required/>
-                                            <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" required />
-                                        </fieldset>
-
-                                        <#if msn??>
-                                            <div class="form-message">
-                                                <i class="fa fa-times"></i><p>${msn}</p>
-                                            </div>
-                                        </#if>
-                                        <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
-
-                                    </form>
-
-                                </div>
-                            </div>
-
                         </div>
 
                     </div>
+
+                    <div class="col-md-6 col-sm-6"> 
+                        <div class="lock-container">
+                            <div class="panel-default text-center">
+
+                                <form action="change?action=data" class="panel-body" method="POST">
+
+                                    <fieldset>
+                                        <input class="form-control" type="text" name="name" placeholder="name" value="${user_logged.name}" required />
+                                        <input class="form-control" type="text" name="surname" placeholder="surname" value="${user_logged.surname}" required />
+                                        <input class="form-control" type="text" name="gender" placeholder="gender" value="${user_logged.gender?cap_first}" required />
+                                        <input class="form-control" type="text" name="birthdate" placeholder="birthdate (gg/mm/yyyy)" value="${user_logged.birthdate}" required />
+                                        <input class="form-control" type="text" name="birthplace" placeholder="birthplace" value="${user_logged.birthplace}" required />
+                                    </fieldset>
+
+                                    <#if msn??>
+                                        <div class="form-message">
+                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                        </div>
+                                    </#if>
+                                    <button type="submit" class="col-xs-12 btn btn-primary">Change data<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+
+                        <div class="lock-container">
+                            <div class="panel-default text-center">
+
+                                <form action="change?action=email" class="panel-body" method="POST">
+
+                                    <fieldset>
+                                        <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" disabled />
+                                        <input class="form-control"  type="email" name="new_email" placeholder="New email" value="" required/>
+                                        <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" value="" required />
+                                    </fieldset>
+
+                                    <#if msn??>
+                                        <div class="form-message">
+                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                        </div>
+                                    </#if>
+                                    <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>    
+
+                    <div class="col-md-6 col-sm-6">
+
+                        <div class="lock-container">
+                            <div class="panel-default text-center">
+
+                                <form action="change?action=password" class="panel-body" method="POST">
+
+                                    <fieldset>
+                                        <input class="form-control"  type="password" name="current_password" placeholder="Current password" required />
+                                        <input class="form-control"  type="password" name="new_password" placeholder="New password" value="" required/>
+                                        <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" required />
+                                    </fieldset>
+
+                                    <#if msn??>
+                                        <div class="form-message">
+                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                        </div>
+                                    </#if>
+                                    <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+        </div>
+
+    </section>
             
-
-        </section>
-            
-        <footer>
-
-            <ul>
-                <li>
-                    <a href="profile" class="ball tree hover-blue" title="Settings">
-                        <i class="fa fa-user fa-2x"></i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="ball settings active" title="Settings">
-                        <i class="fa fa-cog fa-2x"></i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="logout" class="ball logout hover-blue" title="Settings">
-                        <i class="fa fa-sign-out fa-2x"></i>
-                    </a>
-                </li>
-            </ul>
-               
-        </footer>
-            
-    </body>
-
-</html>
+<#include "footer.html">

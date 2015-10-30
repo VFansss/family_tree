@@ -7,7 +7,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title><#if action??>${action?cap_first} - </#if>Collaborative Genealogy</title>
+        
+        <title>
+            <#if user_logged??>
+                ${user_logged.name}
+            <#else>
+                <#if action??>
+                    ${action?cap_first}
+                <#else>
+                    Search
+                </#if>
+                - Collaborative Genealogy
+            </#if>
+        </title>
+        
         <!-- icon -->
         <link rel="shortcut icon" href="template/images/favicon.ico" />
         <!-- App Styling Bundle -->
@@ -37,19 +50,23 @@
             </div>
 
             <div class="col-xs-4 button-top-right pull-right">
-                <#if action??>
+                <#if user_logged??>
+                
+                    <a href="profile" class="btn btn-primary pull-right ellipsis">
+                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
+                        <p class="inline-block">&nbsp;${user_logged.name}</p>
+                    </a>
+                    
+                <#else>
+                
                     <#if action == "login">
                         <#assign other_action = "signup">
                     <#else>
                         <#assign other_action = "login">
                     </#if>
+                    
                     <a href="${other_action}" class="btn btn-primary pull-right ellipsis">
                         <p class="inline-block">${other_action?cap_first}</p>
-                    </a>
-                <#else>
-                    <a href="profile" class="btn btn-primary pull-right ellipsis">
-                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
-                        <p class="inline-block">&nbsp;${user_logged.name}</p>
                     </a>
                 </#if>
             </div>

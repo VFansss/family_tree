@@ -1,54 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Search - Collaborative Genealogy</title>
-        <!-- icon -->
-        <link rel="shortcut icon" href="template/images/favicon.ico" />
-        <!-- App Styling Bundle -->
-        <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
-        <link href="template/css/blue.css" rel="stylesheet">
-        <link href="template/css/style.css" rel="stylesheet">
-        <link href="template/css/responsive.css" rel="stylesheet">
-        <!--Script-->
-     
-       
-    </head>
-    
-    <body>
-        
-        <header>
-                <div class="xs-hidden" id="tree-icon">
-                    <a href="/Collaborative_Genealogy/"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
-                </div>
-
-                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
-                    <form method="POST" action="search" >
-                        <input type="button" value="Search" />
-                        <input placeholder="Search" type="text" name="search" required />
-
-                    </form>
-                </div>
-            
-                <div class="col-xs-4 button-top-right pull-right">
-                    <#if logged>
-                        <a href="profile" class="btn btn-primary pull-right ellipsis">
-                            <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
-                            <p class="inline-block">&nbsp;${user_logged.name}</p>
-                        </a>
-                    <#else>
-                        <a href="login" class="btn btn-primary pull-right ellipsis">
-                            &nbsp;Login
-                        </a>
-                    </#if>
-                </div>
-
-        </header>
+<#assign action = "signup">
+<#include "frame_public.html">
 
         <section class="search profile">
 
@@ -161,31 +112,4 @@
             </div>
         </section>
 
-        <footer>
-            <#if logged>
-                <ul>
-                    <li>
-                        <a href="profile" class="ball tree hover-blue" title="Your Profile">
-                            <i class="fa fa-user fa-2x"></i>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="settings" class="ball settings hover-blue" title="Settings">
-                            <i class="fa fa-cog fa-2x"></i>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="logout" class="ball logout hover-blue" title="Logout">
-                            <i class="fa fa-sign-out fa-2x"></i>
-                        </a>
-                    </li>
-                </ul>
-            </#if>
-
-    </footer>
-
-    </body>
-
-</html>
+<#include "footer.html">

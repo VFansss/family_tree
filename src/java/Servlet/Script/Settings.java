@@ -35,8 +35,7 @@ public class Settings extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = (String)request.getParameter("action");
         
@@ -50,7 +49,7 @@ public class Settings extends HttpServlet {
         }else if(user_logged == null){
                 response.sendRedirect("login?msn=log");
                 
-        }else {
+        }else{
 
             String result; 
             switch (action) {
@@ -69,7 +68,7 @@ public class Settings extends HttpServlet {
                 default: result = "Something is wrong";
             }
             
-            response.sendRedirect("settings?result="+ result +"&action=" + action);
+            response.sendRedirect("settings?result=" + result + "&action=" + action);
 
         }
         

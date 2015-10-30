@@ -82,7 +82,7 @@
     
     <error-page>
         <error-code>404</error-code>
-        <location>/template/notfound.html</location>
+        <location>/template/page-not-found.html</location>
     </error-page>
     
     <resource-ref>

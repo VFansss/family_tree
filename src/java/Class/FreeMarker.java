@@ -48,9 +48,9 @@ public class FreeMarker {
         
         String strin = "1994-09-01";
         Date asd= Function.convertDateFormat(Function.stringToDate(strin));
-        out.println(asd.toString());
+//        out.println(asd.toString());
         if(asd == null){
-        out.println("ciao");
+            out.println("ciao");
         }
         try{
             template.process(data, out);

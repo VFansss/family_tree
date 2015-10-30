@@ -129,13 +129,14 @@ public class Profile extends HttpServlet {
                 session.setAttribute("breadcrumb", breadcrumb);
                 // Inserimento del breadcrumb nel data-model
                 data.put("breadcrumb", breadcrumb);
+                                
                 // Caricamento del template
                 FreeMarker.process("profile.html",data, response, getServletContext());
                 
-            // Altrimenti, se l'utente corrente non esiste
+            // Altrimenti, se l'utente non esiste o se non è possibile visualizzare il suo profilo
             }else{
-                // Vai alla pagina dell'utente loggato
-                response.sendRedirect("profile");
+                // Vai alla pagina di errore
+                response.sendRedirect("error");
             }
             
             

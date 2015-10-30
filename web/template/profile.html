@@ -1,381 +1,313 @@
-<!DOCTYPE html>
-<html lang="en">
+<#include "frame_public.html">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>${user_current.name} - Collaborative Genealogy</title>
-        <!-- icon -->
-        <link rel="shortcut icon" href="template/images/favicon.ico" />
-        <!-- App Styling Bundle -->
-        <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
-        <link href="template/css/blue.css" rel="stylesheet">
-        <link href="template/css/style.css" rel="stylesheet">
-        <link href="template/css/responsive.css" rel="stylesheet">
-        <!--Script-->
-     
-       
-    </head>
-    
-    <body>
-            <header>
-                <div class="xs-hidden" id="tree-icon">
-                    <a href="/Collaborative_Genealogy/"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
-                </div>
+    <section class="profile">
 
-                <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
-                    <form method="POST" action="search" >
-                        <input type="button" value="Search" />
-                        <input placeholder="Search" type="text" name="search" required />
+        <!-- Breadcrumb nav -->
+        <div class="col-md-12 breadcrumb-nav">                 
 
-                    </form>
-                </div>
-                <div class="col-xs-4 button-top-right pull-right">
-                    <a href="profile" class="btn btn-primary pull-right ellipsis">
-                        <img src="template/profile/${user_logged.id}.jpg" alt="profile image" class="img-circle img-cover"/>
-                        <p class="inline-block">&nbsp;${user_logged.name}</p>
-                    </a>
-                </div>
-                
-            </header>
+            <#list breadcrumb as node>
+                <a href="profile?id=${node.user.id}" class="ball breadcrumb-nav" title="${node.user.name} - ${node.label}">
+                    <img src="template/profile/${node.user.id}.jpg" class="img-circle img-cover" alt="profile" />
+                </a>
+            </#list>            
+        </div>
 
-            <section class="profile">
-                
-                <!-- Breadcrumb nav -->
-                <div class="col-md-12 breadcrumb-nav">                 
-                    
-                    <#list breadcrumb as node>
-                        <a href="profile?id=${node.user.id}" class="ball breadcrumb-nav" title="${node.user.name} - ${node.label}">
-                            <img src="template/profile/${node.user.id}.jpg" class="img-circle img-cover" alt="profile" />
-                        </a>
-                    </#list>            
+        <!-- Current user -->
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+            <div class="panel panel-body blue-background">
+                <div class="col-md-12 top-name">
+                    <h3>${user_current.name} ${user_current.surname}</h3>
                 </div>
-  
-                <!-- Current user -->
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-                    <div class="panel panel-body blue-background">
+                <div class="col-md-4 responsive-row">
+                    <div class="img-circle">
+                        <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle img-cover" />
+                    </div>
+                    <ul class="anagraphics-info">
+                        <li>
+                            <p><i class="fa fa-calendar"></i> ${user_current.birthdate}</p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
+                        </li>
+                        <#if relative_grade??>
+                            <li>
+                                <p><i class="fa fa-user"></i> ${relative_grade?capitalize}</p>
+                            </li>
+                        <#else>
+                            <li>
+                                <p><i class="fa fa-user"></i> You</p>
+                            </li>
+                        </#if>
+                    </ul>
+                </div>
+                <div class="col-md-8 biography-box">
+                    <h3 class="main-name">${user_current.name} ${user_current.surname}</h3>
+                    <#if user_current.biography??>
+                        <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
+                    <#else>
+                        <p class="bio-miss">biography missing</p>
+                    </#if>
+                </div>
+            </div>
+        </div>
+
+        <#if father?? || mother??>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
+            </div>
+
+            <!-- Parent tile -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+
+                <#if father??>
+
+                    <!-- Father -->
+                    <div class="panel panel-body dark-background">
+                        <form action="#" class="delete-relative hover-blue">
+                            <button href="#"><i class="fa fa-times"></i></button>
+                        </form>
+
                         <div class="col-md-12 top-name">
-                            <h3>${user_current.name} ${user_current.surname}</h3>
+                            <a href="profile?id=${father.user.id}">
+                                <h3 class="hover-blue">${father.user.name} ${father.user.surname}</h3>
+                            </a>
                         </div>
                         <div class="col-md-4 responsive-row">
                             <div class="img-circle">
-                                <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle img-cover" />
+                                <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                             </div>
                             <ul class="anagraphics-info">
                                 <li>
-                                    <p><i class="fa fa-calendar"></i> ${user_current.birthdate}</p>
+                                    <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
                                 </li>
                                 <li>
-                                    <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
+                                    <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
                                 </li>
-                                <#if relative_grade??>
-                                    <li>
-                                        <p><i class="fa fa-user"></i> ${relative_grade?capitalize}</p>
-                                    </li>
-                                <#else>
-                                    <li>
-                                        <p><i class="fa fa-user"></i> You</p>
-                                    </li>
-                                </#if>
+                                <li>
+                                    <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
+                                </li>
                             </ul>
+
                         </div>
                         <div class="col-md-8 biography-box">
-                            <h3 class="main-name">${user_current.name} ${user_current.surname}</h3>
-                            <#if user_current.biography??>
-                                <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
+                            <a href="profile?id=${father.user.id}">
+                                <h3 class="main-name hover-blue">${father.user.name} ${father.user.surname}</h3>
+                            </a>
+                            <#if father.user.biography??>
+                                <p>${father.user.biography}</p>
                             <#else>
                                 <p class="bio-miss">biography missing</p>
                             </#if>
                         </div>
                     </div>
-                </div>
-
-                <#if father?? || mother??>
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                        <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
-                    </div>
-
-                    <!-- Parent tile -->
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-
-                        <#if father??>
-
-                            <!-- Father -->
-                            <div class="panel panel-body dark-background">
-                                <form action="#" class="delete-relative hover-blue">
-                                    <button href="#"><i class="fa fa-times"></i></button>
-                                </form>
-                                    
-                                <div class="col-md-12 top-name">
-                                    <a href="profile?id=${father.user.id}">
-                                        <h3 class="hover-blue">${father.user.name} ${father.user.surname}</h3>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 responsive-row">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${father.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                                    </div>
-                                    <ul class="anagraphics-info">
-                                        <li>
-                                            <p><i class="fa fa-calendar"></i> ${father.user.birthdate}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-map-marker"></i> ${father.user.birthplace}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-user"></i> ${father.label?capitalize}</p>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                                <div class="col-md-8 biography-box">
-                                    <a href="profile?id=${father.user.id}">
-                                        <h3 class="main-name hover-blue">${father.user.name} ${father.user.surname}</h3>
-                                    </a>
-                                    <#if father.user.biography??>
-                                        <p>${father.user.biography}</p>
-                                    <#else>
-                                        <p class="bio-miss">biography missing</p>
-                                    </#if>
-                                </div>
-                            </div>
-                        </#if>
-
-                        <!-- Mother -->
-                        <#if mother??>
-                            <div class="panel panel-body dark-background">
-                                <form action="#" class="delete-relative hover-blue">
-                                    <button href="#"><i class="fa fa-times"></i></button>
-                                </form>
-
-                                <div class="col-md-12 top-name">
-                                    <a href="profile?id=${mother.user.id}">
-                                        <h3 class="hover-blue">${mother.user.name} ${mother.user.surname}</h3>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 responsive-row">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                                    </div>
-                                    <ul class="anagraphics-info">
-                                        <li>
-                                            <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-8 biography-box">
-                                    <a href="profile?id=${mother.user.id}">
-                                        <h3 class="main-name hover-blue">${mother.user.name} ${mother.user.surname}</h3>
-                                    </a>
-                                    <#if mother.user.biography??>
-                                        <p>${mother.user.biography}</p>
-                                    <#else>
-                                        <p class="bio-miss">biography missing</p>
-                                    </#if>
-                                </div>
-                            </div>
-
-                        </#if>
-                    </div>
                 </#if>
 
-                <#if spouse??>
+                <!-- Mother -->
+                <#if mother??>
+                    <div class="panel panel-body dark-background">
+                        <form action="#" class="delete-relative hover-blue">
+                            <button href="#"><i class="fa fa-times"></i></button>
+                        </form>
 
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                        <a href="#">
-                            <#if user_current.gender == "male">
-                                Wife 
+                        <div class="col-md-12 top-name">
+                            <a href="profile?id=${mother.user.id}">
+                                <h3 class="hover-blue">${mother.user.name} ${mother.user.surname}</h3>
+                            </a>
+                        </div>
+                        <div class="col-md-4 responsive-row">
+                            <div class="img-circle">
+                                <img src="template/profile/${mother.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
+                            </div>
+                            <ul class="anagraphics-info">
+                                <li>
+                                    <p><i class="fa fa-calendar"></i> ${mother.user.birthdate}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-map-marker"></i> ${mother.user.birthplace}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-user"></i> ${mother.label?capitalize}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 biography-box">
+                            <a href="profile?id=${mother.user.id}">
+                                <h3 class="main-name hover-blue">${mother.user.name} ${mother.user.surname}</h3>
+                            </a>
+                            <#if mother.user.biography??>
+                                <p>${mother.user.biography}</p>
                             <#else>
-                                Husband
-                            </#if>    
-                            <i class="fa fa-chevron-down"></i>
-                        </a>
+                                <p class="bio-miss">biography missing</p>
+                            </#if>
+                        </div>
                     </div>
 
-                    <!-- Husband/Wife -->
-
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-
-                        <div class="panel panel-body dark-background">
-
-                            <form action="#" class="delete-relative hover-blue">
-                                <button href="#"><i class="fa fa-times"></i></button>
-                            </form>
-
-                            <div class="col-md-12 top-name">
-                                <a href="profile?id=${spouse.user.id}">
-                                    <h3 class="hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
-                                </a>
-                            </div>
-                            <div class="col-md-4 responsive-row">
-                                <div class="img-circle">
-                                    <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                                </div>
-                                <ul class="anagraphics-info">
-                                        <li>
-                                            <p><i class="fa fa-calendar"></i> ${spouse.user.birthdate}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-map-marker"></i> ${spouse.user.birthplace}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-user"></i> ${spouse.label?capitalize}</p>
-                                        </li>
-                                    </ul>
-                            </div>
-                            <div class="col-md-8 biography-box">
-                                <a href="profile?id=${spouse.user.id}">
-                                    <h3 class="main-name hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
-                                </a>
-                                <#if spouse.user.biography??>
-                                    <p>${spouse.user.biography}</p>
-                                <#else>
-                                    <p class="bio-miss">biography missing</p>
-                                </#if>
-                            </div>    
-                        </div>    
-                    </div>
                 </#if>
+            </div>
+        </#if>
 
-                <#if children?has_content>
+        <#if spouse??>
 
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                        <a href="#">Children <i class="fa fa-chevron-down"></i></a>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <a href="#">
+                    <#if user_current.gender == "male">
+                        Wife 
+                    <#else>
+                        Husband
+                    </#if>    
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+            </div>
+
+            <!-- Husband/Wife -->
+
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+
+                <div class="panel panel-body dark-background">
+
+                    <form action="#" class="delete-relative hover-blue">
+                        <button href="#"><i class="fa fa-times"></i></button>
+                    </form>
+
+                    <div class="col-md-12 top-name">
+                        <a href="profile?id=${spouse.user.id}">
+                            <h3 class="hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
+                        </a>
                     </div>
+                    <div class="col-md-4 responsive-row">
+                        <div class="img-circle">
+                            <img src="template/profile/${spouse.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
+                        </div>
+                        <ul class="anagraphics-info">
+                                <li>
+                                    <p><i class="fa fa-calendar"></i> ${spouse.user.birthdate}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-map-marker"></i> ${spouse.user.birthplace}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-user"></i> ${spouse.label?capitalize}</p>
+                                </li>
+                            </ul>
+                    </div>
+                    <div class="col-md-8 biography-box">
+                        <a href="profile?id=${spouse.user.id}">
+                            <h3 class="main-name hover-blue">${spouse.user.name} ${spouse.user.surname}</h3>
+                        </a>
+                        <#if spouse.user.biography??>
+                            <p>${spouse.user.biography}</p>
+                        <#else>
+                            <p class="bio-miss">biography missing</p>
+                        </#if>
+                    </div>    
+                </div>    
+            </div>
+        </#if>
+
+        <#if children?has_content>
+
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <a href="#">Children <i class="fa fa-chevron-down"></i></a>
+            </div>
 
 
-                    <!-- Children -->
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-                        <#list children as child>
-                            <div class="panel panel-body dark-background">
+            <!-- Children -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                <#list children as child>
+                    <div class="panel panel-body dark-background">
 
-                                <form action="#" class="delete-relative hover-blue">
-                                    <button href="#"><i class="fa fa-times"></i></button>
-                                </form>
+                        <form action="#" class="delete-relative hover-blue">
+                            <button href="#"><i class="fa fa-times"></i></button>
+                        </form>
 
-                                <div class="col-md-12 top-name">
-                                    <a href="profile?id=${child.user.id}">
-                                        <h3 class="hover-blue">${child.user.name} ${child.user.surname}</h3>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 responsive-row">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                                    </div>
-                                    <ul class="anagraphics-info">
-                                        <li>
-                                            <p><i class="fa fa-calendar"></i> ${child.user.birthdate}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-map-marker"></i> ${child.user.birthplace}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-user"></i> ${child.label?capitalize}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-8 biography-box">
-                                    <a href="profile?id=${child.user.id}">
-                                        <h3 class="main-name hover-blue">${child.user.name} ${child.user.surname}</h3>
-                                    </a>
-                                    <#if child.user.biography??>
-                                        <p>${child.user.biography}</p>
-                                    <#else>
-                                        <p class="bio-miss">biography missing</p>
-                                    </#if>
-                                </div>
+                        <div class="col-md-12 top-name">
+                            <a href="profile?id=${child.user.id}">
+                                <h3 class="hover-blue">${child.user.name} ${child.user.surname}</h3>
+                            </a>
+                        </div>
+                        <div class="col-md-4 responsive-row">
+                            <div class="img-circle">
+                                <img src="template/profile/${child.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                             </div>
-                        </#list>
+                            <ul class="anagraphics-info">
+                                <li>
+                                    <p><i class="fa fa-calendar"></i> ${child.user.birthdate}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-map-marker"></i> ${child.user.birthplace}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-user"></i> ${child.label?capitalize}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 biography-box">
+                            <a href="profile?id=${child.user.id}">
+                                <h3 class="main-name hover-blue">${child.user.name} ${child.user.surname}</h3>
+                            </a>
+                            <#if child.user.biography??>
+                                <p>${child.user.biography}</p>
+                            <#else>
+                                <p class="bio-miss">biography missing</p>
+                            </#if>
+                        </div>
                     </div>
-                </#if>
+                </#list>
+            </div>
+        </#if>
 
-                <#if siblings?has_content>
+        <#if siblings?has_content>
 
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                        <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
-                    </div>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
+            </div>
 
-                    <!-- Siblings -->
-                    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-                        <#list siblings as sibling>
-                            <div class="panel panel-body dark-background">
+            <!-- Siblings -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                <#list siblings as sibling>
+                    <div class="panel panel-body dark-background">
 
-                                <form action="#" class="delete-relative hover-blue">
-                                    <button href="#"><i class="fa fa-times"></i></button>
-                                </form>
+                        <form action="#" class="delete-relative hover-blue">
+                            <button href="#"><i class="fa fa-times"></i></button>
+                        </form>
 
-                                <div class="col-md-12 top-name">
-                                    <a href="profile?id=${sibling.user.id}">
-                                        <h3 class="hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 responsive-row">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                                    </div>
-                                    <ul class="anagraphics-info">
-                                        <li>
-                                            <p><i class="fa fa-calendar"></i> ${sibling.user.birthdate}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-map-marker"></i> ${sibling.user.birthplace}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-user"></i> ${sibling.label?capitalize}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-8 biography-box">
-                                    <a href="profile?id=${sibling.user.id}">
-                                        <h3 class="main-name hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
-                                    </a>
-                                    <#if sibling.user.biography??>
-                                        <p>${sibling.user.biography}</p>
-                                    <#else>
-                                        <p class="bio-miss">biography missing</p>
-                                    </#if>
-                                </div>
+                        <div class="col-md-12 top-name">
+                            <a href="profile?id=${sibling.user.id}">
+                                <h3 class="hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
+                            </a>
+                        </div>
+                        <div class="col-md-4 responsive-row">
+                            <div class="img-circle">
+                                <img src="template/profile/${sibling.user.id}.jpg" alt="profile image" class="img-circle img-cover" />
                             </div>
-                        </#list>
+                            <ul class="anagraphics-info">
+                                <li>
+                                    <p><i class="fa fa-calendar"></i> ${sibling.user.birthdate}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-map-marker"></i> ${sibling.user.birthplace}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-user"></i> ${sibling.label?capitalize}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8 biography-box">
+                            <a href="profile?id=${sibling.user.id}">
+                                <h3 class="main-name hover-blue">${sibling.user.name} ${sibling.user.surname}</h3>
+                            </a>
+                            <#if sibling.user.biography??>
+                                <p>${sibling.user.biography}</p>
+                            <#else>
+                                <p class="bio-miss">biography missing</p>
+                            </#if>
+                        </div>
                     </div>
-                </#if>
-                    
-          
-            </section>
-            
-            <footer>
-  
-                <ul>
-                    <li>
-                        <a href="profile" class="ball tree active" title="Profile">
-                            <i class="fa fa-user fa-2x"></i>
-                        </a>
-                    </li>
+                </#list>
+            </div>
+        </#if>
 
-                    <li>
-                        <a href="settings" class="ball settings hover-blue" title="Settings">
-                            <i class="fa fa-cog fa-2x"></i>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="logout" class="ball logout hover-blue" title="Logout">
-                            <i class="fa fa-sign-out fa-2x"></i>
-                        </a>
-                    </li>
-                </ul>
-               
-        </footer>
-      
-    </body>
 
-</html>
+    </section>
+ 
+<#include "footer.html">

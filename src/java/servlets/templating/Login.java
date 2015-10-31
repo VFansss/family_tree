@@ -58,6 +58,9 @@ public class Login extends HttpServlet {
                         case "psw":
                             msn = "Incorrect password";
                             break;
+                        case "signup_done":
+                            msn = "Registrazione effettuata correttamente!";
+                            break;
                         default:
                             msn=null;
                     }

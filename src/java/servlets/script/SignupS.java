@@ -37,29 +37,25 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         
     String name = request.getParameter("name");
     
-    name = name.trim();
-    name = DataUtil.internalTrim(name);
-    name = DataUtil.capitalizeEachWord(name);
+    DataUtil reply = new DataUtil();
             
-    //Check alphanumeric
-    if(!DataUtil.isAlphanumeric(name)){
-        //NOT Alphanumeric
+    //
+    //Check sul campo 'nome'
+    //
+    reply = DataUtil.check_name(name);
+    if(!reply.success){
         
-        //LANCIO ERRORE
-    }
+    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
+    return;}
     
-    //Check lunghezza anomala
-    //Nome 'anomalo': meno di 2 caratteri, piu di 50
-    if(DataUtil.anormalLength(name,2,50)){
         
-        //NOME STRANO
         
-        //LANCIO ERRORE
-    }
+    //Tutti i campi sono considerati 'ok'
+    //TODO: Si procede alla scrittura sul DB
     
+    response.sendRedirect("login?msn=" + URLEncoder.encode("signup_done", "UTF-8"));
 
-    
-    response.sendRedirect("login");
+//END OF METHOD
 }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

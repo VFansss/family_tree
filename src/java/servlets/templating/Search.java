@@ -41,7 +41,6 @@ public class Search extends HttpServlet {
         //Gestione sessione
         HttpSession session=request.getSession(false);
         
-        //User user_logged = null;
         boolean logged = false;
         
         //Se non è stato effettuato il login...
@@ -51,42 +50,97 @@ public class Search extends HttpServlet {
             data.put("user_logged", (User)session.getAttribute("user_logged"));
         }
         
+        Map<String, String> to_search = new HashMap<String, String>();
         
-        String input = request.getParameter("search");
-        String[] parts = null;
+        //Bisogna recuperare i dati dalle form:
+        //Se la richiesta giunge dalla searchbar
+        if(request.getParameter("source").equals("searchbar")){
+            
+            String string_input = request.getParameter("search").trim();
+            
+            String[] input = string_input.split(" ");
+            
+            //String name = input[0];
+            String surname = "";
+            
+            for (int i=1; i<input.length; i++){
+                surname = surname + input[i] + " ";
+            }
+            
+            to_search.put("name", input[0]);
+            to_search.put("surname", surname);
+            
+        } else if (request.getParameter("source").equals("filters")) {
+            
+            to_search.put("name", request.getParameter("name").trim());
+            to_search.put("surname", request.getParameter("surname").trim());
+            to_search.put("birthplace", request.getParameter("birthplace"));
+            to_search.put("birthdate", request.getParameter("birthdate"));
+        }
         
-        if (input!=null) parts = input.split(" ");
-        
-        UserList results = search(parts);
+        UserList results = search(to_search);
         
         data.put("logged", logged);
         data.put("results", results);
-        data.put("searching", input);
+        //data.put("searching", input);
+        
         
         FreeMarker.process("search.html",data, response, getServletContext());
         
     }
     
-    protected static UserList search(String[] conditions){
+    protected static UserList search(String input){
+        // Se non ci sono condizioni si ritorna null (non c'è alcun risultato)
+        if(input==null) return null;
+        
+        String[] conditions = input.split(" ");
         UserList results = new UserList();
-        try {        
-            if(conditions != null){ 
-                for(int i=0; i<conditions.length; i++){
-                    try (ResultSet record = Database.selectRecord("user", "name='"+conditions[i]+"'")) {
-                        while(record.next()){
-                            results.add(new User(record));  
-                        }
-                    }catch (SQLException ex){
-                        if(i-1<conditions.length) continue;
-                        else throw ex;
-                    }
+        
+        return null;
+        
+        
+        
+//        try {        
+//            for(int i=0; i<conditions.length; i++){
+//                try (ResultSet record = Database.selectRecord("user", "name='"+conditions[i]+"'")) {
+//                    while(record.next()){
+//                        results.add(new User(record));  
+//                    }
+//                }catch (SQLException ex){
+//                    if(i-1<input.length) continue;
+//                    else throw ex;
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            results = null;
+//        } finally {
+//            return results;
+//        }
+    }
+    
+    protected static UserList search(Map<String, String> input){
+        UserList result = new UserList();
+        
+        String condition_string = "";
+        for(Map.Entry<String, String> entry : input.entrySet()){
+            if(!entry.getKey().isEmpty()){
+                if(!condition_string.equals("")){
+                    condition_string = condition_string+" AND ";
                 }
+                condition_string = entry.getKey()+"='"+entry.getValue()+"'";
             }
-        } catch (SQLException ex) {
-            results = null;
-        } finally {
-            return results;
         }
+        
+        try (ResultSet record = Database.selectRecord("user", condition_string)){
+            if(record != null)
+                while(record.next()){
+                    result.add(new User(record));  
+                }
+        } catch (SQLException ex){
+            
+        }
+           
+        return result;
     }
     
     

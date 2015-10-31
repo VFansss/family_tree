@@ -11,6 +11,14 @@ package classes;
  */
 public class DataUtil {
     
+    public boolean success;
+    public String message;
+    
+    public DataUtil(){
+        this.message="DataUtil_no_operation_done";
+        this.success=false;
+}
+    
     /**
      * Controllo su String. Contiene solo caratteri alfanumerici?
      * @param toCheck stringa sul quale effettuare il controllo
@@ -25,7 +33,7 @@ public class DataUtil {
     
     /**
      * Cancellazione doppi spazi interni alla stringa
-     * @param toTrim Striga sul quale verrà effettuato il trim.
+     * @param toTrim Striga sul quale verrÃ  effettuato il trim.
      * @return Valore string - Stringa senza doppi spazi
      */
     
@@ -36,23 +44,19 @@ public class DataUtil {
     }
     
     /**
-     * Capitalizza prima lettera di ogni parola nella stringa
-     * @param toTrim Striga sul quale verrà effettuato il trim.
-     * @return Valore string - Stringa senza doppi spazi
+     * 
      */
     
-    public static String capitalizeEachWord(String toCapitalize){
+    public static String capitalizeCancaro(String stringa){
 
-    //TODO
+    return "";
         
-    return toCapitalize;
-    
     }
     
     
     /**
      * Controlla se la stringa ha una lunghezza definita 'anomala'.
-     * @param toCheck Striga sul quale verrà effettuato il controllo.
+     * @param toCheck Striga sul quale verrÃ  effettuato il controllo.
      * @param minval lunghezza minima (estremo compreso)
      * @param maxval lunghezza massima della stringa (estremo compreso)
      * @return false se all'interno dell'intervallo (estremi compresi). true altrimenti.
@@ -67,6 +71,55 @@ public class DataUtil {
     
     }
     
+    /**
+     * Trim degli spazi iniziali e dei doppi spazi interni
+     */
+    
+    public static String spaceTrim(String toTrim){
+    
+    toTrim = toTrim.trim();
+    toTrim = DataUtil.internalTrim(toTrim);
+    
+    return toTrim;
+    
+}
+    
+     /**
+     * Effettua una serie di operazioni sul campo nome
+     */
+    
+    public static DataUtil check_name(String toCheck){
+
+    DataUtil reply = new DataUtil();
+    
+    toCheck=DataUtil.spaceTrim(toCheck);
     
     
+    //Check alphanumeric
+    if(!DataUtil.isAlphanumeric(toCheck)){
+        reply.message="Il nome può contenere solo caratteri alfanumerici (A-Z)";
+        reply.success=false;
+        
+        return reply;
+    }
+    
+    //Check lunghezza anomala
+    //Nome 'anomalo': meno di 2 caratteri, piu di 50
+    if(DataUtil.anormalLength(toCheck,2,50)){
+        //TODO: Esplicitare un messaggio diverso per i due casi?---------------------------------------------
+        reply.message="Il nome deve essere contenere almeno 2 caratteri ed essere piu corto di 50.";
+        reply.success=false;
+        return reply;
+    }
+    
+    
+    //Se e' arrivato a questo puntp ha superato tutti i controlli
+    //E' un nome considerabile 'OK'
+    reply.message="Il nome e' valido!";
+    reply.success=true;
+    return reply;
+    }
+    
+    
+//END OF CLASS    
 }

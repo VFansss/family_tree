@@ -9,15 +9,20 @@ import classes.Database;
 import classes.Function;
 import classes.Message;
 import classes.User;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -64,7 +69,7 @@ public class SettingsS extends HttpServlet {
                     msn = changePassword(request);
                     break;
                 case "avatar":
-                    msn = changeAvatar(request);
+                    msn = changeAvatar(request, this);
                     break;
                 default: msn = new Message("Something is wrong", false);
             }
@@ -87,6 +92,7 @@ public class SettingsS extends HttpServlet {
         String gender = (String)request.getParameter("gender");
         String birthdate = (String)request.getParameter("birthdate");
         String birthplace = (String)request.getParameter("birthplace");
+        String biography = (String)request.getParameter("biography");
         
         // Conversione della data di nascita in un tipo compatibile al database
         Date sqlDate = Function.stringToDate(birthdate, "dd/MM/yyyy");
@@ -99,7 +105,7 @@ public class SettingsS extends HttpServlet {
         
         // Se non è stato modificato nessun campo
         }else if(user_logged.getName().equals(name) && user_logged.getSurname().equals(surname) && user_logged.getGender().equals(
-                    gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace)){
+                    gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace) && user_logged.getBiography() == null && biography.equals("")){
             msn = "No data to change";
 
         // Se il sesso non è valido
@@ -117,7 +123,7 @@ public class SettingsS extends HttpServlet {
             data.put("surname", surname);
             data.put("birthdate", Function.dateToString(sqlDate));
             data.put("birthplace", birthplace);
-
+            
             if(!user_logged.getGender().equals(gender)){
                 /*
                     Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
@@ -128,6 +134,7 @@ public class SettingsS extends HttpServlet {
                 user_logged.removeSpouse();
             }
             
+            user_logged.setBiography(biography);
             
             // Aggiornamento dati dell'utente
             if(!user_logged.setData(data)) {
@@ -213,10 +220,39 @@ public class SettingsS extends HttpServlet {
         return new Message(msn, flag);
     }
     
-    public static Message changeAvatar(HttpServletRequest request){
+    public static Message changeAvatar(HttpServletRequest request, SettingsS aThis){
         String msn = "";
         boolean flag = false;
-        
+        //process only if its multipart content
+        if(ServletFileUpload.isMultipartContent(request)){
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+               
+                for(FileItem item : multiparts){
+                    if(!item.isFormField()){
+                        if(item.getName().equals("")){
+                            msn = "Please, select a photo";
+                        }else{
+                            String name = user_logged.getId() + ".jpg";
+                            item.write( new File(aThis.getServletContext().getRealPath("/template/profile/").replace("build\\", "") + File.separator + name));
+                            msn = "Photo Uploaded Successfully";
+                            flag = true;
+                        }
+                        
+                    }
+                }
+            
+               //File uploaded successfully
+               
+            } catch (Exception ex) {
+               msn = "File Uploaded Failed";
+            }         
+          
+        }else{
+            msn = "Something is wrong";
+        }
+     
+
         return new Message(msn, flag);
     }
     

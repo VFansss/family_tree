@@ -3,24 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets_asdsda.script_adasd;
+package servlets.templating;
 
+import classes.Database;
+import classes.FreeMarker;
+import classes.User;
+import classes.UserList;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.sql.*;
 /**
  *
  * @author Gianluca
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
-public class Logout extends HttpServlet {
+public class Search extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +34,59 @@ public class Logout extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        HttpSession session=request.getSession();  
-        session.invalidate(); 
+        Map<String, Object> data = new HashMap<String, Object>();
         
-        // Vai alla pagina di login 
-        response.sendRedirect("login");
+        //Gestione sessione
+        HttpSession session=request.getSession(false);
+        
+        //User user_logged = null;
+        boolean logged = false;
+        
+        //Se non è stato effettuato il login...
+        if(session!=null) { 
+            
+            logged = true;             
+            data.put("user_logged", (User)session.getAttribute("user_logged"));
+        }
+        
+        String input = request.getParameter("search");
+        String[] parts = input.split(" ");
+        
+        UserList results = search(parts);
+        
+        data.put("logged", logged);
+        data.put("results", results);
+        data.put("searching", input);
+        
+        FreeMarker.process("search.html",data, response, getServletContext());
+        
     }
+    
+    protected static UserList search(String[] conditions){
+        UserList results = new UserList();
+        try {        
+            if(conditions != null){ 
+                for(int i=0; i<conditions.length; i++){
+                    try (ResultSet record = Database.selectRecord("user", "name='"+conditions[i]+"'")) {
+                        while(record.next()){
+                            results.add(new User(record));  
+                        }
+                    }catch (SQLException ex){
+                        if(i-1<conditions.length) continue;
+                        else throw ex;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            results = null;
+        } finally {
+            return results;
+        }
+    }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

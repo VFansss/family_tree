@@ -1,6 +1,6 @@
-package classes_asdsa.tree_asasdsd;
+package classes.tree;
 
-import classes_asdsa.User;
+import classes.User;
 import java.util.Objects;
 
 

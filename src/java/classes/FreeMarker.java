@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes_asdsa;
+package classes;
 
-import servlets_asdsda.templating_adasd.Signup;
+import servlets.templating.Signup;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

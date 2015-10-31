@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets_asdsda.templating_adasd;
+package servlets.templating;
 
-import classes_asdsa.FreeMarker;
-import classes_asdsa.User;
+import classes.FreeMarker;
+import classes.User;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;

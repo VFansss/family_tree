@@ -5,39 +5,39 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>Profile</servlet-name>
-        <servlet-class>servlets_asdsda.templating_adasd.Profile</servlet-class>
+        <servlet-class>servlets.templating.Profile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
-        <servlet-class>servlets_asdsda.templating_adasd.Signup</servlet-class>
+        <servlet-class>servlets.templating.Signup</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignupS</servlet-name>
-        <servlet-class>servlets_asdsda.script_adasd.SignupS</servlet-class>
+        <servlet-class>servlets.script.SignupS</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>servlets_asdsda.templating_adasd.Login</servlet-class>
+        <servlet-class>servlets.templating.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginScript</servlet-name>
-        <servlet-class>servlets_asdsda.script_adasd.Login</servlet-class>
+        <servlet-class>servlets.script.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets_asdsda.script_adasd.Logout</servlet-class>
+        <servlet-class>servlets.script.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Settings</servlet-name>
-        <servlet-class>servlets_asdsda.templating_adasd.Settings</servlet-class>
+        <servlet-class>servlets.templating.Settings</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
-        <servlet-class>servlets_asdsda.templating_adasd.Search</servlet-class>
+        <servlet-class>servlets.templating.Search</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingsScript</servlet-name>
-        <servlet-class>servlets_asdsda.script_adasd.SettingsS</servlet-class>
+        <servlet-class>servlets.script.SettingsS</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>

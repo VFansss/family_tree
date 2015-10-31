@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets_asdsda.script_adasd;
+package servlets.script;
 
-import classes_asdsa.Database;
-import classes_asdsa.DataUtil;
+import classes.Database;
+import classes.DataUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classes_asdsa.DataUtil;
+import classes.DataUtil;
 import java.net.URLEncoder;
 
 /**

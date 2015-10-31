@@ -34,15 +34,34 @@ public class SignupS extends HttpServlet {
      */
     
 protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    String name = request.getParameter("name");
     
+    //Oggetto ausiliario DataUtil. Utilizzato per ricevere riuscita delle chiamate
+    //di funzione dei metodi check_*
+    //Controlla Javadoc DataUtil
     DataUtil reply = new DataUtil();
-            
+    
+    //
+    //Check sul campo 'mail'
+    //
+    reply = DataUtil.check_mail(request.getParameter("email"));
+    if(!reply.success){
+        
+    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
+    return;}
+    
     //
     //Check sul campo 'nome'
     //
-    reply = DataUtil.check_name(name);
+    reply = DataUtil.check_name(request.getParameter("name"));
+    if(!reply.success){
+        
+    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
+    return;}
+    
+    //
+    //Check sul campo 'cognome'
+    //
+    reply = DataUtil.check_name(request.getParameter("surname"));
     if(!reply.success){
         
     response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));

@@ -11,6 +11,7 @@ package classes;
  */
 public class Message {
     private String msn;
+    // false se è un messaggio di errore, true altrimenti
     private boolean flag;
 
     public Message(String msn, boolean flag) {

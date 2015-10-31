@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ContextListener", urlPatterns = {"/ContextListener"})
 public class ContextInitializer implements ServletContextListener {
 
+    
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         Database.connect();

@@ -86,7 +86,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         
         // Se è stato riscontrato un errore, 
         if(check.isError()){
-//            // Vai alla pagina di signup mostrando l'errore
+            // Vai alla pagina di signup mostrando l'errore
             response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getMessage(), "UTF-8"));
            
         }else{

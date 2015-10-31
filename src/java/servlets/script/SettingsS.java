@@ -190,13 +190,21 @@ public class SettingsS extends HttpServlet {
             msg =  "Confirm email is not valid";
             
         }else{
-            
-            // Aggiorna email utente
-            boolean result = user_logged.setEmail(new_email);
-            if(!result) msg =  "Something is wrong";
+            // Se l'email non è valida
+            Message check = DataUtil.checkEmail(new_email);
+            if(check.isError()){
+                msg = check.getMessage();
                 
-            msg =  "Email changed";
-            error = false;
+            }else{
+                // Aggiorna email utente
+                boolean result = user_logged.setEmail(new_email);
+                if(!result) {
+                    msg =  "Something is wrong";
+                }else{
+                    msg =  "Email changed";
+                    error = false;
+                }
+            }
         }
         
         // Ritorna il messaggio da visualizzare
@@ -216,22 +224,34 @@ public class SettingsS extends HttpServlet {
         if(current_password.equals("") || new_password.equals("") || confirm_password.equals("")){
             msg = "All fields are required";
             
-        // Se l'email corrente è sbagliata
+        // Se l'password corrente è sbagliata
         }else if(!user_logged.checkPassword(current_password)){
             msg =  "Current passwrod is not valid";
         
-        // Se la conferma dell'email non corrisponde
+        // Se la conferma dell'password non corrisponde
         }else if(!new_password.equals(confirm_password)){
             msg =  "Confirm passwrod is not valid";
             
         }else{
             
-            // Aggiorna email utente
-            boolean result = user_logged.setPassword(confirm_password);
-            if(!result) msg =  "Something is wrong";
+            // Se la password non è nel formato giusto
+            Message check = DataUtil.checkEmail(new_password);
+            if(check.isError()){
+                msg = check.getMessage();
+            }else{
+               // Aggiorna email utente
+                boolean result = user_logged.setPassword(confirm_password);
+                if(!result){
+                    msg =  "Something is wrong";
+                } else{
+                    msg =  "Password changed";
+                    error = false;
+                }     
+               
+            }
+            
                 
-            msg =  "Password changed";
-            error = false;
+            
         }
         
         // Ritorna il messaggio da visualizzare

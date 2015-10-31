@@ -113,8 +113,6 @@ public class DataUtil {
         }else{
             error = false;
         }
-        
-        
 
         return new Message(msg, error);
     }

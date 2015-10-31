@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Script;
+package servlets_asdsda.Script;
 
-import Class.Database;
-import Class.Function;
-import Class.Message;
-import Class.User;
+import classes_asdsa.Database;
+import classes_asdsa.Function;
+import classes_asdsa.Message;
+import classes_asdsa.User;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;

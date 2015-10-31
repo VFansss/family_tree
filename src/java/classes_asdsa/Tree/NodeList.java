@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Class.Tree;
+package classes_asdsa.Tree;
 
-import Class.Database;
-import Class.User;
+import classes_asdsa.Database;
+import classes_asdsa.User;
 import java.util.ArrayList;
 
 /**

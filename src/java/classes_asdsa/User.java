@@ -1,6 +1,6 @@
-package Class;
+package classes_asdsa;
 
-import Class.Tree.GenealogicalTree;
+import classes_asdsa.Tree.GenealogicalTree;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;

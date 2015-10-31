@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Templating;
+package servlets_asdsda.Templating;
 
-import Class.Database;
-import Class.FreeMarker;
-import Class.User;
-import Class.UserList;
+import classes_asdsa.Database;
+import classes_asdsa.FreeMarker;
+import classes_asdsa.User;
+import classes_asdsa.UserList;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;

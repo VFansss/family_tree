@@ -3,27 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Templating;
+package servlets_asdsda.Templating;
 
-import Class.FreeMarker;
-import Class.User;
+import classes_asdsa.FreeMarker;
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Marco
  */
-public class Settings extends HttpServlet {
+public class Signup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,32 +31,17 @@ public class Settings extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
-        //Gestione sessione
-        HttpSession session = request.getSession(false);  
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("action", "signup");
         
-        //Se non è stata generata la sessione
-        if(session != null){     
-            
-            User user_logged = (User)session.getAttribute("user_logged");
-            
-            String as = user_logged.getBirthdate().toString();
-            Map<String, Object> data = new HashMap<>();
-
-            data.put("user_logged", user_logged);
-
-            data.put("action",request.getParameter("action"));
-            data.put("msn", request.getParameter("msn"));
-            data.put("type", request.getParameter("type"));
-            FreeMarker.process("settings.html",data, response, getServletContext());
-            
-        }else{
-            // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
-
-        }
+        String msn = request.getParameter("msn");
+        data.put("msn", msn);
+        
+        FreeMarker.process("login.html",data, response, getServletContext());
         
     }
 

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet.Script;
+package servlets_asdsda.Script;
 
-import Class.Database;
-import Class.Tree.GenealogicalTree;
-import Class.Tree.NodeList;
-import Class.User;
-import Class.UserList;
+import classes_asdsa.Database;
+import classes_asdsa.Tree.GenealogicalTree;
+import classes_asdsa.Tree.NodeList;
+import classes_asdsa.User;
+import classes_asdsa.UserList;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;

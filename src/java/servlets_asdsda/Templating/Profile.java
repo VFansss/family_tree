@@ -1,4 +1,4 @@
-package Servlet.Templating;
+package servlets_asdsda.Templating;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,12 +6,12 @@ package Servlet.Templating;
  * and open the template in the editor.
  */
 
-import Class.FreeMarker;
-import Class.Tree.GenealogicalTree;
-import Class.Tree.NodeList;
-import Class.Tree.TreeNode;
-import Class.User;
-import Class.UserList;
+import classes_asdsa.FreeMarker;
+import classes_asdsa.Tree.GenealogicalTree;
+import classes_asdsa.Tree.NodeList;
+import classes_asdsa.Tree.TreeNode;
+import classes_asdsa.User;
+import classes_asdsa.UserList;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;

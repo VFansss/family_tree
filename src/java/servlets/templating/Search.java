@@ -82,52 +82,23 @@ public class Search extends HttpServlet {
         
         data.put("logged", logged);
         data.put("results", results);
-        //data.put("searching", input);
-        
+        //data.put("searching", input);     
         
         FreeMarker.process("search.html",data, response, getServletContext());
         
     }
     
-    protected static UserList search(String input){
-        // Se non ci sono condizioni si ritorna null (non c'è alcun risultato)
-        if(input==null) return null;
-        
-        String[] conditions = input.split(" ");
-        UserList results = new UserList();
-        
-        return null;
-        
-        
-        
-//        try {        
-//            for(int i=0; i<conditions.length; i++){
-//                try (ResultSet record = Database.selectRecord("user", "name='"+conditions[i]+"'")) {
-//                    while(record.next()){
-//                        results.add(new User(record));  
-//                    }
-//                }catch (SQLException ex){
-//                    if(i-1<input.length) continue;
-//                    else throw ex;
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            results = null;
-//        } finally {
-//            return results;
-//        }
-    }
     
     protected static UserList search(Map<String, String> input){
         UserList result = new UserList();
         
         String condition_string = "";
         for(Map.Entry<String, String> entry : input.entrySet()){
-            if(!entry.getKey().isEmpty()){
+            if(!(entry.getValue().isEmpty())){
                 if(!condition_string.equals("")){
                     condition_string = condition_string+" AND ";
                 }
-                condition_string = entry.getKey()+"='"+entry.getValue()+"'";
+                condition_string = condition_string+entry.getKey()+"='"+entry.getValue()+"'";
             }
         }
         

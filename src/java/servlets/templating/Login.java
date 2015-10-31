@@ -7,8 +7,12 @@ package servlets.templating;
 
 import classes.Database;
 import classes.FreeMarker;
+import classes.Function;
 import java.io.IOException;
-import java.util.*;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +35,7 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  
         //Gestione sessione
         HttpSession session = request.getSession(false);  
         if(Database.isConnected()){

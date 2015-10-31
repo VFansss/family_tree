@@ -100,10 +100,7 @@ public class Function {
         long current_second = current_date.getTime();
         // Calcola i secondi della data minima
         long min_second = min_date.getTime();
-        
-        String d1 = date.toString();
-        String d2 = current_date.toString();
-        String d3 = min_date.toString();
+
         return !(date_second >= current_second || date_second <= min_second);
     }
     public static String dateToString(Date date){

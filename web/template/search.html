@@ -1,95 +1,100 @@
 <#assign action = "search">
 <#include "frame_public.html">
 
-        <section class="search profile">
+<section class="search profile">
 
-            <#if logged>
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-                    <div class="panel panel-body blue-background search-filters">
-                        <h4>Add filters to your search</h4>
-                        <form action="search" class="filter-search-form">
-                            <fieldset>
-                                <input class="form-control" type="text" name="name" placeholder="Name"/>
-                                <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" />
-                                <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" />
-                            </fieldset>
-                            <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
-                            <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
-                        </form>
-                    </div>
-                </div>
-            </#if>
-
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                <a href="#">Showing results for "${searching}" <i class="fa fa-chevron-down"></i></a>
+    <#if logged>
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+            <div class="panel panel-body blue-background search-filters">
+                <h4>Add filters to your search</h4>
+                <form action="search" class="filter-search-form">
+                    <fieldset>
+                        <input class="form-control" type="text" name="name" placeholder="Name"/>
+                        <input class="form-control" type="text" name="surname" placeholder="Surname"/>                                
+                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" />
+                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" />
+                    </fieldset>
+                    <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
+                    <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+                </form>
             </div>
-            
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 wrapper">
-                <#list results as user>
-                    <!-- Tile -->
-                    <div class="col-md-6 col-sm-6 tile rounded">
-                        <div class="panel panel-body dark-background">
+        </div>
+    </#if>
+
+    <#if searching??>
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+            <a href="#">Showing results for "${searching}" <i class="fa fa-chevron-down"></i></a>
+        </div>
+    <#else>
+
+    </#if>
+
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 wrapper">
+        <#list results as user>
+            <!-- Tile -->
+            <div class="col-md-6 col-sm-6 tile rounded">
+                <div class="panel panel-body dark-background">
 
 
-                            <div class="row">
-                                <div class="col-md-12 text-center" >
-                                    <h3 class="nowrap ellipsis" title="${user.name} ${user.surname}">${user.name} ${user.surname}</h3>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12 responsive-row">
-                                    <div class="img-circle">
-                                        <img src="template/profile/${user.id}.jpg" alt="profile image" class="img-circle img-cover" />
-                                    </div>
-                                    <ul class="anagraphics-info">
-                                        <li>
-                                            <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
-                                        </li>
-                                        <li>
-                                            <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
-                                        </li>
-                                        <#if !logged>
-                                            <li>
-                                                <p>100 relatives</p>
-                                            </li>
-                                        </#if>
-                                    </ul>
-                                </div>
-                            </div>
-                            <#if logged>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form>
-                                            <div class="col-md-6 col-sm-6 col-xs-6 relationship">
-
-                                                <select>
-                                                    <option value="" selected disabled>Select a relationship</option>
-                                                    <#if user.gender == "male">
-                                                        <option value="parent">Father</option>
-                                                        <option value="spouse">Husband</option>
-                                                        <option value="sibling">Brother</option>
-                                                        <option value="child">Son</option>
-                                                    <#else>
-                                                        <option value="parent">Mother</option>
-                                                        <option value="spouse">Wife</option>
-                                                        <option value="sibling">Sister</option>
-                                                        <option value="child">Daughter</option>
-                                                    </#if>
-                                                </select>
-                                                <i class="fa fa-caret-down"></i>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
-                                            </div>
-                                        </form>
-                                    </div>  
-                                </div>
-                            </#if>
+                    <div class="row">
+                        <div class="col-md-12 text-center" >
+                            <h3 class="nowrap ellipsis" title="${user.name} ${user.surname}">${user.name} ${user.surname}</h3>
                         </div>
-                    </div>                    
-                </#list>
-            </div>
-        </section>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 responsive-row">
+                            <div class="img-circle">
+                                <img src="template/profile/${user.id}.jpg" alt="profile image" class="img-circle img-cover" />
+                            </div>
+                            <ul class="anagraphics-info">
+                                <li>
+                                    <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
+                                </li>
+                                <li>
+                                    <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
+                                </li>
+                                <#if !logged>
+                                    <li>
+                                        <p>100 relatives</p>
+                                    </li>
+                                </#if>
+                            </ul>
+                        </div>
+                    </div>
+                    <#if logged>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 relationship">
+
+                                        <select>
+                                            <option value="" selected disabled>Select a relationship</option>
+                                            <#if user.gender == "male">
+                                                <option value="parent">Father</option>
+                                                <option value="spouse">Husband</option>
+                                                <option value="sibling">Brother</option>
+                                                <option value="child">Son</option>
+                                            <#else>
+                                                <option value="parent">Mother</option>
+                                                <option value="spouse">Wife</option>
+                                                <option value="sibling">Sister</option>
+                                                <option value="child">Daughter</option>
+                                            </#if>
+                                        </select>
+                                        <i class="fa fa-caret-down"></i>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
+                                    </div>
+                                </form>
+                            </div>  
+                        </div>
+                    </#if>
+                </div>
+            </div>                    
+        </#list>
+    </div>
+</section>
 
 <#include "footer.html">

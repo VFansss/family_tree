@@ -88,7 +88,7 @@ header #search-bar input[type=button]{
     left: 15px;
 }
 
-header #search-bar input[type=search]{
+header #search-bar input[type=text]{
     color: rgba(255,255,255,.5);
     padding: 0 10px 2px 39px;
     background: rgba(0,0,0,0.6);
@@ -102,7 +102,7 @@ header #search-bar input[type=search]{
     width: 100%;
 }
 
-header #search-bar input[type=search]:focus{
+header #search-bar input[type=text]:focus{
     background-color:rgba(255,255,255,0.1);
     box-shadow: 0px 0px 1px 1px rgba(255,255,255,0.1);
 }

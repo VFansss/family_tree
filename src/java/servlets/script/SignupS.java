@@ -50,6 +50,16 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     return;}
     
     //
+    //Check sul campo 'password'
+    // NOT WORKING
+    /*reply = DataUtil.check_password(request.getParameter("password"));
+    if(!reply.success){
+        
+    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
+    return;}*/
+    
+    
+    //
     //Check sul campo 'nome'
     //
     reply = DataUtil.check_name(request.getParameter("name"));
@@ -67,7 +77,33 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
     return;}
     
+    //
+    //Check sul campo 'sesso'
+    //
+    reply = DataUtil.check_gender(request.getParameter("gender"));
+    
+    if(!reply.success){
         
+    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
+    return;}
+    
+    //
+    //Check sul campo 'data di nascita'
+    //
+    
+    //
+    //TODO
+    //
+    
+    //
+    //Check sul campo 'posto di nascita'
+    //
+    reply = DataUtil.check_birthplace(request.getParameter("birthplace"));
+    
+    if(!reply.success){
+        
+    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
+    return;}
         
     //Tutti i campi sono considerati 'ok'
     //TODO: Si procede alla scrittura sul DB

@@ -169,6 +169,81 @@ public class DataUtil {
     return reply;
     } 
 
- 
+    
+    /**
+     * Javadoc TODO
+     */
+    
+    public static DataUtil check_password(String toCheck){
+    
+    DataUtil reply = new DataUtil();
+    reply.success=false;
+    
+    //Check password non valida
+    //Password valida: minimo 6 caratteri,solo alfanumerici
+    if(!(toCheck.matches("^([a-zA-Z]+).{5,}$"))){
+    reply.message="La password deve contenere almeno 6 caratteri e può avere solo caratteri alfanumerici!";
+    reply.success=false;
+    return reply;
+    }
+    
+    reply.message="Pass OK";
+    reply.success=true;
+    return reply;
+    }
+    
+    /**
+     * Javadoc TODO
+     */
+    
+    public static DataUtil check_gender(String toCheck){
+    
+    DataUtil reply = new DataUtil();
+    reply.success=false;
+    
+    //Controllo su 'male' oppure 'female'
+    if(!((toCheck!="male")|(toCheck=="female"))){
+    reply.message="E' obbligatorio selezionare il sesso!";
+    reply.success=false;
+    return reply;
+    }
+    
+    reply.success=true;
+    return reply;    
+    }
+    
+    /**
+     * Javadoc TODO
+     */
+    
+    public static DataUtil check_birthplace(String toCheck){
+    
+    DataUtil reply = new DataUtil();
+    reply.success=false;
+    
+    toCheck = toCheck.trim();
+    
+    //Check stringa vuota
+    if(toCheck.length()==0){
+    reply.message="E' necessario la località di nascita!";
+    reply.success=false;  
+    return reply;
+    }
+    
+    //Check solo caratteri
+    if(!(DataUtil.isAlphanumeric(toCheck))){
+    reply.message="La località di nascita può contenere solo caratteri alfanumerici!";
+    reply.success=false;
+    return reply;
+    }
+    
+    
+    reply.message="Birthplace OK!";
+    reply.success=true;
+    
+    return reply;
+    }
+    
+    
 //END OF CLASS    
 }

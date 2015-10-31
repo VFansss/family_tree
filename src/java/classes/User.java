@@ -11,8 +11,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -188,8 +186,15 @@ public class User{
     }
     
     public boolean setBiography(String biography) {
-        boolean result = this.updateAttribute("biography", biography);
-        if(result) this.biography = biography;
+        boolean result;
+        if(biography.equals("")){
+            result = Database.resetAttribute("user", "biography", "id='" + this.id + "'");
+            if(result) this.biography = null;
+        }else{
+            result = this.updateAttribute("biography", biography);
+            if(result) this.biography = biography;
+        }
+        
         return result;
     }
     
@@ -1402,15 +1407,9 @@ public class User{
      * @return
      */
     private static String createUniqueUserId(int length){
-        // Definisci caratteri ammessi
-        char[] chars = "ABCDEFGHILMNOPQRTUVZ1234567890".toCharArray();
-        StringBuilder sb;
         String user_id;
         do{
-            sb = new StringBuilder();
-            Random random = new Random();
-            for (int i = 0; i < length; i++) sb.append(chars[random.nextInt(chars.length)]);
-            user_id = sb.toString();
+            user_id = Function.generateCode(length);
         // Cicla fino a quando non esiste un utente con id uguale a quello appena generato
         }while(User.getUserById(user_id) != null);
         

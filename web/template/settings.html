@@ -11,7 +11,7 @@
 
                         <div class="lock-container">
                             <div class="panel-default text-center">
-                                <form action="change?action=avatar" class="panel-body" method="POST">
+                                <form action="change?action=avatar" class="panel-body" method="POST" enctype="multipart/form-data">
                                     <div class="avatar text-center">
                                         <img class="img-cover" src="template/profile/${user_logged.id}.jpg" alt="profile image" />
                                         <i class="fa fa-camera fa-3x hover-blue"></i>
@@ -23,7 +23,7 @@
                                             <i class="fa fa-${type}"></i><p>${msn}</p>
                                         </div>
                                     </#if>
-
+                                    <button type="submit" class="col-xs-12 btn btn-primary">Change avatar</button>
                                 </form>
 
                             </div>
@@ -55,6 +55,7 @@
                                         
                                         <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' required />
                                         <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" required />
+                                        <textarea class="form-control" name="biography" placeholder="Biography"><#if user_logged.biography??>${user_logged.biography}</#if></textarea>
                                     </fieldset>
 
                                     <#if action?? && action = "data">
@@ -62,7 +63,8 @@
                                             <i class="fa fa-${type}"></i><p>${msn}</p>
                                         </div>
                                     </#if>
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change data<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
+                                    
+                                    <button type="submit" class="col-xs-12 btn btn-primary">Change data</button>
 
                                 </form>
 

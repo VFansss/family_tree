@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets_asdsda.Script;
+package servlets_asdsda.script_adasd;
 
 import classes_asdsa.Database;
 import classes_asdsa.Function;

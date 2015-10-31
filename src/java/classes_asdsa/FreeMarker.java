@@ -5,7 +5,7 @@
  */
 package classes_asdsa;
 
-import servlets_asdsda.Templating.Signup;
+import servlets_asdsda.templating_adasd.Signup;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

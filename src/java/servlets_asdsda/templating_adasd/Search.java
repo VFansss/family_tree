@@ -3,25 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets_asdsda.Script;
+package servlets_asdsda.templating_adasd;
 
 import classes_asdsa.Database;
-import classes_asdsa.DataUtil;
+import classes_asdsa.FreeMarker;
+import classes_asdsa.User;
+import classes_asdsa.UserList;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import classes_asdsa.DataUtil;
-import java.net.URLEncoder;
-
+import java.sql.*;
 /**
  *
- * @author Alex
+ * @author Gianluca
  */
-public class SignupS extends HttpServlet {
+public class Search extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,35 +34,59 @@ public class SignupS extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-    String name = request.getParameter("name");
-    
-    name = name.trim();
-    name = DataUtil.internalTrim(name);
-    name = DataUtil.capitalizeEachWord(name);
+        Map<String, Object> data = new HashMap<String, Object>();
+        
+        //Gestione sessione
+        HttpSession session=request.getSession(false);
+        
+        //User user_logged = null;
+        boolean logged = false;
+        
+        //Se non è stato effettuato il login...
+        if(session!=null) { 
             
-    //Check alphanumeric
-    if(!DataUtil.isAlphanumeric(name)){
-        //NOT Alphanumeric
+            logged = true;             
+            data.put("user_logged", (User)session.getAttribute("user_logged"));
+        }
         
-        //LANCIO ERRORE
+        String input = request.getParameter("search");
+        String[] parts = input.split(" ");
+        
+        UserList results = search(parts);
+        
+        data.put("logged", logged);
+        data.put("results", results);
+        data.put("searching", input);
+        
+        FreeMarker.process("search.html",data, response, getServletContext());
+        
     }
     
-    //Check lunghezza anomala
-    //Nome 'anomalo': meno di 2 caratteri, piu di 50
-    if(DataUtil.anormalLength(name,2,50)){
-        
-        //NOME STRANO
-        
-        //LANCIO ERRORE
+    protected static UserList search(String[] conditions){
+        UserList results = new UserList();
+        try {        
+            if(conditions != null){ 
+                for(int i=0; i<conditions.length; i++){
+                    try (ResultSet record = Database.selectRecord("user", "name='"+conditions[i]+"'")) {
+                        while(record.next()){
+                            results.add(new User(record));  
+                        }
+                    }catch (SQLException ex){
+                        if(i-1<conditions.length) continue;
+                        else throw ex;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            results = null;
+        } finally {
+            return results;
+        }
     }
     
-
     
-    response.sendRedirect("login");
-}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

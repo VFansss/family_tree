@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets_asdsda.Templating;
+package servlets_asdsda.templating_adasd;
 
 import classes_asdsa.FreeMarker;
 import classes_asdsa.User;

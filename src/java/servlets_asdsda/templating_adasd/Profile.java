@@ -1,4 +1,4 @@
-package servlets_asdsda.Templating;
+package servlets_asdsda.templating_adasd;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,9 +7,9 @@ package servlets_asdsda.Templating;
  */
 
 import classes_asdsa.FreeMarker;
-import classes_asdsa.Tree.GenealogicalTree;
-import classes_asdsa.Tree.NodeList;
-import classes_asdsa.Tree.TreeNode;
+import classes_asdsa.tree_asasdsd.GenealogicalTree;
+import classes_asdsa.tree_asasdsd.NodeList;
+import classes_asdsa.tree_asasdsd.TreeNode;
 import classes_asdsa.User;
 import classes_asdsa.UserList;
 import java.io.IOException;

@@ -95,7 +95,7 @@ public class SettingsS extends HttpServlet {
         String biography = (String)request.getParameter("biography");
         
         // Conversione della data di nascita in un tipo compatibile al database
-        Date sqlDate = Function.stringToDate(birthdate, "dd/MM/yyyy");
+        Date sqlDate = Function.validateDate(birthdate);
         
         String msn;
         boolean flag = false;

@@ -5,9 +5,9 @@
  */
 package servlets.templating;
 
+import classes.DataUtil;
 import classes.Database;
 import classes.FreeMarker;
-import classes.Function;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  
+           
         //Gestione sessione
         HttpSession session = request.getSession(false);  
         if(Database.isConnected()){
@@ -46,27 +46,27 @@ public class Login extends HttpServlet {
                 data.put("action", "login");
 
                 //Codifica del messaggio di errore sulla base del codice inviato
-                String msn = request.getParameter("msn");
-                if (msn!=null){
-                    switch(msn){
+                String msg = request.getParameter("msg");
+                if (msg!=null){
+                    switch(msg){
                         case "log":
-                            msn = "Please log in to see this page";
+                            msg = "Please log in to see this page";
                             break;
                         case "usr":
-                            msn = "User does not exist";
+                            msg = "User does not exist";
                             break;
                         case "psw":
-                            msn = "Incorrect password";
+                            msg = "Incorrect password";
                             break;
                         case "signup_done":
-                            msn = "Registrazione effettuata correttamente!";
+                            msg = "Registrazione effettuata correttamente!";
                             break;
                         default:
-                            msn=null;
+                            msg=null;
                     }
                 }
 
-                data.put("msn", msn);
+                data.put("msg", msg);
 
                 FreeMarker.process("login.html",data, response, getServletContext());
             }else{

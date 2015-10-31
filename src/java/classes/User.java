@@ -247,7 +247,7 @@ public class User{
             
             this.name = (String) data.get("name");
             this.surname = (String) data.get("surname");
-            this.birthdate = Function.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
+            this.birthdate = DataUtil.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
             this.birthplace = (String) data.get("birthplace");
             
             if(data.get("gender") != null){
@@ -1297,7 +1297,7 @@ public class User{
  
             try (ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'")) {
                 if(record.next()){
-                    return record.getString("password").equals(password); 
+                    return DataUtil.crypt(record.getString("password"), password); 
                 }
                 return false;
             }
@@ -1341,7 +1341,7 @@ public class User{
             // Genera id univoco dell'utente
             String user_id = User.createUniqueUserId(10);
             data.put("id", user_id);
-            data.put("birthdate", Function.stringToDate((String) data.get("birthdate"), ""));
+            data.put("birthdate", DataUtil.stringToDate((String) data.get("birthdate"), ""));
 
         
             // Inserisci l'utente
@@ -1406,10 +1406,10 @@ public class User{
      * @param length lunghezza id
      * @return
      */
-    private static String createUniqueUserId(int length){
+    public static String createUniqueUserId(int length){
         String user_id;
         do{
-            user_id = Function.generateCode(length);
+            user_id = DataUtil.generateCode(length);
         // Cicla fino a quando non esiste un utente con id uguale a quello appena generato
         }while(User.getUserById(user_id) != null);
         

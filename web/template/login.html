@@ -23,7 +23,7 @@
                             <input class="form-control" name="name" type="text" placeholder="Name" />  
                             <input class="form-control" name="surname" type="text" placeholder="Surname" /> 
                             <select name="gender" class="form-control" title = "Attention! If you change your gender, your family tree will be removed">
-                                <option value="" disabled selected>Gender</option>
+                                <option value="" readonly selected>Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -40,9 +40,9 @@
                         <#assign button_icon = "user">
                     </#if>
 
-                    <#if msn??>
+                    <#if msg??>
                         <div class="form-message">
-                            <i class="fa fa-times"></i><p>${msn}</p>
+                            <i class="fa fa-times"></i><p>${msg}</p>
                         </div>
                     </#if>
                     <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>

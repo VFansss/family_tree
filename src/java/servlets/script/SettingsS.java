@@ -5,8 +5,8 @@
  */
 package servlets.script;
 
+import classes.DataUtil;
 import classes.Database;
-import classes.Function;
 import classes.Message;
 import classes.User;
 import java.io.File;
@@ -80,7 +80,6 @@ public class SettingsS extends HttpServlet {
                 response.sendRedirect("settings?msg=" + msg.getMessage() + "&action=" + action + "&type=check");
             }
             
-
         }
         
     }
@@ -95,54 +94,73 @@ public class SettingsS extends HttpServlet {
         String biography = (String)request.getParameter("biography");
         
         // Conversione della data di nascita in un tipo compatibile al database
-        Date sqlDate = Function.validateDate(birthdate);
+        
         
         String msg;
         boolean error = true;
         // Se non sono stati compilati tutti i dati
         if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
             msg = "All fields are required";
-        
-        // Se non è stato modificato nessun campo
-        }else if(user_logged.getName().equals(name) && user_logged.getSurname().equals(surname) && user_logged.getGender().equals(
-                    gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace) && user_logged.getBiography() == null && biography.equals("")){
-            msg = "No data to change";
 
-        // Se il sesso non è valido
-        }else if(!(gender.toLowerCase().equals("male") || gender.toLowerCase().equals("female"))){
-            msg = "You can be only male or female";
-            
         // Se la data di nascita non è valida
-        }else if(sqlDate == null){    
-            msg = "Birthdate is not valid";
+        }else {
             
-        }else{
+            Message check;
+        
+            // Controllo del nome
+            check = DataUtil.checkName(name);
+            if(!check.isError()) {
+
+                // Controllo del cognome
+                check = DataUtil.checkName(surname);
+                if(!check.isError()) {
+
+                    // Controllo del sesso
+                    check = DataUtil.checkGender(gender);
+                    if(!check.isError()) {
+
+                        // Controllo della città di nascita
+                        check = DataUtil.checkBirthplace(birthplace);
+                        if(!check.isError()) {
+
+                            // Controllo della data di nascita
+                            check = DataUtil.checkBirthdate(birthdate);
+            }}}}
             
-            Map<String, Object> data = new HashMap<>();
-            data.put("name", name);
-            data.put("surname", surname);
-            data.put("birthdate", Function.dateToString(sqlDate));
-            data.put("birthplace", birthplace);
-            
-            if(!user_logged.getGender().equals(gender)){
-                /*
-                    Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
-                */
-                data.put("gender", gender);
-                user_logged.removeFather();
-                user_logged.removeMother();
-                user_logged.removeSpouse();
-            }
-            
-            user_logged.setBiography(biography);
-            
-            // Aggiornamento dati dell'utente
-            if(!user_logged.setData(data)) {
-                msg = "Something is wrong";
+            if(check.isError()){
+                msg = check.getMessage();
+                
             }else{
-                msg = "Data changed";
-                error = false;
+            
+                Map<String, Object> data = new HashMap<>();
+            
+                data.put("name", name);
+                data.put("surname", surname);
+                Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+                data.put("birthdate", DataUtil.dateToString(sqlDate));
+                data.put("birthplace", birthplace);
+
+                if(!user_logged.getGender().equals(gender)){
+                    /*
+                        Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
+                    */
+                    data.put("gender", gender);
+                    user_logged.removeFather();
+                    user_logged.removeMother();
+                    user_logged.removeSpouse();
+                }
+
+                user_logged.setBiography(biography);
+
+                // Aggiornamento dati dell'utente
+                if(!user_logged.setData(data)) {
+                    msg = "Something is wrong";
+                }else{
+                    msg = "Data changed";
+                    error = false;
+                }
             }
+            
             
         }
              

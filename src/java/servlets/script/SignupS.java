@@ -6,9 +6,7 @@
 package servlets.script;
 
 import classes.Database;
-import classes.DataUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import classes.DataUtil;
 import classes.Message;
+import classes.User;
+import classes.tree.NodeList;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,102 +40,96 @@ public class SignupS extends HttpServlet {
     
 protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
-    String name = request.getParameter("name");
-    String surname = request.getParameter("surname");
-    String gender = request.getParameter("gender");
-    String birthplace = request.getParameter("birthplace");
-    String birthdate = request.getParameter("birthdate");
+    String email        = request.getParameter("email").trim();
+    String password     = request.getParameter("password").trim();
+    String name         = DataUtil.spaceTrim(request.getParameter("name"));
+    String surname      = DataUtil.spaceTrim(request.getParameter("surname"));
+    String gender       = request.getParameter("gender").trim();
+    String birthplace   = DataUtil.spaceTrim(request.getParameter("birthplace"));
+    String birthdate    = request.getParameter("birthdate").trim();
     
-    Message msn;
-    Message temp;
+    Message check;
+    
+    // Se non sono stati compilati tutti i campi
     if(email.equals("") || password.equals("") || name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
-        msn = new Message("All field required", false);
+        check = new Message("All field required", true);
     }else{
-        temp = DataUtil.check_name(name);
         
-    
-    }
-    //Oggetto ausiliario DataUtil. Utilizzato per ricevere riuscita delle chiamate
-    //di funzione dei metodi check_*
-    //Controlla Javadoc DataUtil
-    DataUtil reply = new DataUtil();
-    
-    //
-    //Check sul campo 'mail'
-    //
-    reply = DataUtil.check_mail(request.getParameter("email"));
-    if(!reply.success){
-        
-    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
-    return;}
-    
-    //
-    //Check sul campo 'password'
-    // NOT WORKING
-    /*reply = DataUtil.check_password(request.getParameter("password"));
-    if(!reply.success){
-        
-    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
-    return;}*/
-    
-    
-    //
-    //Check sul campo 'nome'
-    //
-    reply = DataUtil.check_name(request.getParameter("name"));
-    if(!reply.success){
-        
-    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
-    return;}
-    
-    //
-    //Check sul campo 'cognome'
-    //
-    reply = DataUtil.check_name(request.getParameter("surname"));
-    if(!reply.success){
-        
-    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
-    return;}
-    
-    //
-    //Check sul campo 'sesso'
-    //
-    reply = DataUtil.check_gender(request.getParameter("gender"));
-    
-    if(!reply.success){
-        
-    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
-    return;}
-    
-    //
-    //Check sul campo 'data di nascita'
-    //
-    
-    //
-    //TODO
-    //
-    
-    //
-    //Check sul campo 'posto di nascita'
-    //
-    reply = DataUtil.check_birthplace(request.getParameter("birthplace"));
-    
-    if(!reply.success){
-        
-    response.sendRedirect("signup?msn=" + URLEncoder.encode(reply.message, "UTF-8"));
-    return;}
-        
-    //Tutti i campi sono considerati 'ok'
-    //TODO: Si procede alla scrittura sul DB
-    
-    response.sendRedirect("login?msn=" + URLEncoder.encode("signup_done", "UTF-8"));
+        // Controllo dell'email
+        check = DataUtil.checkEmail(email);
+        if(!check.isError()) {
+             
+            // Controllo della password
+            check = DataUtil.checkPassword(password);
+            if(!check.isError()) {
 
-//END OF METHOD
+                // Controllo del nome
+                check = DataUtil.checkName(name);
+                if(!check.isError()) {
+
+                    // Controllo del cognome
+                    check = DataUtil.checkName(surname);
+                    if(!check.isError()) {
+            
+                        // Controllo del sesso
+                        check = DataUtil.checkGender(gender);
+                        if(!check.isError()) {
+        
+                            // Controllo della città di nascita
+                            check = DataUtil.checkBirthplace(birthplace);
+                            if(!check.isError()) {
+            
+                                // Controllo della data di nascita
+                                check = DataUtil.checkBirthdate(birthdate);
+
+        }}}}}}}
+        
+        // Se è stato riscontrato un errore, 
+        if(check.isError()){
+//            // Vai alla pagina di signup mostrando l'errore
+            response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getMessage(), "UTF-8"));
+           
+        }else{
+            
+            Map<String, Object> data = new HashMap<>();
+            
+            // Genera l'id dell'utente
+            data.put("id", User.createUniqueUserId(10));
+            
+            data.put("email", email);
+            data.put("password", DataUtil.crypt(password));
+            data.put("name", name);
+            data.put("surname", surname);
+            data.put("gender", gender);
+            data.put("birthplace", birthplace);
+            Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+            data.put("birthdate", DataUtil.dateToString(sqlDate));
+            
+            boolean result = Database.insertRecord("user", data);
+            if(!result) {
+                response.sendRedirect("signup?msg=Error");
+            }else{
+                // Prelevo l'utente appena creato
+                User new_user = User.getUserByEmail(email);
+                // Altrimenti, fai il login dell'utente
+                HttpSession session = request.getSession();
+                // Inserimento dell'utente in una variabile di sessione
+                session.setAttribute("user_logged", new_user);
+                // Inizializzazione della breadcrumb dell'utente
+                session.setAttribute("breadcrumb", new NodeList());
+
+                // Se l'utente si è registrato sotto invito, allora avrà già un suo albero genealogico
+                session.setAttribute("family_tree", new_user.getFamilyTree());
+                // Reindirizzamento alla pagina del profilo dell'utente
+                response.sendRedirect("profile");
+            }
+            
+            
+        }
 }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -50,11 +50,9 @@ public class Settings extends HttpServlet {
 
             data.put("user_logged", user_logged);
 
-            String action = request.getParameter("action");
-            String msn = request.getParameter("msn");
-            data.put("action",action);
-            data.put("msn", msn);
-            
+            data.put("action",request.getParameter("action"));
+            data.put("msn", request.getParameter("msn"));
+            data.put("type", request.getParameter("type"));
             FreeMarker.process("settings.html",data, response, getServletContext());
             
         }else{

@@ -7,6 +7,7 @@ package Servlet.Script;
 
 import Class.Database;
 import Class.Function;
+import Class.Message;
 import Class.User;
 import java.io.IOException;
 import java.sql.Date;
@@ -51,7 +52,7 @@ public class SettingsS extends HttpServlet {
                 
         }else{
 
-            String msn; 
+            Message msn; 
             switch (action) {
                 case "data":
                     msn = changeData(request);
@@ -65,17 +66,22 @@ public class SettingsS extends HttpServlet {
                 case "avatar":
                     msn = changeAvatar(request);
                     break;
-                default: msn = "Something is wrong";
+                default: msn = new Message("Something is wrong", false);
             }
             
-            response.sendRedirect("settings?msn=" + msn + "&action=" + action);
+            if(msn.isError()){
+                response.sendRedirect("settings?msn=" + msn.getMessage() + "&action=" + action + "&type=error");
+            }else{
+                response.sendRedirect("settings?msn=" + msn.getMessage() + "&action=" + action + "&type=check");
+            }
+            
 
         }
         
     }
     
-    public static String changeData(HttpServletRequest request){
-        
+    public static Message changeData(HttpServletRequest request){
+        // Recupero dei dati
         String name = (String)request.getParameter("name");
         String surname = (String)request.getParameter("surname");
         String gender = (String)request.getParameter("gender");
@@ -84,99 +90,133 @@ public class SettingsS extends HttpServlet {
         
         Date sqlDate = Function.stringToDate(birthdate, "d-MMM-yyyy");
         
-        boolean r1 = user_logged.getName().equals(name);
-        boolean r2 = user_logged.getSurname().equals(surname);
-        boolean r3 = user_logged.getGender().equals(gender);
-        boolean r4 = user_logged.getBirthdate().equals(sqlDate);
-        boolean r5 = user_logged.getBirthplace().equals(birthplace);
-        
-        
+        String msn;
+        boolean flag = false;
         if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
-            
-            return "All fields are required";
+ 
+            msn = "All fields aer required";
         
         // Se non è stato modificato nessun campo
         }else if(user_logged.getName().equals(name) && user_logged.getSurname().equals(surname) && user_logged.getGender().equals(
                     gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace)){
             
-            return "No data to change";
+            msn = "No data to change";
 
         // Se il sesso non è valido
         }else if(!(gender.toLowerCase().equals("male") || gender.toLowerCase().equals("female"))){
             
-            return "You can be only male or female";
+            msn = "You can be only male or female";
+            
+        }else if(sqlDate == null){ 
                 
+            msn = "Birthdate is not valid";
+            
         }else{
-            
-            if(sqlDate == null){ 
-                
-                return "Birthdate is not valid";
-            
-            }else{
-                
-                Map<String, Object> data = new HashMap<>();
-                data.put("name", name);
-                data.put("surname", surname);
-                data.put("birthdate", Function.dateToString(sqlDate));
-                data.put("birthplace", birthplace);
 
-                if(!user_logged.getGender().equals(gender)){
-                    /*
-                        Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
-                    */
-                    data.put("gender", gender);
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", name);
+            data.put("surname", surname);
+            data.put("birthdate", Function.dateToString(sqlDate));
+            data.put("birthplace", birthplace);
+
+            if(!user_logged.getGender().equals(gender)){
+                /*
+                    Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
+                */
+                data.put("gender", gender);
 //                    user_logged.removeFather();
 //                    user_logged.removeMother();
 //                    user_logged.removeSpouse();
-                }
-
-                boolean result = Database.updateRecord("user", data, "id = '" + user_logged.getId() + "'");
-                if(!result) return "Something is wrong";
-                
-                // Aggiornamento dell'utente
-                session.setAttribute("user_logged", User.getUserById(user_logged.getId()));
-                return "";
             }
-            
+
+            boolean result = Database.updateRecord("user", data, "id = '" + user_logged.getId() + "'");
+            if(!result) msn = "Something is wrong";
+
+            // Aggiornamento dell'utente
+            session.setAttribute("user_logged", User.getUserById(user_logged.getId()));
+            msn = "Data changed";
+            flag = true;
         }
-                
-        
+             
+        return new Message(msn, flag);
         
     }
     
-    public static String changeEmail(HttpServletRequest request){
+    public static Message changeEmail(HttpServletRequest request){
+        // Recupero dei dati
         String current_email = (String)request.getParameter("current_email");
         String new_email = (String)request.getParameter("new_email");
         String confirm_email = (String)request.getParameter("confirm_email");
         
+        String msn;
+        boolean flag = false;
+        
+        // Se non sono stati compilati tutti i dati
         if(current_email.equals("") || new_email.equals("") || confirm_email.equals("")){
-            return "All fields are required";
+            msn = "All fields are required";
             
+        // Se l'email corrente è sbagliata
         }else if(!user_logged.getEmail().equals(current_email)){
-                
-            return "Current email is not valid";
-            
+            msn =  "Current email is not valid";
+        
+        // Se la conferma dell'email non corrisponde
         }else if(!confirm_email.equals(new_email)){
+            msn =  "Confirm email is not valid";
             
-            return "Confirm email is not valid";
         }else{
             
+            // Aggiorna email utente
             boolean result = user_logged.setEmail(new_email);
-            if(!result) return "Something is wrong";
+            if(!result) msn =  "Something is wrong";
                 
-            // Aggiornamento dell'utente
-            return "";
+            msn =  "Email changed";
+            flag = true;
         }
+        
+        // Ritorna il messaggio da visualizzare
+        return new Message(msn, flag);
     }
     
-    public static String changePassword(HttpServletRequest request){
-    
-        return "";
+    public static Message changePassword(HttpServletRequest request){
+        // Recupero dei dati
+        String current_password = (String)request.getParameter("current_password");
+        String new_password = (String)request.getParameter("new_password");
+        String confirm_password = (String)request.getParameter("confirm_password");
+        
+        String msn;
+        boolean flag = false;
+        
+        // Se non sono stati compilati tutti i dati
+        if(current_password.equals("") || new_password.equals("") || confirm_password.equals("")){
+            msn = "All fields are required";
+            
+        // Se l'email corrente è sbagliata
+        }else if(!user_logged.checkPassword(current_password)){
+            msn =  "Current passwrod is not valid";
+        
+        // Se la conferma dell'email non corrisponde
+        }else if(!new_password.equals(confirm_password)){
+            msn =  "Confirm passwrod is not valid";
+            
+        }else{
+            
+            // Aggiorna email utente
+            boolean result = user_logged.setPassword(confirm_password);
+            if(!result) msn =  "Something is wrong";
+                
+            msn =  "Password changed";
+            flag = true;
+        }
+        
+        // Ritorna il messaggio da visualizzare
+        return new Message(msn, flag);
     }
     
-    public static String changeAvatar(HttpServletRequest request){
-    
-        return "";
+    public static Message changeAvatar(HttpServletRequest request){
+        String msn = "";
+        boolean flag = false;
+        
+        return new Message(msn, flag);
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

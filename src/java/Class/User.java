@@ -195,6 +195,11 @@ public class User{
         return result;
     }
     
+    public boolean setPassword(String password) {
+        boolean result = this.updateAttribute("password", password);
+        return result;
+    }
+    
     public boolean setMotherId(String mother_id) {
         User mother = User.getUserById(mother_id);
         return this.setMother(mother);
@@ -1071,7 +1076,7 @@ public class User{
     
     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Recupero albero genealogico">
+    //<editor-fold defaultstate="collapsed" desc="Gestione albero genealogico">
 
     /**
      * Recupera i componenti dell'alabero genealogico dell'utente senza etichette
@@ -1199,28 +1204,6 @@ public class User{
         GenealogicalTree tree = new GenealogicalTree(this);
         tree.getFamilyTree();
         return tree;
-    }
-    
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Gestione sessione">
-
-    /**
-     * Effettua il login
-     * @param request
-     * @return
-     */
-    public boolean login(HttpServletRequest request){
-        this.session = request.getSession(true);
-        session.setAttribute("user_id", this.id);
-        return true;
-    }
-    
-    /** Effettua il logout
-     *
-    */
-    public void logout(){
-        this.session.invalidate();
     }
     
     //</editor-fold>

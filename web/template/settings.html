@@ -20,7 +20,7 @@
                                     
                                     <#if action?? && action = "avatar">
                                         <div class="form-message inline-block">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                            <i class="fa fa-${type}"></i><p>${msn}</p>
                                         </div>
                                     </#if>
 
@@ -59,7 +59,7 @@
 
                                     <#if action?? && action = "data">
                                         <div class="form-message">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                            <i class="fa fa-${type}"></i><p>${msn}</p>
                                         </div>
                                     </#if>
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change data<#--<i class="fa fa-fw fa-${button_icon}"></i>--></button>
@@ -88,7 +88,7 @@
                                     
                                     <#if action?? && action = "email">
                                         <div class="form-message">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                            <i class="fa fa-${type}"></i><p>${msn}</p>
                                         </div>
                                     </#if>
                                    
@@ -116,7 +116,7 @@
 
                                     <#if action?? && action = "password">
                                         <div class="form-message">
-                                            <i class="fa fa-times"></i><p>${msn}</p>
+                                            <i class="fa fa-${type}"></i><p>${msn}</p>
                                         </div>
                                     </#if>
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>

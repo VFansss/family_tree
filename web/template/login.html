@@ -14,18 +14,22 @@
                 <form action="${action}S" class="panel-body main-form" method="POST">
 
                     <fieldset class="rounded">
-                        <#list fields as field>
-                            <#if field[1] == "select">
-                            
-                                <select name="${field[0]}" class="form-control">
-                                    <option value="" disabled selected>Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            <#else>
-                                <input class="form-control" name="${field[0]}" type="${field[1]}" placeholder="${field[2]}"  />  
-                            </#if>
-                        </#list>
+                        
+                        <input class="form-control" name="email" type="text" placeholder="E-mail"  />  
+                        <input class="form-control" name="password" type="password" placeholder="Password"  />  
+                        
+                        <#if action == "signup">
+                            <!-- Aggiunta dei campi per i dati utente in caso di signup -->
+                            <select name="gender" class="form-control">
+                                <option value="" disabled selected>Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <input class="form-control" name="birthdate" type="text" placeholder="Birthdate" />  
+                            <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" />  
+                            <input class="form-control" name="email" type="email" placeholder="E-mail" />  
+                            <input class="form-control" name="password" type="password" placeholder="Password" /> 
+                        </#if>
                         
                     </fieldset>
 

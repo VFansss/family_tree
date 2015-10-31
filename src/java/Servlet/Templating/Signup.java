@@ -36,25 +36,6 @@ public class Signup extends HttpServlet {
         
         Map<String, Object> data = new HashMap<>();
 
-        List<String[]> fields = new ArrayList();
-        
-        String[] name =         {"name",        "text",         "Name"};
-        String[] surname =      {"surname",     "text",         "Surname"};
-        String[] gender =       {"gender",      "select",       ""};
-        String[] birthdate =    {"birthdate",   "text",         "Birthdate"};
-        String[] birthplace =   {"birthplace",  "text",         "Birthplace"};
-        String[] email =        {"email",       "email",        "E-mail"};
-        String[] password =     {"password",    "password",     "Password"};
-        
-        fields.add(name);
-        fields.add(surname);
-        fields.add(gender);
-        fields.add(birthdate);
-        fields.add(birthplace);
-        fields.add(email);
-        fields.add(password);
-        
-        data.put("fields", fields);
         data.put("action", "signup");
         
         String msn = request.getParameter("msn");

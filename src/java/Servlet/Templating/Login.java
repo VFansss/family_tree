@@ -38,13 +38,6 @@ public class Login extends HttpServlet {
             if(session == null){
                 Map<String, Object> data = new HashMap<>();
 
-                List<String[]> fields = new ArrayList();
-                String[] email = {"email", "text", "E-mail"};
-                String[] password = {"password", "password", "Password"};
-                fields.add(email);
-                fields.add(password);
-
-                data.put("fields", fields);
                 data.put("action", "login");
 
                 //Codifica del messaggio di errore sulla base del codice inviato

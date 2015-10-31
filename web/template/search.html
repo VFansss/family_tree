@@ -13,6 +13,7 @@
                         <input class="form-control" type="text" name="surname" placeholder="Surname"/>                                
                         <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" />
                         <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" />
+                        <input type="hidden" name="source" value="source" />
                     </fieldset>
                     <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
                     <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
@@ -30,6 +31,7 @@
     </#if>
 
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 wrapper">
+        
         <#list results as user>
             <!-- Tile -->
             <div class="col-md-6 col-sm-6 tile rounded">

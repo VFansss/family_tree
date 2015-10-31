@@ -29,8 +29,6 @@ public class User{
     private String birthplace;
     private String biography;
     
-    private HttpSession session;
-    
     /**
      * Metodo costruttore
      * @param user      contiene i dati personali dell'utente
@@ -238,6 +236,21 @@ public class User{
         return Database.updateRecord("user", data, condition);
     }
     
+    public boolean setData(Map<String, Object> data){
+        boolean result = Database.updateRecord("user", data, "id = '" + this.getId() + "'");
+        if(result) {
+            
+            this.name = (String) data.get("name");
+            this.surname = (String) data.get("surname");
+            this.birthdate = Function.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
+            this.birthplace = (String) data.get("birthplace");
+            
+            if(data.get("gender") != null){
+                this.gender = (String) data.get("gender");
+            }
+        }
+        return result;
+    }
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recupero e gestione madre">

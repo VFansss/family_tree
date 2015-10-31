@@ -38,8 +38,8 @@
                                 <form action="change?action=data" class="panel-body" method="POST">
 
                                     <fieldset>
-                                        <input class="form-control" type="text" name="name" placeholder="name" value="${user_logged.name}" required />
-                                        <input class="form-control" type="text" name="surname" placeholder="surname" value="${user_logged.surname}" required />
+                                        <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
+                                        <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" required />
                                         
                                             <select name="gender" class="form-control" >
                                                 <#if user_logged.gender == "male">
@@ -53,8 +53,8 @@
                                                 
                                             </select>
                                         
-                                        <input class="form-control" type="text" name="birthdate" placeholder="birthdate (gg/mm/yyyy)" value="${user_logged.birthdate}" required />
-                                        <input class="form-control" type="text" name="birthplace" placeholder="birthplace" value="${user_logged.birthplace}" required />
+                                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' required />
+                                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" required />
                                     </fieldset>
 
                                     <#if action?? && action = "data">
@@ -80,9 +80,9 @@
                                 <form action="change?action=email" class="panel-body" method="POST">
 
                                     <fieldset>
-                                        <input class="form-control"  type="text" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly />
-                                        <input class="form-control"  type="text" name="new_email" placeholder="New email" required/>
-                                        <input class="form-control"  type="text" name="confirm_email" placeholder="Confirm email" required />
+                                        <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly />
+                                        <input class="form-control"  type="email" name="new_email" placeholder="New email" required/>
+                                        <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" required />
                                     </fieldset>
 
                                     

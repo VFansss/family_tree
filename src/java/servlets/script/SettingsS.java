@@ -48,7 +48,7 @@ public class SettingsS extends HttpServlet {
             // Vai alla pagina delle impostazioni
             response.sendRedirect("settings");
         }else if(user_logged == null){
-                response.sendRedirect("login?msn=log");
+            response.sendRedirect("login?msn=log");
                 
         }else{
 
@@ -88,31 +88,30 @@ public class SettingsS extends HttpServlet {
         String birthdate = (String)request.getParameter("birthdate");
         String birthplace = (String)request.getParameter("birthplace");
         
-        Date sqlDate = Function.stringToDate(birthdate, "d-MMM-yyyy");
+        // Conversione della data di nascita in un tipo compatibile al database
+        Date sqlDate = Function.stringToDate(birthdate, "dd/MM/yyyy");
         
         String msn;
         boolean flag = false;
+        // Se non sono stati compilati tutti i dati
         if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
- 
-            msn = "All fields aer required";
+            msn = "All fields are required";
         
         // Se non è stato modificato nessun campo
         }else if(user_logged.getName().equals(name) && user_logged.getSurname().equals(surname) && user_logged.getGender().equals(
                     gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace)){
-            
             msn = "No data to change";
 
         // Se il sesso non è valido
         }else if(!(gender.toLowerCase().equals("male") || gender.toLowerCase().equals("female"))){
-            
             msn = "You can be only male or female";
             
-        }else if(sqlDate == null){ 
-                
+        // Se la data di nascita non è valida
+        }else if(sqlDate == null){    
             msn = "Birthdate is not valid";
             
         }else{
-
+            
             Map<String, Object> data = new HashMap<>();
             data.put("name", name);
             data.put("surname", surname);
@@ -124,18 +123,20 @@ public class SettingsS extends HttpServlet {
                     Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
                 */
                 data.put("gender", gender);
-//                    user_logged.removeFather();
-//                    user_logged.removeMother();
-//                    user_logged.removeSpouse();
+                user_logged.removeFather();
+                user_logged.removeMother();
+                user_logged.removeSpouse();
             }
-
-            boolean result = Database.updateRecord("user", data, "id = '" + user_logged.getId() + "'");
-            if(!result) msn = "Something is wrong";
-
-            // Aggiornamento dell'utente
-            session.setAttribute("user_logged", User.getUserById(user_logged.getId()));
-            msn = "Data changed";
-            flag = true;
+            
+            
+            // Aggiornamento dati dell'utente
+            if(!user_logged.setData(data)) {
+                msn = "Something is wrong";
+            }else{
+                msn = "Data changed";
+                flag = true;
+            }
+            
         }
              
         return new Message(msn, flag);

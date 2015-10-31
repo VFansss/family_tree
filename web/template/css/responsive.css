@@ -1,6 +1,4 @@
 
-
-
 /* Small */
 @media (max-width: 768px) {
 
@@ -116,6 +114,7 @@
     
     section.profile .breadcrumb-nav{
         position:fixed;
+        left: 0;
         width: 50px;
         display: inline-block;
     }

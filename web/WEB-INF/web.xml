@@ -91,7 +91,7 @@
     </resource-ref>
     <listener>
         <listener-class>
-            Servlet.ContextInitializer
+            servlets.ContextInitializer
         </listener-class>
     </listener>
 </web-app>

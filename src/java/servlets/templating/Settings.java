@@ -51,13 +51,13 @@ public class Settings extends HttpServlet {
             data.put("user_logged", user_logged);
 
             data.put("action",request.getParameter("action"));
-            data.put("msn", request.getParameter("msn"));
+            data.put("msg", request.getParameter("msg"));
             data.put("type", request.getParameter("type"));
             FreeMarker.process("settings.html",data, response, getServletContext());
             
         }else{
             // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
+            response.sendRedirect("login?msg=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
 
         }
         

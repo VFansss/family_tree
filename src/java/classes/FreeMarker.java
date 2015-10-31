@@ -11,7 +11,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -37,8 +37,11 @@ public class DataUtil {
     
     public static boolean isAlphanumeric(String toCheck,boolean space){
     
-        if (space){return toCheck.matches("[a-zA-Z ]+");}
-        else{return toCheck.matches("[a-zA-Z]+");}
+        if (space){
+            return toCheck.matches("[a-zA-Z ]+");
+        }else{
+            return toCheck.matches("[a-zA-Z]+");
+        }
         
     }
     
@@ -49,9 +52,7 @@ public class DataUtil {
      */
     
     public static String internalTrim(String toTrim){
-    
-    return toTrim.replaceAll("\\s+", " ");
-        
+        return toTrim.replaceAll("\\s+", " ");
     }
     
     /**
@@ -59,9 +60,7 @@ public class DataUtil {
      */
     
     public static String capitalizeCancaro(String stringa){
-
-    return "";
-        
+        return "";
     }
     
     
@@ -73,13 +72,8 @@ public class DataUtil {
      * @return false se all'interno dell'intervallo (estremi compresi). true altrimenti.
      */
     
-    public static boolean anormalLength(String toCheck,int minval,int maxval){
-
-    if(toCheck.length()<minval) return true;
-    if(toCheck.length()>maxval) return true;
-    
-    return false;
-    
+    public static boolean anormalLength(String toCheck,int minval,int maxval){   
+        return toCheck.length()<minval || toCheck.length()>maxval;
     }
     
     /**
@@ -87,86 +81,78 @@ public class DataUtil {
      */
     
     public static String spaceTrim(String toTrim){
-    
-    toTrim = toTrim.trim();
-    toTrim = DataUtil.internalTrim(toTrim);
-    
-    return toTrim;
-    
-}
+        return DataUtil.internalTrim(toTrim.trim());
+    }
     
      /**
      * Effettua una serie di operazioni sul campo nome
      */
     
-    public static DataUtil check_name(String toCheck){
+    public static Message check_name(String toCheck){
 
-    DataUtil reply = new DataUtil();
-    
-    toCheck=DataUtil.spaceTrim(toCheck);
-    
-    //Check stringa vuota
-    if(toCheck.length()==0){
-    reply.message="E' necessario inserire i dati anagrafici!";
-    reply.success=false;
+        String msg;
+        boolean error = true;
+        toCheck=DataUtil.spaceTrim(toCheck);
+
+        //Check stringa vuota
+        if(toCheck.length()==0){
+            msg = "E' necessario inserire i dati anagrafici!";
         
-    return reply;
-    }
-    
-    
-    //Check alphanumeric
-    if(!DataUtil.isAlphanumeric(toCheck,true)){
-        reply.message="I dati anagrafici possono contenere solo caratteri alfanumerici (A-Z)";
-        reply.success=false;
+        //Check alphanumeric
+        }else if(!DataUtil.isAlphanumeric(toCheck,true)){
+                msg = "I dati anagrafici possono contenere solo caratteri alfanumerici (A-Z)";
         
-        return reply;
-    }
-    
-    //Check lunghezza anomala
-    //Nome 'anomalo': meno di 2 caratteri, piu di 50
-    if(DataUtil.anormalLength(toCheck,2,50)){
-        //TODO: Esplicitare un messaggio diverso per i due casi?---------------------------------------------
-        reply.message="I dati anagrafici devono essere contenere almeno 2 caratteri ed essere piu corti di 50.";
-        reply.success=false;
-        return reply;
-    }
-    
-    
-    //Se e' arrivato a questo punto ha superato tutti i controlli
-    //E' un nome considerabile 'OK'
-    reply.message="Il nome e' valido!";
-    reply.success=true;
-    return reply;
+                //Check lunghezza anomala
+            //Nome 'anomalo': meno di 2 caratteri, piu di 50
+        }else if(DataUtil.anormalLength(toCheck,2,50)){
+                //TODO: Esplicitare un messaggio diverso per i due casi?---------------------------------------------
+                msg = "I dati anagrafici devono essere contenere almeno 2 caratteri ed essere piu corti di 50.";
+
+        }else{
+            //Se e' arrivato a questo punto ha superato tutti i controlli
+            //E' un nome considerabile 'OK'
+            msg = "Il nome e' valido!";
+            error = false;
+        }
+        
+        return new Message(msg, error);
+
+            
+            
+        
+
+
+        
     }
     
     
     public static DataUtil check_mail(String mail){
     
-    DataUtil reply = new DataUtil();
-    reply.success = false;
-    
-    mail = mail.trim();
-    
-    //Check stringa vuota
-    if(mail.length()==0){
-    reply.message="E' necessario inserire la mail!";  
-    return reply;
-    }
-    
-    //Check validità
-    
-    EmailValidator emailValidator=EmailValidator.getInstance();
-    
-    if(!(emailValidator.isValid(mail))){
-    reply.message="La mail non è valida! Inseriscine una corretta";  
-    return reply;
-    }
-    
-    
-    //La mail ha superato tutti i controlli.
-    reply.message="Mail OK!";
-    reply.success=true;
-    return reply;
+        DataUtil reply = new DataUtil();
+        reply.success = false;
+
+        mail = mail.trim();
+
+        //Check stringa vuota
+        if(mail.length()==0){
+            reply.message="E' necessario inserire la mail!";  
+            return reply;
+        }
+
+        //Check validità
+
+        EmailValidator emailValidator=EmailValidator.getInstance();
+
+        if(!(emailValidator.isValid(mail))){
+            reply.message="La mail non è valida! Inseriscine una corretta";  
+            return reply;
+        }
+
+
+        //La mail ha superato tutti i controlli.
+        reply.message="Mail OK!";
+        reply.success=true;
+        return reply;
     } 
 
     
@@ -176,20 +162,20 @@ public class DataUtil {
     
     public static DataUtil check_password(String toCheck){
     
-    DataUtil reply = new DataUtil();
-    reply.success=false;
-    
-    //Check password non valida
-    //Password valida: minimo 6 caratteri,solo alfanumerici
-    if(!(toCheck.matches("^([a-zA-Z]+).{5,}$"))){
-    reply.message="La password deve contenere almeno 6 caratteri e può avere solo caratteri alfanumerici!";
-    reply.success=false;
-    return reply;
-    }
-    
-    reply.message="Pass OK";
-    reply.success=true;
-    return reply;
+        DataUtil reply = new DataUtil();
+        reply.success=false;
+
+        //Check password non valida
+        //Password valida: minimo 6 caratteri,solo alfanumerici
+        if(!(toCheck.matches("^([a-zA-Z]+).{5,}$"))){
+            reply.message="La password deve contenere almeno 6 caratteri e può avere solo caratteri alfanumerici!";
+            reply.success=false;
+            return reply;
+        }
+
+        reply.message="Pass OK";
+        reply.success=true;
+        return reply;
     }
     
     /**
@@ -198,18 +184,18 @@ public class DataUtil {
     
     public static DataUtil check_gender(String toCheck){
     
-    DataUtil reply = new DataUtil();
-    reply.success=false;
-    
-    //Controllo su 'male' oppure 'female'
-    if(!((toCheck!="male")|(toCheck=="female"))){
-    reply.message="E' obbligatorio selezionare il sesso!";
-    reply.success=false;
-    return reply;
-    }
-    
-    reply.success=true;
-    return reply;    
+        DataUtil reply = new DataUtil();
+        reply.success=false;
+
+        //Controllo su 'male' oppure 'female'
+        if(!((toCheck!="male")|(toCheck=="female"))){
+            reply.message="E' obbligatorio selezionare il sesso!";
+            reply.success=false;
+            return reply;
+        }
+
+        reply.success=true;
+        return reply;    
     }
     
     /**
@@ -218,30 +204,30 @@ public class DataUtil {
     
     public static DataUtil check_birthplace(String toCheck){
     
-    DataUtil reply = new DataUtil();
-    reply.success=false;
-    
-    toCheck = toCheck.trim();
-    
-    //Check stringa vuota
-    if(toCheck.length()==0){
-    reply.message="E' necessario la località di nascita!";
-    reply.success=false;  
-    return reply;
-    }
-    
-    //Check solo caratteri
-    if(!(DataUtil.isAlphanumeric(toCheck))){
-    reply.message="La località di nascita può contenere solo caratteri alfanumerici!";
-    reply.success=false;
-    return reply;
-    }
-    
-    
-    reply.message="Birthplace OK!";
-    reply.success=true;
-    
-    return reply;
+        DataUtil reply = new DataUtil();
+        reply.success=false;
+
+        toCheck = toCheck.trim();
+
+        //Check stringa vuota
+        if(toCheck.length()==0){
+            reply.message="E' necessario la località di nascita!";
+            reply.success=false;  
+            return reply;
+        }
+
+        //Check solo caratteri
+        if(!(DataUtil.isAlphanumeric(toCheck))){
+            reply.message="La località di nascita può contenere solo caratteri alfanumerici!";
+            reply.success=false;
+            return reply;
+        }
+
+
+        reply.message="Birthplace OK!";
+        reply.success=true;
+
+        return reply;
     }
     
     

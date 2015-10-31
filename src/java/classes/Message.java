@@ -11,12 +11,11 @@ package classes;
  */
 public class Message {
     private String msn;
-    // false se è un messaggio di errore, true altrimenti
-    private boolean flag;
+    private boolean error;
 
-    public Message(String msn, boolean flag) {
+    public Message(String msn, boolean error) {
         this.msn = msn;
-        this.flag = flag;
+        this.error = error;
     }
 
     public String getMessage() {
@@ -24,7 +23,7 @@ public class Message {
     }
     
     public boolean isError() {
-        return !flag;
+        return error;
     }
 
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import classes.DataUtil;
+import classes.Message;
 import java.net.URLEncoder;
 
 /**
@@ -35,6 +36,23 @@ public class SignupS extends HttpServlet {
     
 protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
+    String name = request.getParameter("name");
+    String surname = request.getParameter("surname");
+    String gender = request.getParameter("gender");
+    String birthplace = request.getParameter("birthplace");
+    String birthdate = request.getParameter("birthdate");
+    
+    Message msn;
+    Message temp;
+    if(email.equals("") || password.equals("") || name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
+        msn = new Message("All field required", false);
+    }else{
+        temp = DataUtil.check_name(name);
+        
+    
+    }
     //Oggetto ausiliario DataUtil. Utilizzato per ricevere riuscita delle chiamate
     //di funzione dei metodi check_*
     //Controlla Javadoc DataUtil

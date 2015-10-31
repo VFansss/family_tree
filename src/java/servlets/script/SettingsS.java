@@ -53,31 +53,31 @@ public class SettingsS extends HttpServlet {
             // Vai alla pagina delle impostazioni
             response.sendRedirect("settings");
         }else if(user_logged == null){
-            response.sendRedirect("login?msn=log");
+            response.sendRedirect("login?msg=log");
                 
         }else{
 
-            Message msn; 
+            Message msg; 
             switch (action) {
                 case "data":
-                    msn = changeData(request);
+                    msg = changeData(request);
                     break;
                 case "email":
-                    msn = changeEmail(request);
+                    msg = changeEmail(request);
                     break;
                 case "password":
-                    msn = changePassword(request);
+                    msg = changePassword(request);
                     break;
                 case "avatar":
-                    msn = changeAvatar(request, this);
+                    msg = changeAvatar(request, this);
                     break;
-                default: msn = new Message("Something is wrong", false);
+                default: msg = new Message("Something is wrong", true);
             }
             
-            if(msn.isError()){
-                response.sendRedirect("settings?msn=" + msn.getMessage() + "&action=" + action + "&type=error");
+            if(msg.isError()){
+                response.sendRedirect("settings?msg=" + msg.getMessage() + "&action=" + action + "&type=error");
             }else{
-                response.sendRedirect("settings?msn=" + msn.getMessage() + "&action=" + action + "&type=check");
+                response.sendRedirect("settings?msg=" + msg.getMessage() + "&action=" + action + "&type=check");
             }
             
 
@@ -97,24 +97,24 @@ public class SettingsS extends HttpServlet {
         // Conversione della data di nascita in un tipo compatibile al database
         Date sqlDate = Function.validateDate(birthdate);
         
-        String msn;
-        boolean flag = false;
+        String msg;
+        boolean error = true;
         // Se non sono stati compilati tutti i dati
         if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
-            msn = "All fields are required";
+            msg = "All fields are required";
         
         // Se non è stato modificato nessun campo
         }else if(user_logged.getName().equals(name) && user_logged.getSurname().equals(surname) && user_logged.getGender().equals(
                     gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace) && user_logged.getBiography() == null && biography.equals("")){
-            msn = "No data to change";
+            msg = "No data to change";
 
         // Se il sesso non è valido
         }else if(!(gender.toLowerCase().equals("male") || gender.toLowerCase().equals("female"))){
-            msn = "You can be only male or female";
+            msg = "You can be only male or female";
             
         // Se la data di nascita non è valida
         }else if(sqlDate == null){    
-            msn = "Birthdate is not valid";
+            msg = "Birthdate is not valid";
             
         }else{
             
@@ -138,15 +138,15 @@ public class SettingsS extends HttpServlet {
             
             // Aggiornamento dati dell'utente
             if(!user_logged.setData(data)) {
-                msn = "Something is wrong";
+                msg = "Something is wrong";
             }else{
-                msn = "Data changed";
-                flag = true;
+                msg = "Data changed";
+                error = false;
             }
             
         }
              
-        return new Message(msn, flag);
+        return new Message(msg, error);
         
     }
     
@@ -156,33 +156,33 @@ public class SettingsS extends HttpServlet {
         String new_email = (String)request.getParameter("new_email");
         String confirm_email = (String)request.getParameter("confirm_email");
         
-        String msn;
-        boolean flag = false;
+        String msg;
+        boolean error = true;
         
         // Se non sono stati compilati tutti i dati
         if(current_email.equals("") || new_email.equals("") || confirm_email.equals("")){
-            msn = "All fields are required";
+            msg = "All fields are required";
             
         // Se l'email corrente è sbagliata
         }else if(!user_logged.getEmail().equals(current_email)){
-            msn =  "Current email is not valid";
+            msg =  "Current email is not valid";
         
         // Se la conferma dell'email non corrisponde
         }else if(!confirm_email.equals(new_email)){
-            msn =  "Confirm email is not valid";
+            msg =  "Confirm email is not valid";
             
         }else{
             
             // Aggiorna email utente
             boolean result = user_logged.setEmail(new_email);
-            if(!result) msn =  "Something is wrong";
+            if(!result) msg =  "Something is wrong";
                 
-            msn =  "Email changed";
-            flag = true;
+            msg =  "Email changed";
+            error = false;
         }
         
         // Ritorna il messaggio da visualizzare
-        return new Message(msn, flag);
+        return new Message(msg, error);
     }
     
     public static Message changePassword(HttpServletRequest request){
@@ -191,38 +191,38 @@ public class SettingsS extends HttpServlet {
         String new_password = (String)request.getParameter("new_password");
         String confirm_password = (String)request.getParameter("confirm_password");
         
-        String msn;
-        boolean flag = false;
+        String msg;
+        boolean error = true;
         
         // Se non sono stati compilati tutti i dati
         if(current_password.equals("") || new_password.equals("") || confirm_password.equals("")){
-            msn = "All fields are required";
+            msg = "All fields are required";
             
         // Se l'email corrente è sbagliata
         }else if(!user_logged.checkPassword(current_password)){
-            msn =  "Current passwrod is not valid";
+            msg =  "Current passwrod is not valid";
         
         // Se la conferma dell'email non corrisponde
         }else if(!new_password.equals(confirm_password)){
-            msn =  "Confirm passwrod is not valid";
+            msg =  "Confirm passwrod is not valid";
             
         }else{
             
             // Aggiorna email utente
             boolean result = user_logged.setPassword(confirm_password);
-            if(!result) msn =  "Something is wrong";
+            if(!result) msg =  "Something is wrong";
                 
-            msn =  "Password changed";
-            flag = true;
+            msg =  "Password changed";
+            error = false;
         }
         
         // Ritorna il messaggio da visualizzare
-        return new Message(msn, flag);
+        return new Message(msg, error);
     }
     
     public static Message changeAvatar(HttpServletRequest request, SettingsS aThis){
-        String msn = "";
-        boolean flag = false;
+        String msg = "";
+        boolean error = true;
         //process only if its multipart content
         if(ServletFileUpload.isMultipartContent(request)){
             try {
@@ -231,12 +231,12 @@ public class SettingsS extends HttpServlet {
                 for(FileItem item : multiparts){
                     if(!item.isFormField()){
                         if(item.getName().equals("")){
-                            msn = "Please, select a photo";
+                            msg = "Please, select a photo";
                         }else{
                             String name = user_logged.getId() + ".jpg";
                             item.write( new File(aThis.getServletContext().getRealPath("/template/profile/").replace("build\\", "") + File.separator + name));
-                            msn = "Photo Uploaded Successfully";
-                            flag = true;
+                            msg = "Photo Uploaded Successfully";
+                            error = false;
                         }
                         
                     }
@@ -245,15 +245,15 @@ public class SettingsS extends HttpServlet {
                //File uploaded successfully
                
             } catch (Exception ex) {
-               msn = "File Uploaded Failed";
+               msg = "File Uploaded Failed";
             }         
           
         }else{
-            msn = "Something is wrong";
+            msg = "Something is wrong";
         }
      
 
-        return new Message(msn, flag);
+        return new Message(msg, error);
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

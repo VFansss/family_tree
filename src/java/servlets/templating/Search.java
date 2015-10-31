@@ -51,8 +51,11 @@ public class Search extends HttpServlet {
             data.put("user_logged", (User)session.getAttribute("user_logged"));
         }
         
+        
         String input = request.getParameter("search");
-        String[] parts = input.split(" ");
+        String[] parts = null;
+        
+        if (input!=null) parts = input.split(" ");
         
         UserList results = search(parts);
         

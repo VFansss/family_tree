@@ -329,9 +329,10 @@ section.profile .dark-background h3{
     color: #707070;
     
 }
-section.profile .dark-background h3{
+
+/*section.profile .dark-background h3{
     color: inherit;
-}
+}*/
 
 section.profile .dark-background .delete-relative{
     position: absolute;

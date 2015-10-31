@@ -46,12 +46,6 @@ public class FreeMarker {
         
         PrintWriter out = response.getWriter();
         
-        String string = "1994-09-01";
-        Date asd= Function.convertDateFormat(Function.stringToDate(string));
-//        out.println(asd.toString());
-        if(asd == null){
-            out.println("ciao");
-        }
         try{
             template.process(data, out);
             

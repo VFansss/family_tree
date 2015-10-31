@@ -16,25 +16,38 @@ import java.text.SimpleDateFormat;
  */
 public class Function {
     
-    public static Date stringToDate(String birthdate){
-        // Conversione della data di nascita da String a Date
+//    public static String stringToDate(String birthdate){
+//        // Conversione della data di nascita da String a Date
+//        try {
+//            DateFormat formatter = new SimpleDateFormat("");
+//            java.util.Date myDate;
+//            myDate = formatter.parse(birthdate);
+//            Date sqlDate = new Date(myDate.getTime());
+//            return sqlDate;
+//        } catch (ParseException ex) {
+//            // Se il parse della data non va a buon fine, significa che la data non è nel formato giusto
+//            return null;
+//        }
+//    }
+    
+    public static Date stringToDate(String date, String format){
+
+     
         try {
-            DateFormat formatter = new SimpleDateFormat("dd-M-yyyy");
+            DateFormat formatter = new SimpleDateFormat(format);
             java.util.Date myDate;
-            myDate = formatter.parse(birthdate);
+            myDate = formatter.parse(date);
             Date sqlDate = new Date(myDate.getTime());
             return sqlDate;
         } catch (ParseException ex) {
             // Se il parse della data non va a buon fine, significa che la data non è nel formato giusto
             return null;
         }
-    }
-    
-    public static Date convertDateFormat(Date date){
-
-        DateFormat df = new SimpleDateFormat("dd-M-yyyy");
-        return stringToDate(df.format(date));
   
     
+    }
+    
+    public static String dateToString(Date date){
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }

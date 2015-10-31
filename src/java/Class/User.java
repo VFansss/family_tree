@@ -1340,7 +1340,7 @@ public class User{
             // Genera id univoco dell'utente
             String user_id = User.createUniqueUserId(10);
             data.put("id", user_id);
-            data.put("birthdate", Function.stringToDate((String) data.get("birthdate")));
+            data.put("birthdate", Function.stringToDate((String) data.get("birthdate"), ""));
 
         
             // Inserisci l'utente

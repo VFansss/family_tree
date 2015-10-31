@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marco
  */
-public class Settings extends HttpServlet {
+public class SettingsS extends HttpServlet {
     private static HttpSession session;
     private static User user_logged;
     
@@ -51,24 +51,24 @@ public class Settings extends HttpServlet {
                 
         }else{
 
-            String result; 
+            String msn; 
             switch (action) {
                 case "data":
-                    result = changeData(request);
+                    msn = changeData(request);
                     break;
                 case "email":
-                    result = changeEmail(request);
+                    msn = changeEmail(request);
                     break;
                 case "password":
-                    result = changePassword(request);
+                    msn = changePassword(request);
                     break;
                 case "avatar":
-                    result = changeAvatar(request);
+                    msn = changeAvatar(request);
                     break;
-                default: result = "Something is wrong";
+                default: msn = "Something is wrong";
             }
             
-            response.sendRedirect("settings?result=" + result + "&action=" + action);
+            response.sendRedirect("settings?msn=" + msn + "&action=" + action);
 
         }
         
@@ -82,25 +82,23 @@ public class Settings extends HttpServlet {
         String birthdate = (String)request.getParameter("birthdate");
         String birthplace = (String)request.getParameter("birthplace");
         
-        Date sqlDate = Function.stringToDate(birthdate);
+        Date sqlDate = Function.stringToDate(birthdate, "d-MMM-yyyy");
         
-        boolean resu1 =user_logged.getName().equals(name);
-        boolean resu2 =user_logged.getSurname().equals(surname);
-        boolean resu3 =user_logged.getGender().equals(gender.toLowerCase());
-        boolean resu4 =user_logged.getBirthdate().equals(sqlDate);
-        boolean resu5 =user_logged.getBirthplace().equals(birthplace);
-      
+        boolean r1 = user_logged.getName().equals(name);
+        boolean r2 = user_logged.getSurname().equals(surname);
+        boolean r3 = user_logged.getGender().equals(gender);
+        boolean r4 = user_logged.getBirthdate().equals(sqlDate);
+        boolean r5 = user_logged.getBirthplace().equals(birthplace);
         
-        if(name.equals("") || surname.equals("") || gender.equals("") || birthdate.equals("") || birthplace.equals("")){
+        
+        if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
             
             return "All fields are required";
         
         // Se non è stato modificato nessun campo
         }else if(user_logged.getName().equals(name) && user_logged.getSurname().equals(surname) && user_logged.getGender().equals(
-                    gender) && user_logged.getBirthdate().equals(birthdate) && user_logged.getBirthplace().equals(birthplace)){
+                    gender) && user_logged.getBirthdate().equals(sqlDate) && user_logged.getBirthplace().equals(birthplace)){
             
-            
-           ;
             return "No data to change";
 
         // Se il sesso non è valido
@@ -109,8 +107,6 @@ public class Settings extends HttpServlet {
             return "You can be only male or female";
                 
         }else{
-            
-            
             
             if(sqlDate == null){ 
                 
@@ -121,7 +117,7 @@ public class Settings extends HttpServlet {
                 Map<String, Object> data = new HashMap<>();
                 data.put("name", name);
                 data.put("surname", surname);
-                data.put("birthdate", sqlDate);
+                data.put("birthdate", Function.dateToString(sqlDate));
                 data.put("birthplace", birthplace);
 
                 if(!user_logged.getGender().equals(gender)){
@@ -129,9 +125,9 @@ public class Settings extends HttpServlet {
                         Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
                     */
                     data.put("gender", gender);
-                    user_logged.removeFather();
-                    user_logged.removeMother();
-                    user_logged.removeSpouse();
+//                    user_logged.removeFather();
+//                    user_logged.removeMother();
+//                    user_logged.removeSpouse();
                 }
 
                 boolean result = Database.updateRecord("user", data, "id = '" + user_logged.getId() + "'");
@@ -149,11 +145,28 @@ public class Settings extends HttpServlet {
     }
     
     public static String changeEmail(HttpServletRequest request){
-        String current_email = (String)request.getAttribute("current_email");
-        String new_email = (String)request.getAttribute("new_email");
-        String repeat_email = (String)request.getAttribute("repeat_email");
+        String current_email = (String)request.getParameter("current_email");
+        String new_email = (String)request.getParameter("new_email");
+        String confirm_email = (String)request.getParameter("confirm_email");
         
-        return "";
+        if(current_email.equals("") || new_email.equals("") || confirm_email.equals("")){
+            return "All fields are required";
+            
+        }else if(!user_logged.getEmail().equals(current_email)){
+                
+            return "Current email is not valid";
+            
+        }else if(!confirm_email.equals(new_email)){
+            
+            return "Confirm email is not valid";
+        }else{
+            
+            boolean result = user_logged.setEmail(new_email);
+            if(!result) return "Something is wrong";
+                
+            // Aggiornamento dell'utente
+            return "";
+        }
     }
     
     public static String changePassword(HttpServletRequest request){

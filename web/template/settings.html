@@ -17,7 +17,8 @@
                                         <i class="fa fa-camera fa-3x hover-blue"></i>
                                         <input class="uploader" type="file" name="photo-upload" />
                                     </div>
-                                    <#if msn??>
+                                    
+                                    <#if action?? && action = "avatar">
                                         <div class="form-message inline-block">
                                             <i class="fa fa-times"></i><p>${msn}</p>
                                         </div>
@@ -41,16 +42,22 @@
                                         <input class="form-control" type="text" name="surname" placeholder="surname" value="${user_logged.surname}" required />
                                         
                                             <select name="gender" class="form-control" >
-                                                <option value="" disabled selected>Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
+                                                <#if user_logged.gender == "male">
+                                                    <option value="male" selected>Male</option>
+                                                    <option value="female">Female</option>
+                                                <#else>
+                                                    <option value="male">Male</option>
+                                                    <option value="female" selected>Female</option>
+                                                </#if>
+                                                
+                                                
                                             </select>
                                         
                                         <input class="form-control" type="text" name="birthdate" placeholder="birthdate (gg/mm/yyyy)" value="${user_logged.birthdate}" required />
                                         <input class="form-control" type="text" name="birthplace" placeholder="birthplace" value="${user_logged.birthplace}" required />
                                     </fieldset>
 
-                                    <#if msn??>
+                                    <#if action?? && action = "data">
                                         <div class="form-message">
                                             <i class="fa fa-times"></i><p>${msn}</p>
                                         </div>
@@ -73,16 +80,18 @@
                                 <form action="change?action=email" class="panel-body" method="POST">
 
                                     <fieldset>
-                                        <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" disabled />
-                                        <input class="form-control"  type="email" name="new_email" placeholder="New email" value="" required/>
-                                        <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" value="" required />
+                                        <input class="form-control"  type="text" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly />
+                                        <input class="form-control"  type="text" name="new_email" placeholder="New email" required/>
+                                        <input class="form-control"  type="text" name="confirm_email" placeholder="Confirm email" required />
                                     </fieldset>
 
-                                    <#if msn??>
+                                    
+                                    <#if action?? && action = "email">
                                         <div class="form-message">
                                             <i class="fa fa-times"></i><p>${msn}</p>
                                         </div>
                                     </#if>
+                                   
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
 
                                 </form>
@@ -105,7 +114,7 @@
                                         <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" required />
                                     </fieldset>
 
-                                    <#if msn??>
+                                    <#if action?? && action = "password">
                                         <div class="form-message">
                                             <i class="fa fa-times"></i><p>${msn}</p>
                                         </div>

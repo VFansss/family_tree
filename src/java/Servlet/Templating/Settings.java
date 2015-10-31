@@ -5,17 +5,11 @@
  */
 package Servlet.Templating;
 
-import Class.Database;
 import Class.FreeMarker;
 import Class.User;
-import Class.UserList;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +34,7 @@ public class Settings extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
         //Gestione sessione
@@ -50,14 +44,17 @@ public class Settings extends HttpServlet {
         if(session != null){     
             
             User user_logged = (User)session.getAttribute("user_logged");
-
+            
+            String as = user_logged.getBirthdate().toString();
             Map<String, Object> data = new HashMap<>();
 
             data.put("user_logged", user_logged);
 
+            String action = request.getParameter("action");
             String msn = request.getParameter("msn");
+            data.put("action",action);
             data.put("msn", msn);
-
+            
             FreeMarker.process("settings.html",data, response, getServletContext());
             
         }else{
@@ -80,11 +77,7 @@ public class Settings extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -98,11 +91,7 @@ public class Settings extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -1,5 +1,6 @@
 package classes;
 
+import classes.exception.NotAllowed;
 import classes.tree.GenealogicalTree;
 import classes.tree.NodeList;
 import java.sql.Date;
@@ -94,9 +95,10 @@ public class User{
     }
     
     public String getMotherId() {
-        /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
-        ResultSet record = Database.selectRecord("user", "id = '" + this.id +"'");
+        
         try {
+            /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
+            ResultSet record = Database.selectRecord("user", "id = '" + this.id +"'");
             if(record.next()){
                 return record.getString("mother_id");
             }
@@ -107,45 +109,34 @@ public class User{
         return null;
     }
     
-    public String getFatherId() {
+    public String getFatherId() throws SQLException {
+
         /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
-        ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
-        try {
-            if(record.next()){
-                return record.getString("father_id");
-            }
-        } catch (SQLException ex) {
-            return null;
+        ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'"); 
+        if(record.next()){
+            return record.getString("father_id");
         }
         
         return null;
     }
     
-    public String getSpouseId() {
+    public String getSpouseId() throws SQLException {
+
         /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
         ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
-        try {
-            if(record.next()){
-                return record.getString("spouse_id");
-            }
-            
-        } catch (SQLException ex) {
-            return null;
+        if(record.next()){
+            return record.getString("spouse_id");
         }
-        
+
         return null;
     }
     
-    public int getNumRelative() {
+    public int getNumRelative() throws SQLException {
+
         /* Il numero di parenti può essere modificato anche da altri utenti, per cui è necessario prelevare il valore ogni volta dal database*/
         ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
-        
-        try {
-            if(record.next()){
-                return record.getInt("num_relatives");
-            }
-        } catch (SQLException ex) {
-            return 0;
+        if(record.next()){
+            return record.getInt("num_relatives");
         }
 
         return 0;
@@ -155,88 +146,32 @@ public class User{
     
     //<editor-fold defaultstate="collapsed" desc="Metodi SET delle variabili di istanza">
     
-    public boolean setId(String id) {
-        // Se il nuovo id appartiene già ad un altro utente, restituisci false
-        if(User.getUserById(id) != null) return false;
-        boolean result = this.updateAttribute("id", id);
-        if(result) this.id = id;
-        return result;
-    }
-    
-    public boolean setName(String name){
-        boolean result = this.updateAttribute("name", name);
-        if(result) this.name = name;
-        return result;
-    }
-    
-    public boolean setSurname(String surname){
-        boolean result = this.updateAttribute("surname", surname);
-        if(result) this.surname = surname;
-        return result;
-    }
-    
-    public boolean setEmail(String email){
-        boolean result = this.updateAttribute("email", email);
-        if(result) this.email = email;
-        return result;
-    }
-    
-    public boolean setBirthdate(Date birthdate){
-        boolean result = this.updateAttribute("birthdate", birthdate);
-        if(result) this.birthdate = birthdate;
-        return result;
-    }
-    
-    public boolean setBirthplace(String birthplace){
-        boolean result = this.updateAttribute("birthplace", birthplace);
-        if(result) this.birthplace = birthplace;
-        return result;
-    }
-    
-    public boolean setGender(String gender){
-        boolean result = this.updateAttribute("gender", gender);
-        if(result) this.gender = gender;
-        return result;
-    }
-    
-    public boolean setBiography(String biography) {
-        boolean result;
-        if(biography.equals("")){
-            result = Database.resetAttribute("user", "biography", "id='" + this.id + "'");
-            if(result) this.biography = null;
-        }else{
-            result = this.updateAttribute("biography", biography);
-            if(result) this.biography = biography;
+    public void setData(Map<String, Object> data) throws SQLException{
+        Database.updateRecord("user", data, "id = '" + this.getId() + "'");
+        this.name = (String) data.get("name");
+        this.surname = (String) data.get("surname");
+        this.birthdate = DataUtil.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
+        this.birthplace = (String) data.get("birthplace");
+        this.biography = (String) data.get("biography");
+        if(data.get("gender") != null){
+            this.gender = (String) data.get("gender");
         }
-        
-        return result;
     }
     
-    public boolean setPassword(String password) {
-        boolean result = this.updateAttribute("password", password);
-        return result;
+    public void setEmail(String email) throws SQLException {
+        this.updateAttribute("email", email);
     }
+   
     
-    public boolean setMotherId(String mother_id) {
-        User mother = User.getUserById(mother_id);
-        return this.setMother(mother);
+    public void setPassword(String password) throws SQLException {
+        this.updateAttribute("password", password);
     }
-    
-    public boolean setFatherId(String father_id) {
-        User father = User.getUserById(father_id);
-        return this.setFather(father);
-    }
-    
-    public boolean setSpouseId(String spouse_id) {
-        User spouse = User.getUserById(spouse_id);
-        return this.setSpouse(spouse);
-    }   
     
     /**
      * Aggiorna il numero di parenti collegati
      * @return
      */
-    public boolean setNumRelatives() {
+    public void setNumRelatives() throws SQLException {
         
         UserList family_tree = this.getUnlabeledTree();
         // Calcola il numero di parenti (-1 per non considerare il parente stesso)
@@ -252,24 +187,10 @@ public class User{
         }
         condition = condition.substring(0, condition.length()-4);
 
-        return Database.updateRecord("user", data, condition);
+        Database.updateRecord("user", data, condition);
     }
     
-    public boolean setData(Map<String, Object> data){
-        boolean result = Database.updateRecord("user", data, "id = '" + this.getId() + "'");
-        if(result) {
-            
-            this.name = (String) data.get("name");
-            this.surname = (String) data.get("surname");
-            this.birthdate = DataUtil.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
-            this.birthplace = (String) data.get("birthplace");
-            
-            if(data.get("gender") != null){
-                this.gender = (String) data.get("gender");
-            }
-        }
-        return result;
-    }
+    
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recupero e gestione madre">
@@ -278,7 +199,7 @@ public class User{
      * Recupera la madre
      * @return
      */
-    public User getMother(){
+    public User getMother() throws SQLException{
         return this.getParent("female");
     }
     /**
@@ -286,15 +207,15 @@ public class User{
      * @param mother
      * @return
      */
-    public boolean setMother(User mother){
-        return this.setParent(mother);
+    public void setMother(User mother) throws SQLException, NotAllowed{
+        this.setParent(mother);
     }
     /**
      * Rimuovi la madre
      * @return
      */
-    public boolean removeMother(){
-        return removeParent("female");
+    public void removeMother() throws SQLException{
+        removeParent("female");
     }
     //</editor-fold>
   
@@ -304,7 +225,7 @@ public class User{
      * Recupera il padre
      * @return
      */
-    public User getFather(){
+    public User getFather() throws SQLException{
         return this.getParent("male");
     }
     /**
@@ -312,16 +233,16 @@ public class User{
      * @param father
      * @return
      */
-    public boolean setFather(User father){
-        return this.setParent(father);
+    public void setFather(User father) throws SQLException, NotAllowed{
+        this.setParent(father);
         
     }
     /**
      * Rimuovi il padre
      * @return
      */
-    public boolean removeFather(){
-        return removeParent("male");
+    public void removeFather() throws SQLException{
+        removeParent("male");
     }
     //</editor-fold>
     
@@ -331,56 +252,56 @@ public class User{
      * Recupera il coniuge
      * @return
      */
-    public User getSpouse() {
+    public User getSpouse() throws SQLException {
         return User.getUserById(this.getSpouseId());
     } 
     /**
      * Inserisci il coniuge
      * @param spouse
      * @return
+     * @throws classes.exception.NotAllowed
      */
-    public boolean setSpouse(User spouse){
+    public void setSpouse(User spouse) throws NotAllowed, SQLException{
         User spouse_before = null;
         if(this.getSpouseId() != null && !this.getSpouse().equals(spouse)) {
             spouse_before = this.getSpouse();
         }
         
-        if(!this.canAddLikeSpouse(spouse)) return false;
-        boolean result = this.updateAttribute("spouse_id", spouse.getId());
-        if(result){
-            // Cambia anche il coniuge dell'utente appena aggiunto se non è già stato fatto
-            if(spouse.getSpouse() == null) {
-                spouse.setSpouse(User.getUserById(this.id));
-            }           
+        if(!this.canAddLikeSpouse(spouse)) throw new NotAllowed();
+       
+        this.updateAttribute("spouse_id", spouse.getId());
+
+        // Cambia anche il coniuge dell'utente appena aggiunto se non è già stato fatto
+        if(spouse.getSpouse() == null) {
+            spouse.setSpouse(User.getUserById(this.id));
+        }           
+
+        // Eliminare il coniuge dell'utente appena eliminato come coniuge
+        if(spouse_before != null){
+            spouse_before.removeSpouse();
+            // Aggiorna numero parenti del coniuge eliminato
+            spouse_before.setNumRelatives();
+        }
+
+        // Aggiorna numeri parenti
+        this.setNumRelatives();
             
-            // Eliminare il coniuge dell'utente appena eliminato come coniuge
-            if(spouse_before != null){
-                spouse_before.removeSpouse();
-                // Aggiorna numero parenti del coniuge eliminato
-                spouse_before.setNumRelatives();
-            }
-            
-            // Aggiorna numeri parenti
-            this.setNumRelatives();
-            
-        } 
         
         
-        return result;
+        
     }
     /**
      * Rimuovi il coniuge
      * @return
      */
-    public boolean removeSpouse() {
+    public void removeSpouse() throws SQLException {
         User spouse = this.getSpouse();
-        boolean result = Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
-        if(result && !this.isRelative(spouse)){
+        Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
+        if(!this.isRelative(spouse)){
             // Aggiorna numero di parenti
             this.setNumRelatives();
             spouse.setNumRelatives();
         }
-        return result;
     }
     //</editor-fold>
     
@@ -390,7 +311,7 @@ public class User{
      * Recupera il padre e la madre
      * @return
      */
-    public UserList getParents(){
+    public UserList getParents() throws SQLException{
         UserList parent = new UserList();
         User mother = this.getMother();
         User father = this.getFather();
@@ -403,7 +324,7 @@ public class User{
      * @param gender
      * @return
      */
-    public User getParent(String gender){
+    public User getParent(String gender) throws SQLException{
         String parent;
         if(gender.equals("female")){
             parent = this.getMotherId();
@@ -418,22 +339,19 @@ public class User{
      * @param user  genitore da aggiungere
      * @return
      */
-    public boolean setParent(User user){
-        boolean result;
-        if(!this.canAddLikeParent(user)) return false;
+    public void setParent(User user) throws SQLException, NotAllowed{
+        if(!this.canAddLikeParent(user)) throw new NotAllowed();
         
         if(user.getGender().equals("female")){
-            result = this.updateAttribute("mother_id", user.getId());
+            this.updateAttribute("mother_id", user.getId());
         }else{
-            result = this.updateAttribute("father_id", user.getId());
+            this.updateAttribute("father_id", user.getId());
         }
         
         // Aggiorna numero parenti
-        if(result) {
-            this.setNumRelatives();
-        }
+        this.setNumRelatives();
         
-        return result;
+        
         
     }
     /**
@@ -441,9 +359,8 @@ public class User{
      * @param gender    Sesso del genitore 
      * @return
      */
-    public boolean removeParent(String gender){
+    public void removeParent(String gender) throws SQLException{
         User parent = this.getParent(gender);
-        boolean result = false;
         String attribute;
         
         if(parent != null){
@@ -454,17 +371,15 @@ public class User{
                 attribute = "father_id";
             }
             
-            result = Database.resetAttribute("user", attribute, "id = '" + this.id + "'");
+            Database.resetAttribute("user", attribute, "id = '" + this.id + "'");
             
             // Se è stato rimosso il legame di parentela con successo e se due utenti non appartengono più allo stesso albero genealogico
-            if(result && !this.isRelative(parent)) {
+            if(!this.isRelative(parent)) {
                 // Aggiorna numero di parenti
                 this.setNumRelatives();
                 parent.setNumRelatives();
             }
         }
-        
-        return result;
         
     }
     //</editor-fold>
@@ -477,11 +392,11 @@ public class User{
      */
     public UserList getChildren(){
         UserList children = new UserList();
-        ResultSet record;
-        record = Database.selectRecord("user", "father_id = '" + this.id + "' OR mother_id = '" + this.id + "'");
-        // Aggiungo ogni figlio trovato alla lista
+        
                 
         try {
+            ResultSet record = Database.selectRecord("user", "father_id = '" + this.id + "' OR mother_id = '" + this.id + "'");
+            // Aggiungo ogni figlio trovato alla lista
             while(record.next()){    
                 children.add(new User(record));
             }
@@ -496,12 +411,11 @@ public class User{
     public UserList getChildren(String gender){
         
         UserList children = new UserList();
-
-        // Recupero tutti i record relativi ai figli dell'utente
-        ResultSet record = Database.selectRecord("user", "(father_id = '" + this.id + "' OR mother_id = '" + this.id + "') AND gender = '" + gender + "'");
-        // Aggiungo ogni figlio trovato alla lista
-              
         try {
+            // Recupero tutti i record relativi ai figli dell'utente
+            ResultSet record = Database.selectRecord("user", "(father_id = '" + this.id + "' OR mother_id = '" + this.id + "') AND gender = '" + gender + "'");
+            // Aggiungo ogni figlio trovato alla lista
+
             while(record.next()){      
                 children.add(new User(record));
             }
@@ -519,37 +433,32 @@ public class User{
      * @param user  figlio da inserire
      * @return      true se il filgio è stato inserito con successo, false altrimenti
      */
-    public boolean setChild(User user){
+    public void setChild(User user) throws NotAllowed, SQLException{
         // Se {user} ha già un genitore dello stesso sesso, ritorna false
-        if(user.getParent(this.gender) != null) return false;
+        if(user.getParent(this.gender) != null) throw new NotAllowed();
         // Imposta l'utente corrente come genitore
-        boolean result = user.setParent(this);
-        
-        if(result) this.setNumRelatives();
-        return result;
+        user.setParent(this);
+        this.setNumRelatives();
     }
     /**
      * Elimina un figlio
      * @param user  utente da eliminare come figlio
      * @return      true se l'eliminazione è avvenuta con successo, false altrimenti 
      */
-    public boolean removeChild(User user){
-        
-        boolean result;
-        
+    public void removeChild(User user) throws NotAllowed, SQLException{
+
         // Se {user} non è un figlio
         UserList children = this.getChildren();        
-        if(!children.contains(user)) return false;
+        if(!children.contains(user)) throw new NotAllowed();
         
-        result = user.removeParent(this.gender);
+        user.removeParent(this.gender);
         // Se la rimozione è andata a buon fine e i due utenti non appartengono più allo stesso albero genealogico
-        if(result && !this.isRelative(user)) {
+        if(!this.isRelative(user)) {
             // Aggiorna numero di utenti presenti nei rispettivi alberi genealogici
             this.setNumRelatives();
             user.setNumRelatives();
             
         }
-        return result;
     }
     //</editor-fold>
     
@@ -559,7 +468,7 @@ public class User{
      * Recupera gli antenati
      * @return
      */
-    public UserList getAncestors(){
+    public UserList getAncestors() throws SQLException{
         UserList ancestors = new UserList();
         UserList parents = this.getParents();
 
@@ -578,7 +487,7 @@ public class User{
      * @param gender    Sesso degli antenati
      * @return
      */
-    public UserList getAncestors(String gender){
+    public UserList getAncestors(String gender) throws SQLException{
         UserList ancestors = new UserList();
         UserList parents = this.getParents();
         // Per ogni genitore
@@ -640,7 +549,7 @@ public class User{
      * Recupera fratelli e sorelle di sangue
      * @return
      */
-    public UserList getSiblings() {
+    public UserList getSiblings() throws SQLException {
         
         UserList siblings = new UserList();
         User father = this.getFather();
@@ -671,7 +580,7 @@ public class User{
      * @param gender    Sesso dei fratelli/sorelle
      * @return
      */
-    public UserList getSiblings(String gender) {
+    public UserList getSiblings(String gender) throws SQLException {
         
         UserList siblings = new UserList();
         User father = this.getFather();
@@ -697,17 +606,17 @@ public class User{
         return siblings;
     }
     
-    public boolean setSiblingId(String sibling_id) {
-        return this.setSibling(User.getUserById(sibling_id));
+    public void setSiblingId(String sibling_id) throws SQLException, NotAllowed {
+        this.setSibling(User.getUserById(sibling_id));
     }
     /**
      * Aggiungi un fratello o una sorella
      * @param sibling  utente da aggiungere
      * @return  true se l'utente è stato aggiunto con successo, false altrimenti
      */
-    public boolean setSibling(User sibling) {
+    public void setSibling(User sibling) throws SQLException, NotAllowed {
         // Se {relative} non può essere aggiunto come fratello, restituisci false
-        if(!this.canAddLikeSibling(sibling)) return false;
+        if(!this.canAddLikeSibling(sibling)) throw new NotAllowed();
 
         User u1 = this;
         User u2 = sibling;
@@ -759,7 +668,6 @@ public class User{
             
         }while(true);
         
-        return true;
     }
     
     //</editor-fold>
@@ -772,11 +680,9 @@ public class User{
      * @param parent    genitore da aggiungere
      * @return
      */
-    public boolean addParentFor(User user, User parent) {
-        if(this.isRelative(user)){
-            return user.setParent(parent);
-        }
-        return false;
+    public void addParentFor(User user, User parent) throws NotAllowed, SQLException {
+        if(!this.isRelative(user))throw new NotAllowed();
+        user.setParent(parent);
     }
     /**
      * Aggiungi un figlio di un parente dell'utente
@@ -784,27 +690,26 @@ public class User{
      * @param child     figlio da aggiungere
      * @return
      */
-    public boolean addChildFor(User user, User child) {
-        if(this.isRelative(user)){
-            return user.setChild(child);
-        }
-        return false;
+    public void addChildFor(User user, User child) throws NotAllowed, SQLException {
+        if(!this.isRelative(user))throw new NotAllowed();
+        user.setChild(child);
+
     }
 
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recupero e gestione richieste di parentela">
     
-    public ResultSet getRequest(){   
+    public ResultSet getRequest() throws SQLException{   
         ResultSet request = Database.selectRecord("request", "relative_id = '" + this.id + "'");        
         return request;
     }
     
-    public boolean setRequest(User relative, String relationship) {
+    public void setRequest(User relative, String relationship) throws NotAllowed, SQLException {
         
-        if(!this.canAddLike(relative, relationship)) return false;
+        if(!this.canAddLike(relative, relationship)) throw new NotAllowed();
         
-        return this.send_handler(relative, relationship);
+        this.send_handler(relative, relationship);
     }
     
     /**
@@ -814,33 +719,26 @@ public class User{
      * @param relationship    grado di parentela
      * @return          true se l'aggiunta va a buon fine, false altriementi
      */
-    public static boolean setRequestFor(User user, User relative, String relationship) {
+    public static void setRequestFor(User user, User relative, String relationship) throws NotAllowed, SQLException {
         // Se {user} non può aggiungere {relative} come parente
-        if(!user.canAddLike(relative, relationship)) return false;
+        if(!user.canAddLike(relative, relationship)) throw new NotAllowed();
         // Ritorna
-        return user.send_handler(relative, relationship);
+        user.send_handler(relative, relationship);
     }
     
-    private boolean send_handler(User relative, String relationship) {
+    private void send_handler(User relative, String relationship) throws SQLException {
         
         Map<String, Object> data = new HashMap<>();
         data.put("user_id", this.id);
         data.put("relative_id", relative.getId());
         data.put("relationship", relationship);
         
-        boolean result = Database.insertRecord("request", data);
-        
-        if(result) {
-        
-            /*
-                INVIARE EMAIL DI RICHIESTA  
-            */
-            
-            return true;
-        }
-        
-        return false;
-        
+        Database.insertRecord("request", data);
+
+        /*
+            INVIARE EMAIL DI RICHIESTA  
+        */
+
         
     }
 
@@ -853,34 +751,30 @@ public class User{
      * @param relative  parente a cui si è fatta la richiesta
      * @return
      */
-    public boolean acceptRequest(User relative) {
+    public void acceptRequest(User relative) throws SQLException, NotAllowed {
         ResultSet request = Database.selectRecord("request", "user_id = '" + relative.getId() + "' AND relative_id = '" + this.id + "'");
         String relationship = "";
-        
-        try {
-            
-            while(request.next()){
-                relationship = request.getString("relationship");
-            }
-            
-        } catch (SQLException ex) {
-            return false;
+
+        while(request.next()){
+            relationship = request.getString("relationship");
         }
+
         
-        // Se cìè stato un'errore durante la rimozione della richiesta dal database
-        if(!relative.deleteRequest(this)) return false;
+        // Rimuovi la richiesta dal database
+        relative.deleteRequest(this);
         
+        // Effettua il collegamento tra i due parenti
         switch(relationship){
         
-            case "parent": return this.setChild(relative);
+            case "parent": this.setChild(relative);
                 
-            case "child": return this.setParent(relative);
+            case "child": this.setParent(relative);
             
-            case "sibling": return this.setSibling(relative);
+            case "sibling": this.setSibling(relative);
                 
-            case "spouse": return this.setSpouse(relative);
+            case "spouse": this.setSpouse(relative);
                 
-            default: return false;
+            default: throw new NotAllowed();
         }
         
     }
@@ -890,8 +784,8 @@ public class User{
      * @param relative  parente a cui si è fatta la richiesta
      * @return
      */
-    public boolean declineRequest(User relative){
-        return relative.deleteRequest(this);
+    public void declineRequest(User relative) throws SQLException{
+        relative.deleteRequest(this);
     }
     
     /**
@@ -899,8 +793,8 @@ public class User{
      * @param relative  parente a cui si è fatta la richiesta
      * @return
      */
-    public boolean dropRequest(User relative){
-        return this.deleteRequest(relative);
+    public void dropRequest(User relative) throws SQLException{
+        this.deleteRequest(relative);
     }
     
     /**
@@ -908,8 +802,8 @@ public class User{
      * @param relative  parente a cui si è fatta la richiesta
      * @return
      */
-    private boolean deleteRequest(User relative){
-        return Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
+    private void deleteRequest(User relative) throws SQLException{
+        Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
     }
     
 //</editor-fold>
@@ -922,7 +816,7 @@ public class User{
      * @param gender    sesso del genitore per definire se si vuole aggiungere un padre o una madre
      * @return          true se l'utente è stato aggiunto come coniuge, false altrimenti
      */
-    private boolean canAddLikeParent(User user) {
+    private boolean canAddLikeParent(User user) throws SQLException {
         String user_gender = user.getGender();
         // Se {user} è tra i fratelli/sorelle
         UserList siblings = this.getSiblings(user_gender);        
@@ -947,7 +841,7 @@ public class User{
      * Verifica se un dato utente può essere aggiunto come coniuge
      * @return  true se l'utente è stato aggiunto come coniuge, false altrimenti
      */
-    private boolean canAddLikeSpouse(User user) {
+    private boolean canAddLikeSpouse(User user) throws SQLException {
         
         /* 
             Più in generale, si verifica se due utenti possono avere (o aver avuto) una relazione sentimentale di qualsiasi tipo (e di conseguenza se possono avere figli comuni)
@@ -981,7 +875,7 @@ public class User{
      * Verifica se un dato utente può essere aggiunto come fratello
      * @return  true se l'utente è stato aggiunto con successo, false altrimenti
      */
-    private boolean canAddLikeSibling(User user) {
+    private boolean canAddLikeSibling(User user) throws SQLException {
         
         // Se i due utenti sono già fratelli
         if(this.getSiblings().contains(user)) return false;
@@ -1079,7 +973,7 @@ public class User{
      * Verifica se un dato utente può essere aggiunto come figlio
      * @return  true se l'utente è stato aggiunto con successo, false altrimenti
      */
-    private boolean canAddLikeChild(User user) { 
+    private boolean canAddLikeChild(User user) throws SQLException { 
         // Se {user} non puo diventare genitore dell'utente corrente, restituisci false
         return user.canAddLikeParent(this);
     }
@@ -1089,7 +983,7 @@ public class User{
      * @param relationship    grado di parentela
      * @return  true se l'utente è stato aggiunto come coniuge, false altrimenti
      */
-    private boolean canAddLike(User user, String relationship) {
+    private boolean canAddLike(User user, String relationship) throws SQLException {
         
         switch(relationship){
             
@@ -1114,7 +1008,7 @@ public class User{
      * Recupera i componenti dell'alabero genealogico dell'utente senza etichette
      * @return  lista di utenti che fanno parte dell'albero genealogico
      */
-    public UserList getUnlabeledTree() {
+    public UserList getUnlabeledTree() throws SQLException {
         
         // Inizializza l'albero con i solo discendenti degli antenati
         UserList family_tree_final = new UserList();
@@ -1175,7 +1069,7 @@ public class User{
      * @param user  parente da cercare
      * @return      true se l'user è tra i parenti, false altrimenti
      */
-    public boolean isRelative(User user) {
+    public boolean isRelative(User user) throws SQLException {
         // Inizializza l'albero con i solo discendenti degli antenati
         UserList family_tree_final = new UserList();
         UserList evaluated = new UserList();
@@ -1323,74 +1217,11 @@ public class User{
         }
         
     }
-    /**
-     * Crea un nuovo utente
-     * @param data      dati dell'utente
-     * @param action    azioni da svolgere sull'utente (aggiungenta di madre, padre o coniuge)
-     * @return
-     */
-    public static boolean create(Map<String, Object> data, Map<String, String> action){
-        
-            // Definisci i campi obbligatori
-            String[] fields_required =  {"name", "surname", "gender", "birthdate", "birthplace"};
-            String attr; Object value;
-
-            // Per ogni campo obbligatorio
-            for(Map.Entry<String, Object> e:data.entrySet()){
-                attr = e.getKey();
-                value = ((String) e.getValue()).trim();
-                // Se un campo obbligatorio è vuoto, resituisci false
-                for(String field_required: fields_required){
-                    if(attr.equals(field_required) && value.equals("")) return false;
-                }
-            }
-            
-            
-            // Validazione e-mail
-            String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-            Matcher matcher = pattern.matcher((CharSequence) data.get("email"));
-            if(!matcher.matches()) return false;
-            
-            // Genera id univoco dell'utente
-            String user_id = User.createUniqueUserId(10);
-            data.put("id", user_id);
-            data.put("birthdate", DataUtil.stringToDate((String) data.get("birthdate"), ""));
-
-        
-            // Inserisci l'utente
-            boolean result = Database.insertRecord("user", data);
-            // Se l'utente non è stato inserito correttamente, restituisci false
-            if(!result) return false;
-        
-            /*
-                INVECE DI SETTARE I PARENTI, BISOGNA MANDARE LORO UNA RICHIESTA
-            */
-        
-            // Recupera utente appena creato
-            User new_user = User.getUserById(user_id);
-            boolean res;
-            // Aggiungi il padre se necessario
-            String father = action.get("father").trim();
-            if(!father.equals("") && User.getUserById(father) != null) new_user.setRequest(User.getUserById(father), "father");
-            // Aggiungi la madre se necessario
-            String mother = action.get("mother").trim();
-            if(!mother.equals("") && User.getUserById(mother) != null) new_user.setRequest(User.getUserById(mother), "mother");
-            // Aggiungi il coniuge se necessario
-            String spouse = action.get("spouse").trim();
-            if(!spouse.equals("") && User.getUserById(spouse) != null) new_user.setRequest(User.getUserById(spouse), "spouse");
-            // Aggiungi il coniuge se necessario
-            String sibling = action.get("sibling").trim();
-            if(!spouse.equals("") && User.getUserById(sibling) != null) new_user.setRequest(User.getUserById(sibling), "sibling");
-            
-            return true;
-
-    }
     
     /**
      * Elimina un utente
      */
-    public void delete(){
+    public void delete() throws SQLException{
         // Rimuovi relazione genitore/figli
         for(User child: this.getChildren()){
             child.removeParent(this.gender);
@@ -1417,10 +1248,10 @@ public class User{
      * @param value     valore da assegnare all'attributo
      * @return
      */
-    private boolean updateAttribute(String attribute, Object value){
+    private void updateAttribute(String attribute, Object value) throws SQLException{
         Map<String, Object> data = new HashMap();
         data.put(attribute, value);
-        return Database.updateRecord("user", data, "id = '" + this.id + "'");
+        Database.updateRecord("user", data, "id = '" + this.id + "'");
     }
     
     /**

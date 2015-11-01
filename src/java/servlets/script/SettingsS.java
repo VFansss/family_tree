@@ -13,9 +13,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -140,26 +143,31 @@ public class SettingsS extends HttpServlet {
                 Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
                 data.put("birthdate", DataUtil.dateToString(sqlDate));
                 data.put("birthplace", birthplace);
+                data.put("biography", biography);
 
                 if(!user_logged.getGender().equals(gender)){
-                    /*
-                        Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico 
-                    */
-                    data.put("gender", gender);
-                    user_logged.removeFather();
-                    user_logged.removeMother();
-                    user_logged.removeSpouse();
+                    
+                    try {
+                        /* Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico */
+                        user_logged.removeFather();
+                        user_logged.removeMother();
+                        user_logged.removeSpouse();
+                        data.put("gender", gender);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SettingsS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-
-                user_logged.setBiography(biography);
-
-                // Aggiornamento dati dell'utente
-                if(!user_logged.setData(data)) {
-                    msg = "Something is wrong";
-                }else{
+                
+                try {
+                    // Aggiornamento dati dell'utente
+                    user_logged.setData(data);
                     msg = "Data changed";
                     error = false;
+                } catch (SQLException ex) {
+                    msg = "Something is wrong";
                 }
+
+                
             }
             
             
@@ -197,14 +205,19 @@ public class SettingsS extends HttpServlet {
                 msg = check.getMessage();
                 
             }else{
-                // Aggiorna email utente
-                boolean result = user_logged.setEmail(new_email);
-                if(!result) {
-                    msg =  "Something is wrong";
-                }else{
+                try {
+                    // Aggiorna email utente
+                    user_logged.setEmail(new_email);
                     msg =  "Email changed";
                     error = false;
+                } catch (SQLException ex) {
+                    msg =  "Something is wrong";
                 }
+                
+                    
+                
+                    
+                
             }
         }
         
@@ -240,19 +253,15 @@ public class SettingsS extends HttpServlet {
             if(check.isError()){
                 msg = check.getMessage();
             }else{
-               // Aggiorna email utente
-                boolean result = user_logged.setPassword(confirm_password);
-                if(!result){
-                    msg =  "Something is wrong";
-                } else{
+                try {
+                    // Aggiorna email utente
+                    user_logged.setPassword(confirm_password);
                     msg =  "Password changed";
                     error = false;
-                }     
-               
+                } catch (SQLException ex) {
+                    msg =  "Something is wrong";
+                }
             }
-            
-                
-            
         }
         
         // Ritorna il messaggio da visualizzare

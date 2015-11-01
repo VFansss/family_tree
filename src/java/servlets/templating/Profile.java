@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.net.URLEncoder;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -73,12 +76,33 @@ public class Profile extends HttpServlet {
                 /* Recupero dei parenti dell'utente corrente */
 
                 // Recupero di padre, madre e coniuge
-                TreeNode father = family_tree.getUser(user_current.getFather());
-                TreeNode mother = family_tree.getUser(user_current.getMother());
-                TreeNode spouse = family_tree.getUser(user_current.getSpouse());
+                TreeNode father;
+                try {
+                    father = family_tree.getUser(user_current.getFather());
+                } catch (SQLException ex) {
+                    father = null;
+                }
+                
+                TreeNode mother;
+                try {
+                    mother = family_tree.getUser(user_current.getMother());
+                } catch (SQLException ex) {
+                    mother = null;
+                }
+                TreeNode spouse;
+                try {
+                    spouse = family_tree.getUser(user_current.getSpouse());
+                } catch (SQLException ex) {
+                    spouse= null;
+                }
 
                 // Recupero dei fratelli
-                NodeList siblings = family_tree.getUsers(user_current.getSiblings());
+                NodeList siblings;
+                try {
+                    siblings = family_tree.getUsers(user_current.getSiblings());
+                } catch (SQLException ex) {
+                    siblings = null;
+                }
 
                 // Recupero dei figli
                 NodeList children = family_tree.getUsers(user_current.getChildren());

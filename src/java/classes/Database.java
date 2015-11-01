@@ -37,6 +37,10 @@ public class Database {
         }
     }
     
+    /**
+     * Verifica se il database è connesso
+     * @return true se il db è connesso, false altrimenti
+     */
     public static boolean isConnected(){
         return Database.connect;
     }
@@ -55,15 +59,13 @@ public class Database {
         }
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Metodi generali">
-
     /**
      * Select record con condizione
      * @param table         tabella da cui prelevare i dati
      * @param condition     condizione per il filtro dei dati
      * @return              dati prelevati
      */
-    public static ResultSet selectRecord(String table, String condition) {
+    public static ResultSet selectRecord(String table, String condition) throws SQLException {
         // Generazione query
         String query = "SELECT * FROM " + table + " WHERE " + condition;
         // Esecuzione query
@@ -76,7 +78,7 @@ public class Database {
      * @param order         ordinamento dei dati
      * @return              dati prelevati
      */
-    public static ResultSet selectRecord(String table, String condition, String order){
+    public static ResultSet selectRecord(String table, String condition, String order) throws SQLException{
         // Generazione query
         String query = "SELECT * FROM " + table + " WHERE " + condition + " ORDER BY " + order;
         // Esecuzione query
@@ -91,7 +93,7 @@ public class Database {
      * @param where_condition   condizione per il filtro dei dati
      * @return                  dati prelevati
      */
-    public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition){
+    public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition) throws SQLException{
         // Generazione query
         String query = "SELECT * FROM " + table_1 + " JOIN " + table_2 + " ON " + join_condition + " WHERE " + where_condition;
         // Esecuzione query
@@ -107,7 +109,7 @@ public class Database {
      * @param order             ordinamento dei dati
      * @return                  dati prelevati
      */
-    public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition, String order){
+    public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition, String order) throws SQLException{
         // Generazione query
         String query = "SELECT * FROM " + table_1 + " JOIN " + table_2 + " ON " + join_condition + " WHERE " + where_condition + "ORDER BY" + order;
         // Esecuzione query
@@ -120,7 +122,7 @@ public class Database {
      * @param data      dati da inserire
      * @return dati     prelevati
      */
-    public static boolean insertRecord(String table, Map<String, Object> data){
+    public static boolean insertRecord(String table, Map<String, Object> data) throws SQLException{
         // Generazione query
         String query = "INSERT INTO " + table + " SET ";
         Object value;
@@ -148,7 +150,7 @@ public class Database {
      * @param condition     condizione per il filtro dei dati
      * @return              true se l'inserimento è andato a buon fine, false altrimenti
      */
-    public static boolean updateRecord(String table, Map<String,Object> data, String condition){
+    public static boolean updateRecord(String table, Map<String,Object> data, String condition) throws SQLException{
         // Generazione query
         String query = "UPDATE " + table + " SET ";
         Object value;
@@ -157,12 +159,17 @@ public class Database {
         for(Map.Entry<String,Object> e:data.entrySet()){
             attr = e.getKey();
             value = e.getValue();
-            if(value instanceof String){
-                value = value.toString().replace("\'", "\\'");
-                query = query + attr + " = '" + value + "', ";
+            if(value != null || value.equals("")){
+                if(value instanceof String){
+                    value = value.toString().replace("\'", "\\'");
+                    query = query + attr + " = '" + value + "', ";
+                }else{
+                    query = query + attr + " = " + value + ", ";
+                }
             }else{
-                query = query + attr + " = " + value + ", ";
+                Database.resetAttribute(table, attr, condition);
             }
+            
         }
         query = query.substring(0, query.length()-2) + " WHERE " + condition;
         
@@ -176,7 +183,7 @@ public class Database {
      * @param condition     condizione per il filtro dei dati
      * @return              true se l'eliminazione è andata a buon fine, false altrimenti
      */
-    public static boolean deleteRecord(String table, String condition){
+    public static boolean deleteRecord(String table, String condition) throws SQLException{
         // Generazione query
         String query = "DELETE FROM " + table + " WHERE " + condition;
         // Esecuzione query
@@ -212,7 +219,7 @@ public class Database {
      * @param condition     condizione
      * @return
      */
-    public static boolean resetAttribute(String table, String attribute, String condition){
+    public static boolean resetAttribute(String table, String attribute, String condition) throws SQLException{
         String query = "UPDATE " + table + " SET " + attribute + " = NULL WHERE " + condition;
         return Database.updateQuery(query);
     }
@@ -225,33 +232,28 @@ public class Database {
      * executeQuery personalizzata
      * @param query query da eseguire
      */
-    private static ResultSet executeQuery(String query){
-        try {
-            Statement s1 = Database.db.createStatement();
-            ResultSet records = s1.executeQuery(query);
+    private static ResultSet executeQuery(String query) throws SQLException{
+        
+        Statement s1 = Database.db.createStatement();
+        ResultSet records = s1.executeQuery(query);
+
+        return records; 
             
-            return records; 
-            
-        } catch (SQLException ex) {
-            return null;
-        }
     }
     
     /**
      * updateQuery personalizzata
      * @param query query da eseguire
      */
-    private static boolean updateQuery(String query){
+    private static boolean updateQuery(String query) throws SQLException{
         
         Statement s1;
-        try {
-            s1 = Database.db.createStatement();
-            s1.executeUpdate(query); 
-            s1.close();
-            return true; 
-        } catch (SQLException ex) {
-            return false; 
-        }
+        
+        s1 = Database.db.createStatement();
+        s1.executeUpdate(query); 
+        s1.close();
+        return true; 
+
     }
    // </editor-fold>
     

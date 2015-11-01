@@ -27,18 +27,11 @@ public class DataUtil {
     
     /**
      * Controllo su String. Contiene solo caratteri alfanumerici?
-     * NB: Di default gli spazi sono accettati.
-     * @param toCheck stringa sul quale effettuare il controllo
-     * @param space OPTIONAL - booleano. Se true accetta anche gli spazi.
-     * @return true se la stringa soddisfa le condizioni date in input. false altrimenti.
+     * @param toCheck   stringa sul quale effettuare il controllo
+     * @param space     se true accetta anche gli spazi.
+     * @return          true se la stringa è alfanumerica, false altrimenti.
      */
-    public static boolean isAlphanmeric(String toCheck){
-    
-        return toCheck.matches("[a-zA-Z ]+");
-        
-    }
-    
-    public static boolean isAlphanumeric(String toCheck,boolean space){
+    public static boolean isAlphanumeric(String toCheck, boolean space){
     
         if (space){
             return toCheck.matches("[a-zA-Z ]+");
@@ -47,16 +40,7 @@ public class DataUtil {
         }
         
     }
-    
-    /**
-     * Cancellazione doppi spazi interni alla stringa
-     * @param toTrim Striga sul quale verrà  effettuato il trim.
-     * @return Valore string - Stringa senza doppi spazi
-     */
-    public static String internalTrim(String toTrim){
-        return toTrim.replaceAll("\\s+", " ");
-    }
-    
+
     /**
      * Controlla se la stringa ha una lunghezza definita 'anomala'.
      * @param toCheck Striga sul quale verrÃ  effettuato il controllo.
@@ -69,10 +53,12 @@ public class DataUtil {
     }
     
     /**
-     * Trim degli spazi iniziali e dei doppi spazi interni
+     * Eliminazione degli spazi esterni e dei doppi spazi interni
+     * @param toTrim    stringa da elaborare
+     * @return          stringa "pulita"
      */
     public static String spaceTrim(String toTrim){
-        return DataUtil.internalTrim(toTrim.trim());
+        return toTrim.trim().replaceAll("\\s+", " ");
     }
 
     public static Message checkEmail(String email){
@@ -107,7 +93,7 @@ public class DataUtil {
             msg = "La password deve contenere almeno 6 caratteri";
         
         // Se la password non è alfanumerica
-        }else if(!DataUtil.isAlphanmeric(toCheck)){
+        }else if(!DataUtil.isAlphanumeric(toCheck, false)){
             msg = "La password deve essere alfanumerica";
           
         }else{

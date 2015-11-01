@@ -15,12 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import classes.DataUtil;
 import classes.Message;
 import classes.User;
-import classes.tree.NodeList;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,8 +35,7 @@ public class SignupS extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
     String email        = request.getParameter("email").trim();
     String password     = request.getParameter("password").trim();

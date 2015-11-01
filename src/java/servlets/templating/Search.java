@@ -40,45 +40,59 @@ public class Search extends HttpServlet {
         
         //Gestione sessione
         HttpSession session=request.getSession(false);
-        
-        boolean logged = false;
-        
-        //Se non è stato effettuato il login...
+                
+        //Se è stato effettuato il login...
         if(session!=null) { 
             
-            logged = true;             
             data.put("user_logged", (User)session.getAttribute("user_logged"));
+            data.put("logged", true);
+            
+        } else {
+            data.put("logged", false);
         }
         
-        Map<String, String> to_search = new HashMap<String, String>();
+        Map<String, String> values = new HashMap<String, String>();
+        values.put("name", "");
+        values.put("surname", "");
+        values.put("birthplace", "");
+        values.put("birthdate", "");
         
         //Bisogna recuperare i dati dalle form:
-        //Se la richiesta giunge dalla searchbar
-        if(request.getParameter("source").equals("searchbar")){
+        //Se la richiesta giunge dalla searchbar...
+        String source = request.getParameter("source");
+        if(source!=null && source.equals("searchbar")){
             
             String string_input = request.getParameter("search").trim();
             
-            //Esegue la ricerca sulla stringa in input e mette i risultati in data
+            //...esegue la ricerca sulla stringa in input e mette i risultati in data
             data.put("results", search(string_input));  
             data.put("searching", string_input);
-        } else if (request.getParameter("source").equals("filters")) {
             
+        //Altrimenti se la richiesta giunge dal form...
+        } else if (source!=null && request.getParameter("source").equals("filters")) {
+            
+            Map<String, String> to_search = new HashMap<String, String>();
+
             to_search.put("name", request.getParameter("name").trim());
             to_search.put("surname", request.getParameter("surname").trim());
             to_search.put("birthplace", request.getParameter("birthplace"));
             to_search.put("birthdate", request.getParameter("birthdate"));
             
-            //Esegue la ricerca sulla map e mette i risultati direttamente in data
+            values=to_search;
+            
+            //...esegue la ricerca sulla map e mette i risultati direttamente in data
             data.put("results", search(to_search));
+            
+            //Si riempie poi la mappa per lasciare nella nuova pagina le informazioni cercate
+            
         }
         
-        
-        data.put("logged", logged);
-        //data.put("searching", input);     
-        
+        data.put("values", values);
+                
         FreeMarker.process("search.html",data, response, getServletContext());
         
     }
+    
     
     protected static UserList search(String input){
         String[] parameters = input.split(" ");
@@ -149,6 +163,8 @@ public class Search extends HttpServlet {
         
         return result;
     }
+    
+    
     
     protected static UserList search(Map<String, String> input){
         UserList result = new UserList();

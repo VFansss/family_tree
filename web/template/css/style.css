@@ -396,6 +396,7 @@ section.settings .avatar i{
     border-radius: 100%;
     top: 30px;
     right: 30px;
+    cursor: pointer;
 }
 
 section.settings .uploader{

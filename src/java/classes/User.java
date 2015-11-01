@@ -1216,7 +1216,7 @@ public class User{
  
             try (ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'")) {
                 if(record.next()){
-                    return DataUtil.crypt(record.getString("password"), password); 
+                    return DataUtil.decrypt(record.getString("password"), password); 
                 }
                 return false;
             }

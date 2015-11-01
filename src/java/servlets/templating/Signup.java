@@ -5,8 +5,9 @@
  */
 package servlets.templating;
 
-import classes.DataUtil;
+import classes.Database;
 import classes.FreeMarker;
+import classes.Message;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,18 +32,11 @@ public class Signup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        Map<String, Object> data = new HashMap<>();
-
-        data.put("action", "signup");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        String msg = request.getParameter("msg");
-        data.put("msg", msg);
-        
-        FreeMarker.process("login.html",data, response, getServletContext());
-        
+        request.setAttribute("action", "signup");
+        request.getRequestDispatcher("login").forward(request, response);
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

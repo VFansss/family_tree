@@ -50,7 +50,7 @@ public class SignupS extends HttpServlet {
     
     // Se non sono stati compilati tutti i campi
     if(email.equals("") || password.equals("") || name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
-        check = new Message("All field required", true);
+        check = new Message("fld", true);
     }else{
         
         // Controllo dell'email
@@ -62,11 +62,11 @@ public class SignupS extends HttpServlet {
             if(!check.isError()) {
 
                 // Controllo del nome
-                check = DataUtil.checkName(name);
+                check = DataUtil.checkName(name, "name");
                 if(!check.isError()) {
 
                     // Controllo del cognome
-                    check = DataUtil.checkName(surname);
+                    check = DataUtil.checkName(surname, "surname");
                     if(!check.isError()) {
             
                         // Controllo del sesso
@@ -85,7 +85,7 @@ public class SignupS extends HttpServlet {
         // Se è stato riscontrato un errore, 
         if(check.isError()){
             // Vai alla pagina di signup mostrando l'errore
-            response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getMessage(), "UTF-8"));
+            response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
            
         }else{
             

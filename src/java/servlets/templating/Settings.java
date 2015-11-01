@@ -6,6 +6,7 @@
 package servlets.templating;
 
 import classes.FreeMarker;
+import classes.Message;
 import classes.User;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -49,8 +50,12 @@ public class Settings extends HttpServlet {
             data.put("user_logged", user_logged);
 
             data.put("action",request.getParameter("action"));
-            data.put("msg", request.getParameter("msg"));
-            data.put("type", request.getParameter("type"));
+            
+        
+            String msg = request.getParameter("msg");
+            boolean error = false;
+            data.put("message", new Message(msg, error));
+            
             data.put("active_button", "settings");
             FreeMarker.process("settings.html",data, response, getServletContext());
             

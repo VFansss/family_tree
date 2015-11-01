@@ -37,25 +37,38 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         //Recupera la password dell'utente
         String password = request.getParameter("password");
-
-        // Recupera l'utente
-        User user_to_log = User.getUserByEmail(email);
-
-        // Se l'utente non esiste
-        if(user_to_log == null){
-            // Torna alla pagine di login con messaggio di errore
-            response.sendRedirect("login?msg=" + URLEncoder.encode("usr", "UTF-8"));
-
-        // Se la password dell'utente è sbagliata
-        }else if(!user_to_log.checkPassword(password)){
-            // Torna alla pagine di login con messaggio di errore
-            response.sendRedirect("login?msg=" + URLEncoder.encode("psw", "UTF-8"));
-
+        
+        String msg = null;
+        boolean error = true;
+        if(email.equals("") && password.equals("")){
+            msg = "fld"; // All fields required
         }else{
-            // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
-            user_to_log.prepareToLog(request);
-            response.sendRedirect("profile");
+            
+            // Recupera l'utente
+            User user_to_log = User.getUserByEmail(email);
+
+            // Se l'utente non esiste
+            if(user_to_log == null){
+                msg = "usr";
+
+            // Se la password dell'utente è sbagliata
+            }else if(!user_to_log.checkPassword(password)){
+                msg = "psw";
+
+            }else{
+                // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
+                user_to_log.prepareToLog(request);
+                response.sendRedirect("profile");
+                error = false;
+            }
+        
         }
+        
+        if(error){
+            // Torna alla pagine di login con messaggio di errore
+            response.sendRedirect("login?msg=" + URLEncoder.encode(msg, "UTF-8"));
+        }
+        
         
 
     }

@@ -6,7 +6,6 @@
 package servlets.script;
 
 import classes.DataUtil;
-import classes.Database;
 import classes.Message;
 import classes.User;
 import java.io.File;
@@ -75,13 +74,13 @@ public class SettingsS extends HttpServlet {
                 case "avatar":
                     msg = changeAvatar(request, this);
                     break;
-                default: msg = new Message("Something is wrong", true);
+                default: msg = new Message("tmp", true);
             }
             
             if(msg.isError()){
-                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getMessage(), "UTF-8") + "&action=" + action + "&type=error");
+                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=error");
             }else{
-                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getMessage(), "UTF-8") + "&action=" + action + "&type=check");
+                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=check");
             }
             
         }
@@ -104,7 +103,7 @@ public class SettingsS extends HttpServlet {
         boolean error = true;
         // Se non sono stati compilati tutti i dati
         if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
-            msg = "All fields are required";
+            msg = "fld";
 
         // Se la data di nascita non è valida
         }else {
@@ -112,11 +111,11 @@ public class SettingsS extends HttpServlet {
             Message check;
         
             // Controllo del nome
-            check = DataUtil.checkName(name);
+            check = DataUtil.checkName(name, "name");
             if(!check.isError()) {
 
                 // Controllo del cognome
-                check = DataUtil.checkName(surname);
+                check = DataUtil.checkName(surname, "surname");
                 if(!check.isError()) {
 
                     // Controllo del sesso
@@ -132,7 +131,7 @@ public class SettingsS extends HttpServlet {
             }}}}
             
             if(check.isError()){
-                msg = check.getMessage();
+                msg = check.getCode();
                 
             }else{
             
@@ -161,15 +160,13 @@ public class SettingsS extends HttpServlet {
                 try {
                     // Aggiornamento dati dell'utente
                     user_logged.setData(data);
-                    msg = "Data changed";
+                    msg = "dt_ok"; // Data changed
                     error = false;
                 } catch (SQLException ex) {
-                    msg = "Something is wrong";
+                    msg = "srv";
                 }
 
-                
             }
-            
             
         }
              
@@ -188,36 +185,32 @@ public class SettingsS extends HttpServlet {
         
         // Se non sono stati compilati tutti i dati
         if(current_email.equals("") || new_email.equals("") || confirm_email.equals("")){
-            msg = "All fields are required";
+            msg = "fld"; // All fields are required
             
         // Se l'email corrente è sbagliata
         }else if(!user_logged.getEmail().equals(current_email)){
-            msg =  "Current email is not valid";
+            msg =  "eml_1"; // Current email is not valid
         
         // Se la conferma dell'email non corrisponde
         }else if(!confirm_email.equals(new_email)){
-            msg =  "Confirm email is not valid";
+            
+            msg =  "eml_2"; // Confirm email is not valid
             
         }else{
             // Se l'email non è valida
             Message check = DataUtil.checkEmail(new_email);
             if(check.isError()){
-                msg = check.getMessage();
+                msg = check.getCode();
                 
             }else{
                 try {
                     // Aggiorna email utente
                     user_logged.setEmail(new_email);
-                    msg =  "Email changed";
+                    msg =  "eml_ok"; // Email changed
                     error = false;
                 } catch (SQLException ex) {
-                    msg =  "Something is wrong";
+                    msg =  "srv"; // Server error
                 }
-                
-                    
-                
-                    
-                
             }
         }
         
@@ -236,30 +229,30 @@ public class SettingsS extends HttpServlet {
         
         // Se non sono stati compilati tutti i dati
         if(current_password.equals("") || new_password.equals("") || confirm_password.equals("")){
-            msg = "All fields are required";
+            msg = "fld";
             
-        // Se l'password corrente è sbagliata
+        // Se la password corrente è sbagliata
         }else if(!user_logged.checkPassword(current_password)){
-            msg =  "Current passwrod is not valid";
+            msg =  "psd_1"; // Current passwrod is not valid
         
-        // Se la conferma dell'password non corrisponde
+        // Se la conferma della password non corrisponde
         }else if(!new_password.equals(confirm_password)){
-            msg =  "Confirm passwrod is not valid";
+            msg =  "psd_2"; // Confirm passwrod is not valid
             
         }else{
             
             // Se la password non è nel formato giusto
             Message check = DataUtil.checkEmail(new_password);
             if(check.isError()){
-                msg = check.getMessage();
+                msg = check.getCode();
             }else{
                 try {
                     // Aggiorna email utente
                     user_logged.setPassword(confirm_password);
-                    msg =  "Password changed";
+                    msg =  "psd_ok"; // Password changed
                     error = false;
                 } catch (SQLException ex) {
-                    msg =  "Something is wrong";
+                    msg =  "srv"; // Server error
                 }
             }
         }
@@ -279,25 +272,23 @@ public class SettingsS extends HttpServlet {
                 for(FileItem item : multiparts){
                     if(!item.isFormField()){
                         if(item.getName().equals("")){
-                            msg = "Please, select a photo";
+                            msg = "pho_slt"; // Please, select a photo
                         }else{
                             String name = user_logged.getId() + ".jpg";
                             item.write( new File(aThis.getServletContext().getRealPath("/template/profile/").replace("build\\", "") + File.separator + name));
-                            msg = "Photo Uploaded Successfully";
+                            msg = "pho_ok"; // Photo Uploaded Successfully
                             error = false;
                         }
                         
                     }
                 }
-            
-               //File uploaded successfully
-               
+                
             } catch (Exception ex) {
-               msg = "File Uploaded Failed";
+               msg = "pho_err"; // Photo Uploaded Failed
             }         
           
         }else{
-            msg = "Something is wrong";
+            msg = "tmp";
         }
      
 

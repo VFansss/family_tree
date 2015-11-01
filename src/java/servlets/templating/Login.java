@@ -33,20 +33,19 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-           
-        //Gestione sessione
-        HttpSession session = request.getSession(false);  
         if(Database.isConnected()){
+            HttpSession session = request.getSession(false);  
             //Se non è stata generata la sessione
             if(session == null){
                 Map<String, Object> data = new HashMap<>();
-
-                data.put("action", "login");
-
+                // Recupera l'azione da svolgere (login o signup)
+                String action = request.getParameter("action");
+                // Se l'azione non è stata definita o non è valida, impostala come l'azione di login
+                if(action == null || (action.equals("login") && action.equals("signup"))) action = "login";
+                // Inserisci l'azione nel data-model
+                data.put("action", action);
                 //Codifica del messaggio di errore sulla base del codice inviato
-                Message msg = new Message(request.getParameter("msg"), true);
-
-                data.put("msg", msg.getExtentedMessage());
+                data.put("message", new Message(request.getParameter("msg"), true));
 
                 FreeMarker.process("login.html",data, response, getServletContext());
             }else{

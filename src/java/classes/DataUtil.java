@@ -39,17 +39,6 @@ public class DataUtil {
         }
         
     }
-
-    /**
-     * Controlla se la stringa ha una lunghezza definita 'anomala'.
-     * @param toCheck Striga sul quale verrÃ  effettuato il controllo.
-     * @param minval lunghezza minima (estremo compreso)
-     * @param maxval lunghezza massima della stringa (estremo compreso)
-     * @return false se all'interno dell'intervallo (estremi compresi). true altrimenti.
-     */
-    public static boolean checkLength(String toCheck,int minval,int maxval){   
-        return toCheck.length()<minval || toCheck.length()>maxval;
-    }
     
     /**
      * Eliminazione degli spazi esterni e dei doppi spazi interni
@@ -68,11 +57,11 @@ public class DataUtil {
         EmailValidator emailValidator=EmailValidator.getInstance();
         // Se l'email non è valida
         if(!(emailValidator.isValid(email))){
-            msg = "Email is not valid"; 
+            msg = "eml_3"; // Email is not valid
             
         // Se l'utente è già registrato
         }else if(User.getUserByEmail(email) != null){
-            msg = "User already exist";
+            msg = "eml_4"; // User already exist
         
         }else{
             error = false;
@@ -89,11 +78,11 @@ public class DataUtil {
         
         // Se la password è lunga meno di sei caratteri
         if(toCheck.length() <6){
-            msg = "La password deve contenere almeno 6 caratteri";
+            msg = "psd_3"; // The password must be 6 characters at least
         
         // Se la password non è alfanumerica
         }else if(!DataUtil.isAlphanumeric(toCheck, false)){
-            msg = "La password deve essere alfanumerica";
+            msg = "psd_4"; // The password must be alphanumeric
           
         }else{
             error = false;
@@ -102,23 +91,23 @@ public class DataUtil {
         return new Message(msg, error);
     }
     
-    public static Message checkName(String toCheck){
+    public static Message checkName(String toCheck, String field){
 
         String msg = null;
         boolean error = true;
 
         //Check alphanumeric
         if(!DataUtil.isAlphanumeric(toCheck,true)){
-            msg = "I dati anagrafici possono contenere solo caratteri alfanumerici (A-Z)";
+            msg = field + "_1"; // The <field> must be alphanumeric
 
         //Check lunghezza anomala
         //Nome 'anomalo': meno di 2 caratteri, piu di 50
-        }else if(DataUtil.checkLength(toCheck,2,50)){
-            //TODO: Esplicitare un messaggio diverso per i due casi?---------------------------------------------
-            msg = "I dati anagrafici devono essere contenere almeno 2 caratteri ed essere piu corti di 50.";
+        }else if(toCheck.length() < 2 ){
+            msg = field + "_2"; // The <field> is too short
 
+        }else if(toCheck.length() > 50 ){
+            msg = field + "_3"; // The <field> is too long
         }else{
-
             error = false;
         }
         
@@ -133,7 +122,7 @@ public class DataUtil {
 
         //Controllo su 'male' oppure 'female'
         if(!toCheck.equals("male") && !toCheck.equals("female") ){
-            msg = "You can be only male or female";
+            msg = "gnd"; // You can be only male or female
             error = true;
         }
         
@@ -148,7 +137,7 @@ public class DataUtil {
 
         //Check solo caratteri
         if(!(DataUtil.isAlphanumeric(toCheck, true))){
-            msg = "La località di nascita può contenere solo caratteri alfanumerici!";
+            msg = "plc"; // The birthplace must be alphanumeric
             error = true;
         }
 
@@ -161,13 +150,13 @@ public class DataUtil {
         boolean error = true;
         
         if(!DataUtil.validateDateFormat(toCheck)){
-            msg = "La data non è nel formato giusto";
+            msg = "date_1"; // The date isn't in the right format
         }else{
             // Converti la data da String a Date
             Date date = DataUtil.stringToDate(toCheck, "dd/MM/yyyy");
             // Se la data non rientra nel range valido
             if(date == null || !DataUtil.validateDateRange(date)){
-                msg = "La data di nascita non è valida";
+                msg = "date_2"; // The date in not valid
             }else{
                 error = false;
             }
@@ -284,7 +273,7 @@ public class DataUtil {
             byte[] passBytes = string.getBytes();
             md.reset();
             byte[] digested = md.digest(passBytes);
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for(int i=0;i<digested.length;i++){
                 sb.append(Integer.toHexString(0xff & digested[i]));
             }
@@ -301,8 +290,7 @@ public class DataUtil {
      * @param to_check          stringa da verificare
      * @return                  true se la password è stata verificata, false altrimenti
      */
-    public static boolean crypt(String string_crypted, String to_check){
-        
+    public static boolean decrypt(String string_crypted, String to_check){
         return string_crypted.equals(crypt(to_check));
     }
     

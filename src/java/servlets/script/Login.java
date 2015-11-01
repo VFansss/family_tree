@@ -61,12 +61,8 @@ public class Login extends HttpServlet {
             response.sendRedirect("login?msg=" + URLEncoder.encode("psw", "UTF-8"));
 
         }else{
-            // Altrimenti, fai il login dell'utente
-            HttpSession session = request.getSession();
-            session.setAttribute("user_logged", user_to_log);
-            session.setAttribute("breadcrumb", new NodeList());
-
-            session.setAttribute("family_tree", user_to_log.getFamilyTree());
+            // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
+            user_to_log.prepareToLog(request);
             response.sendRedirect("profile");
         }
         

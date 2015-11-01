@@ -109,17 +109,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             if(!result) {
                 response.sendRedirect("signup?msg=Error");
             }else{
-                // Prelevo l'utente appena creato
-                User new_user = User.getUserByEmail(email);
-                // Altrimenti, fai il login dell'utente
-                HttpSession session = request.getSession();
-                // Inserimento dell'utente in una variabile di sessione
-                session.setAttribute("user_logged", new_user);
-                // Inizializzazione della breadcrumb dell'utente
-                session.setAttribute("breadcrumb", new NodeList());
-
-                // Se l'utente si è registrato sotto invito, allora avrà già un suo albero genealogico
-                session.setAttribute("family_tree", new_user.getFamilyTree());
+                // Creo l'oggetto riservato all'utente
+                User new_user = new User(name, surname, email, gender, sqlDate, birthplace, null);
+                // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
+                new_user.prepareToLog(request);
                 // Reindirizzamento alla pagina del profilo dell'utente
                 response.sendRedirect("profile");
             }

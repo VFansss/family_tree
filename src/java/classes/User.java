@@ -1,6 +1,7 @@
 package classes;
 
 import classes.tree.GenealogicalTree;
+import classes.tree.NodeList;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,8 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,6 +47,17 @@ public class User{
         this.biography = user.getString("biography");
 
     }
+    
+    public User(String name, String surname, String email, String gender, Date birthdate, String birthplace, String biography) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.birthplace = birthplace;
+        this.biography = biography;
+    }
+    
      
     //<editor-fold defaultstate="collapsed" desc="Metodi GET delle variabili di istanza">
     
@@ -1387,6 +1401,14 @@ public class User{
         Database.deleteRecord("user", "id = '" + this.id + "'");
     }
     
+    public void prepareToLog(HttpServletRequest request){
+        // Altrimenti, fai il login dell'utente
+            HttpSession session = request.getSession();
+            session.setAttribute("user_logged", this);
+            session.setAttribute("breadcrumb", new NodeList());
+
+            session.setAttribute("family_tree", this.getFamilyTree());
+    }
     //<editor-fold defaultstate="collapsed" desc="Metodi ausiliari">
         
     /**

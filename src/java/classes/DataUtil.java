@@ -195,6 +195,12 @@ public class DataUtil {
         FUNZIONI MARCO
     */
 
+    /**
+     * Converto una data da String a Date
+     * @param date      data da convertire
+     * @param format    formato di date
+     * @return          data nell formato yyyy-MM-dd
+     */
     public static Date stringToDate(String date, String format){
         
         try {
@@ -210,6 +216,11 @@ public class DataUtil {
         }
     }
     
+    /**
+     * Controlla il formato della data (dd/MM/yyyy)
+     * @param date  data da verificare
+     * @return      true se la data è nel formato corretto, false altrimenti
+     */
     public static boolean validateDateFormat(String date){
         Pattern pattern = Pattern.compile(DATE_PATTERN);
         Matcher matcher = pattern.matcher(date);
@@ -244,6 +255,11 @@ public class DataUtil {
             }
     }
     
+    /**
+     * Controlla se la data rientra nel range stabilito (01/01/1900 - oggi)
+     * @param date  data da verificare
+     * @return      true se la data è corretta, false altrimenti
+     */
     public static boolean validateDateRange(Date date){
         // Calcola la data corrente
         java.util.Date current_date = new java.util.Date();
@@ -261,6 +277,11 @@ public class DataUtil {
         return !(date_second >= current_second || date_second <= min_second);
     }
     
+    /**
+     * Converte una data da Date a String
+     * @param date  data da convertire
+     * @return      stringa nel formato yyyy-MM-dd
+     */
     public static String dateToString(Date date){
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
@@ -268,7 +289,7 @@ public class DataUtil {
     /**
      * Cripta una stringa
      * @param string    stringa da criptare
-     * @return
+     * @return          stringa criptata
      */
     public static String crypt(String string){
         MessageDigest md;
@@ -289,16 +310,21 @@ public class DataUtil {
     }
     
     /**
-     * Decripta una stringa
-     * @param string_crypted    stringa da decriptare
+     * Verifica se una stringa criptata è stata generata da un'altra stringa
+     * @param string_crypted    stringa criptata
      * @param to_check          stringa da verificare
-     * @return
+     * @return                  true se la password è stata verificata, false altrimenti
      */
     public static boolean crypt(String string_crypted, String to_check){
         
         return string_crypted.equals(crypt(to_check));
     }
     
+    /**
+     * Genera un codice alfanumerico
+     * @param length    numero di caratteri del codice
+     * @return          codice generato
+     */
     public static String generateCode(int length){
         // Definisci caratteri ammessi
         char[] chars = "ABCDEFGHILMNOPQRTUVZ1234567890".toCharArray();

@@ -255,6 +255,18 @@ section.login .form-message p{
 /*                PROFILE                   */
 /*==========================================*/
 
+section.profile #breadcrumb-nav .ball{
+    opacity: 0.7;
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -moz-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+
+section.profile #breadcrumb-nav .ball:hover{
+    opacity: 1;
+}
+
 section.profile .tile{
     margin-bottom: 20px;
 }

@@ -395,6 +395,7 @@ section.settings .avatar i{
     border-radius: 100%;
     top: 30px;
     right: 30px;
+    cursor: pointer;
 }
 
 section.settings .uploader{
@@ -523,3 +524,8 @@ textarea.form-control::-webkit-scrollbar-corner {
     border: 1px solid red;*/
 }
 
+/*body{
+    background: url('../images/custom-background.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
+}*/

@@ -48,7 +48,6 @@ public class Database {
      
     /**
      * Chiusura connessione al database
-     * @return  true se la connessione è stata chiusa con successo, false altrimenti
      */
     public static void close(){
         try { 
@@ -64,6 +63,7 @@ public class Database {
      * @param table         tabella da cui prelevare i dati
      * @param condition     condizione per il filtro dei dati
      * @return              dati prelevati
+     * @throws java.sql.SQLException
      */
     public static ResultSet selectRecord(String table, String condition) throws SQLException {
         // Generazione query
@@ -77,6 +77,7 @@ public class Database {
      * @param condition     condizione per il filtro dei dati
      * @param order         ordinamento dei dati
      * @return              dati prelevati
+     * @throws java.sql.SQLException
      */
     public static ResultSet selectRecord(String table, String condition, String order) throws SQLException{
         // Generazione query
@@ -92,6 +93,7 @@ public class Database {
      * @param join_condition    condizione del join tra la tabelle
      * @param where_condition   condizione per il filtro dei dati
      * @return                  dati prelevati
+     * @throws java.sql.SQLException
      */
     public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition) throws SQLException{
         // Generazione query
@@ -108,6 +110,7 @@ public class Database {
      * @param where_condition   condizione per il filtro dei dati
      * @param order             ordinamento dei dati
      * @return                  dati prelevati
+     * @throws java.sql.SQLException
      */
     public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition, String order) throws SQLException{
         // Generazione query
@@ -121,6 +124,7 @@ public class Database {
      * @param table     tabella in cui inserire i dati
      * @param data      dati da inserire
      * @return dati     prelevati
+     * @throws java.sql.SQLException
      */
     public static boolean insertRecord(String table, Map<String, Object> data) throws SQLException{
         // Generazione query
@@ -149,6 +153,7 @@ public class Database {
      * @param data          dati da inserire
      * @param condition     condizione per il filtro dei dati
      * @return              true se l'inserimento è andato a buon fine, false altrimenti
+     * @throws java.sql.SQLException
      */
     public static boolean updateRecord(String table, Map<String,Object> data, String condition) throws SQLException{
         // Generazione query
@@ -182,6 +187,7 @@ public class Database {
      * @param table         tabella in cui eliminare i dati
      * @param condition     condizione per il filtro dei dati
      * @return              true se l'eliminazione è andata a buon fine, false altrimenti
+     * @throws java.sql.SQLException
      */
     public static boolean deleteRecord(String table, String condition) throws SQLException{
         // Generazione query
@@ -218,6 +224,7 @@ public class Database {
      * @param attribute     attributo da impostare a NULL
      * @param condition     condizione
      * @return
+     * @throws java.sql.SQLException
      */
     public static boolean resetAttribute(String table, String attribute, String condition) throws SQLException{
         String query = "UPDATE " + table + " SET " + attribute + " = NULL WHERE " + condition;

@@ -23,7 +23,8 @@ import org.apache.commons.validator.EmailValidator;
  * @author Alex
  */
 public class DataUtil {
-    private static final String DATE_PATTERN =  "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
+    
+    
     
     /**
      * Controllo su String. Contiene solo caratteri alfanumerici?
@@ -208,6 +209,7 @@ public class DataUtil {
      * @return      true se la data è nel formato corretto, false altrimenti
      */
     public static boolean validateDateFormat(String date){
+        String DATE_PATTERN =  "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
         Pattern pattern = Pattern.compile(DATE_PATTERN);
         Matcher matcher = pattern.matcher(date);
         if(matcher.matches()){

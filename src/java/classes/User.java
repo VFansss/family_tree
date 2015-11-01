@@ -519,6 +519,7 @@ public class User{
     /**
      * Recupera i discendenti
      * @return
+     * @throws java.sql.SQLException
      */
     public UserList getOffsprings() throws SQLException {
         UserList offsprings = new UserList();
@@ -536,6 +537,7 @@ public class User{
      * Recupero dei discendenti con filtro sul sesso
      * @param gender    Sesso dei discendenti
      * @return
+     * @throws java.sql.SQLException
      */
     public UserList getOffsprings(String gender) throws SQLException {
         UserList offsprings = new UserList();

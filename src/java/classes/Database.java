@@ -25,16 +25,14 @@ public class Database {
     
     /**
      * Connessione al database
+     * @throws javax.naming.NamingException
+     * @throws java.sql.SQLException
      */
-    public static void connect(){
-        try {
-            InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
-            Database.db  = ds.getConnection();
-            connect = true;
-        } catch (NamingException | SQLException ex) {
-            connect = false;
-        }
+    public static void connect() throws NamingException, SQLException{
+        InitialContext ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
+        Database.db  = ds.getConnection();
+        Database.connect = true;
     }
     
     /**
@@ -48,14 +46,13 @@ public class Database {
      
     /**
      * Chiusura connessione al database
+     * @throws java.sql.SQLException
      */
-    public static void close(){
-        try { 
-            Database.db.close();
-            connect = false;
-        } catch (SQLException ex) {
-            
-        }
+    public static void close() throws SQLException{
+      
+        Database.db.close();
+        connect = false;
+        
     }
     
     /**
@@ -201,21 +198,18 @@ public class Database {
      * @param table         tabella in cui contare i dati
      * @param condition     condizione per il filtro dei dati
      * @return              numero dei record se la query è stata eseguita on successo, -1 altrimenti
+     * @throws java.sql.SQLException
      */
-    public static int countRecord(String table, String condition){
+    public static int countRecord(String table, String condition) throws SQLException{
+
         // Generazione query
         String query = "SELECT COUNT(*) FROM " + table + " WHERE " + condition;
-        try {
-            // Esecuzione query
-            ResultSet record = Database.executeQuery(query);
-            record.next();
-            // Restituzione del risultato
-            return record.getInt(1);
-        } catch (SQLException ex) {
-            // Restituzione di -1 se l'esecuzione della query non è andata a buon fine
-            return -1;
-        }
-        
+        // Esecuzione query
+        ResultSet record = Database.executeQuery(query);
+        record.next();
+        // Restituzione del risultato
+        return record.getInt(1);
+
     }
     
     /**

@@ -10,8 +10,8 @@ package classes;
  * @author Marco
  */
 public class Message {
-    private String msg;
-    private boolean error;
+    private final String msg;
+    private final boolean error;
 
     public Message(String msg, boolean error) {
         this.msg = msg;

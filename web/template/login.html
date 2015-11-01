@@ -17,9 +17,9 @@
                         
                         <input class="form-control" name="email" type="text" placeholder="E-mail"  />  
                         <input class="form-control" name="password" type="password" placeholder="Password"  />  
-                        
-                        <!-- Aggiunta dei campi per i dati utente in caso di signup -->
+
                         <#if action == "signup">
+                            <!-- Aggiunta dei campi per i dati utente in caso di signup -->
                             <input class="form-control" name="name" type="text" placeholder="Name" />  
                             <input class="form-control" name="surname" type="text" placeholder="Surname" /> 
                             <select name="gender" class="form-control" title = "Attention! If you change your gender, your family tree will be removed">
@@ -29,7 +29,6 @@
                             </select>
                             <input class="form-control" name="birthdate" type="text" placeholder="Birthdate (dd/mm/yyyy)" />  
                             <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" />  
-                            
                         </#if>
                         
                     </fieldset>
@@ -46,14 +45,12 @@
                         </div>
                     </#if>
                     <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
-
-                </form>
-
-                <#if action == "login">
-                    <a class="forgot-password">Forgot password?</a>
-                </#if>
-
-
+                    
+                    <#if action == "login">
+                        </form>
+                            <button class="forgot-password">Forgot password?</button>
+                        </form>
+                    </#if>
             </div>
         </div>
     </div>

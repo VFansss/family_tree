@@ -7,6 +7,7 @@ package classes.tree;
 
 import classes.User;
 import classes.UserList;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 /**
@@ -28,7 +29,7 @@ public class GenealogicalTree{
      * Restiruisci l'intero albero genealogico con utenti etichettati
      * @return
      */
-    public NodeList getFamilyTree() {
+    public NodeList getFamilyTree() throws SQLException {
         
         // Crea albero genealogico
         this.createTree(0);
@@ -41,7 +42,7 @@ public class GenealogicalTree{
         return this.family_tree;
     }
     
-    private void createTree(int index) {
+    private void createTree(int index) throws SQLException {
         
         /** 
         *   ORDINE DI INSERIMENTO:
@@ -110,7 +111,7 @@ public class GenealogicalTree{
      * @param user
      * @return
      */
-    public NodeList getFamily(User user) {
+    public NodeList getFamily(User user) throws SQLException {
         
         NodeList family = new NodeList();
         

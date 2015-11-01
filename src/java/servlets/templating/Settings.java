@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +51,7 @@ public class Settings extends HttpServlet {
             data.put("action",request.getParameter("action"));
             data.put("msg", request.getParameter("msg"));
             data.put("type", request.getParameter("type"));
+            data.put("active_button", "settings");
             FreeMarker.process("settings.html",data, response, getServletContext());
             
         }else{

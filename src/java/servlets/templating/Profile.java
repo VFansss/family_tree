@@ -11,7 +11,6 @@ import classes.tree.GenealogicalTree;
 import classes.tree.NodeList;
 import classes.tree.TreeNode;
 import classes.User;
-import classes.UserList;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;
@@ -19,8 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.net.URLEncoder;
+import java.sql.SQLException;
 
 
 
@@ -39,10 +38,9 @@ public class Profile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
         
-        
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
         
         //Gestione sessione
         HttpSession session = request.getSession(false);  
@@ -72,16 +70,45 @@ public class Profile extends HttpServlet {
 
                 /* Recupero dei parenti dell'utente corrente */
 
-                // Recupero di padre, madre e coniuge
-                TreeNode father = family_tree.getUser(user_current.getFather());
-                TreeNode mother = family_tree.getUser(user_current.getMother());
-                TreeNode spouse = family_tree.getUser(user_current.getSpouse());
+                // Recupero del padre
+                TreeNode father;
+                try {
+                    father = family_tree.getUser(user_current.getFather());
+                } catch (SQLException ex) {
+                    father = null;
+                }
+                
+                // Recupero della madre
+                TreeNode mother;
+                try {
+                    mother = family_tree.getUser(user_current.getMother());
+                } catch (SQLException ex) {
+                    mother = null;
+                }
+                
+                // Recupero del coniuge
+                TreeNode spouse;
+                try {
+                    spouse = family_tree.getUser(user_current.getSpouse());
+                } catch (SQLException ex) {
+                    spouse= null;
+                }
 
                 // Recupero dei fratelli
-                NodeList siblings = family_tree.getUsers(user_current.getSiblings());
+                NodeList siblings;
+                try {
+                    siblings = family_tree.getUsers(user_current.getSiblings());
+                } catch (SQLException ex) {
+                    siblings = null;
+                }
 
                 // Recupero dei figli
-                NodeList children = family_tree.getUsers(user_current.getChildren());
+                NodeList children;
+                try {
+                    children = family_tree.getUsers(user_current.getChildren());
+                } catch (SQLException ex) {
+                    children = null;
+                }
 
                 /* Inserimento dei parenti nel data-model */
 
@@ -129,7 +156,7 @@ public class Profile extends HttpServlet {
                 session.setAttribute("breadcrumb", breadcrumb);
                 // Inserimento del breadcrumb nel data-model
                 data.put("breadcrumb", breadcrumb);
-                                
+                data.put("active_button", "profile");               
                 // Caricamento del template
                 FreeMarker.process("profile.html",data, response, getServletContext());
                 

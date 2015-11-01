@@ -17,6 +17,7 @@ import classes.Message;
 import classes.User;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,19 +103,18 @@ public class SignupS extends HttpServlet {
             Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
             data.put("birthdate", DataUtil.dateToString(sqlDate));
             
-            boolean result = Database.insertRecord("user", data);
-            if(!result) {
-                response.sendRedirect("signup?msg=Error");
-            }else{
+            try {
+                Database.insertRecord("user", data);
                 // Creo l'oggetto riservato all'utente
                 User new_user = new User(name, surname, email, gender, sqlDate, birthplace, null);
                 // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
                 new_user.prepareToLog(request);
                 // Reindirizzamento alla pagina del profilo dell'utente
                 response.sendRedirect("profile");
+            } catch (SQLException ex) {
+                response.sendRedirect("signup?msg=Error");
             }
-            
-            
+
         }
 }
 

@@ -30,7 +30,7 @@
         <a href="profile?id=${relative.user.id}">
             <h3 class="main-name hover-blue">${relative.user.name} ${relative.user.surname}</h3>
         </a>
-        <#if relative.user.biography??>
+        <#if relative.user.biography != "">
             <p>${relative.user.biography}</p>
         <#else>
             <p class="bio-miss">biography missing</p>

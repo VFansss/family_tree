@@ -24,8 +24,6 @@ import org.apache.commons.validator.EmailValidator;
  */
 public class DataUtil {
     
-    
-    
     /**
      * Controllo su String. Contiene solo caratteri alfanumerici?
      * @param toCheck   stringa sul quale effettuare il controllo

@@ -143,6 +143,11 @@ public class User{
     
     //<editor-fold defaultstate="collapsed" desc="Metodi SET delle variabili di istanza">
     
+    /**
+     * Aggiorna i dati anagrafici dell'utente
+     * @param data          Map contenente i dati da modificare
+     * @throws SQLException
+     */
     public void setData(Map<String, Object> data) throws SQLException{
         Database.updateRecord("user", data, "id = '" + this.getId() + "'");
         this.name = (String) data.get("name");
@@ -157,9 +162,9 @@ public class User{
     
     public void setEmail(String email) throws SQLException {
         this.updateAttribute("email", email);
+        this.email = email;
     }
-   
-    
+
     public void setPassword(String password) throws SQLException {
         this.updateAttribute("password", password);
     }
@@ -189,123 +194,6 @@ public class User{
     
     
 //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Recupero e gestione madre">
-    
-    /**
-     * Recupera la madre
-     * @return
-     * @throws java.sql.SQLException
-     */
-    public User getMother() throws SQLException{
-        return this.getParent("female");
-    }
-    /**
-     * Inserisci la madre
-     * @param mother
-     * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
-     */
-    public void setMother(User mother) throws SQLException, NotAllowed{
-        this.setParent(mother);
-    }
-    /**
-     * Rimuovi la madre
-     * @throws java.sql.SQLException
-     */
-    public void removeMother() throws SQLException{
-        removeParent("female");
-    }
-    //</editor-fold>
-  
-    //<editor-fold defaultstate="collapsed" desc="Recupero e gestione padre">
-    
-    /**
-     * Recupera il padre
-     * @return
-     * @throws java.sql.SQLException
-     */
-    public User getFather() throws SQLException{
-        return this.getParent("male");
-    }
-    /**
-     * Inserisci il padre
-     * @param father
-     * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
-     */
-    public void setFather(User father) throws SQLException, NotAllowed{
-        this.setParent(father);
-        
-    }
-    /**
-     * Rimuovi il padre
-     * @throws java.sql.SQLException
-     */
-    public void removeFather() throws SQLException{
-        removeParent("male");
-    }
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Recupero e gestione coniuge">
-    
-    /**
-     * Recupera il coniuge
-     * @return
-     * @throws java.sql.SQLException
-     */
-    public User getSpouse() throws SQLException {
-        return User.getUserById(this.getSpouseId());
-    } 
-    /**
-     * Inserisci il coniuge
-     * @param spouse
-     * @throws classes.exception.NotAllowed
-     * @throws java.sql.SQLException
-     */
-    public void setSpouse(User spouse) throws NotAllowed, SQLException{
-        User spouse_before = null;
-        if(this.getSpouseId() != null && !this.getSpouse().equals(spouse)) {
-            spouse_before = this.getSpouse();
-        }
-        
-        this.canAddLikeSpouse(spouse);
-       
-        this.updateAttribute("spouse_id", spouse.getId());
-
-        // Cambia anche il coniuge dell'utente appena aggiunto se non è già stato fatto
-        if(spouse.getSpouse() == null) {
-            spouse.setSpouse(User.getUserById(this.id));
-        }           
-
-        // Eliminare il coniuge dell'utente appena eliminato come coniuge
-        if(spouse_before != null){
-            spouse_before.removeSpouse();
-            // Aggiorna numero parenti del coniuge eliminato
-            spouse_before.setNumRelatives();
-        }
-
-        // Aggiorna numeri parenti
-        this.setNumRelatives();
-            
-        
-        
-        
-    }
-    /**
-     * Rimuovi il coniuge
-     * @throws java.sql.SQLException
-     */
-    public void removeSpouse() throws SQLException {
-        User spouse = this.getSpouse();
-        Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
-        if(!this.isRelative(spouse)){
-            // Aggiorna numero di parenti
-            this.setNumRelatives();
-            spouse.setNumRelatives();
-        }
-    }
-    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recupero e gestione genitori">
     
@@ -389,27 +277,140 @@ public class User{
     }
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Recupero e gestione madre">
+ 
+    /**
+     * Recupera la madre
+     * @return
+     * @throws java.sql.SQLException
+     */
+    public User getMother() throws SQLException{
+        return User.getUserById(this.getMotherId());
+    }
+    /**
+     * Inserisci la madre
+     * @param mother
+     * @throws java.sql.SQLException
+     * @throws classes.exception.NotAllowed
+     */
+    public void setMother(User mother) throws SQLException, NotAllowed{
+        this.setParent(mother);
+    }
+    /**
+     * Rimuovi la madre
+     * @throws java.sql.SQLException
+     */
+    public void removeMother() throws SQLException{
+        removeParent("female");
+    }
+    //</editor-fold>
+  
+    //<editor-fold defaultstate="collapsed" desc="Recupero e gestione padre">
+    
+    /**
+     * Recupera il padre
+     * @return
+     * @throws java.sql.SQLException
+     */
+    public User getFather() throws SQLException{
+        return User.getUserById(this.getFatherId());
+    }
+    /**
+     * Inserisci il padre
+     * @param father
+     * @throws java.sql.SQLException
+     * @throws classes.exception.NotAllowed
+     */
+    public void setFather(User father) throws SQLException, NotAllowed{
+        this.setParent(father);
+        
+    }
+    /**
+     * Rimuovi il padre
+     * @throws java.sql.SQLException
+     */
+    public void removeFather() throws SQLException{
+        removeParent("male");
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Recupero e gestione coniuge">
+    
+    /**
+     * Recupera il coniuge
+     * @return
+     * @throws java.sql.SQLException
+     */
+    public User getSpouse() throws SQLException {
+        return User.getUserById(this.getSpouseId());
+    } 
+    /**
+     * Inserisci il coniuge
+     * @param spouse
+     * @throws classes.exception.NotAllowed
+     * @throws java.sql.SQLException
+     */
+    public void setSpouse(User spouse) throws NotAllowed, SQLException{
+        User spouse_before = null;
+        if(this.getSpouseId() != null && !this.getSpouse().equals(spouse)) {
+            spouse_before = this.getSpouse();
+        }
+        
+        this.canAddLikeSpouse(spouse);
+       
+        this.updateAttribute("spouse_id", spouse.getId());
+
+        // Cambia anche il coniuge dell'utente appena aggiunto se non è già stato fatto
+        if(spouse.getSpouse() == null) {
+            spouse.setSpouse(User.getUserById(this.id));
+        }           
+
+        // Eliminare il coniuge dell'utente appena eliminato come coniuge
+        if(spouse_before != null){
+            spouse_before.removeSpouse();
+            // Aggiorna numero parenti del coniuge eliminato
+            spouse_before.setNumRelatives();
+        }
+
+        // Aggiorna numeri parenti
+        this.setNumRelatives();
+            
+        
+        
+        
+    }
+    /**
+     * Rimuovi il coniuge
+     * @throws java.sql.SQLException
+     */
+    public void removeSpouse() throws SQLException {
+        User spouse = this.getSpouse();
+        Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
+        if(!this.isRelative(spouse)){
+            // Aggiorna numero di parenti
+            this.setNumRelatives();
+            spouse.setNumRelatives();
+        }
+    }
+    //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="Recupero e gestione figli">
     
     /**
      * Recupera i figli
      * @return  lista con tutti i figli di un utente
+     * @throws java.sql.SQLException
      */
-    public UserList getChildren(){
+    public UserList getChildren() throws SQLException{
         UserList children = new UserList();
-        
-                
-        try {
-            ResultSet record = Database.selectRecord("user", "father_id = '" + this.id + "' OR mother_id = '" + this.id + "'");
-            // Aggiungo ogni figlio trovato alla lista
-            while(record.next()){    
-                children.add(new User(record));
-            }
-            record.close();
-        } catch (SQLException ex) {
-            return children;    
+
+        ResultSet record = Database.selectRecord("user", "father_id = '" + this.id + "' OR mother_id = '" + this.id + "'");
+        // Aggiungo ogni figlio trovato alla lista
+        while(record.next()){    
+            children.add(new User(record));
         }
-    
+        record.close();
+
         return children;    
     }
     
@@ -519,7 +520,7 @@ public class User{
      * Recupera i discendenti
      * @return
      */
-    public UserList getOffsprings() {
+    public UserList getOffsprings() throws SQLException {
         UserList offsprings = new UserList();
         UserList children = this.getChildren();
         // Per ogni figlio
@@ -536,7 +537,7 @@ public class User{
      * @param gender    Sesso dei discendenti
      * @return
      */
-    public UserList getOffsprings(String gender) {
+    public UserList getOffsprings(String gender) throws SQLException {
         UserList offsprings = new UserList();
         UserList children = this.getChildren();
         // Per ogni figlio
@@ -1042,14 +1043,13 @@ public class User{
                 
                 // Se è già stato valutato, salta iterazione
                 if(evaluated.contains(relative)) continue;
-                UserList ancestors = new UserList();
-                try{
+                
                 // Aggiungi all'abero temporaneo gli antenati del parente
-                 ancestors = relative.getAncestors();
-                }catch(Exception e){
-                    String s;
-                    s="asd";
-                }
+                UserList ancestors = relative.getAncestors();
+                
+                
+                
+                
                 // Se l'utente non ha antenati, inserisci l'utente stesso tra gli antenati, cosi da poter cercare i suoi discendenti
                 if(ancestors.isEmpty()) ancestors.add(relative);
                 
@@ -1156,25 +1156,17 @@ public class User{
      * @return          
      */
     public static User getUserById(String user_id){
-        
+        User user = null;
         try {
-            
-            User user = null;
             if(user_id != null){
-            
-                try (ResultSet record = Database.selectRecord("user", "id = '" + user_id + "'")) {
-                    if(record.next()){
-                        user =  new User(record);
-                    }
+                ResultSet record = Database.selectRecord("user", "id = '" + user_id + "'");
+                if(record.next()){
+                    user =  new User(record);
                 }
-            
             }
-            
-            return user;
-            
-        } catch (SQLException ex) {
-            return null;
-        }
+        } catch (SQLException ex) {}
+        
+        return user;
     }
     
      /**

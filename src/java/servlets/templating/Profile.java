@@ -11,7 +11,6 @@ import classes.tree.GenealogicalTree;
 import classes.tree.NodeList;
 import classes.tree.TreeNode;
 import classes.User;
-import classes.UserList;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;
@@ -42,10 +41,9 @@ public class Profile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
         
-        
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
         
         //Gestione sessione
         HttpSession session = request.getSession(false);  
@@ -75,7 +73,7 @@ public class Profile extends HttpServlet {
 
                 /* Recupero dei parenti dell'utente corrente */
 
-                // Recupero di padre, madre e coniuge
+                // Recupero del padre
                 TreeNode father;
                 try {
                     father = family_tree.getUser(user_current.getFather());
@@ -83,12 +81,15 @@ public class Profile extends HttpServlet {
                     father = null;
                 }
                 
+                // Recupero della madre
                 TreeNode mother;
                 try {
                     mother = family_tree.getUser(user_current.getMother());
                 } catch (SQLException ex) {
                     mother = null;
                 }
+                
+                // Recupero del coniuge
                 TreeNode spouse;
                 try {
                     spouse = family_tree.getUser(user_current.getSpouse());
@@ -105,7 +106,12 @@ public class Profile extends HttpServlet {
                 }
 
                 // Recupero dei figli
-                NodeList children = family_tree.getUsers(user_current.getChildren());
+                NodeList children;
+                try {
+                    children = family_tree.getUsers(user_current.getChildren());
+                } catch (SQLException ex) {
+                    children = null;
+                }
 
                 /* Inserimento dei parenti nel data-model */
 

@@ -37,7 +37,7 @@ public class Settings extends HttpServlet {
     private static User user_logged;
     
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Caricamento della pagina delle impostazioni
      *
      * @param request servlet request
      * @param response servlet response
@@ -78,7 +78,7 @@ public class Settings extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestione del cambio dei dati dell'
      *
      * @param request servlet request
      * @param response servlet response
@@ -127,17 +127,6 @@ public class Settings extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-    
-    
     private static Message changeData(HttpServletRequest request){
         // Recupero dei dati
         String name = (String)request.getParameter("name");
@@ -344,5 +333,15 @@ public class Settings extends HttpServlet {
      
 
         return new Message(msg, error);
+    }
+    
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
     }
 }

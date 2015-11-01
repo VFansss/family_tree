@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
 public class Signup extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Caricamento pagina di signup
      *
      * @param request servlet request
      * @param response servlet response
@@ -43,7 +43,7 @@ public class Signup extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestione della registrazione di un 
      *
      * @param request servlet request
      * @param response servlet response

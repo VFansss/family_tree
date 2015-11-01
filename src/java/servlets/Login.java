@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
     
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Caricamento pagina di login
      *
      * @param request servlet request
      * @param response servlet response
@@ -58,7 +58,7 @@ public class Login extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestione login dell'utente
      *
      * @param request servlet request
      * @param response servlet response

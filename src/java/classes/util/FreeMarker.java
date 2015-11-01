@@ -5,15 +5,12 @@
  */
 package classes.util;
 
-import servlets.Signup;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,7 +46,6 @@ public class FreeMarker {
             template.process(data, out);
             
         } catch (TemplateException ex) {     
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
             
         } finally{
             out.flush();

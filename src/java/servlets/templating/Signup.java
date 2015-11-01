@@ -32,9 +32,7 @@ public class Signup extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        int a = "5af9af63c3d67ede16c88986dee08673112a36afecdd8b9f49d3b395fe8dd1eb".length();
-        String asd = DataUtil.crypt("admin");
+
         Map<String, Object> data = new HashMap<>();
 
         data.put("action", "signup");

@@ -39,6 +39,10 @@
         <servlet-name>SettingsScript</servlet-name>
         <servlet-class>servlets.script.SettingsS</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImageView</servlet-name>
+        <servlet-class>servlets.templating.ImageView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -74,6 +78,10 @@
     <servlet-mapping>
         <servlet-name>SettingsScript</servlet-name>
         <url-pattern>/change</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageView</servlet-name>
+        <url-pattern>/image-view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

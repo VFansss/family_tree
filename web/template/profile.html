@@ -7,7 +7,7 @@
 
             <#list breadcrumb as node>
                 <a href="profile?id=${node.user.id}" class="ball breadcrumb-nav" title="${node.user.name} - ${node.label}">
-                    <img src="template/profile/${node.user.id}.jpg" class="img-circle img-cover" alt="profile" />
+                    <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="profile" />
                 </a>
             </#list>  
             
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-4 responsive-row">
                     <div class="img-circle">
-                        <img src="template/profile/${user_current.id}.jpg" alt="profile image" class="img-circle img-cover" />
+                        <img src="image-view?id=${user_current.id}" alt="profile image" class="img-circle img-cover" />
                     </div>
                     <ul class="anagraphics-info">
                         <li>

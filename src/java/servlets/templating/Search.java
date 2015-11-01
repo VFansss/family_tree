@@ -58,36 +58,97 @@ public class Search extends HttpServlet {
             
             String string_input = request.getParameter("search").trim();
             
-            String[] input = string_input.split(" ");
-            
-            //String name = input[0];
-            String surname = "";
-            
-            for (int i=1; i<input.length; i++){
-                surname = surname + input[i] + " ";
-            }
-            
-            to_search.put("name", input[0]);
-            to_search.put("surname", surname);
-            
+            //Esegue la ricerca sulla stringa in input e mette i risultati in data
+            data.put("results", search(string_input));  
+            data.put("searching", string_input);
         } else if (request.getParameter("source").equals("filters")) {
             
             to_search.put("name", request.getParameter("name").trim());
             to_search.put("surname", request.getParameter("surname").trim());
             to_search.put("birthplace", request.getParameter("birthplace"));
             to_search.put("birthdate", request.getParameter("birthdate"));
+            
+            //Esegue la ricerca sulla map e mette i risultati direttamente in data
+            data.put("results", search(to_search));
         }
         
-        UserList results = search(to_search);
         
         data.put("logged", logged);
-        data.put("results", results);
         //data.put("searching", input);     
         
         FreeMarker.process("search.html",data, response, getServletContext());
         
     }
     
+    protected static UserList search(String input){
+        String[] parameters = input.split(" ");
+        Map<String, String> search_map = new HashMap<String, String>();
+        UserList result = new UserList();
+        
+        switch(parameters.length){
+            case 1:
+                //Ricerca per solo nome o solo cognome:
+                //Solo nome
+                search_map.put("name", parameters[0]);
+                result.addAll(search(search_map));
+                //Solo cognome
+                search_map.remove("name");
+                search_map.put("surname", parameters[0]);
+                result.addAll(search(search_map));
+                break;
+            case 2:
+                //Si cerca nome-cognome, cognome-nome, nome-nome e cognome-cognome
+                //Nome-cognome
+                search_map.put("name", parameters[0]);
+                search_map.put("surname", parameters[1]);
+                result.addAll(search(search_map));
+                //Cognome-nome
+                search_map.put("name", parameters[1]);
+                search_map.put("surname", parameters[0]);
+                result.addAll(search(search_map));
+                //Nome-nome
+                search_map.remove("surname");
+                search_map.put("name", parameters[0]+" "+parameters[1]);
+                result.addAll(search(search_map));
+                //Cognome-cognome
+                search_map.remove("name");
+                search_map.put("surname", parameters[0]+" "+parameters[1]);
+                result.addAll(search(search_map));
+                break;
+            case 3:
+                //Si cerca nome-cognome-cognome, nome-nome-cognome, cognome-cognome-nome e cognome-nome-nome
+                //Nome-cognome-cognome
+                search_map.put("name", parameters[0]);
+                search_map.put("surname", parameters[1]+" "+parameters[2]);
+                result.addAll(search(search_map));
+                //nome-nome-cognome
+                search_map.put("name", parameters[0]+" "+parameters[1]);
+                search_map.put("surname", parameters[2]);
+                result.addAll(search(search_map));
+                //cognome-cognome-nome
+                search_map.put("surname", parameters[0]+" "+parameters[1]);
+                search_map.put("name", parameters[2]);
+                result.addAll(search(search_map));
+                //Cognome-nome-nome
+                search_map.put("surname", parameters[0]);
+                search_map.put("name", parameters[1]+" "+parameters[2]);
+                result.addAll(search(search_map));
+                break;
+            case 4:
+                //Si cerca nome-nome-cognome-cognome e cognome-cognome-nome-nome
+                //nome-nome-cognome-cognome
+                search_map.put("name", parameters[0]+" "+parameters[1]);
+                search_map.put("surname", parameters[2]+" "+parameters[3]);
+                result.addAll(search(search_map));
+                //cognome-cognome-nome-nome
+                search_map.put("surname", parameters[0]+" "+parameters[1]);
+                search_map.put("name", parameters[2]+" "+parameters[3]);
+                result.addAll(search(search_map));
+                break;
+        }
+        
+        return result;
+    }
     
     protected static UserList search(Map<String, String> input){
         UserList result = new UserList();

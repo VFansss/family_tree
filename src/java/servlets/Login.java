@@ -43,7 +43,7 @@ public class Login extends HttpServlet {
                 
                 /* Gestione azione da sbolgere */
                     // Recupera l'azione da svolgere (login o signup)
-                    String action = request.getParameter("action");
+                    String action = (String) request.getAttribute("action");
                     // Se l'azione non è stata definita o non è valida, impostala come l'azione di login
                     if(action == null || (action.equals("login") && action.equals("signup"))) action = "login";
                     // Inserisci l'azione nel data-model

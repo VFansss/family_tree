@@ -10,20 +10,42 @@ package classes;
  * @author Marco
  */
 public class Message {
-    private String msn;
+    private String msg;
     private boolean error;
 
-    public Message(String msn, boolean error) {
-        this.msn = msn;
+    public Message(String msg, boolean error) {
+        this.msg = msg;
         this.error = error;
     }
 
     public String getMessage() {
-        return msn;
+        return msg;
     }
     
     public boolean isError() {
         return error;
+    }
+    
+    public String getExtentedMessage(){
+        String ex_msg = null;
+        if(this.msg != null){
+            switch(this.msg){
+                case "log":
+                    ex_msg = "Please log in to see this page";
+                    break;
+                case "usr":
+                    ex_msg = "User does not exist";
+                    break;
+                case "psw":
+                    ex_msg = "Incorrect password";
+                    break;
+                default:
+                    ex_msg = null;
+            }
+        }
+        
+
+        return ex_msg;
     }
 
 }

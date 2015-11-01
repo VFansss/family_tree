@@ -11,6 +11,7 @@ import classes.Message;
 import classes.User;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -75,9 +76,9 @@ public class SettingsS extends HttpServlet {
             }
             
             if(msg.isError()){
-                response.sendRedirect("settings?msg=" + msg.getMessage() + "&action=" + action + "&type=error");
+                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getMessage(), "UTF-8") + "&action=" + action + "&type=error");
             }else{
-                response.sendRedirect("settings?msg=" + msg.getMessage() + "&action=" + action + "&type=check");
+                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getMessage(), "UTF-8") + "&action=" + action + "&type=check");
             }
             
         }

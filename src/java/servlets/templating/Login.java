@@ -8,6 +8,7 @@ package servlets.templating;
 import classes.DataUtil;
 import classes.Database;
 import classes.FreeMarker;
+import classes.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -46,27 +47,9 @@ public class Login extends HttpServlet {
                 data.put("action", "login");
 
                 //Codifica del messaggio di errore sulla base del codice inviato
-                String msg = request.getParameter("msg");
-                if (msg!=null){
-                    switch(msg){
-                        case "log":
-                            msg = "Please log in to see this page";
-                            break;
-                        case "usr":
-                            msg = "User does not exist";
-                            break;
-                        case "psw":
-                            msg = "Incorrect password";
-                            break;
-                        case "signup_done":
-                            msg = "Registrazione effettuata correttamente!";
-                            break;
-                        default:
-                            msg=null;
-                    }
-                }
+                Message msg = new Message(request.getParameter("msg"), true);
 
-                data.put("msg", msg);
+                data.put("msg", msg.getExtentedMessage());
 
                 FreeMarker.process("login.html",data, response, getServletContext());
             }else{

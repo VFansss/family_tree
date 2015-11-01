@@ -525,3 +525,8 @@ textarea.form-control::-webkit-scrollbar-corner {
     border: 1px solid red;*/
 }
 
+/*body{
+    background: url('../images/custom-background.png');
+    background-repeat: repeat;
+    background-attachment: fixed;
+}*/

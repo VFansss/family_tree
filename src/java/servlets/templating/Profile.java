@@ -6,7 +6,7 @@ package servlets.templating;
  * and open the template in the editor.
  */
 
-import classes.FreeMarker;
+import classes.util.FreeMarker;
 import classes.tree.GenealogicalTree;
 import classes.tree.NodeList;
 import classes.tree.TreeNode;

@@ -6,8 +6,8 @@
 package servlets.templating;
 
 import classes.Database;
-import classes.FreeMarker;
-import classes.Message;
+import classes.util.FreeMarker;
+import classes.util.Message;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

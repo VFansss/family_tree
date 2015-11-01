@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import classes.DataUtil;
-import classes.Message;
+import classes.util.DataUtil;
+import classes.util.Message;
 import classes.User;
 import java.net.URLEncoder;
 import java.sql.Date;

@@ -1,5 +1,6 @@
 package classes;
 
+import classes.util.DataUtil;
 import classes.exception.NotAllowed;
 import classes.tree.GenealogicalTree;
 import classes.tree.NodeList;

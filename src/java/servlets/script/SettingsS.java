@@ -5,8 +5,8 @@
  */
 package servlets.script;
 
-import classes.DataUtil;
-import classes.Message;
+import classes.util.DataUtil;
+import classes.util.Message;
 import classes.User;
 import java.io.File;
 import java.io.IOException;

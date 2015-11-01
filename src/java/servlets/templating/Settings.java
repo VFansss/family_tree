@@ -5,8 +5,8 @@
  */
 package servlets.templating;
 
-import classes.FreeMarker;
-import classes.Message;
+import classes.util.FreeMarker;
+import classes.util.Message;
 import classes.User;
 import java.io.IOException;
 import java.net.URLEncoder;

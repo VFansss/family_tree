@@ -6,7 +6,7 @@
 package servlets.templating;
 
 import classes.Database;
-import classes.FreeMarker;
+import classes.util.FreeMarker;
 import classes.User;
 import classes.UserList;
 import java.util.*;

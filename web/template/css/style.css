@@ -230,13 +230,12 @@ section.login .lock-container {
 }
 
 section.login .forgot-password {
-    cursor: pointer;
     color: white;
+    background: transparent;
+    border: 0;
 }
 
-section.login .forgot-password:hover {
-    text-decoration: none;
-}
+
 
 section.login .form-message{
     padding: 8px;

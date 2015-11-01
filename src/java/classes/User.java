@@ -155,6 +155,7 @@ public class User{
         this.birthdate = DataUtil.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
         this.birthplace = (String) data.get("birthplace");
         this.biography = (String) data.get("biography");
+
         if(data.get("gender") != null){
             this.gender = (String) data.get("gender");
         }

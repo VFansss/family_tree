@@ -156,7 +156,7 @@ public class Profile extends HttpServlet {
                 session.setAttribute("breadcrumb", breadcrumb);
                 // Inserimento del breadcrumb nel data-model
                 data.put("breadcrumb", breadcrumb);
-                                
+                data.put("active_button", "profile");               
                 // Caricamento del template
                 FreeMarker.process("profile.html",data, response, getServletContext());
                 

@@ -51,6 +51,7 @@ public class Settings extends HttpServlet {
             data.put("action",request.getParameter("action"));
             data.put("msg", request.getParameter("msg"));
             data.put("type", request.getParameter("type"));
+            data.put("active_button", "settings");
             FreeMarker.process("settings.html",data, response, getServletContext());
             
         }else{

@@ -161,16 +161,13 @@ public class Database {
         for(Map.Entry<String,Object> e:data.entrySet()){
             attr = e.getKey();
             value = e.getValue();
-            if(value != null || value.equals("")){
-                if(value instanceof String){
-                    value = value.toString().replace("\'", "\\'");
-                    query = query + attr + " = '" + value + "', ";
-                }else{
-                    query = query + attr + " = " + value + ", ";
-                }
+            if(value instanceof String){
+                value = value.toString().replace("\'", "\\'");
+                query = query + attr + " = '" + value + "', ";
             }else{
-                Database.resetAttribute(table, attr, condition);
+                query = query + attr + " = " + value + ", ";
             }
+            
             
         }
         query = query.substring(0, query.length()-2) + " WHERE " + condition;

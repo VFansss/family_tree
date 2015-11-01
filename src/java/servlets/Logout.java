@@ -3,24 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.script;
+package servlets;
 
-import classes.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.net.URLEncoder;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Gianluca
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class Login extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,46 +29,15 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 
-        //Recupera l'email dell'utente
-        String email = request.getParameter("email");
-        //Recupera la password dell'utente
-        String password = request.getParameter("password");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
-        String msg = null;
-        boolean error = true;
-        if(email.equals("") && password.equals("")){
-            msg = "fld"; // All fields required
-        }else{
-            
-            // Recupera l'utente
-            User user_to_log = User.getUserByEmail(email);
-
-            // Se l'utente non esiste
-            if(user_to_log == null){
-                msg = "usr";
-
-            // Se la password dell'utente è sbagliata
-            }else if(!user_to_log.checkPassword(password)){
-                msg = "psw";
-
-            }else{
-                // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
-                user_to_log.prepareToLog(request);
-                response.sendRedirect("profile");
-                error = false;
-            }
+        HttpSession session=request.getSession();  
+        session.invalidate(); 
         
-        }
-        
-        if(error){
-            // Torna alla pagine di login con messaggio di errore
-            response.sendRedirect("login?msg=" + URLEncoder.encode(msg, "UTF-8"));
-        }
-        
-        
-
+        // Vai alla pagina di login 
+        response.sendRedirect("login");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,9 +52,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
         processRequest(request, response);
-        
     }
 
     /**
@@ -102,7 +67,6 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**

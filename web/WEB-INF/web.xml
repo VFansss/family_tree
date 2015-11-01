@@ -5,52 +5,39 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>Profile</servlet-name>
-        <servlet-class>servlets.templating.Profile</servlet-class>
+        <servlet-class>servlets.Profile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
-        <servlet-class>servlets.templating.Signup</servlet-class>
+        <servlet-class>servlets.Signup</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SignupS</servlet-name>
-        <servlet-class>servlets.script.SignupS</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>servlets.templating.Login</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LoginScript</servlet-name>
-        <servlet-class>servlets.script.Login</servlet-class>
+        <servlet-class>servlets.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets.script.Logout</servlet-class>
+        <servlet-class>servlets.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Settings</servlet-name>
-        <servlet-class>servlets.templating.Settings</servlet-class>
+        <servlet-class>servlets.Settings</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
-        <servlet-class>servlets.templating.Search</servlet-class>
+        <servlet-class>servlets.Search</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SettingsScript</servlet-name>
-        <servlet-class>servlets.script.SettingsS</servlet-class>
-    </servlet>
+
     <servlet>
         <servlet-name>ImageView</servlet-name>
-        <servlet-class>servlets.templating.ImageView</servlet-class>
+        <servlet-class>servlets.ImageView</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SignupS</servlet-name>
-        <url-pattern>/signupS</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -58,10 +45,6 @@
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginScript</servlet-name>
-        <url-pattern>/loginS</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -75,10 +58,7 @@
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SettingsScript</servlet-name>
-        <url-pattern>/change</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ImageView</servlet-name>
         <url-pattern>/image-view</url-pattern>

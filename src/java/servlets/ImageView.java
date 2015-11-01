@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.templating;
+package servlets;
 
-import classes.util.FreeMarker;
-import classes.util.Message;
-import classes.User;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.OutputStream;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Marco
  */
-public class Settings extends HttpServlet {
+public class ImageView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,37 +30,35 @@ public class Settings extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        response.setContentType("text/html;charset=UTF-8");
-        //Gestione sessione
-        HttpSession session = request.getSession(false);  
-        
-        //Se non è stata generata la sessione
-        if(session != null){     
-            
-            User user_logged = (User)session.getAttribute("user_logged");
-            
-            String as = user_logged.getBirthdate().toString();
-            Map<String, Object> data = new HashMap<>();
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        ServletContext cntx= getServletContext();
+        // Recupera l'id dell'utente
+        String user_id = request.getParameter("id");
+        String filename = cntx.getRealPath("/template/profile/" + user_id + ".jpg");
 
-            data.put("user_logged", user_logged);
+        String mime = cntx.getMimeType(filename);
+        if (mime == null) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-            data.put("action",request.getParameter("action"));
-            
-        
-            String msg = request.getParameter("msg");
-            boolean error = false;
-            data.put("message", new Message(msg, error));
-            
-            data.put("active_button", "settings");
-            FreeMarker.process("settings.html",data, response, getServletContext());
-            
         }else{
-            // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msg=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
+            response.setContentType(mime);
+            File file = new File(filename);
+            if(!file.exists()) file = new File(cntx.getRealPath("/template/images/default-avatar.jpg"));
+            response.setContentLength((int)file.length());
 
+            FileInputStream in = new FileInputStream(file);
+            OutputStream out = response.getOutputStream();
+
+            // Copy the contents of the file to the output stream
+            byte[] buf = new byte[1024];
+            int count = 0;
+            while ((count = in.read(buf)) >= 0) {
+                out.write(buf, 0, count);
+            }
+            out.close();
+            in.close();
         }
+
         
     }
 

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.script;
+package servlets;
 
-import classes.util.DataUtil;
+import classes.util.FreeMarker;
 import classes.util.Message;
 import classes.User;
+import classes.util.DataUtil;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -31,33 +32,73 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Marco
  */
-public class SettingsS extends HttpServlet {
+public class Settings extends HttpServlet {
     private static HttpSession session;
     private static User user_logged;
     
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = (String)request.getParameter("action");
+        //Gestione sessione
+        HttpSession session = request.getSession(false);  
         
+        //Se non è stata generata la sessione
+        if(session != null){     
+            
+            User user_logged = (User)session.getAttribute("user_logged");
+            
+            String as = user_logged.getBirthdate().toString();
+            Map<String, Object> data = new HashMap<>();
+
+            data.put("user_logged", user_logged);
+
+            data.put("action",request.getParameter("action"));
+            
+        
+            String msg = request.getParameter("msg");
+            boolean error = false;
+            data.put("message", new Message(msg, error));
+            
+            data.put("active_button", "settings");
+            FreeMarker.process("settings.html",data, response, getServletContext());
+            
+        }else{
+            // Vai alla pagina di login e mostra messaggio di errore
+            response.sendRedirect("login?msg=" + URLEncoder.encode("Please log in to see this page", "UTF-8"));
+
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = (String)request.getParameter("action");
+
         session = request.getSession(false);  
         user_logged = (User)session.getAttribute("user_logged");
-        
+
         // Se non è loggato nessun utente;
         if(!(action == null || (action.equals("data") || action.equals("email") || action.equals("password") || action.equals("avatar")))){
             // Vai alla pagina delle impostazioni
             response.sendRedirect("settings");
         }else if(user_logged == null){
             response.sendRedirect("login?msg=log");
-                
+
         }else{
 
             Message msg; 
@@ -76,18 +117,28 @@ public class SettingsS extends HttpServlet {
                     break;
                 default: msg = new Message("tmp", true);
             }
-            
+
             if(msg.isError()){
                 response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=error");
             }else{
                 response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=check");
             }
-            
+
         }
-        
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
     }
     
-    public static Message changeData(HttpServletRequest request){
+    
+    private static Message changeData(HttpServletRequest request){
         // Recupero dei dati
         String name = (String)request.getParameter("name");
         String surname = (String)request.getParameter("surname");
@@ -153,7 +204,7 @@ public class SettingsS extends HttpServlet {
                         user_logged.removeSpouse();
                         data.put("gender", gender);
                     } catch (SQLException ex) {
-                        Logger.getLogger(SettingsS.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 
@@ -174,7 +225,7 @@ public class SettingsS extends HttpServlet {
         
     }
     
-    public static Message changeEmail(HttpServletRequest request){
+    private static Message changeEmail(HttpServletRequest request){
         // Recupero dei dati
         String current_email = (String)request.getParameter("current_email");
         String new_email = (String)request.getParameter("new_email");
@@ -218,7 +269,7 @@ public class SettingsS extends HttpServlet {
         return new Message(msg, error);
     }
     
-    public static Message changePassword(HttpServletRequest request){
+    private static Message changePassword(HttpServletRequest request){
         // Recupero dei dati
         String current_password = (String)request.getParameter("current_password");
         String new_password = (String)request.getParameter("new_password");
@@ -261,7 +312,7 @@ public class SettingsS extends HttpServlet {
         return new Message(msg, error);
     }
     
-    public static Message changeAvatar(HttpServletRequest request, SettingsS aThis){
+    private static Message changeAvatar(HttpServletRequest request, Settings aThis){
         String msg = "";
         boolean error = true;
         //process only if its multipart content
@@ -294,44 +345,4 @@ public class SettingsS extends HttpServlet {
 
         return new Message(msg, error);
     }
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

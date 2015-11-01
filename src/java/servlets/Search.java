@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.templating;
+package servlets;
 
 import classes.Database;
 import classes.util.FreeMarker;

@@ -11,7 +11,7 @@
 
                         <div class="lock-container">
                             <div class="panel-default text-center">
-                                <form action="change?action=avatar" class="panel-body" method="POST" enctype="multipart/form-data">
+                                <form action="settings?action=avatar" class="panel-body" method="POST" enctype="multipart/form-data">
                                     <div class="avatar text-center">
                                         <img class="img-cover" src="image-view?id=${user_logged.id}" alt="profile image" />
                                         <i class="fa fa-camera fa-3x hover-blue"></i>
@@ -39,7 +39,7 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="change?action=data" class="panel-body" method="POST">
+                                <form action="settings?action=data" class="panel-body" method="POST">
 
                                     <fieldset>
                                         <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
@@ -87,7 +87,7 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="change?action=email" class="panel-body" method="POST">
+                                <form action="settings?action=email" class="panel-body" method="POST">
 
                                     <fieldset>
                                         <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly />
@@ -120,7 +120,7 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="change?action=password" class="panel-body" method="POST">
+                                <form action="settings?action=password" class="panel-body" method="POST">
 
                                     <fieldset>
                                         <input class="form-control"  type="password" name="current_password" placeholder="Current password" required />

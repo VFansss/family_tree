@@ -3,10 +3,10 @@
     <section class="profile">
 
         <!-- Breadcrumb nav -->
-        <div class="col-md-12 breadcrumb-nav">                 
+        <div id="breadcrumb-nav" class="col-md-12">                 
 
             <#list breadcrumb as node>
-                <a href="profile?id=${node.user.id}" class="ball breadcrumb-nav" title="${node.user.name} - ${node.label}">
+                <a href="profile?id=${node.user.id}" class="ball" title="${node.user.name} - ${node.label}">
                     <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="profile" />
                 </a>
             </#list>  

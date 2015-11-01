@@ -33,35 +33,34 @@ public class ImageView extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         ServletContext cntx= getServletContext();
-        
+        // Recupera l'id dell'utente
         String user_id = request.getParameter("id");
-        // Get the absolute path of the image
         String filename = cntx.getRealPath("/template/profile/" + user_id + ".jpg");
-        // retrieve mimeType dynamically
+
         String mime = cntx.getMimeType(filename);
         if (mime == null) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return;
+
+        }else{
+            response.setContentType(mime);
+            File file = new File(filename);
+            if(!file.exists()) file = new File(cntx.getRealPath("/template/images/default-avatar.jpg"));
+            response.setContentLength((int)file.length());
+
+            FileInputStream in = new FileInputStream(file);
+            OutputStream out = response.getOutputStream();
+
+            // Copy the contents of the file to the output stream
+            byte[] buf = new byte[1024];
+            int count = 0;
+            while ((count = in.read(buf)) >= 0) {
+                out.write(buf, 0, count);
+            }
+            out.close();
+            in.close();
         }
 
-        response.setContentType(mime);
-        File file = new File(filename);
-        if(!file.exists()){
-            file = new File(cntx.getRealPath("/template/images/default-avatar.jpg"));
-        }
-        response.setContentLength((int)file.length());
-
-        FileInputStream in = new FileInputStream(file);
-        OutputStream out = response.getOutputStream();
-
-        // Copy the contents of the file to the output stream
-        byte[] buf = new byte[1024];
-        int count = 0;
-        while ((count = in.read(buf)) >= 0) {
-            out.write(buf, 0, count);
-        }
-        out.close();
-        in.close();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

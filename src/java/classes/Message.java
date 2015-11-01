@@ -30,15 +30,24 @@ public class Message {
         String ex_msg = null;
         if(this.msg != null){
             switch(this.msg){
-                case "log":
-                    ex_msg = "Please log in to see this page";
-                    break;
-                case "usr":
-                    ex_msg = "User does not exist";
-                    break;
-                case "psw":
-                    ex_msg = "Incorrect password";
-                    break;
+                /* LOGIN */
+                    case "log":
+                        ex_msg = "Please log in to see this page";
+                        break;
+                    case "usr":
+                        ex_msg = "User does not exist";
+                        break;
+                    case "psw":
+                        ex_msg = "Incorrect password";
+                        break;
+                /* SIGNUP */
+                        
+                        
+                        
+                /* SETTINGS */
+                        
+                        
+                        
                 default:
                     ex_msg = null;
             }

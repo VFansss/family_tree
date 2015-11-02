@@ -48,11 +48,7 @@ public class Search extends HttpServlet {
         if(session!=null) { 
             data.put("family_tree", (GenealogicalTree)session.getAttribute("family_tree"));
             data.put("user_logged", (User)session.getAttribute("user_logged"));
-            data.put("logged", true);
-            
-        } else {
-            data.put("logged", false);
-        }
+        } 
         
         Map<String, String> values = new HashMap<>();
         values.put("name", "");

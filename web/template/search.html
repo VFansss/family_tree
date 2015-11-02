@@ -2,30 +2,29 @@
 <#include "frame_public.html">
 
 <section class="search profile">
+    
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+        <div class="panel panel-body blue-background search-filters">
+            <h4>Add filters to your search</h4>
+            <form action="search" method="POST" class="filter-search-form">
+                <fieldset>
+                    <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
+                    <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
+                    <#if user_logged??>
+                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthdate}"/>
+                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value="${values.birthplace}"/>
+                    <#else>
+                    <p><a href="signup">(proposta marco) messaggio per incitare a registrarsi ed avere più funzionalità<br>Come on, sign up today and you will get more and more features</a></p>
+                    
+                    </#if>
 
-    
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-            <div class="panel panel-body blue-background search-filters">
-                <h4>Add filters to your search</h4>
-                <form action="search" method="POST" class="filter-search-form">
-                    <fieldset>
-                        <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
-                        <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
-                        <#if user_logged??>
-                            <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthdate}"/>
-                            <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value="${values.birthplace}"/>
-                        <#else>
-                            <p><a href="signup">(proposta marco) messaggio per incitare a registrarsi ed avere più funzionalità</a></p>
-                        </#if>
-                        
-                        <input type="hidden" name="source" value="filters" />
-                    </fieldset>
-                    <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
-                    <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
-                </form>
-            </div>
+                    <input type="hidden" name="source" value="filters" />
+                </fieldset>
+                <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
+                <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+            </form>
         </div>
-    
+    </div>
 
     <#if searching??>
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">

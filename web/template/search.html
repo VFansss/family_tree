@@ -98,13 +98,15 @@
                                             </form>
                                         <#elseif user.id != user_logged.id>
                                             <#assign node = family_tree.getUser(user)!>
-                                            <p>
-                                                <#if user.gender == "male">
-                                                    He is your ${node.label}
-                                                <#else>
-                                                    She is your ${node.label}
-                                                </#if>
-                                            </p>
+                                            <#if node.label != "">
+                                                 <p>
+                                                    <#if user.gender == "male">
+                                                        He is your ${node.label}
+                                                    <#else>
+                                                        She is your ${node.label}
+                                                    </#if>
+                                                </p>
+                                            </#if>
                                         </#if>
                                     </div>  
                                 </div>

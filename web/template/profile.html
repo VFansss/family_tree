@@ -6,7 +6,7 @@
         <div id="breadcrumb-nav" class="col-md-12">                 
 
             <#list breadcrumb as node>
-                <a href="profile?id=${node.user.id}" class="ball" title="${node.user.name} - ${node.label}">
+                <a href="profile?id=${node.user.id}" class="ball" title="${node.user.name} (${node.label?capitalize})" data-toggle="tooltip"  data-placement="right">
                     <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="profile" />
                 </a>
             </#list>  

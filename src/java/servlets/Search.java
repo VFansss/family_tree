@@ -178,6 +178,7 @@ public class Search extends HttpServlet {
                 condition_string += entry.getKey() + " COLLATE UTF8_GENERAL_CI LIKE '%" + entry.getValue()+"%'";
             }
         }
+        //condition_string = condition_string+" COLLATE LATIN1_SWEDISH_CI";
         
         try {
             ResultSet record = Database.selectRecord("user", condition_string);

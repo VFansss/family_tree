@@ -3,16 +3,21 @@
 
 <section class="search profile">
 
-    <#if logged>
+    
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
             <div class="panel panel-body blue-background search-filters">
                 <h4>Add filters to your search</h4>
-                <form action="search" class="filter-search-form">
+                <form action="search" class="filter-search-form" action="">
                     <fieldset>
                         <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
                         <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
-                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthdate}"/>
-                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value="${values.birthplace}"/>
+                        <#if user_logged??>
+                            <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthdate}"/>
+                            <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value="${values.birthplace}"/>
+                        <#else>
+                            <p><a href="signup">(proposta marco) messaggio per incitare a registrarsi ed avere più funzionalità</a></p>
+                        </#if>
+                        
                         <input type="hidden" name="source" value="filters" />
                     </fieldset>
                     <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
@@ -20,7 +25,7 @@
                 </form>
             </div>
         </div>
-    </#if>
+    
 
     <#if searching??>
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
@@ -32,6 +37,7 @@
         <#assign listed = false>
         <#if results??>
             <#list results as user>
+                
                 <#assign listed = true>
                 <!-- Tile -->
                 <div class="col-md-6 col-sm-6 tile rounded">
@@ -47,47 +53,64 @@
                                     <img src="image-view?id=${user.id}" alt="profile image" class="img-circle img-cover" />
                                 </div>
                                 <ul class="anagraphics-info">
-                                    <li>
-                                        <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
-                                    </li>
-                                    <#if !logged>
+                                    
+                                    <#if user_logged??>
                                         <li>
-                                            <p>${user.getNumRelative()} relatives in tree</p>
+                                            <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
+                                        </li>
+                                        <li>
+                                            <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
+                                        </li>
+                                    <#else>
+                                        <li>
+                                            <p><i class="fa fa-user-plus"></i> ${user.getNumRelative()} relatives</p>
                                         </li>
                                     </#if>
                                 </ul>
                             </div>
                         </div>
-                        <#if logged>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form>
-                                        <div class="col-md-6 col-sm-6 col-xs-6 relationship">
-                                            <select>
-                                                <option value="" selected disabled>Select a relationship</option>
+                        <#if user_logged??>
+                            
+                            
+                                <div class="row">
+                                    <div class="col-md-12 relationship">
+                                        <#if !(family_tree.getUser(user)??)>
+                                            <form>
+                                                <div class="col-md-8 col-sm-8 col-xs-8 ">
+                                                    <select>
+                                                        <option value="" selected disabled>Select a relationship</option>
+                                                        <#if user.gender == "male">
+                                                            <option value="parent">Father</option>
+                                                            <option value="spouse">Husband</option>
+                                                            <option value="sibling">Brother</option>
+                                                            <option value="child">Son</option>
+                                                        <#else>
+                                                            <option value="parent">Mother</option>
+                                                            <option value="spouse">Wife</option>
+                                                            <option value="sibling">Sister</option>
+                                                            <option value="child">Daughter</option>
+                                                        </#if>
+                                                    </select>
+                                                    <i class="fa fa-caret-down"></i>
+                                                </div>
+                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                    <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
+                                                </div>
+                                            </form>
+                                        <#elseif user.id != user_logged.id>
+                                            <#assign node = family_tree.getUser(user)!>
+                                            <p>
                                                 <#if user.gender == "male">
-                                                    <option value="parent">Father</option>
-                                                    <option value="spouse">Husband</option>
-                                                    <option value="sibling">Brother</option>
-                                                    <option value="child">Son</option>
+                                                    He is your ${node.label}
                                                 <#else>
-                                                    <option value="parent">Mother</option>
-                                                    <option value="spouse">Wife</option>
-                                                    <option value="sibling">Sister</option>
-                                                    <option value="child">Daughter</option>
+                                                    She is your ${node.label}
                                                 </#if>
-                                            </select>
-                                            <i class="fa fa-caret-down"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
-                                        </div>
-                                    </form>
-                                </div>  
-                            </div>
+                                            </p>
+                                        </#if>
+                                    </div>  
+                                </div>
+                            
+                            
                         </#if>
                     </div>
                 </div>                    

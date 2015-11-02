@@ -9,6 +9,7 @@ import classes.Database;
 import classes.util.FreeMarker;
 import classes.User;
 import classes.UserList;
+import classes.tree.GenealogicalTree;
 import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Gianluca
@@ -36,14 +39,14 @@ public class Search extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<>();
         
         //Gestione sessione
         HttpSession session=request.getSession(false);
                 
         //Se è stato effettuato il login...
         if(session!=null) { 
-            
+            data.put("family_tree", (GenealogicalTree)session.getAttribute("family_tree"));
             data.put("user_logged", (User)session.getAttribute("user_logged"));
             data.put("logged", true);
             
@@ -51,7 +54,7 @@ public class Search extends HttpServlet {
             data.put("logged", false);
         }
         
-        Map<String, String> values = new HashMap<String, String>();
+        Map<String, String> values = new HashMap<>();
         values.put("name", "");
         values.put("surname", "");
         values.put("birthplace", "");
@@ -71,7 +74,7 @@ public class Search extends HttpServlet {
         //Altrimenti se la richiesta giunge dal form...
         } else if (source!=null && request.getParameter("source").equals("filters")) {
             
-            Map<String, String> to_search = new HashMap<String, String>();
+            Map<String, String> to_search = new HashMap<>();
 
             to_search.put("name", request.getParameter("name").trim());
             to_search.put("surname", request.getParameter("surname").trim());
@@ -87,16 +90,15 @@ public class Search extends HttpServlet {
             
         }
         
-        data.put("values", values);
-                
+        
+        data.put("values", values);        
         FreeMarker.process("search.html",data, response, getServletContext());
         
     }
     
-    
     protected static UserList search(String input){
         String[] parameters = input.split(" ");
-        Map<String, String> search_map = new HashMap<String, String>();
+        Map<String, String> search_map = new HashMap<>();
         UserList result = new UserList();
         
         switch(parameters.length){
@@ -163,9 +165,7 @@ public class Search extends HttpServlet {
         
         return result;
     }
-    
-    
-    
+
     protected static UserList search(Map<String, String> input){
         UserList result = new UserList();
         
@@ -173,25 +173,23 @@ public class Search extends HttpServlet {
         for(Map.Entry<String, String> entry : input.entrySet()){
             if(!(entry.getValue().isEmpty())){
                 if(!condition_string.equals("")){
-                    condition_string = condition_string+" AND ";
+                    condition_string += " AND ";
                 }
-                condition_string = condition_string+entry.getKey()+"='"+entry.getValue()+"'";
+                condition_string += entry.getKey() + " COLLATE UTF8_GENERAL_CI LIKE '%" + entry.getValue()+"%'";
             }
         }
         
-        try (ResultSet record = Database.selectRecord("user", condition_string)){
-            if(record != null)
-                while(record.next()){
-                    result.add(new User(record));  
-                }
-        } catch (SQLException ex){
-            
+        try {
+            ResultSet record = Database.selectRecord("user", condition_string);
+            while(record.next()){
+                result.add(new User(record));  
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
+        
         return result;
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

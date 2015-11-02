@@ -61,6 +61,11 @@ ul{
     color: #4687ce !important;
 }
 
+.no-margin{
+    
+    margin: 0;
+}
+
 /*==========================================*/
 /*                HEADER                     */
 /*==========================================*/
@@ -337,10 +342,6 @@ section.profile .dark-background h3{
     
 }
 
-/*section.profile .dark-background h3{
-    color: inherit;
-}*/
-
 section.profile .dark-background .delete-relative{
     position: absolute;
     top: 5px;
@@ -428,6 +429,11 @@ section.search .search-filters input{
     margin-bottom: 10px;
 }
 
+section.search .search-filters p a{
+    color: white;
+    font-weight: bolder;
+}
+
 section.search .filter-search-button{
     width: auto;
 }
@@ -450,14 +456,29 @@ section.search .relationship{
     position: relative;
 } 
 
+section.search .relationship select{
+    border-radius: 4px;
+    border:0;
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+}
+
+section.search .relationship select option{
+    color: black;
+}
 
 section.search .relationship i{
     position: absolute;
     top: 3px;
     right: 21px;
     color: white;
-    z-index: 100000;
     pointer-events: none;
+}
+
+section.search .relationship p{
+    display: inline-block;
+    margin-bottom: 0;
 }
 
 section.search .wrapper{

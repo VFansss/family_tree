@@ -17,6 +17,10 @@ import java.util.Iterator;
 public class GenealogicalTree{
     // Contiene l'albero genealogico
     private final NodeList family_tree;
+
+    public NodeList getFamily_tree() {
+        return family_tree;
+    }
     
     public GenealogicalTree(User user){
         this.family_tree = new NodeList();

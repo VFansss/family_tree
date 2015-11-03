@@ -8,7 +8,6 @@ package it.collaborative_genealogy.servlets;
 import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.util.DataUtil;
-import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -108,7 +107,8 @@ public class Signup extends HttpServlet {
             Map<String, Object> data = new HashMap<>();
 
             // Genera l'id dell'utente
-            data.put("id", User.createUniqueUserId(10));
+            String user_id = User.createUniqueUserId(10);
+            data.put("id", user_id);
 
             data.put("email", email);
             data.put("password", DataUtil.crypt(password));
@@ -116,6 +116,7 @@ public class Signup extends HttpServlet {
             data.put("surname", surname);
             data.put("gender", gender);
             data.put("birthplace", birthplace);
+            data.put("biography", "");
             
             Date sqlDate = null;
             try {
@@ -129,7 +130,7 @@ public class Signup extends HttpServlet {
             try {
                 Database.insertRecord("user", data);
                 // Creo l'oggetto riservato all'utente
-                User new_user = new User(name, surname, email, gender, sqlDate, birthplace, null);
+                User new_user = new User(user_id, name, surname, email, gender, sqlDate, birthplace, "");
                 // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
                 new_user.prepareToLog(request);
                 // Reindirizzamento alla pagina del profilo dell'utente

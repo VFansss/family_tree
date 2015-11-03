@@ -50,7 +50,8 @@ public class User{
 
     }
     
-    public User(String name, String surname, String email, String gender, Date birthdate, String birthplace, String biography) {
+    public User(String id, String name, String surname, String email, String gender, Date birthdate, String birthplace, String biography) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;

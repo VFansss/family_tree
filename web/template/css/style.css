@@ -371,9 +371,6 @@ section.profile .dark-background .delete-relative a:hover{
 section.settings {
     margin-bottom: 20px;
 }
-section.settings .container-fluid{
-    pointer-events: none;
-}
 
 section.settings .wrapper{
     background-color: rgba(20, 20, 20, 0.8);

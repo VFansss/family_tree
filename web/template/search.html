@@ -13,11 +13,19 @@
                     <#if user_logged??>
                         <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthplace}"/>
                         <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value='<#if values.birthdate != "">${values.birthdate}</#if>'/>
+                        <select class="form-control">
+                            <option value="" disabled selected>Select a relative</option>
+                            <#list family_tree.family_tree as node>
+                                <#assign user = node.getUser()>
+                                <#if node.label != "">
+                                    <option value="${user.getId()}">${user.getName()} ${user.getSurname()} - ${node.label} </option>
+                                </#if>
+                            </#list>
+                        </select>
                     <#else>
                         <p><a href="signup">Come on, sign up today and you will get more and more features</a></p>
                     </#if>
 
-                    <input type="hidden" name="source" value="filters" />
                 </fieldset>
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
                     <a href="search" id="search-reset-filters" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>

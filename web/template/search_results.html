@@ -14,7 +14,6 @@
                             <img src="image-view?id=${user.id}" alt="profile image" class="img-circle img-cover" />
                         </div>
                         <ul class="anagraphics-info">
-
                             <#if user_logged??>
                                 <li>
                                     <p><i class="fa fa-calendar"></i> ${user.birthdate?date?string("dd/MM/yyyy")}</p>
@@ -22,6 +21,12 @@
                                 <li>
                                     <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
                                 </li>
+                                <#assign node = family_tree.getUser(user)!>
+                                <#if node.label?? && node.label != "">
+                                    <li>
+                                        <p><i class="fa fa-user"></i> ${node.label}</p>
+                                    </li>
+                                </#if>
                             <#else>
                                 <li>
                                     <p><i class="fa fa-user-plus"></i> ${user.getNumRelative()} relatives</p>
@@ -33,41 +38,28 @@
                 <#if user_logged??>
                     <div class="row">
                         <div class="col-md-12 relationship">
-                            <#if !(family_tree.getUser(user)??)>
-                                <form>
-                                    <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                        <select>
-                                            <option value="" selected disabled>Select a relationship</option>
-                                            <#if user.gender == "male">
-                                                <option value="parent">Father</option>
-                                                <option value="spouse">Husband</option>
-                                                <option value="sibling">Brother</option>
-                                                <option value="child">Son</option>
-                                            <#else>
-                                                <option value="parent">Mother</option>
-                                                <option value="spouse">Wife</option>
-                                                <option value="sibling">Sister</option>
-                                                <option value="child">Daughter</option>
-                                            </#if>
-                                        </select>
-                                        <i class="fa fa-caret-down"></i>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-4">
-                                        <a href="#" class="btn btn-default btn-xs add-button pull-right"><i class="fa fa-fw fa-plus"></i> Add</a>
-                                    </div>
-                                </form>
-                            <#elseif user.id != user_logged.id>
-                                <#assign node = family_tree.getUser(user)!>
-                                <#if node.label != "">
-                                     <p>
+                            <form>
+                                <div class="col-md-8 col-sm-8 col-xs-8 ">
+                                    <select>
+                                        <option value="" selected disabled>Select a relationship</option>
                                         <#if user.gender == "male">
-                                            He is your ${node.label}
+                                            <option value="parent">Father</option>
+                                            <option value="spouse">Husband</option>
+                                            <option value="sibling">Brother</option>
+                                            <option value="child">Son</option>
                                         <#else>
-                                            She is your ${node.label}
+                                            <option value="parent">Mother</option>
+                                            <option value="spouse">Wife</option>
+                                            <option value="sibling">Sister</option>
+                                            <option value="child">Daughter</option>
                                         </#if>
-                                    </p>
-                                </#if>
-                            </#if>
+                                    </select>
+                                    <i class="fa fa-caret-down select-icon"></i>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <button type="submit" class="btn btn-default btn-xs pull-right"><i class="fa fa-fw fa-plus"></i> Add</button>
+                                </div>
+                            </form>
                         </div>  
                     </div>            
                 </#if>

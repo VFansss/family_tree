@@ -13,6 +13,10 @@ body{
 header{
     /*z-index: -1 !important;*/
 }
+
+header p{
+    margin:0;
+}
 section{
     z-index: 100 !important;
 }
@@ -129,6 +133,7 @@ header .button-top-right{
 header .button-top-right a{
     max-width: 300px;
     height: 34px;
+    /*padding-top: 1px;*/
 }
 
 header .button-top-right a img{
@@ -138,7 +143,7 @@ header .button-top-right a img{
 }
 
 header .button-top-right a p{
-    margin-top: -4px;
+    margin-top: 0px;
 }
 
 /*==========================================*/
@@ -256,8 +261,15 @@ section.search .form-message{
 }
 
 section.search .form-message{
-    font-size: 1.8em;
+    font-size: 1.6em;
+    
 }
+
+section.search .form-message p{
+    
+    color: white !important;
+}
+
 
 section.login .form-message p,
 section.search .form-message p{
@@ -435,8 +447,10 @@ section.search form.filter-search-form{
     padding-right: 15px;
 }
 
-section.search .search-filters input{
-    margin-bottom: 10px;
+section.search .search-filters input,
+section.search .search-filters select{
+    margin-bottom: 5px;
+    height: 35px;
 }
 
 section.search .search-filters p a{
@@ -450,12 +464,6 @@ section.search .filter-search-button{
 
 section.search .inrow-div{
     display:inline-block;
-}
-
-section.search .add-button{
-    position: absolute;
-    right: 30px;
-    z-index: 10;
 }
 
 section.search .responsive-row{
@@ -478,7 +486,7 @@ section.search .relationship select option{
     color: black;
 }
 
-section.search .relationship i{
+section.search .relationship i.select-icon{
     position: absolute;
     top: 3px;
     right: 21px;
@@ -548,11 +556,6 @@ textarea.form-control::-webkit-scrollbar-thumb {
 textarea.form-control::-webkit-scrollbar-corner {
     background: transparent;
     display: none;
-/*    border-radius: 10px;
-
-    display:none;
-    visibility: hidden;
-    border: 1px solid red;*/
 }
 
 /*body{

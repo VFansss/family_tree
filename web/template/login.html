@@ -38,11 +38,11 @@
                         <#assign button_icon = "user">
                     </#if>
                     
-                    <#if message.code?? && message.msg??>
-                        <div class="form-message">
-                            <i class="fa fa-times"></i><p>${message.msg}</p>
+                    
+                        <div class="form-message <#if !(message.msg??)>hide</#if>">
+                            <i class="fa fa-times"></i><p><#if message.msg??>${message.msg}</#if></p>
                         </div>
-                    </#if>
+                    
                     <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
                     
                     <#if action == "login">

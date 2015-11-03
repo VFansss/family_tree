@@ -11,9 +11,8 @@ $(document).ready(function(){
     $("#search-reset-filters").click(function(e){
        e.preventDefault();
        
-       $(".filter-search-form :input").each(function(){
-           $(this).val('');
-       });
+       $(".search-filters input, .search-filters select").val('');
+       
     });
         
 });

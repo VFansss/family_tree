@@ -6,7 +6,7 @@
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
         <div class="panel panel-body blue-background search-filters">
             <h4>Add filters to your search</h4>
-            <form action="search" method="POST" class="filter-search-form">
+            <form action="search" method="POST">
                 <fieldset>
                     <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
                     <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
@@ -28,7 +28,7 @@
 
                 </fieldset>
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
-                    <a href="search" id="search-reset-filters" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+                    <button type="reset" href="search" id="search-reset-filters" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></button>
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">

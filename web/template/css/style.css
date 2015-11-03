@@ -442,7 +442,7 @@ section.search .search-filters h4{
     padding-left: 15px;
 }
 
-section.search form.filter-search-form{
+section.search .search-filters form{
     padding-left: 15px;
     padding-right: 15px;
 }

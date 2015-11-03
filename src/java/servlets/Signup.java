@@ -14,8 +14,11 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -113,8 +116,15 @@ public class Signup extends HttpServlet {
             data.put("surname", surname);
             data.put("gender", gender);
             data.put("birthplace", birthplace);
-            Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
-            data.put("birthdate", DataUtil.dateToString(sqlDate));
+            
+            Date sqlDate = null;
+            try {
+                sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+                data.put("birthdate", DataUtil.dateToString(sqlDate));
+            } catch (ParseException ex) {
+                Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
 
             try {
                 Database.insertRecord("user", data);

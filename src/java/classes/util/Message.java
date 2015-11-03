@@ -9,9 +9,9 @@ package classes.util;
  *
  * @author Marco
  */
-public class Message {
-    private String code;
-    private boolean error;
+public final class Message {
+    private final String code;
+    private final boolean error;
     private String msg;
 
     public String getMsg() {
@@ -40,28 +40,20 @@ public class Message {
 
         if(this.code != null){
             switch(this.code){
-                /* LOGIN */
-                    case "log":
-                        msg = "Please log in to see this page";
-                        break;
-                    case "usr":
+                        
+                        
+                /* USER */
+                    case "usr_1":
                         msg = "User does not exist";
                         break;
-                    case "psw":
-                        msg = "Incorrect password";
+                    case "usr_2":
+                        msg = "User already exist";
                         break;
-                    
-                /* SIGNUP */                    
-                /* SIGNUP */
-                        
-                        
-                        
-                /* SETTINGS */
-                        
-                    case "fld":
-                        msg = "All fields are required";
+                    case "usr_3":
+                        msg = "No user found";
                         break;
-                        
+
+                /* NOME */
                     case "name_1":
                         msg = "The name must be alphanumeric";
                         break;
@@ -71,6 +63,8 @@ public class Message {
                     case "name_3":
                         msg = "The name is too long";
                         break;
+                        
+                /* COGNOME */
                     case "surname_1":
                         msg = "The surname must be alphanumeric";
                         break;
@@ -81,24 +75,28 @@ public class Message {
                         msg = "The surname is too long";
                         break;
                         
+                /* SESSO */        
                     case "gnd":
                         msg = "You can be only male or female";
                         break;
-                    
+                        
+                /* LUOGO DI NASCITA */    
                     case "plc":
                         msg = "The birthplace must be alphanumeric";
                         break;
-                    
+                
+                /* DATA DI NASCITA */   
                     case "date_1":
-                        msg = "The date isn't in the right format";
+                            msg = "The birthdate isn't in the right format";
                         break;
                     case "date_2":
-                        msg = "The date in not valid2";
+                        msg = "The birthdate in not valid";
                         break;
                     case "dt_ok":
                         msg = "Data changed";
                         break;
                         
+                /* EMAIL  */           
                     case "eml_1":
                         msg = "Current email is not valid";
                         break;
@@ -108,14 +106,14 @@ public class Message {
                     case "eml_3":
                         msg = "Email is not valid";
                         break;
-                    case "eml_4":
-                        msg = "User already exist";
-                        break;
                     case "eml_ok":
                         msg = "Email changed";
                         break;
                         
-                        
+                /* PASSWORD */    
+                    case "psw":
+                        msg = "Incorrect password";
+                        break;
                     case "psd_1":
                         msg = "Current passwrod is not valid";
                         break;
@@ -132,6 +130,7 @@ public class Message {
                         msg = "Password changed";
                         break;
                         
+                /* FOTO */     
                     case "pho_slt":
                         msg = "Please, select a photo";
                         break;
@@ -149,6 +148,15 @@ public class Message {
                     case "tmp":
                         msg = "Tampered data";
                         break;  
+                    case "alp":
+                        msg = "Please, insert alphanumeric characters only";
+                        break;
+                    case "log":
+                        msg = "Please log in to see this page";
+                        break;
+                    case "fld":
+                        msg = "All fields are required";
+                        break;
                         
                 default: msg = null;
             }

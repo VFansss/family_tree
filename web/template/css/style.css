@@ -84,7 +84,7 @@ header #search-bar{
     position:relative;
 }
 
-header #search-bar input[type=button]{
+header #search-bar input[type=submit]{
     opacity: 0;
     position:absolute;
     width:35px;
@@ -242,7 +242,8 @@ section.login .forgot-password {
 
 
 
-section.login .form-message{
+section.login .form-message,
+section.search .form-message{
     padding: 8px;
     color: #ddd;
     background: rgba(0,0,0,0.33);
@@ -250,7 +251,12 @@ section.login .form-message{
     border-radius: 4px;
 }
 
-section.login .form-message p{
+section.search .form-message{
+    font-size: 1.8em;
+}
+
+section.login .form-message p,
+section.search .form-message p{
     margin: 0 0 0 7px;
     display: inline-block;
 }
@@ -364,6 +370,9 @@ section.profile .dark-background .delete-relative a:hover{
 /*==========================================*/
 section.settings {
     margin-bottom: 20px;
+}
+section.settings .container-fluid{
+    pointer-events: none;
 }
 
 section.settings .wrapper{

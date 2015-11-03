@@ -6870,7 +6870,7 @@ fieldset[disabled] .btn-inverse.active {
 .panel-default .panel-footer {
   background: #fff;
 }
-.panel-default .panel-footer.padding-none {
+.padding-none {
   padding: 0;
 }
 .nav-tabs {

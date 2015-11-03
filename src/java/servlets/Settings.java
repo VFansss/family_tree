@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,8 +180,13 @@ public class Settings extends HttpServlet {
             
                 data.put("name", name);
                 data.put("surname", surname);
-                Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
-                data.put("birthdate", DataUtil.dateToString(sqlDate));
+                Date sqlDate;
+                try {
+                    sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+                    data.put("birthdate", DataUtil.dateToString(sqlDate));
+                } catch (ParseException ex) {
+                }
+                
                 data.put("birthplace", birthplace);
                 data.put("biography", biography);
 
@@ -202,9 +208,9 @@ public class Settings extends HttpServlet {
                     user_logged.setData(data);
                     msg = "dt_ok"; // Data changed
                     error = false;
-                } catch (SQLException ex) {
+                } catch (SQLException | ParseException ex) {
                     msg = "srv";
-                }
+                } 
 
             }
             

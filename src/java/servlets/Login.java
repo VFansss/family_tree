@@ -86,7 +86,7 @@ public class Login extends HttpServlet {
 
             // Se l'utente non esiste
             if(user_to_log == null){
-                msg = "usr";
+                msg = "usr_1";
 
             // Se la password dell'utente è sbagliata
             }else if(!user_to_log.checkPassword(password)){

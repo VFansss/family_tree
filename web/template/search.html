@@ -12,32 +12,44 @@
                     <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
                     <#if user_logged??>
                         <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthplace}"/>
-                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value="${values.birthdate}"/>
+                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value='<#if values.birthdate != "">${values.birthdate}</#if>'/>
                     <#else>
-                    <p><a href="signup">(proposta marco) messaggio per incitare a registrarsi ed avere più funzionalità<br>Come on, sign up today and you will get more and more features</a></p>
-                    
+                        <p><a href="signup">Come on, sign up today and you will get more and more features</a></p>
                     </#if>
 
                     <input type="hidden" name="source" value="filters" />
                 </fieldset>
-                <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
-                <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+                <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
+                    <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
+                    <button type="submit" class="btn btn-inverse pull-right filter-search-button">Search <i class="fa fa-fw fa-search"></i></button>
+                </div>
             </form>
         </div>
     </div>
 
-    <#if searching??>
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-            <a href="#">Showing results for "${searching}" <i class="fa fa-chevron-down"></i></a>
+    <#if message??>
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+            <div class="form-message text-center">
+                <i class="fa fa-times"></i><p>${message.msg}</p>
+            </div>
         </div>
+    <#else>
+        <#if searching??>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <a href="#">Showing results for "${searching}" <i class="fa fa-chevron-down"></i></a>
+            </div>
+        </#if>
     </#if>
-
+    
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 wrapper">
-        <#assign listed = false>
+        
         <#if results??>
             <#list results as user>
                 
-                <#assign listed = true>
+             
                 <!-- Tile -->
                 <div class="col-md-6 col-sm-6 tile rounded">
                     <div class="panel panel-body dark-background">
@@ -55,7 +67,7 @@
                                     
                                     <#if user_logged??>
                                         <li>
-                                            <p><i class="fa fa-calendar"></i> ${user.birthdate}</p>
+                                            <p><i class="fa fa-calendar"></i> ${user.birthdate?date?string("dd/MM/yyyy")}</p>
                                         </li>
                                         <li>
                                             <p><i class="fa fa-map-marker"></i> ${user.birthplace}</p>
@@ -118,13 +130,7 @@
             </#list>    
         </#if>
         
-        <#if listed = false>
-            <div class="md-12 tile rounded">
-                <div class="panel panel-body dark-background information-panel">
-                    <h3>No users found</h3>
-                </div>
-            </div>
-        </#if>
+        
         
     </div>
 </section>

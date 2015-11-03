@@ -45,7 +45,7 @@
                                         <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
                                         <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" required />
                                         
-                                            <select name="gender" class="form-control" >
+                                            <select name="gender" class="form-control" title = "Warning! If you change your gender, your family tree will be removed">
                                                 <#if user_logged.gender == "male">
                                                     <option value="male" selected>Male</option>
                                                     <option value="female">Female</option>

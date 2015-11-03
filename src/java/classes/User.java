@@ -7,6 +7,7 @@ import classes.tree.NodeList;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -149,7 +150,7 @@ public class User{
      * @param data          Map contenente i dati da modificare
      * @throws SQLException
      */
-    public void setData(Map<String, Object> data) throws SQLException{
+    public void setData(Map<String, Object> data) throws SQLException, ParseException{
         Database.updateRecord("user", data, "id = '" + this.getId() + "'");
         this.name = (String) data.get("name");
         this.surname = (String) data.get("surname");
@@ -168,7 +169,7 @@ public class User{
     }
 
     public void setPassword(String password) throws SQLException {
-        this.updateAttribute("password", password);
+        this.updateAttribute("password", DataUtil.crypt(password));
     }
     
     /**

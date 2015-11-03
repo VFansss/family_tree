@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.validator.EmailValidator;
@@ -32,11 +34,12 @@ public class DataUtil {
      * @return          true se la stringa è alfanumerica, false altrimenti.
      */
     public static boolean isAlphanumeric(String toCheck, boolean space){
-    
-        if (space){
-            return toCheck.matches("[a-zA-Z ]+");
+        if(toCheck.equals("")) return true;
+        
+        if(space){
+            return toCheck.matches("[a-zA-Z' ]+");
         }else{
-            return toCheck.matches("[a-zA-Z]+");
+            return toCheck.matches("[a-zA-Z']+");
         }
         
     }
@@ -62,7 +65,7 @@ public class DataUtil {
             
         // Se l'utente è già registrato
         }else if(User.getUserByEmail(email) != null){
-            msg = "eml_4"; // User already exist
+            msg = "usr_2"; // User already exist
         
         }else{
             error = false;
@@ -154,13 +157,17 @@ public class DataUtil {
             msg = "date_1"; // The date isn't in the right format
         }else{
             // Converti la data da String a Date
-            Date date = DataUtil.stringToDate(toCheck, "dd/MM/yyyy");
-            // Se la data non rientra nel range valido
-            if(date == null || !DataUtil.validateDateRange(date)){
+            Date date;
+            try {
+                date = DataUtil.stringToDate(toCheck, "dd/MM/yyyy");
+                if(DataUtil.validateDateRange(date)){
+                    error = false;
+                }
+            } catch (ParseException ex) {
                 msg = "date_2"; // The date in not valid
-            }else{
-                error = false;
             }
+            // Se la data non rientra nel range valido
+            
         }
             
         return new Message(msg, error);
@@ -176,19 +183,14 @@ public class DataUtil {
      * @param format    formato di date
      * @return          data nell formato yyyy-MM-dd
      */
-    public static Date stringToDate(String date, String format){
-        
-        try {
-            DateFormat formatter = new SimpleDateFormat(format);
-            java.util.Date myDate;
+    public static Date stringToDate(String date, String format) throws ParseException{
+        DateFormat formatter = new SimpleDateFormat(format);
+        java.util.Date myDate;
 
-            myDate = formatter.parse(date);
-            Date sqlDate = new Date(myDate.getTime());
-            return sqlDate;
-        } catch (ParseException ex) {
-            // Se il parse della data non va a buon fine, significa che la data non è nel formato giusto
-            return null;
-        }
+        myDate = formatter.parse(date);
+        Date sqlDate = new Date(myDate.getTime());
+        return sqlDate;
+        
     }
     
     /**

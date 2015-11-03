@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package it.collaborative_genealogy.servlets;
 
-import classes.Database;
-import classes.util.FreeMarker;
-import classes.User;
-import classes.UserList;
-import classes.tree.GenealogicalTree;
-import classes.util.DataUtil;
-import classes.util.Message;
+import it.collaborative_genealogy.Database;
+import it.collaborative_genealogy.util.FreeMarker;
+import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.UserList;
+import it.collaborative_genealogy.tree.GenealogicalTree;
+import it.collaborative_genealogy.util.DataUtil;
+import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

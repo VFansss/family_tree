@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.tree;
+package it.collaborative_genealogy.tree;
 
-import classes.User;
-import classes.UserList;
+import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.UserList;
 import java.sql.SQLException;
 import java.util.Iterator;
 

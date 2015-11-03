@@ -1,9 +1,11 @@
-package classes;
+package it.collaborative_genealogy;
 
-import classes.util.DataUtil;
-import classes.exception.NotAllowed;
-import classes.tree.GenealogicalTree;
-import classes.tree.NodeList;
+
+
+import it.collaborative_genealogy.util.DataUtil;
+import it.collaborative_genealogy.exception.NotAllowed;
+import it.collaborative_genealogy.tree.GenealogicalTree;
+import it.collaborative_genealogy.tree.NodeList;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -233,7 +235,7 @@ public class User{
      * Aggiungi il padre o la madre
      * @param user  genitore da aggiungere
      * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      */
     public void setParent(User user) throws SQLException, NotAllowed{
         this.canAddLikeParent(user);
@@ -294,7 +296,7 @@ public class User{
      * Inserisci la madre
      * @param mother
      * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      */
     public void setMother(User mother) throws SQLException, NotAllowed{
         this.setParent(mother);
@@ -322,7 +324,7 @@ public class User{
      * Inserisci il padre
      * @param father
      * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      */
     public void setFather(User father) throws SQLException, NotAllowed{
         this.setParent(father);
@@ -350,7 +352,7 @@ public class User{
     /**
      * Inserisci il coniuge
      * @param spouse
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      * @throws java.sql.SQLException
      */
     public void setSpouse(User spouse) throws NotAllowed, SQLException{
@@ -440,7 +442,7 @@ public class User{
     /**
      * Inserisci un figlio
      * @param user  figlio da inserire
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      * @throws java.sql.SQLException
      */
     public void setChild(User user) throws NotAllowed, SQLException{
@@ -453,7 +455,7 @@ public class User{
     /**
      * Elimina un figlio
      * @param user  utente da eliminare come figlio
-     * @throws classes.exception.NotAllowed 
+     * @throws it.collaborative_genealogy.exception.NotAllowed 
      * @throws java.sql.SQLException 
      */
     public void removeChild(User user) throws NotAllowed, SQLException{
@@ -630,7 +632,7 @@ public class User{
      * Aggiungi un fratello o una sorella
      * @param sibling  utente da aggiungere
      * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      */
     public void setSibling(User sibling) throws SQLException, NotAllowed {
         // Se {relative} non può essere aggiunto come fratello, restituisci false
@@ -696,7 +698,7 @@ public class User{
      * Aggiungi un genitore di un parente dell'utente
      * @param user      parente dell'utente
      * @param parent    genitore da aggiungere
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      * @throws java.sql.SQLException
      */
     public void addParentFor(User user, User parent) throws NotAllowed, SQLException {
@@ -707,7 +709,7 @@ public class User{
      * Aggiungi un figlio di un parente dell'utente
      * @param user      parente da aggiungere
      * @param child     figlio da aggiungere
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      * @throws java.sql.SQLException
      */
     public void addChildFor(User user, User child) throws NotAllowed, SQLException {
@@ -737,7 +739,7 @@ public class User{
      * @param user      utente a cui si vuole aggiungere un user
      * @param relative  parente da aggiungere
      * @param relationship    grado di parentela
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      * @throws java.sql.SQLException
      */
     public static void setRequestFor(User user, User relative, String relationship) throws NotAllowed, SQLException {
@@ -771,7 +773,7 @@ public class User{
      * Accetta richiesta di parentela
      * @param relative  parente a cui si è fatta la richiesta
      * @throws java.sql.SQLException
-     * @throws classes.exception.NotAllowed
+     * @throws it.collaborative_genealogy.exception.NotAllowed
      */
     public void acceptRequest(User relative) throws SQLException, NotAllowed {
         ResultSet request = Database.selectRecord("request", "user_id = '" + relative.getId() + "' AND relative_id = '" + this.id + "'");

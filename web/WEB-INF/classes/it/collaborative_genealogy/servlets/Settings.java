@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package it.collaborative_genealogy.servlets;
 
-import classes.util.FreeMarker;
-import classes.util.Message;
-import classes.User;
-import classes.util.DataUtil;
+import it.collaborative_genealogy.util.FreeMarker;
+import it.collaborative_genealogy.util.Message;
+import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.util.DataUtil;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;

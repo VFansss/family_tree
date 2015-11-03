@@ -5,31 +5,31 @@
     </welcome-file-list>
     <servlet>
         <servlet-name>Profile</servlet-name>
-        <servlet-class>servlets.Profile</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.Profile</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Signup</servlet-name>
-        <servlet-class>servlets.Signup</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.Signup</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>servlets.Login</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets.Logout</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Settings</servlet-name>
-        <servlet-class>servlets.Settings</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.Settings</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Search</servlet-name>
-        <servlet-class>servlets.Search</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.Search</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ImageView</servlet-name>
-        <servlet-class>servlets.ImageView</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.ImageView</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
@@ -75,7 +75,7 @@
     </resource-ref>
     <listener>
         <listener-class>
-            servlets.ContextInitializer
+            it.collaborative_genealogy.servlets.ContextInitializer
         </listener-class>
     </listener>
 </web-app>

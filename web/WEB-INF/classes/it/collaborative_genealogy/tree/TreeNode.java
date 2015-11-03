@@ -1,6 +1,6 @@
-package classes.tree;
+package it.collaborative_genealogy.tree;
 
-import classes.User;
+import it.collaborative_genealogy.User;
 import java.util.Objects;
 
 

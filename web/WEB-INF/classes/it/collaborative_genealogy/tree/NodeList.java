@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes.tree;
+package it.collaborative_genealogy.tree;
 
-import classes.Database;
-import classes.User;
+import it.collaborative_genealogy.Database;
+import it.collaborative_genealogy.User;
 import java.util.ArrayList;
 
 /**

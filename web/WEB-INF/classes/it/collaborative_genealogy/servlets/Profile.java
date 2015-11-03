@@ -1,4 +1,4 @@
-package servlets;
+package it.collaborative_genealogy.servlets;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,11 +6,11 @@ package servlets;
  * and open the template in the editor.
  */
 
-import classes.util.FreeMarker;
-import classes.tree.GenealogicalTree;
-import classes.tree.NodeList;
-import classes.tree.TreeNode;
-import classes.User;
+import it.collaborative_genealogy.util.FreeMarker;
+import it.collaborative_genealogy.tree.GenealogicalTree;
+import it.collaborative_genealogy.tree.NodeList;
+import it.collaborative_genealogy.tree.TreeNode;
+import it.collaborative_genealogy.User;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;

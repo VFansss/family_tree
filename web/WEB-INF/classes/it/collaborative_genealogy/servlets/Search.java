@@ -31,7 +31,6 @@ import java.util.logging.Logger;
  * @author Gianluca
  */
 public class Search extends HttpServlet {
-
     
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -104,7 +103,6 @@ public class Search extends HttpServlet {
 
             }else{
                 
-                
                 // Controllo del cognome
                 if(!DataUtil.isAlphanumeric(surname, true)) {
                     check = new Message("surname_1", true); // The surname must be alphanumeric
@@ -129,7 +127,6 @@ public class Search extends HttpServlet {
                     }
                 }
             }
-
             
             // Se non sono stati trovati errori
             if(!check.isError()){
@@ -149,7 +146,7 @@ public class Search extends HttpServlet {
         }else{
 
             if(results.isEmpty()){
-                data.put("message", new Message("usr_3", true)); 
+                data.put("message", new Message("usr_3", true)); // No users found
             }else{
                 data.put("results", results); 
             }

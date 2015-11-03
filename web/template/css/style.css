@@ -11,7 +11,7 @@ body{
 } 
 
 header{
-    z-index: -1 !important;
+    /*z-index: -1 !important;*/
 }
 section{
     z-index: 100 !important;
@@ -187,6 +187,9 @@ footer .ball.active{
 /*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
+section.login .title{
+    pointer-events: none;
+}
 
 section.login .title h1{
     font-family: Arvo;
@@ -195,6 +198,7 @@ section.login .title h1{
     color: #fff;
     margin: 50px 0;
     display: block;
+    
 }
 
 section.login .title img{

@@ -20,7 +20,7 @@
                     <input type="hidden" name="source" value="filters" />
                 </fieldset>
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
-                    <a href="search" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+                    <a href="search" id="search-reset-filters" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
@@ -32,7 +32,7 @@
 
     <#if message??>
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-            <div class="form-message text-center">
+            <div class="form-message text-center dark-background">
                 <i class="fa fa-times"></i><p>${message.msg}</p>
             </div>
         </div>

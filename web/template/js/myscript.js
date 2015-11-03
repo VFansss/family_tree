@@ -4,8 +4,16 @@
  * and open the template in the editor.
  */
 
-
 $(document).ready(function(){
     //Attivazione tooltips
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $("#search-reset-filters").click(function(e){
+       e.preventDefault();
+       
+       $(".filter-search-form :input").each(function(){
+           $(this).val('');
+       });
+    });
+        
 });

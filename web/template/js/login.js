@@ -22,40 +22,29 @@ $(document).ready(function(){
             }
         });
 
-//CHECK: E' una pagina di login o di signup?
- if( $('#signup_checker').length){isLogin=0;}
- else{isLogin=1; };
-
-
-if(isValid){
+        if(isValid){
             
-            $.ajax({
-            method: "POST",
-            url: (isLogin === 1) ? "login" : "signup",
-            data: $(this).serialize()})
-
-            .done(function(msg) {
+            var request = $.ajax({
+                method: "POST",
+                url: $(this).attr("action"),
+                data: $(this).serialize()
+            })
             
-                if(msg!==''){
-                //Messaggio di errore
-                $(".form-message").removeClass("hide");
-                $(".form-message p").text(msg);     
-                }
-              
-                else{
-                window.location = "profile";   
+            request.done(function(msg) {
+                if(msg !== ''){
+                    //Messaggio di errore
+                    $(".form-message").removeClass("hide");
+                    $(".form-message p").text(msg);     
+                }else{
+                    window.location = "profile";   
                 }
             })
             
-            .fail(function(xhr) {
-            alert("error xhr.status");
+            request.fail(function(xhr) {
+                //Messaggio di errore
+                $(".form-message").removeClass("hide");
+                $(".form-message p").text("Server error");
             });
-            
- 
         }
-
-
     });
-    
-    
 });

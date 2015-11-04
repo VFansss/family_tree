@@ -16,7 +16,7 @@ $(document).ready(function(){
         $('.form-control').each(function() {
             if ($(this).val() === '' ){
                 $(".form-message").removeClass("hide");
-                $(".form-message p").text("All field required");
+                $(".form-message p").html("All field required");
                 isValid=false;
                 return false;
             }
@@ -35,13 +35,13 @@ $(document).ready(function(){
                 if(msg !== ''){
                     //Messaggio di errore
                     $(".form-message").removeClass("hide");
-                    $(".form-message p").text(msg);
+                    $(".form-message p").html(msg);
                 }else{
                     window.location = "profile";   
                 }
                 // Abilita ajax
                 ajax_enabled = true;
-            })
+            });
             
             request.fail(function(xhr) {
                 //Messaggio di errore

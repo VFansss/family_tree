@@ -18,15 +18,20 @@
                                         <input class="uploader" type="file" name="photo-upload" />
                                     </div>
                                     
-                                    <#if action?? && action = "avatar">
-                                        <div class="form-message">
+                                    
+                                        <div class='form-message <#if !(action??) || action != "avatar">hide</#if>'>
+                                            
                                             <#if message.error == true>
-                                                <i class="fa fa-error"></i><p>${message.msg}</p>
+                                                <i class="fa fa-error"></i>
                                             <#else>
-                                                <i class="fa fa-check"></i><p>${message.msg}</p>
+                                                <i class="fa fa-check"></i>
+                                            </#if>
+                                            
+                                            <#if action?? && action = "avatar">    
+                                                <p>${message.msg}</p>
                                             </#if>
                                         </div>
-                                    </#if>
+                                    
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change avatar</button>
                                 </form>
 
@@ -62,15 +67,18 @@
                                         <textarea class="form-control" name="biography" placeholder="Biography"><#if user_logged.biography??>${user_logged.biography}</#if></textarea>
                                     </fieldset>
 
-                                    <#if action?? && action = "data">
-                                        <div class="form-message">
-                                            <#if message.error == true>
-                                                <i class="fa fa-error"></i><p>${message.msg}</p>
-                                            <#else>
-                                                <i class="fa fa-check"></i><p>${message.msg}</p>
-                                            </#if>
-                                        </div>
-                                    </#if>
+                                    <div class='form-message <#if !(action??) || action != "data">hide</#if>'>
+                                            
+                                        <#if message.error == true>
+                                            <i class="fa fa-error"></i>
+                                        <#else>
+                                            <i class="fa fa-check"></i>
+                                        </#if>
+
+                                        <#if action?? && action = "data">    
+                                            <p>${message.msg}</p>
+                                        </#if>
+                                    </div>
                                     
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change data</button>
 
@@ -96,15 +104,18 @@
                                     </fieldset>
 
                                     
-                                    <#if action?? && action = "email">
-                                        <div class="form-message">
-                                            <#if message.error == true>
-                                                <i class="fa fa-error"></i><p>${message.msg}</p>
-                                            <#else>
-                                                <i class="fa fa-check"></i><p>${message.msg}</p>
-                                            </#if>
-                                        </div>
-                                    </#if>
+                                    <div class='form-message <#if !(action??) || action != "email">hide</#if>'>
+                                            
+                                        <#if message.error == true>
+                                            <i class="fa fa-error"></i>
+                                        <#else>
+                                            <i class="fa fa-check"></i>
+                                        </#if>
+
+                                        <#if action?? && action = "email">    
+                                            <p>${message.msg}</p>
+                                        </#if>
+                                    </div>
                                    
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
 
@@ -128,15 +139,19 @@
                                         <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" required />
                                     </fieldset>
 
-                                    <#if action?? && action = "password">
-                                        <div class="form-message">
-                                            <#if message.error == true>
-                                                <i class="fa fa-error"></i><p>${message.msg}</p>
-                                            <#else>
-                                                <i class="fa fa-check"></i><p>${message.msg}</p>
-                                            </#if>
-                                        </div>
-                                    </#if>
+                                    <div class='form-message <#if !(action??) || action != "password">hide</#if>'>
+                                            
+                                        <#if message.error == true>
+                                            <i class="fa fa-error"></i>
+                                        <#else>
+                                            <i class="fa fa-check"></i>
+                                        </#if>
+
+                                        <#if action?? && action = "password">    
+                                            <p>${message.msg}</p>
+                                        </#if>
+                                    </div>
+                                    
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
 
                                 </form>

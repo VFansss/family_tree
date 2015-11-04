@@ -22,9 +22,11 @@
             <li>
                 <p><i class="fa fa-map-marker"></i> ${relative.user.birthplace}</p>
             </li>
-            <li>
-                <p><i class="fa fa-user"></i> ${relative.label?capitalize}</p>
-            </li>
+            <#if relative.label != "">
+                <li>
+                    <p><i class="fa fa-user"></i> ${relative.label?capitalize}</p>
+                </li>
+            </#if>
         </ul>
 
     </div>

@@ -116,17 +116,17 @@ public class Login extends HttpServlet {
             }
         
         }
-        
+        // Se si è verificato un errore
         if(error){
-            
+            // Se la servlet è stata chiamata con ajax
             if (ajax) {
+                // Definisci il messaggio per ricavarne la descrizione completa
                 Message message = new Message(msg, true);
-                // Handle ajax response. 
+                // Definisce la risposta alla chiamata ajax
                 response.setContentType("text/plain");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(message.getMsg());       
             } else {
-                // Handle regular response
                 // Torna alla pagine di login con messaggio di errore
                 response.sendRedirect("login?msg=" + URLEncoder.encode(msg, "UTF-8"));
             }

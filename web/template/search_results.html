@@ -24,7 +24,7 @@
                                 <#assign node = family_tree.getUser(user)!>
                                 <#if node.label?? && node.label != "">
                                     <li>
-                                        <p><i class="fa fa-user"></i> ${node.label}</p>
+                                        <p><i class="fa fa-user"></i> ${node.label?cap_first}</p>
                                     </li>
                                 </#if>
                             <#else>

@@ -5,12 +5,12 @@
  */
 
 $(document).ready(function(){
+    var ajax_enabled = true;
     
-    //Check campi login
     $("#loginform").submit(function( event ) {
-        
-        var isValid = true;
         event.preventDefault();
+        var isValid = true;
+        
         
         //Controllo se tutti i campi sono compilati
         $('.form-control').each(function() {
@@ -18,32 +18,37 @@ $(document).ready(function(){
                 $(".form-message").removeClass("hide");
                 $(".form-message p").text("All field required");
                 isValid=false;
-                
+                return false;
             }
         });
 
-        if(isValid){
-            
+        if(isValid && ajax_enabled){
+            // Disabilita ajax per evitare chiamate multiple
+            ajax_enabled = false;
             var request = $.ajax({
                 method: "POST",
                 url: $(this).attr("action"),
                 data: $(this).serialize()
-            })
+            });
             
             request.done(function(msg) {
                 if(msg !== ''){
                     //Messaggio di errore
                     $(".form-message").removeClass("hide");
-                    $(".form-message p").text(msg);     
+                    $(".form-message p").text(msg);
                 }else{
                     window.location = "profile";   
                 }
+                // Abilita ajax
+                ajax_enabled = true;
             })
             
             request.fail(function(xhr) {
                 //Messaggio di errore
                 $(".form-message").removeClass("hide");
                 $(".form-message p").text("Server error");
+                // Abilita ajax
+                ajax_enabled = true;
             });
         }
     });

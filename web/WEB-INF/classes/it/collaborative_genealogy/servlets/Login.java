@@ -77,7 +77,6 @@ public class Login extends HttpServlet {
         //Recupera la password dell'utente
         String password = request.getParameter("password");
         
-        
         //Controllo. Si tratta di una richiesta AJAX?
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         
@@ -85,6 +84,7 @@ public class Login extends HttpServlet {
         boolean error = true;
         if(email.equals("") && password.equals("")){
             msg = "fld"; // All fields required
+            
         }else{
             
             // Recupera l'utente
@@ -103,17 +103,15 @@ public class Login extends HttpServlet {
                 user_to_log.prepareToLog(request);
                 error = false;
                 
-                    if (ajax) {
+                if (ajax) {
                     // Handle ajax response.
-                        response.setContentType("text/plain");
-                        response.setCharacterEncoding("UTF-8");
-                        response.getWriter().write("");       
-                              }
-                    
-                    else{
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write("");       
+                }else{
                     // Handle regular response
-                        response.sendRedirect("profile");
-                        }
+                    response.sendRedirect("profile");
+                }
                 
             }
         
@@ -121,21 +119,18 @@ public class Login extends HttpServlet {
         
         if(error){
             
-            
             if (ajax) {
                 Message message = new Message(msg, true);
                 // Handle ajax response. 
                 response.setContentType("text/plain");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(message.getMsg());       
+            } else {
+                // Handle regular response
+                // Torna alla pagine di login con messaggio di errore
+                response.sendRedirect("login?msg=" + URLEncoder.encode(msg, "UTF-8"));
             }
-            
-            else {
-            // Handle regular response
-            // Torna alla pagine di login con messaggio di errore
-            response.sendRedirect("login?msg=" + URLEncoder.encode(msg, "UTF-8"));
-            }
-                }
+        }
         
         
     }

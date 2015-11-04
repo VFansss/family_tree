@@ -55,6 +55,7 @@ public class Search extends HttpServlet {
             data.put("user_logged", (User)session.getAttribute("user_logged"));
         } 
         
+        // Se la ricerca è stata effettuata dalla search-bar
         if(request.getParameter("search-bar-button") != null){
             
             /* Ricerca dalla search bar */
@@ -77,23 +78,31 @@ public class Search extends HttpServlet {
         }else{
             
             /* Ricerca dal form dei filtri */
+            // Recupero del nome
             String name = DataUtil.spaceTrim(request.getParameter("name"));
+            // Recupero del cognome
             String surname = DataUtil.spaceTrim(request.getParameter("surname"));
             input_filter.put("name", name);
             input_filter.put("surname", surname);
             
+            // Inizializzazione della data e luogo di nascita
             String birthplace = "";
             String birthdate = "";
+            // Se c'è una sessiona attiva
             if(session != null){
+                // Recupera la data e il luogo di nascita
                 birthplace = DataUtil.spaceTrim(request.getParameter("birthplace"));
                 birthdate = request.getParameter("birthdate").trim();
+                // Se è stata inserita una data di nascita
                 if(!birthdate.equals("")){
                     try {
+                        // Prova a convertire la data di nascita in Date e inserisci il risultato del data-model
                         input_filter.put("birthdate", DataUtil.stringToDate(birthdate, "dd/MM/yyyy").toString());
                     } catch (ParseException ex) {}
                 }else{
                     input_filter.put("birthdate", "");
                 }     
+                // Inserisci il luogo di nascita nel data-model
                 input_filter.put("birthplace", birthplace);
             }
             
@@ -101,32 +110,23 @@ public class Search extends HttpServlet {
             if(!DataUtil.isAlphanumeric(name, true)) {
                 check = new Message("name_1", true); // The name must be alphanumeric
 
-            }else{
-                
-                // Controllo del cognome
-                if(!DataUtil.isAlphanumeric(surname, true)) {
-                    check = new Message("surname_1", true); // The surname must be alphanumeric
+            // Controllo del cognome
+            }else if(!DataUtil.isAlphanumeric(surname, true)) {
+                check = new Message("surname_1", true); // The surname must be alphanumeric
 
-               
-                }else{
-                    
-                    // Se l'utente è loggato
-                    if(session != null){
-                        // Controllo della città di nascita
-                        check = DataUtil.checkBirthplace(birthplace);
-                        if(check.isError()) {
-                            
-                        }else{
-                            // Controllo della data di nascita
-                            if(!birthdate.equals("")){
-                                check = DataUtil.checkBirthdate(birthdate);
-                                
-                            }
-                        }    
-                        
+            // Se c'è una sessione attiva
+            }else if(session != null){
+                // Controllo della città di nascita
+                check = DataUtil.checkBirthplace(birthplace);
+                if(!check.isError()) {
+                    // Se è stata inserita una data di nascita
+                    if(!birthdate.equals("")){
+                        // Controllo della data di nascita
+                        check = DataUtil.checkBirthdate(birthdate);
                     }
-                }
+                }  
             }
+           
             
             // Se non sono stati trovati errori
             if(!check.isError()){
@@ -134,25 +134,31 @@ public class Search extends HttpServlet {
                 results = search(input_filter); 
             }
             
+            // Se c'è una sessione attiva
             if(session != null){
+                // Inserirsci la data di nascita del data-model
                 input_filter.put("birthdate", request.getParameter("birthdate").trim());
             }
             
         }
         
+        // Se è stato riscontrato qualche errore
         if(check.isError()){
             // Messaggio di errore
             data.put("message", check); 
         }else{
-
+            // Se non è stato trovato qualche utente
             if(results.isEmpty()){
                 data.put("message", new Message("usr_3", true)); // No users found
             }else{
+                // Mostra risultati
                 data.put("results", results); 
             }
         }
         
+        // Inserisci i campi compilati nel data-model
         data.put("values", input_filter); 
+        // Genera il data-model
         FreeMarker.process("search.html",data, response, getServletContext());
     }
 

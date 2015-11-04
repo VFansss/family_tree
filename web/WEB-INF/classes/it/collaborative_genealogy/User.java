@@ -96,18 +96,12 @@ public class User{
         return biography;
     }
     
-    public String getMotherId() {
-        
-        try {
-            /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
-            ResultSet record = Database.selectRecord("user", "id = '" + this.id +"'");
-            if(record.next()){
-                return record.getString("mother_id");
-            }
-        } catch (SQLException ex) {
-            return null;
+    public String getMotherId() throws SQLException {
+        /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
+        ResultSet record = Database.selectRecord("user", "id = '" + this.id +"'");
+        if(record.next()){
+            return record.getString("mother_id");
         }
-        
         return null;
     }
     

@@ -15,10 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.commons.validator.DateValidator;
 import org.apache.commons.validator.EmailValidator;
 
 /**
@@ -58,9 +55,8 @@ public class DataUtil {
         String msg = null;
         boolean error = true;
 
-        EmailValidator emailValidator=EmailValidator.getInstance();
         // Se l'email non è valida
-        if(!(emailValidator.isValid(email))){
+        if(!(EmailValidator.getInstance().isValid(email))){
             msg = "eml_3"; // Email is not valid
             
         // Se l'utente è già registrato
@@ -182,6 +178,7 @@ public class DataUtil {
      * @param date      data da convertire
      * @param format    formato di date
      * @return          data nell formato yyyy-MM-dd
+     * @throws java.text.ParseException
      */
     public static Date stringToDate(String date, String format) throws ParseException{
         DateFormat formatter = new SimpleDateFormat(format);
@@ -199,38 +196,7 @@ public class DataUtil {
      * @return      true se la data è nel formato corretto, false altrimenti
      */
     public static boolean validateDateFormat(String date){
-        String DATE_PATTERN =  "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
-        Pattern pattern = Pattern.compile(DATE_PATTERN);
-        Matcher matcher = pattern.matcher(date);
-        if(matcher.matches()){
-            matcher.reset();
-                if(matcher.find()){
-                    String day = matcher.group(1);
-                    String month = matcher.group(2);
-                    if(month.length() == 1){
-                        month = "0" + month;
-                    }
-                    int year = Integer.parseInt(matcher.group(3));
-				 
-                    if (day.equals("31") && 
-                        (month.equals("04") || month .equals("06") || month.equals("09"))) {
-			return false; // only 1,3,5,7,8,10,12 has 31 days
-                    } else if (month.equals("02")) {
-                        //leap year
-                        if(year % 4==0){
-                            return !(day.equals("30") || day.equals("31"));
-                        }else{
-                            return !(day.equals("29")||day.equals("30")||day.equals("31"));
-                        }
-                    }else{				 
-                        return true;				 
-                    }
-                }else{
-                    return false;
-                }		  
-            }else{
-                return false;
-            }
+        return DateValidator.getInstance().isValid(date, "dd/MM/yyyy", false);
     }
     
     /**
@@ -239,6 +205,7 @@ public class DataUtil {
      * @return      true se la data è corretta, false altrimenti
      */
     public static boolean validateDateRange(Date date){
+        
         // Calcola la data corrente
         java.util.Date current_date = new java.util.Date();
         // Calcola la data minima 01/01/1900)

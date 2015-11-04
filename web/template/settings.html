@@ -26,10 +26,7 @@
                                             <#else>
                                                 <i class="fa fa-check"></i>
                                             </#if>
-                                            
-                                            <#if action?? && action = "avatar">    
-                                                <p>${message.msg}</p>
-                                            </#if>
+                                            <p><#if action?? && action = "avatar">${message.msg}</#if></p>
                                         </div>
                                     
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change avatar</button>
@@ -75,9 +72,7 @@
                                             <i class="fa fa-check"></i>
                                         </#if>
 
-                                        <#if action?? && action = "data">    
-                                            <p>${message.msg}</p>
-                                        </#if>
+                                        <p><#if action?? && action = "data">${message.msg}</#if></p>
                                     </div>
                                     
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change data</button>
@@ -112,9 +107,7 @@
                                             <i class="fa fa-check"></i>
                                         </#if>
 
-                                        <#if action?? && action = "email">    
-                                            <p>${message.msg}</p>
-                                        </#if>
+                                        <p><#if action?? && action = "email">${message.msg}</#if></p>
                                     </div>
                                    
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
@@ -147,9 +140,7 @@
                                             <i class="fa fa-check"></i>
                                         </#if>
 
-                                        <#if action?? && action = "password">    
-                                            <p>${message.msg}</p>
-                                        </#if>
+                                        <p><#if action?? && action = "password">${message.msg}</#if></p>
                                     </div>
                                     
                                     <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>

@@ -69,6 +69,7 @@ public class Settings extends HttpServlet {
             data.put("message", new Message(msg, error));
             
             data.put("active_button", "settings");
+            data.put("settings_script", "");
             FreeMarker.process("settings.html",data, response, getServletContext());
             
         }else{
@@ -92,7 +93,10 @@ public class Settings extends HttpServlet {
 
         session = request.getSession(false);  
         user_logged = (User)session.getAttribute("user_logged");
-
+        
+        //Controllo. Si tratta di una richiesta AJAX?
+        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        
         // Se non è loggato nessun utente;
         if(!(action == null || (action.equals("data") || action.equals("email") || action.equals("password") || action.equals("avatar")))){
             // Vai alla pagina delle impostazioni
@@ -118,13 +122,19 @@ public class Settings extends HttpServlet {
                     break;
                 default: msg = new Message("tmp", true);
             }
-
-            if(msg.isError()){
-                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=error");
+            if(ajax){
+                // Definisce la risposta alla chiamata ajax
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(msg.toJSON()); 
             }else{
-                response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=check");
+                if(msg.isError()){
+                    response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=error");
+                }else{
+                    response.sendRedirect("settings?msg=" + URLEncoder.encode(msg.getCode(), "UTF-8") + "&action=" + action + "&type=check");
+                }
             }
-
+            
         }
     }
 

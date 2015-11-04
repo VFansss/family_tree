@@ -8,20 +8,23 @@ $(document).ready(function(){
     var ajax_enabled = true;
     
     $("form").submit(function( event ) {
+        
+//        $(".form-message").addClass("hide");
         event.preventDefault();
         var isValid = true;
         
         // Caching elementi
         var $form = $(this);
-        var $fields = $(this).find(".form-control");
+        var $fields = $(this).find(".form-control:not(textarea)");
         var $message = $form.find("div.form-message");
         var $icon = $message.find("i");
         var $paragraph = $message.find("p");
         
         //Controllo se tutti i campi sono compilati
         $fields.each(function() {
-            if ($(this).val() === '' ){
+            if ($(this).val() === ''){
                 $message.removeClass("hide");
+                $icon.attr("class", "fa fa-times");
                 $paragraph.html("All field required");
                 isValid=false;
                 return false;
@@ -31,20 +34,41 @@ $(document).ready(function(){
         if(isValid && ajax_enabled){
             // Disabilita ajax per evitare chiamate multiple
             ajax_enabled = false;
-            var request = $.ajax({
-                method: "POST",
-                url: $(this).attr("action"),
-                data: $(this).serialize()
-            });
+            var action = $(this).attr("action");
+            var request;
+           console.log(action);
+            if(action.indexOf("avatar") > -1){
+                request = $.ajax({
+                    method: "POST",
+                    url: $form.attr("action"),
+                    data: new FormData(this),
+                    dataType: "json",
+                    target: '#preview',
+                    contentType: false,
+                    cache: false,
+                    processData: false
+                });
+                
+            }else{
+                alert("ciao");
+                request = $.ajax({
+                    method: "POST",
+                    url: $form.attr("action"),
+                    data: $form.serialize(),
+                    dataType: "json"
+                });
+            }
+            
             
             request.done(function(msg) {
-                if(msg !== ''){
-                    //Messaggio di errore
-                    $message.removeClass("hide");
-                    $paragraph.html(msg);
+                if(msg["error"] === "true"){
+                     $icon.attr("class", "fa fa-times");
                 }else{
-                    window.location = "profile";   
+                     $icon.attr("class", "fa fa-check");  
                 }
+                $message.removeClass("hide");
+                $paragraph.html(msg["message"]);
+                
                 // Abilita ajax
                 ajax_enabled = true;
             });
@@ -52,6 +76,7 @@ $(document).ready(function(){
             request.fail(function(xhr) {
                 //Messaggio di errore
                 $message.removeClass("hide");
+                $icon.attr("class", "fa fa-times");
                 $paragraph.text("Server error");
                 // Abilita ajax
                 ajax_enabled = true;

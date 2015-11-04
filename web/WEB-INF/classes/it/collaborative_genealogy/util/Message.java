@@ -36,6 +36,11 @@ public final class Message {
         return error;
     }
     
+    public String toJSON() {
+        String error_string = this.error ? "true" : "false";
+        return "{\"message\":\"" + this.msg + "\", \"error\":\"" + error_string + "\"}";
+    }
+    
     public void getExtentedMessage(){
 
         if(this.code != null){

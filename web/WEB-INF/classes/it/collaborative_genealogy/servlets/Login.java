@@ -52,7 +52,7 @@ public class Login extends HttpServlet {
                 //Codifica del messaggio di errore sulla base del codice inviato
                 data.put("message", new Message(request.getParameter("msg"), true));
                 
-                data.put("auth_script", "");
+                data.put("login_script", "");
                 
                 FreeMarker.process("login.html",data, response, getServletContext());
             }else{

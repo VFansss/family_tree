@@ -6,8 +6,11 @@
 
 $(document).ready(function(){
     var ajax_enabled = true;
-    
-    $("form").submit(function( event ) {
+    $(".uploader").change(function(){
+        $(this).parents("form").find(".form-message").addClass("hide");
+        
+    });
+    $(".wrapper form").submit(function( event ) {
         
 //        $(".form-message").addClass("hide");
         event.preventDefault();
@@ -36,7 +39,6 @@ $(document).ready(function(){
             ajax_enabled = false;
             var action = $(this).attr("action");
             var request;
-           console.log(action);
             if(action.indexOf("avatar") > -1){
                 request = $.ajax({
                     method: "POST",
@@ -50,7 +52,6 @@ $(document).ready(function(){
                 });
                 
             }else{
-                alert("ciao");
                 request = $.ajax({
                     method: "POST",
                     url: $form.attr("action"),
@@ -62,12 +63,19 @@ $(document).ready(function(){
             
             request.done(function(msg) {
                 if(msg["error"] === "true"){
-                     $icon.attr("class", "fa fa-times");
+                    $icon.attr("class", "fa fa-times");
                 }else{
-                     $icon.attr("class", "fa fa-check");  
+                    $icon.attr("class", "fa fa-check");  
+
+                    if(action.indexOf("avatar") > -1){
+                        $(".to-refresh").attr("src", $(".to-refresh").attr("src") + "&code=" +  Math.random());
+                        $form.get(0).reset();
+                    }
+                        
                 }
                 $message.removeClass("hide");
                 $paragraph.html(msg["message"]);
+                
                 
                 // Abilita ajax
                 ajax_enabled = true;

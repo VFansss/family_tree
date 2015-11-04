@@ -5,6 +5,7 @@
  */
 package it.collaborative_genealogy.servlets;
 
+import it.collaborative_genealogy.util.DataUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,33 +32,41 @@ public class ImageView extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext cntx= getServletContext();
-        // Recupera l'id dell'utente
+        
+        String code = request.getParameter("code");
         String user_id = request.getParameter("id");
-        String filename = cntx.getRealPath("/template/profile/" + user_id + ".jpg");
-
-        String mime = cntx.getMimeType(filename);
-        if (mime == null) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
+        if(code == null){
+            response.sendRedirect("image-view?id=" + user_id + "&code=" + DataUtil.generateCode(5));
         }else{
-            response.setContentType(mime);
-            File file = new File(filename);
-            if(!file.exists()) file = new File(cntx.getRealPath("/template/images/default-avatar.jpg"));
-            response.setContentLength((int)file.length());
+            ServletContext cntx= getServletContext();
+            // Recupera l'id dell'utente
+            
+            String filename = cntx.getRealPath("/template/profile/" + user_id + ".jpg");
 
-            FileInputStream in = new FileInputStream(file);
-            OutputStream out = response.getOutputStream();
+            String mime = cntx.getMimeType(filename);
+            if (mime == null) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-            // Copy the contents of the file to the output stream
-            byte[] buf = new byte[1024];
-            int count = 0;
-            while ((count = in.read(buf)) >= 0) {
-                out.write(buf, 0, count);
+            }else{
+                response.setContentType(mime);
+                File file = new File(filename);
+                if(!file.exists()) file = new File(cntx.getRealPath("/template/images/default-avatar.jpg"));
+                response.setContentLength((int)file.length());
+
+                FileInputStream in = new FileInputStream(file);
+                OutputStream out = response.getOutputStream();
+
+                // Copy the contents of the file to the output stream
+                byte[] buf = new byte[1024];
+                int count = 0;
+                while ((count = in.read(buf)) >= 0) {
+                    out.write(buf, 0, count);
+                }
+                out.close();
+                in.close();
             }
-            out.close();
-            in.close();
         }
+        
     }
 
     /**

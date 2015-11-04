@@ -51,7 +51,9 @@ public class Login extends HttpServlet {
                 
                 //Codifica del messaggio di errore sulla base del codice inviato
                 data.put("message", new Message(request.getParameter("msg"), true));
-
+                
+                data.put("auth_script", "");
+                
                 FreeMarker.process("login.html",data, response, getServletContext());
             }else{
                 // Altrimenti vai alla pagina dell'utente loggato
@@ -75,6 +77,10 @@ public class Login extends HttpServlet {
         //Recupera la password dell'utente
         String password = request.getParameter("password");
         
+        
+        //Controllo. Si tratta di una richiesta AJAX?
+        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        
         String msg = null;
         boolean error = true;
         if(email.equals("") && password.equals("")){
@@ -95,16 +101,43 @@ public class Login extends HttpServlet {
             }else{
                 // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
                 user_to_log.prepareToLog(request);
-                response.sendRedirect("profile");
                 error = false;
+                
+                    if (ajax) {
+                    // Handle ajax response.
+                        response.setContentType("text/plain");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write("");       
+                              }
+                    
+                    else{
+                    // Handle regular response
+                        response.sendRedirect("profile");
+                        }
+                
             }
         
         }
         
         if(error){
+            
+            
+            if (ajax) {
+                Message message = new Message(msg, true);
+                // Handle ajax response. 
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(message.getMsg());       
+            }
+            
+            else {
+            // Handle regular response
             // Torna alla pagine di login con messaggio di errore
             response.sendRedirect("login?msg=" + URLEncoder.encode(msg, "UTF-8"));
-        }
+            }
+                }
+        
+        
     }
 
     /**

@@ -45,7 +45,7 @@ public class Signup extends HttpServlet {
     }
 
     /**
-     * Gestione della registrazione di un 
+     * Gestione della registrazione di un utente
      *
      * @param request servlet request
      * @param response servlet response
@@ -63,6 +63,10 @@ public class Signup extends HttpServlet {
         String birthdate    = request.getParameter("birthdate").trim();
 
         Message check;
+        
+        
+        //Controllo. Si tratta di una richiesta AJAX?
+        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 
         // Se non sono stati compilati tutti i campi
         if(email.equals("") || password.equals("") || name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
@@ -99,8 +103,21 @@ public class Signup extends HttpServlet {
 
         // Se è stato riscontrato un errore, 
         if(check.isError()){
-            // Vai alla pagina di signup mostrando l'errore
-            response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
+            
+            if (ajax) {
+                    // Handle ajax response.
+                        response.setContentType("text/plain");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write(check.getMsg());       
+                              }
+                    
+                    else{
+                    // Handle regular response
+                    // Vai alla pagina di signup mostrando l'errore
+                    response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
+                        }
+            
+            
 
         }else{
 
@@ -134,7 +151,20 @@ public class Signup extends HttpServlet {
                 // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
                 new_user.prepareToLog(request);
                 // Reindirizzamento alla pagina del profilo dell'utente
-                response.sendRedirect("profile");
+                
+                
+            if (ajax) {
+                    // Handle ajax response.  
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write("");  
+            }
+            else{
+                    // Handle regular response
+                    response.sendRedirect("profile");
+            }
+                
+                
             } catch (SQLException ex) {
                 response.sendRedirect("signup?msg=Error");
             }

@@ -10,7 +10,7 @@
         <div class="lock-container">
             <div class="panel-default text-center">
 
-                <form action="${action}" class="panel-body main-form" method="POST">
+                <form id="loginform" action="${action}" class="panel-body main-form" method="POST">
 
                     <fieldset class="rounded">
                         
@@ -19,7 +19,7 @@
 
                         <#if action == "signup">
                             <!-- Aggiunta dei campi per i dati utente in caso di signup -->
-                            <input class="form-control" name="name" type="text" placeholder="Name" />  
+                            <input id="signup_checker" class="form-control" name="name" type="text" placeholder="Name" />  
                             <input class="form-control" name="surname" type="text" placeholder="Surname" /> 
                             <select name="gender" class="form-control">
                                 <option value="" readonly selected>Gender</option>
@@ -43,7 +43,7 @@
                             <i class="fa fa-times"></i><p><#if message.msg??>${message.msg}</#if></p>
                         </div>
                     
-                    <button type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
+                    <button id="submit" type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
                     
                     <#if action == "login">
                         </form>

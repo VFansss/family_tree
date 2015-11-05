@@ -333,10 +333,10 @@ section.profile .tile-label p{
 }
 
 section.profile .tile-label i.fa-chevron-down{
-    -o-transition: all 0.6s linear;
-    -moz-transition: all 0.6s linear;
-    -webkit-transition: all 0.6s linear;
-    transition: all 0.6s linear;
+    -o-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
 }
 
 section.profile .tile-label i.fa-chevron-down.down{

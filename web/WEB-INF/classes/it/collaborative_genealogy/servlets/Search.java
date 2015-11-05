@@ -13,7 +13,6 @@ import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.util.DataUtil;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -104,6 +103,9 @@ public class Search extends HttpServlet {
                 }     
                 // Inserisci il luogo di nascita nel data-model
                 input_filter.put("birthplace", birthplace);
+                
+                String relative = request.getParameter("relative");
+                if(relative != null) data.put("selected_relative", relative); 
             }
             
             // Controllo del nome

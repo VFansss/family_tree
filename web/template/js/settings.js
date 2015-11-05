@@ -1,48 +1,59 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 $(document).ready(function(){
+    
+    // Abilita la chiamata ajax
     var ajax_enabled = true;
+    
+    // Quando si seleziona una nuova immagine
     $(".uploader").change(function(){
+        // Elimina messaggio del form
         $(this).parents("form").find(".form-message").addClass("hide");
-        
     });
+    
+    // Al submit del form
     $(".wrapper form").submit(function( event ) {
-        
-//        $(".form-message").addClass("hide");
+        // Non eseguire il comportamente di default del submit
         event.preventDefault();
+        
+        // Inizialmente, imposta il form come valido
         var isValid = true;
         
-        // Caching elementi
-        var $form = $(this);
-        var $fields = $(this).find(".form-control:not(textarea)");
-        var $message = $form.find("div.form-message");
-        var $icon = $message.find("i");
-        var $paragraph = $message.find("p");
+        // Caching degli elementi
+        var form = $(this);
+        var fields = form.find(".form-control:not(textarea)");
+        var message = form.find("div.form-message");
+        var icon = message.find("i");
+        var paragraph = message.find("p");
         
         //Controllo se tutti i campi sono compilati
-        $fields.each(function() {
-            if ($(this).val() === ''){
-                $message.removeClass("hide");
-                $icon.attr("class", "fa fa-times");
-                $paragraph.html("All field required");
+        fields.each(function() {
+            // Se il campo corrente non è stato compilato
+            if ($(this).val() === '' ){
+                // Mostra messaggio di errore
+                message.removeClass("hide");
+                paragraph.html("All field required");
+                // Imposta il form come non valido
                 isValid=false;
+                // Esci dal ciclo, in quanto basta un campo non compilato per invalidare il form
                 return false;
             }
         });
 
+        // Se il form è valido ed è possibile effetuare una chiamata ajax
         if(isValid && ajax_enabled){
-            // Disabilita ajax per evitare chiamate multiple
+            // Disabilita la chiamata ajax per evitare chiamate multiple
             ajax_enabled = false;
-            var action = $(this).attr("action");
+            // Recupera la servlet a cui fare la chiamata
+            var action = form.attr("action");
             var request;
+            
+            // Se si vuole cambiare l'avatar
             if(action.indexOf("avatar") > -1){
+                
+                // Imposta una chiamata ajax che sia in grado di gestire un file
                 request = $.ajax({
                     method: "POST",
-                    url: $form.attr("action"),
+                    url: action,
                     data: new FormData(this),
                     dataType: "json",
                     target: '#preview',
@@ -52,43 +63,53 @@ $(document).ready(function(){
                 });
                 
             }else{
+                
+                // Altrimenti, imposta una chiamata ajax normale
                 request = $.ajax({
                     method: "POST",
-                    url: $form.attr("action"),
-                    data: $form.serialize(),
+                    url: action,
+                    data: form.serialize(),
                     dataType: "json"
                 });
             }
             
-            
+            // Se la chiamata va a buon fine
             request.done(function(msg) {
+                // Se è ritornato un messaggio di errore
                 if(msg["error"] === "true"){
-                    $icon.attr("class", "fa fa-times");
+                    // Imposta messaggio di errore
+                    icon.attr("class", "fa fa-times");
                 }else{
-                    $icon.attr("class", "fa fa-check");  
-
+                    // Imposta messaggio di successo
+                    icon.attr("class", "fa fa-check");  
+                    
+                    // Se è stato cambiato l'avatar
                     if(action.indexOf("avatar") > -1){
+                        // Refresh dell'immagine (da rivedere)
                         $(".to-refresh").attr("src", $(".to-refresh").attr("src") + "&code=" +  Math.random());
-                        $form.get(0).reset();
+                        // Resetta il form
+                        form.get(0).reset();
                     }
                         
                 }
-                $message.removeClass("hide");
-                $paragraph.html(msg["message"]);
+                // Mostra messaggio di ritorno
+                message.removeClass("hide");
+                paragraph.html(msg["message"]);
                 
                 
-                // Abilita ajax
+                // Ribilita ajax
                 ajax_enabled = true;
             });
             
+            // Se la chiamata non va a buon fine
             request.fail(function(xhr) {
-                //Messaggio di errore
-                $message.removeClass("hide");
-                $icon.attr("class", "fa fa-times");
-                $paragraph.text("Server error");
-                // Abilita ajax
+                // Mostra essaggio di errore
+                message.removeClass("hide");
+                paragraph.text("Server error");
+                // Riabilita la chiamata ajax
                 ajax_enabled = true;
             });
         }
     });
+    
 });

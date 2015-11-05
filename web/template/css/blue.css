@@ -14519,9 +14519,8 @@ ul.friends-list li:nth-child(6n) {
   }
 }
 body {
-  background: url('../images/lock-1.jpg') no-repeat fixed;
+  
   padding-top: 0;
-  background-position: 25% 0%;
 }
 body.login #content {
   margin-left: 0;

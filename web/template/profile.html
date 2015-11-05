@@ -55,7 +55,7 @@
         <#if father?? || mother??>
         
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                <a href="#">Parents <i class="fa fa-chevron-down"></i></a>
+                <p>Parents <i class="fa fa-chevron-down"></i></p>
             </div>
 
             <!-- Parent tile -->
@@ -80,14 +80,14 @@
         <#if spouse??>
             <!-- Spouse -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                <a href="#">
+                <p>
                     <#if user_current.gender == "male">
                         Wife 
                     <#else>
                         Husband
                     </#if>    
                     <i class="fa fa-chevron-down"></i>
-                </a>
+                </p>
             </div>
         
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
@@ -101,7 +101,7 @@
         <#if children?has_content>
             <!-- Children -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                <a href="#">Children <i class="fa fa-chevron-down"></i></a>
+                <p>Children <i class="fa fa-chevron-down"></i></p>
             </div>
             
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
@@ -116,7 +116,7 @@
         <#if siblings?has_content>
             <!-- Siblings -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
-                <a href="#">Siblings <i class="fa fa-chevron-down"></i></a>
+                <p>Siblings <i class="fa fa-chevron-down"></i></p>
             </div>
            
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">

@@ -2,13 +2,13 @@
         <footer>
             <ul>
                 <li>
-                    <a href="profile" class='ball tree hover-blue <#if active_button?? && active_button == "profile">active</#if>'
+                    <a href="profile" class='ball tree hover-blue <#if active_button! == "profile">active</#if>'
                        title="Profile" data-toggle="tooltip" data-placement="right">
                         <i class="fa fa-user fa-2x"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="settings" class='ball settings hover-blue <#if active_button?? && active_button == "settings">active</#if>'
+                    <a href="settings" class='ball settings hover-blue <#if active_button! == "settings">active</#if>'
                        title="Settings" data-toggle="tooltip" data-placement="right">
                         <i class="fa fa-cog fa-2x"></i>
                     </a>

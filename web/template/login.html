@@ -10,7 +10,7 @@
         <div class="lock-container">
             <div class="panel-default text-center">
 
-                <form id="loginform" action="${action}" class="panel-body main-form" method="POST">
+                <form action="${action}" class="panel-body main-form" method="POST">
 
                     <fieldset class="rounded">
                         
@@ -40,7 +40,7 @@
                     
                     
                         <div class="form-message <#if !(message.msg??)>hide</#if>">
-                            <i class="fa fa-times"></i><p><#if message.msg??>${message.msg}</#if></p>
+                            <i class="fa fa-times"></i><p>${message.msg!}</p>
                         </div>
                     
                     <button id="submit" type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>

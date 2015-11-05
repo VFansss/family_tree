@@ -57,7 +57,7 @@
     /*==========================================*/
 
     section.profile #breadcrumb-nav{
-        margin: 5px 0;
+        margin: 2px 0;
     }
     
     section.profile .tile .biography-box{
@@ -106,11 +106,6 @@
     /*==========================================*/
     /*                PROFILE                   */
     /*==========================================*/
-    
-    section.profile #breadcrumb-nav .ball img{
-        margin: 3px 0;
-        
-    }
     
     section.profile #breadcrumb-nav{
         position:fixed;

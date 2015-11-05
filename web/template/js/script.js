@@ -17,27 +17,17 @@ $(document).ready(function(){
     
     var slide_lock = false;
     
-    $(".tile-label a").click(function(e){
-        e.preventDefault();
+    $(".tile-label p:not(.no-collapsed)").click(function(e){
         if(!slide_lock){
             slide_lock = true;
             
             var label = $(this);
             var tile = label.parent().next();
             
-            tile.slideToggle(function(){
-                
-                if(label.hasClass("collapsed")){
-                    label.removeClass("collapsed");
-                    label.children("i").removeClass("fa-chevron-right").addClass("fa-chevron-down");
-                } else {
-                    label.addClass("collapsed");
-                    label.children("i").removeClass("fa-chevron-down").addClass("fa-chevron-right"); 
-                }
-            });
+            tile.slideToggle(600, function(){});
             
+            label.find("i.fa-chevron-down").toggleClass("down");
             slide_lock = false;
         }
     });
-        
 });

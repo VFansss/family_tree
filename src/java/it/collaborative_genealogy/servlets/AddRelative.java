@@ -6,6 +6,7 @@
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.FreeMarker;
@@ -73,6 +74,30 @@ public class AddRelative extends HttpServlet {
             User user_to_add = User.getUserById((String)request.getParameter("user_to_add"));
             User user_current = User.getUserById((String)request.getParameter("user_current"));
             String relationship = (String)request.getParameter("relationship");
+            
+            try{
+                switch(relationship){
+                    case "parent":
+                        user_current.setParent(user_to_add);
+                        break;
+
+                    case "spouse":
+                        user_current.setSpouse(user_to_add);
+                        break;
+
+                    case "sibling":
+                        user_current.setSibling(user_to_add);
+                        break;
+
+                    case "child":
+                        user_current.setChild(user_to_add);
+                        break;
+                }
+            } catch(Throwable ex1){
+                PrintWriter out = response.getWriter();
+                
+                out.println("Eccezione raccolta" +ex1);
+            }
         }
     }
 

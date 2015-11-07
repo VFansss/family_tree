@@ -7,10 +7,8 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${# Space-separated list of extra javac options}</file>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.freemarker.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.mysql-connector-java-5.1.37-bin.jar}</file>
@@ -21,24 +19,13 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.commons-net-3.3.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.commons-validator-1.4.1.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${javac.compilerargs=}</file>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.gson-2.4.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
-                <root id="src.java.dir" name="Source Packages"/>
+                <root id="src.java.dir" name="Source Package"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>

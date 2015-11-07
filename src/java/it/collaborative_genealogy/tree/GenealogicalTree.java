@@ -148,6 +148,14 @@ public class GenealogicalTree{
         return null;
     }
     
+    //Il grado di parentela indicato dalla label è sulla base dell'utente loggato
+    public TreeNode getUser(String label){
+        for(TreeNode element: this.family_tree){
+            if(element.getLabel().equals(label)) return element;
+        }
+        return null; 
+    }
+    
     public TreeNode getUserById(String id){
         for(TreeNode element: this.family_tree){
             if(element.getUser().getId().equals(id)) return element;

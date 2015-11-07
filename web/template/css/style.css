@@ -320,6 +320,14 @@ section.profile .tile .anagraphics-info{
     padding: 0;
 }
 
+section.profile .blue-background .anagraphics-info a{
+    color: #303030;
+}
+
+section.profile .blue-background .anagraphics-info a:hover{
+    text-decoration: underline;
+}
+
 section.profile .tile-label{
     padding-left: 20px;
     margin-bottom: 10px;

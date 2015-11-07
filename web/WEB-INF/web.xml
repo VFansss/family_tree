@@ -31,6 +31,10 @@
         <servlet-name>ImageView</servlet-name>
         <servlet-class>it.collaborative_genealogy.servlets.ImageView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddRelative</servlet-name>
+        <servlet-class>it.collaborative_genealogy.servlets.AddRelative</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -58,6 +62,10 @@
     <servlet-mapping>
         <servlet-name>ImageView</servlet-name>
         <url-pattern>/image-view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRelative</servlet-name>
+        <url-pattern>/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

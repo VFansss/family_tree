@@ -10,6 +10,7 @@ import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.UserList;
 import it.collaborative_genealogy.tree.GenealogicalTree;
+import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.DataUtil;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
@@ -159,7 +160,20 @@ public class Search extends HttpServlet {
         }
         
         // Inserisci i campi compilati nel data-model
-        data.put("values", input_filter); 
+        data.put("values", input_filter);
+        
+        //--------------------------------------------
+        //         GESTIONE AGGIUNTA PARENTI
+        //--------------------------------------------
+        if(request.getParameter("add_to")!=null){
+            String add_to_id = request.getParameter("add_to");
+            
+            User add_to = User.getUserById(add_to_id);
+            
+            data.put("add_to", add_to);
+        }
+        
+        
         // Genera il data-model
         FreeMarker.process("search.html",data, response, getServletContext());
     }
@@ -174,6 +188,7 @@ public class Search extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         Map<String, Object> data = new HashMap<>();
         Map<String, String> input_filter = new HashMap<>();
         input_filter.put("name", "");
@@ -181,6 +196,36 @@ public class Search extends HttpServlet {
         input_filter.put("birthplace", "");
         input_filter.put("birthdate", "");
         data.put("values", input_filter); 
+        
+        
+        //Gestione pagina di arrivo per inserimento nuovo parente
+        HttpSession session = request.getSession(false);
+        
+        if(session!=null){            
+            
+            User user_logged = (User)session.getAttribute("user_logged");
+            
+            //Gestione aggiunta parente
+            if(request.getParameter("addto")!=null){
+                
+                try{
+                    TreeNode user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("addto"));
+                    User user_current = user_current_node.getUser();
+                    String relative_grade = user_current_node.getLabel();
+                    
+                    data.put("add_to", user_current);
+                    
+                } catch (NullPointerException ex){
+
+                    data.put("error", "manipulated_url");
+                }
+                
+            }
+            
+            data.put("user_logged", user_logged);
+            
+        }
+        
         FreeMarker.process("search.html",data, response, getServletContext());
     }
 

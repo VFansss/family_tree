@@ -5,7 +5,12 @@
     
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
         <div class="panel panel-body blue-background search-filters">
-            <h4>Add filters to your search</h4>
+            <#if add_to??>
+                <h4>Add parent to ${add_to.name} ${add_to.surname}</h4>
+                <p>Search for an existing user to add</p>
+            <#else>
+                <h4>Add filters to your search</h4>
+            </#if>
             <form action="search" method="POST">
                 <fieldset>
                     <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
@@ -13,16 +18,9 @@
                     <#if user_logged??>
                         <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${values.birthplace}"/>
                         <input class="form-control" type="text" name="birthdate" placeholder="Birthdate" value='<#if values.birthdate != "">${values.birthdate}</#if>'/>
-                        <select class="form-control" name="relative">
-                            <option value="" disabled selected>Select a relative</option>
-                            <#list family_tree.family_tree as node>
-                                <#assign user = node.user>
-                                <#if node.label != "">
-                                <option value="${user.id}" <#if selected_relative! == user.id>selected</#if>>${user.name} ${user.surname} (${node.label?capitalize}) </option>
-                                </#if>
-                            </#list>
-                        </select>
-                        <noscript><p class="information">After selecting a relative, click on search to add a user to selected relative</p></noscript>
+                        <#if add_to??>
+                            <input type="hidden" name="add_to" value="${add_to.id}"/>
+                        </#if>
                     <#else>
                         <a href="signup"><p>Come on, sign up today and you will get more and more features</p></a>
                     </#if>

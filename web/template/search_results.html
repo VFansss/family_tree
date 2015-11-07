@@ -35,12 +35,12 @@
                         </ul>
                     </div>
                 </div>
-                <#if user_logged??>
+                <#if user_logged?? && add_to??>
                     <div class="row">
                         <div class="col-md-12 relationship">
-                            <form action="#" method="post">
+                            <form action="add" method="post">
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <select>
+                                    <select name="relationship">
                                         <option value="" selected disabled>Select a relationship</option>
                                         <#if user.gender == "male">
                                             <option value="parent">Father</option>
@@ -57,7 +57,9 @@
                                     <i class="fa fa-caret-down select-icon"></i>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <input type="text" class="hidden selected-relative" value='${selected_relative!}'/>
+                                    <!-- POCA LEGGIBILITA' VARIABILI, SE RIUSCITE TROVATE NOMI PIU' APPROPRIATI -->
+                                    <input type="hidden" value="${add_to.id}" name="user_current"/> <!-- E' l'utente AL QUALE si sta aggiungendo -->
+                                    <input type="hidden" value="${user.id}" name="user_to_add"/> <!--E' l'utente CHE si sta aggiungendo -->
                                     <button type="submit" class="btn btn-default btn-xs pull-right"><i class="fa fa-fw fa-plus"></i> Add</button>
                                 </div>
                             </form>

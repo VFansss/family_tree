@@ -8,6 +8,9 @@ package it.collaborative_genealogy.servlets;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.TreeNode;
+import it.collaborative_genealogy.util.FreeMarker;
+import it.collaborative_genealogy.util.DataUtil;
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -45,18 +48,7 @@ public class AddRelative extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session!=null){
-            
-            // Recupero dell'utente loggato
-            User user_logged = (User)session.getAttribute("user_logged");
-            
-            
-            
-        } else {
-            // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
-        }
+
     }
 
     /**
@@ -71,7 +63,17 @@ public class AddRelative extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession(false);
         
+        if(session!=null){
+            
+            //Recupero utente loggato
+            User user_logged = (User)session.getAttribute("user_logged");
+            
+            User user_to_add = User.getUserById((String)request.getParameter("user_to_add"));
+            User user_current = User.getUserById((String)request.getParameter("user_current"));
+            String relationship = (String)request.getParameter("relationship");
+        }
     }
 
 

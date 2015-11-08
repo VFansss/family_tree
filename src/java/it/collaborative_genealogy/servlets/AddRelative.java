@@ -88,10 +88,20 @@ public class AddRelative extends HttpServlet {
                         user_current.setChild(user_to_add);
                         break;
                 }
-            } catch(SQLException | NotAllowed ex1){
+                
+                //Si deve ricostruire l'albero in cache perché è stato aggiunto un nuovo utente
+                session.setAttribute("family_tree", user_logged.getFamilyTree());
+                
+                response.sendRedirect("profile?id="+user_current.getId());
+                
+            } catch(SQLException ex){
                 PrintWriter out = response.getWriter();
                 
-                out.println("Eccezione raccolta" +ex1);
+                out.println("Si è verificato un errore con il database");
+            } catch(NotAllowed ex){
+                PrintWriter out = response.getWriter();
+                
+                out.println("Errore: impossibile aggiungere questo utente");
             }
         }
     }

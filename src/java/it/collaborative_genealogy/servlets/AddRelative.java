@@ -7,14 +7,9 @@ package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.exception.NotAllowed;
-import it.collaborative_genealogy.tree.GenealogicalTree;
-import it.collaborative_genealogy.tree.TreeNode;
-import it.collaborative_genealogy.util.FreeMarker;
-import it.collaborative_genealogy.util.DataUtil;
-import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -93,7 +88,7 @@ public class AddRelative extends HttpServlet {
                         user_current.setChild(user_to_add);
                         break;
                 }
-            } catch(Throwable ex1){
+            } catch(SQLException | NotAllowed ex1){
                 PrintWriter out = response.getWriter();
                 
                 out.println("Eccezione raccolta" +ex1);

@@ -777,7 +777,6 @@ public class User{
         while(request.next()){
             relationship = request.getString("relationship");
         }
-
         
         // Rimuovi la richiesta dal database
         relative.deleteRequest(this);
@@ -865,7 +864,7 @@ public class User{
             Per ipotesi non sono accettate relazioni sentimentali tra:
                 1. fratelli;
                 2. utente con i suoi antenati, e di conseguenza anche con i suoi discendenti; 
-                3. utenti dello stesso sesso (??)
+                3. utenti dello stesso sesso
         */
         
         
@@ -884,8 +883,7 @@ public class User{
         if(anchestors.contains(user)) throw new NotAllowed();
         
         // Se {user} è un discendente
-        UserList offsprings = this.getOffsprings();        
-        
+        UserList offsprings = this.getOffsprings();    
         if(!offsprings.contains(user)) throw new NotAllowed();
     }
     /**
@@ -897,37 +895,35 @@ public class User{
         // Se i due utenti sono già fratelli
         if(this.getSiblings().contains(user)) throw new NotAllowed();
         
-        Iterator iter;
-        
         User u1 = this;
         User u2 = user;
 
+        // Recupera i genitori dei due utenti
         UserList u1_parents = u1.getParents();
         UserList u2_parents = u2.getParents();
         
+        // Recupera il numero di genitori dei due utenti
         int u1_size = u1_parents.size();
         int u2_size = u2_parents.size();
         
         User u1_parent, u2_parent;
         
-        
-
         // Se entrambi gli utenti non hanno nessun genitore, non è possibile verificare la parentela {*}
         if(u2_size == 0 && u1_size == 0) throw new NotAllowed();
 
         // Se i due utenti hanno già entrambi i genitori, non è possibile che i due utenti siano fratelli {**}
         if(u2_size == 2 && u1_size == 2) throw new NotAllowed();
         
+        // Se entrambi gli utenti hanno un solo genitore
         if(u2_size == 1 && u1_size == 1){
-            iter = u1_parents.iterator();
-            u1_parent = (User)iter.next();
-            iter = u2_parents.iterator();
-            u2_parent = (User)iter.next();
+            // Recupera l'unico genitore di {u1}
+            u1_parent = (User) u1_parents.iterator().next();
+            // Reucpera l'unico genitore di {u2}
+            u2_parent = (User) u2_parents.iterator().next();
             // Se il genitore di {u1} e il genitore di {u2} sono dello stesso sesso e non identificano lo stesso utente, non è possibile che i due utenti siano fratelli
             if(!u1_parent.getGender().equals(u2_parent.getGender()) && !u1_parent.equals(u2_parent)) throw new NotAllowed();
-
-            // Se il genitore di {u2} non può essere coniuge di {u1}
-            u2.canAddLikeSpouse(u1);
+            // Verifica se il genitore di {u2} può essere coniuge del genitore di {u1}
+            u2_parent.canAddLikeSpouse(u1_parent);
             
         }
         
@@ -942,15 +938,15 @@ public class User{
                 }
 
             }
-
+            
+            // Se {u2} ha un solo genitore e {u1} gli ha entrmabi
             if(u2_size == 1 && u1_size == 2){
-                iter = u1_parents.iterator();
-                u1_parent = (User)iter.next();
+                // Recupera l'unico genitore di {u2}
+                u2_parent = u2_parents.iterator().next();
                 
-                // Se il genitore di {u1} non è anche genitore di {u2}
-                if(!u2_parents.contains(u1_parent)) throw new NotAllowed();
+                // Se il genitore di {u2} non è anche genitore di {u1}
+                if(!u1_parents.contains(u2_parent)) throw new NotAllowed();
 
-                
                 User other_parent;
                 // Se {u2} ha solo la madre
                 if(u2.getMother() != null){
@@ -960,8 +956,8 @@ public class User{
                     // Altrimenti recupara la madre di {u1}
                     other_parent = u1.getMother();
                 }
-                // Se l'altro genitore di {u2} può essere aggiunto come genitore di {u1}
-                u1.canAddLikeParent(other_parent);
+                // Se l'altro genitore di {u1} può essere aggiunto come genitore di {u2}
+                u2.canAddLikeParent(other_parent);
             }
 
             /* 
@@ -990,7 +986,7 @@ public class User{
      * @return  true se l'utente è stato aggiunto con successo, false altrimenti
      */
     private void canAddLikeChild(User user) throws SQLException, NotAllowed { 
-        // Se {user} non puo diventare genitore dell'utente corrente, restituisci false
+        // Verifica se {user} può aggiungere l'utente corrente come genitore
         user.canAddLikeParent(this);
     }
     /**

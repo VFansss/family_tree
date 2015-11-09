@@ -1,5 +1,6 @@
 package it.collaborative_genealogy.servlets;
 
+import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.NodeList;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -163,6 +165,19 @@ public class Profile extends HttpServlet {
                             data.put("message", "User added to family");
                             break;
                     }
+                }
+                
+                // Controllo richieste in arrivo
+                int request_count = 0;
+                try { 
+                    ResultSet record = user_current.getRequest();
+                    while(record.next()){
+                        request_count++;
+                    }
+                } catch (SQLException ex) {
+                    request_count = 0;
+                } finally {
+                data.put("request", request_count);
                 }
                 
                 

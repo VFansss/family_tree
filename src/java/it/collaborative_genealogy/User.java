@@ -710,13 +710,25 @@ public class User{
     
     //<editor-fold defaultstate="collapsed" desc="Recupero e gestione richieste di parentela">
     
+    /**
+     * Recupera le richieste di parentela ricevute
+     * @return
+     * @throws SQLException
+     */
     public ResultSet getRequest() throws SQLException{   
         ResultSet request = Database.selectRecord("request", "relative_id = '" + this.id + "'");        
         return request;
     }
     
-    public void setRequest(User relative, String relationship) throws NotAllowed, SQLException {
-        
+    /**
+     * Invia una richiesta di parentela
+     * @param relative
+     * @param relationship
+     * @throws NotAllowed
+     * @throws SQLException
+     */
+    public void sendRequest(User relative, String relationship) throws NotAllowed, SQLException {
+        // Verifica se l'utente corrente può aggiungere {relative} come parente
         this.canAddLike(relative, relationship);
         
         this.send_handler(relative, relationship);
@@ -730,8 +742,8 @@ public class User{
      * @throws it.collaborative_genealogy.exception.NotAllowed
      * @throws java.sql.SQLException
      */
-    public static void setRequestFor(User user, User relative, String relationship) throws NotAllowed, SQLException {
-        // Se {user} non può aggiungere {relative} come parente
+    public static void sendRequestFor(User user, User relative, String relationship) throws NotAllowed, SQLException {
+        // Verifica se {user} può aggiungere {relative} come parente
         user.canAddLike(relative, relationship);
         // Ritorna
         user.send_handler(relative, relationship);
@@ -750,7 +762,6 @@ public class User{
             INVIARE EMAIL DI RICHIESTA  
         */
 
-        
     }
 
     //</editor-fold>
@@ -1125,7 +1136,7 @@ public class User{
     }
     
      /**
-     * Recupera un utente attraverso il suo ID
+     * Recupera un utente attraverso la sua e-mail
      * @param user_email   email utente
      * @return          
      */
@@ -1152,7 +1163,7 @@ public class User{
     }
     
     /**
-     * Verifica la password ci un utente
+     * Verifica la password dell'utente
      * @param password      password da verificare
      * @return              true se la password è verificata, falsa altrimenti
      */
@@ -1169,7 +1180,7 @@ public class User{
     }
     
     /**
-     * Elimina un utente
+     * Elimina l'utente
      * @throws java.sql.SQLException
      */
     public void delete() throws SQLException{

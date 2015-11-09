@@ -6,6 +6,7 @@ import it.collaborative_genealogy.util.DataUtil;
 import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.NodeList;
+import it.collaborative_genealogy.tree.TreeNode;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,8 +61,7 @@ public class User{
         this.birthplace = birthplace;
         this.biography = biography;
     }
-    
-     
+   
     //<editor-fold defaultstate="collapsed" desc="Metodi GET delle variabili di istanza">
     
     public String getId(){
@@ -175,8 +175,9 @@ public class User{
      * @throws java.sql.SQLException
      */
     public void setNumRelatives() throws SQLException {
-        // Recupero tutti i parenti dell'utente corrente
-        UserList family_tree = this.getUnlabeledTree();
+        // Recupero i parenti dell'utente corrente
+        NodeList family_tree = this.getFamilyTree().getFamily(this);
+        
         // Calcola il numero di parenti (-1 per non considerare il parente stesso)
         int tree_size = family_tree.size() - 1;
         
@@ -185,8 +186,8 @@ public class User{
         
         // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
         String condition = "";
-        for(User user: family_tree){
-            condition = condition + "id = '" + user.id + "' OR ";
+        for(TreeNode user: family_tree){
+            condition = condition + "id = '" + user.getUser().getId() + "' OR ";
         }
         condition = condition.substring(0, condition.length()-4);
         // Aggoirna il numero di parenti
@@ -1011,73 +1012,13 @@ public class User{
     //<editor-fold defaultstate="collapsed" desc="Gestione albero genealogico">
 
     /**
-     * Recupera i componenti dell'alabero genealogico dell'utente senza etichette
-     * @return  lista di utenti che fanno parte dell'albero genealogico
-     * @throws java.sql.SQLException
-     */
-    public UserList getUnlabeledTree() throws SQLException {
-        
-        // Inizializza l'albero con i solo discendenti degli antenati
-        UserList family_tree_final = new UserList();
-        UserList evaluated = new UserList();
-        // Aggiungi l'utente corrente al proprio albero genealogico
-        family_tree_final.add(this);
-        int number_relatives;
-
-        do{
-            
-            // Inizializza albero temporaneo
-            UserList family_tree_temp = new UserList();
-            // Calcola numero di parenti inseriti 
-            number_relatives = family_tree_final.size();
-            // Per ogni parente già inserito nell'albero
-            for(User relative: family_tree_final){
-                
-                // Se è già stato valutato, salta iterazione
-                if(evaluated.contains(relative)) continue;
-                
-                // Aggiungi all'abero temporaneo gli antenati del parente
-                UserList ancestors = relative.getAncestors();
-                
-                
-                
-                
-                // Se l'utente non ha antenati, inserisci l'utente stesso tra gli antenati, cosi da poter cercare i suoi discendenti
-                if(ancestors.isEmpty()) ancestors.add(relative);
-                
-                family_tree_temp.addAll(ancestors);
-                
-                // Per ogni antenato trovato
-                for(User ancestor: ancestors){
-                    // Se l'antenato è già stato valutato, passa al prossimo antenato
-                    if(evaluated.contains(ancestor)) continue;
-                    // Aggiungi all'albero temporaneo tutti i suoi discendenti (quindi anche i discendenti del parente stesso)
-                    family_tree_temp.addAll(ancestor.getOffsprings());
-                }
-                
-                // Aggiungi all'albero temporaneo il coniuge del parente
-                family_tree_temp.add(relative.getSpouse());
-                // Aggiungi il parente nella lista dei parenti già valutati
-                evaluated.add(relative);
-            }
-            
-            // Aggiungi l'albero temporaneo a quello finale
-            family_tree_final.addAll(family_tree_temp);
-            
-        // Cicla fino a quando non sono stati aggiungi nuovi utenti nell'albero finale
-        }while(number_relatives != family_tree_final.size());
-
-        // Ritorna albero finale
-        return family_tree_final;
-    }
-    /**
      * Verifica se l'utente è "parente" ad un altro: con parente si intende qualsiasi utente raggiungibile attraverso legami di parentela
      * @param user  parente da cercare
      * @return      true se l'user è tra i parenti, false altrimenti
      * @throws java.sql.SQLException
      */
     public boolean isRelative(User user) throws SQLException {
-        // Inizializza l'albero con i solo discendenti degli antenati
+        
         UserList family_tree_final = new UserList();
         UserList evaluated = new UserList();
         // Aggiungi l'utente corrente al proprio albero genealogico
@@ -1096,6 +1037,7 @@ public class User{
                 if(evaluated.contains(relative)) continue;
                 // Aggiungi all'abero temporaneo gli antenati del parente
                 UserList ancestors = relative.getAncestors();
+                // Se l'utente da trovare è tra gli antenati, ritorna true
                 if(ancestors.contains(user)) return true;
                 
                 // Se l'utente non ha antenati, inserisci l'utente stesso tra gli antenati, cosi da poter cercare i suoi discendenti
@@ -1105,24 +1047,27 @@ public class User{
                 
                 // Per ogni antenato trovato
                 for(User ancestor: ancestors){
+                    // Se l'utente è già stato valutato
                     if(evaluated.contains(ancestor)) continue;
+                    // Recupera i discendenti 
+                    UserList offsprings = ancestor.getOffsprings();
+                    // Se l'utente da trovare è tra i discententi, ritorna true
+                    if(offsprings.contains(user)) return true;
                     // Aggiungi all'albero temporaneo tutti i suoi discendenti (quindi anche i discendenti dell'parente stesso)
-                    family_tree_temp.addAll(ancestor.getOffsprings());
-                    if(family_tree_temp.contains(user)) return true;
+                    family_tree_temp.addAll(offsprings);
+                   
                 }
-                
+                User spouse = relative.getSpouse();
+                // Se l'utente da trovare è il coniuge
+                if(spouse.equals(user)) return true;
                 // Aggiungi all'albero temporaneo il coniuge del parente
-                family_tree_temp.add(relative.getSpouse());
-                if(family_tree_temp.contains(user)) return true;
+                family_tree_temp.add(spouse);
                 evaluated.add(relative);
             }
             
             // Aggiungi l'albero temporaneo a quello finale
             family_tree_final.addAll(family_tree_temp);
-            
-            // Elimina duplicati nell'albero
-//            family_tree_final.removeDuplicate();
-            
+
         // Cicla fino a quando non sono stati aggiungi nuovi utente nell'albero finale
         }while(number_relatives != family_tree_final.size());
 
@@ -1147,9 +1092,13 @@ public class User{
      */
     public UserList getFamilyCore() throws SQLException{
         UserList family_core = new UserList();
+        // Aggiungi i genitori
         family_core.addAll(this.getParents());
+        // Aggiungi i figli
         family_core.addAll(this.getChildren());
+        // Aggiungi i fratelli
         family_core.addAll(this.getSiblings());
+        // Aggiungi il coniuge
         family_core.add(this.getSpouse());
         return family_core;
     }

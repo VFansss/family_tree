@@ -1,7 +1,5 @@
 package it.collaborative_genealogy;
 
-
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,19 +9,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 /**
- * Author
+ * 
  * @author Marco
  */
-
 public class Database { 
     private static Connection db;
-    public static PrintWriter out;
-    private static boolean connect;
-
-    
-    public static void setOut(PrintWriter out){
-        Database.out = out;
-    }
     
     /**
      * Connessione al database
@@ -34,27 +24,14 @@ public class Database {
         InitialContext ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/collaborative_genealogy");
         Database.db  = ds.getConnection();
-        Database.connect = true;
     }
     
-    /**
-     * Verifica se il database è connesso
-     * @return true se il db è connesso, false altrimenti
-     */
-    public static boolean isConnected(){
-        return Database.connect;
-    }
-    
-     
     /**
      * Chiusura connessione al database
      * @throws java.sql.SQLException
      */
     public static void close() throws SQLException{
-      
         Database.db.close();
-        connect = false;
-        
     }
     
     /**
@@ -223,8 +200,6 @@ public class Database {
         String query = "UPDATE " + table + " SET " + attribute + " = NULL WHERE " + condition;
         return Database.updateQuery(query);
     }
-     
-    //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Metodi ausiliari.">
     

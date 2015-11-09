@@ -1,16 +1,11 @@
 package it.collaborative_genealogy.servlets;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.NodeList;
 import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.UserList;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;
@@ -20,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.sql.SQLException;
-
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +25,7 @@ import java.sql.SQLException;
 public class Profile extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Carica la pagina del profilo
      *
      * @param request servlet request
      * @param response servlet response
@@ -150,7 +145,12 @@ public class Profile extends HttpServlet {
 
 
                 breadcrumb.add(family_tree.getUser(user_current));
-
+                
+                // Se bisogna ripulire la breadcrumb
+                if(request.getParameter("clear") != null && request.getParameter("clear").equals("true")){
+                    breadcrumb.cleaner();
+                }
+                
                 // Inserimento del nuovo breadcrumb nella variabile di sessione
                 session.setAttribute("breadcrumb", breadcrumb);
                 // Inserimento del breadcrumb nel data-model

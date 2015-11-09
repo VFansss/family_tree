@@ -8,23 +8,23 @@ import java.util.Objects;
  *
  * @author Marco
  */
-public class TreeNode {
+public final class TreeNode {
     private final String label;
     private final User user;
     
-     public String getLabel() {
+    public TreeNode(User user, String label){
+        this.label = label;
+        this.user = user;
+    }
+     
+    public String getLabel() {
         return this.label;
     }
 
     public User getUser() {
         return this.user;
     }
-    
-    public TreeNode(User user, String label){
-        this.label = label;
-        this.user = user;
-    }
-    
+
     public static String getNewLabel(String label, String relationship){
         
         if(label.contains("You")) return relationship;

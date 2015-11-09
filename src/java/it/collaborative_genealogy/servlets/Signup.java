@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Marco
+ * @author Alessio
  */
 public class Signup extends HttpServlet {
 

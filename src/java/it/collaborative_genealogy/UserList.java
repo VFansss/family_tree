@@ -16,11 +16,10 @@ import java.util.LinkedHashSet;
 public final class UserList extends LinkedHashSet<User>{
     
     /**
-     * Verifica se un utente appartiene ad una lista
-     * @param user  utente da ricercare
-     * @return      true se l'utente appartiene alla lista, false altrimenti
+     * Aggiungi un utente ad una lista
+     * @param user  utente da aggiungere
+     * @return      true se l'utente è stato aggiungo alla lista, false altrimenti
      */
-    
     @Override
     public boolean add(User user){
         if(user != null){
@@ -29,13 +28,5 @@ public final class UserList extends LinkedHashSet<User>{
         return false;
     }
     
-    /** Debugging: mostra tutti i nomi degli utenti appartenenti alla lista
-     *
-     */
-    public void analize(){
-        for(User element: this){
-            Database.out.println(element.getName());
-        }
-    }
     
 }

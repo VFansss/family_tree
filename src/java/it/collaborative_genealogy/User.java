@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 public class User{
     
-    private String id;
+    private final String id;
     private String name;
     private String surname;
     private String email;
@@ -146,6 +146,7 @@ public class User{
      * Aggiorna i dati anagrafici dell'utente
      * @param data          Map contenente i dati da modificare
      * @throws SQLException
+     * @throws java.text.ParseException
      */
     public void setData(Map<String, Object> data) throws SQLException, ParseException{
         Database.updateRecord("user", data, "id = '" + this.getId() + "'");
@@ -174,7 +175,7 @@ public class User{
      * @throws java.sql.SQLException
      */
     public void setNumRelatives() throws SQLException {
-        
+        // Recupero tutti i parenti dell'utente corrente
         UserList family_tree = this.getUnlabeledTree();
         // Calcola il numero di parenti (-1 per non considerare il parente stesso)
         int tree_size = family_tree.size() - 1;
@@ -182,13 +183,13 @@ public class User{
         Map<String, Object> data = new HashMap<>();
         data.put("num_relatives", tree_size);
         
+        // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
         String condition = "";
-        //Bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
         for(User user: family_tree){
             condition = condition + "id = '" + user.id + "' OR ";
         }
         condition = condition.substring(0, condition.length()-4);
-
+        // Aggoirna il numero di parenti
         Database.updateRecord("user", data, condition);
     }
     
@@ -204,10 +205,10 @@ public class User{
      */
     public UserList getParents() throws SQLException{
         UserList parent = new UserList();
-        User mother = this.getMother();
-        User father = this.getFather();
-        if(mother != null) parent.add(mother);
-        if(father != null) parent.add(father);
+        // Aggiunta della madre
+        parent.add(this.getMother());
+        // Aggiunta del padre
+        parent.add(this.getFather());
         return parent;
     }
     /**
@@ -218,14 +219,16 @@ public class User{
      */
     public User getParent(String gender) throws SQLException{
         String parent;
+        // Se bisogna restituire il genitore femmina
         if(gender.equals("female")){
-            parent = this.getMotherId();
+            // Restituire la madre
+            return this.getMother();
         }else{
-            parent = this.getFatherId();
-        }
-        return User.getUserById(parent);
-        
+            // Altrimenti, restituire il padre
+            return this.getFather();
+        }        
     }
+    
     /**
      * Aggiungi il padre o la madre
      * @param user  genitore da aggiungere
@@ -243,8 +246,6 @@ public class User{
         
         // Aggiorna numero parenti
         this.setNumRelatives();
-        
-        
         
     }
     /**
@@ -351,43 +352,34 @@ public class User{
      * @throws java.sql.SQLException
      */
     public void setSpouse(User spouse) throws NotAllowed, SQLException{
-        User spouse_before = null;
-        if(this.getSpouseId() != null && !this.getSpouse().equals(spouse)) {
-            spouse_before = this.getSpouse();
-        }
         
+        // Veridica se l'utente corrente può aggiungere {spouse} come coniuge
         this.canAddLikeSpouse(spouse);
        
+        // Aggiungi il coniuge
         this.updateAttribute("spouse_id", spouse.getId());
 
-        // Cambia anche il coniuge dell'utente appena aggiunto se non è già stato fatto
+        // Se non è già stato fatto, cambia anche il coniuge dell'utente appena aggiunto
         if(spouse.getSpouse() == null) {
-            spouse.setSpouse(User.getUserById(this.id));
+            spouse.setSpouse(this);
         }           
-
-        // Eliminare il coniuge dell'utente appena eliminato come coniuge
-        if(spouse_before != null){
-            spouse_before.removeSpouse();
-            // Aggiorna numero parenti del coniuge eliminato
-            spouse_before.setNumRelatives();
-        }
 
         // Aggiorna numeri parenti
         this.setNumRelatives();
-            
-        
-        
-        
+
     }
     /**
      * Rimuovi il coniuge
      * @throws java.sql.SQLException
      */
     public void removeSpouse() throws SQLException {
-        User spouse = this.getSpouse();
+        
+        // Elimina il coniuge a entrambi i coniugi
         Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
+        User spouse = this.getSpouse();
+        // Se i due ex-coniugi non sono più parenti
         if(!this.isRelative(spouse)){
-            // Aggiorna numero di parenti
+            // Aggiorna il numero di parenti di entrambi
             this.setNumRelatives();
             spouse.setNumRelatives();
         }
@@ -867,6 +859,8 @@ public class User{
                 3. utenti dello stesso sesso
         */
         
+        // Se l'utente corrente o {user} hanno già un coniuge
+        if(this.getSpouse() != null || user.getSpouse() != null) throw new NotAllowed();
         
         // Se {user} ha lo stesso sesso
         if(this.gender.equals(user.getGender())) throw new NotAllowed();
@@ -1146,6 +1140,20 @@ public class User{
         return tree;
     }
     
+     /**
+     * Recupera i componenti del nucleo familiare dell'utente
+     * @return  lista digli utenti che compongono il nucleo familiare dell'utente
+     * @throws java.sql.SQLException
+     */
+    public UserList getFamilyCore() throws SQLException{
+        UserList family_core = new UserList();
+        family_core.addAll(this.getParents());
+        family_core.addAll(this.getChildren());
+        family_core.addAll(this.getSiblings());
+        family_core.add(this.getSpouse());
+        return family_core;
+    }
+    
     //</editor-fold>
     
     /**
@@ -1194,34 +1202,21 @@ public class User{
         }
     }
     
-    
     /**
-     * Recupera un utente attraverso il suo ID
-     * @param password      password utente
-     * @return          
+     * Verifica la password ci un utente
+     * @param password      password da verificare
+     * @return              true se la password è verificata, falsa altrimenti
      */
     public boolean checkPassword(String password){
         
-        /*
-        
-            DA MIGLIORARE CON PASSWORD CRIPTATE
-        
-        */
         try {
- 
-            try (ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'")) {
-                if(record.next()){
-                    return DataUtil.decrypt(record.getString("password"), password); 
-                }
-                return false;
+            ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'");
+            if(record.next()){
+                return DataUtil.decrypt(record.getString("password"), password); 
             }
-
-            
-            
-        } catch (SQLException ex) {
-            return false;
-        }
+        } catch (SQLException ex) { }
         
+        return false;
     }
     
     /**
@@ -1240,9 +1235,11 @@ public class User{
     }
     
     public void prepareToLog(HttpServletRequest request){
-        // Altrimenti, fai il login dell'utente
+        // Apri la sessione
         HttpSession session = request.getSession();
+        // Inserisci l'utente corrente nella variabile di sessione
         session.setAttribute("user_logged", this);
+        // Inizializza la breadcrumb
         session.setAttribute("breadcrumb", new NodeList());
 
         try {
@@ -1251,6 +1248,7 @@ public class User{
             session.setAttribute("family_tree", null);
         }
     }
+ 
     //<editor-fold defaultstate="collapsed" desc="Metodi ausiliari">
         
     /**

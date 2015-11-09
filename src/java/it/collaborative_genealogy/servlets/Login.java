@@ -35,31 +35,31 @@ public class Login extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        if(Database.isConnected()){
-            HttpSession session = request.getSession(false);  
-            //Se non è stata generata la sessione
-            if(session == null){
-                Map<String, Object> data = new HashMap<>();
-                
-                /* Gestione azione da sbolgere */
-                    // Recupera l'azione da svolgere (login o signup)
-                    String action = (String) request.getAttribute("action");
-                    // Se l'azione non è stata definita o non è valida, impostala come l'azione di login
-                    if(action == null || (action.equals("login") && action.equals("signup"))) action = "login";
-                    // Inserisci l'azione nel data-model
-                    data.put("action", action);
-                
-                //Codifica del messaggio di errore sulla base del codice inviato
-                data.put("message", new Message(request.getParameter("msg"), true));
-                
-                data.put("login_script", "");
-                
-                FreeMarker.process("login.html",data, response, getServletContext());
-            }else{
-                // Altrimenti vai alla pagina dell'utente loggato
-                response.sendRedirect("profile");
-            }
+        
+        HttpSession session = request.getSession(false);  
+        //Se non è stata generata la sessione
+        if(session == null){
+            Map<String, Object> data = new HashMap<>();
+
+            /* Gestione azione */
+                // Recupera l'azione da svolgere (login o signup)
+                String action = (String) request.getAttribute("action");
+                // Se l'azione non è stata definita o non è valida, impostala come l'azione di login
+                if(action == null || (action.equals("login") && action.equals("signup"))) action = "login";
+                // Inserisci l'azione nel data-model
+                data.put("action", action);
+
+            //Codifica del messaggio di errore sulla base del codice inviato
+            data.put("message", new Message(request.getParameter("msg"), true));
+
+            data.put("login_script", "");
+
+            FreeMarker.process("login.html",data, response, getServletContext());
+        }else{
+            // Altrimenti vai alla pagina dell'utente loggato
+            response.sendRedirect("profile");
         }
+        
     }
 
     /**

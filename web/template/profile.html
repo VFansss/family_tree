@@ -6,10 +6,17 @@
         <div id="breadcrumb-nav" class="col-md-12">                 
 
             <#list breadcrumb as node>
-            <a href="profile?id=${node.user.id}" class="ball" title='${node.user.name} <#if node.label != "">(${node.label?capitalize})</#if>' data-toggle="tooltip"  data-placement="right">
+                <a href="profile?id=${node.user.id}" class="ball" title='${node.user.name} <#if node.label != "">(${node.label?capitalize})</#if>' data-toggle="tooltip"  data-placement="right">
                     <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="profile" />
                 </a>
-            </#list>  
+            </#list> 
+            
+            <#if !(breadcrumb?size < 3)>
+                <a href="profile?id=${user_current.id}&clear=true" class="ball" title="Clear breadcrumb" data-toggle="tooltip"  data-placement="right">
+                   <img src="template/images/cleaner.png" class="img-circle img-cover" alt="profile" />
+                </a>
+            </#if>
+            
             
         </div>
 

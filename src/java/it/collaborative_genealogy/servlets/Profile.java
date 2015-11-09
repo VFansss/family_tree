@@ -35,31 +35,30 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> data = new HashMap<>();
-        
-        //Gestione sessione
-        HttpSession session = request.getSession(false);  
-        
-        //Se è stata generata la sessione
-        if(session != null){
-            
-            // Recupero dell'utente loggato
-            User user_logged = (User)session.getAttribute("user_logged");
-            
-            // Recupero dell'utente corrente
-            User user_current;
-            TreeNode user_current_node;
-            String relative_grade = null;
-            if (request.getParameter("id") != null){
-                user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id"));
-                user_current = user_current_node.getUser();
-                relative_grade = user_current_node.getLabel();
-            } else {
-                user_current = user_logged;
-            }
-            
-            // Se l'utente corrente esiste
-            if(user_current != null){
-                
+    
+        try{    
+
+            //Gestione sessione
+            HttpSession session = request.getSession(false);  
+
+            //Se è stata generata la sessione
+            if(session != null){
+
+                // Recupero dell'utente loggato
+                User user_logged = (User)session.getAttribute("user_logged");
+
+                // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
+                User user_current;
+                TreeNode user_current_node;
+                String relative_grade = null;
+                if (request.getParameter("id") != null){
+                    user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id"));
+                    user_current = user_current_node.getUser();
+                    relative_grade = user_current_node.getLabel();
+                } else {
+                    user_current = user_logged;
+                }
+
                 GenealogicalTree family_tree = (GenealogicalTree)session.getAttribute("family_tree");
 
                 /* Recupero dei parenti dell'utente corrente */
@@ -71,7 +70,7 @@ public class Profile extends HttpServlet {
                 } catch (SQLException ex) {
                     father = null;
                 }
-                
+
                 // Recupero della madre
                 TreeNode mother;
                 try {
@@ -79,7 +78,7 @@ public class Profile extends HttpServlet {
                 } catch (SQLException ex) {
                     mother = null;
                 }
-                
+
                 // Recupero del coniuge
                 TreeNode spouse;
                 try {
@@ -125,7 +124,7 @@ public class Profile extends HttpServlet {
                     breadcrumb.clear();
 
                 }else{
-                    
+
                     Iterator iter = breadcrumb.iterator();
                     boolean remove = false;
                     while(iter.hasNext()){
@@ -145,32 +144,41 @@ public class Profile extends HttpServlet {
 
 
                 breadcrumb.add(family_tree.getUser(user_current));
-                
+
                 // Se bisogna ripulire la breadcrumb
                 if(request.getParameter("clear") != null && request.getParameter("clear").equals("true")){
                     breadcrumb.cleaner();
                 }
-                
+
                 // Inserimento del nuovo breadcrumb nella variabile di sessione
                 session.setAttribute("breadcrumb", breadcrumb);
                 // Inserimento del breadcrumb nel data-model
                 data.put("breadcrumb", breadcrumb);
-                data.put("active_button", "profile");               
+                data.put("active_button", "profile");     
+                
+                // Controllo messaggio
+                if(request.getParameter("msg")!=null){
+                    switch(request.getParameter("msg")){
+                        case "oksnd":
+                            data.put("message", "User added to family");
+                            break;
+                    }
+                }
+                
+                
                 // Caricamento del template
                 FreeMarker.process("profile.html",data, response, getServletContext());
-                
-            // Altrimenti, se l'utente non esiste o se non è possibile visualizzare il suo profilo
+
             }else{
-                // Vai alla pagina di errore
-                response.sendRedirect("error");
+                // Vai alla pagina di login e mostra messaggio di errore
+                response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
             }
-            
-            
-        }else{
-            // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
+
+        } catch (Exception e){
+            response.sendRedirect("error");
         }
     }
+
 
     /**
      * Returns a short description of the servlet.

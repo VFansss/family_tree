@@ -1194,6 +1194,10 @@ public class User{
         Database.deleteRecord("user", "id = '" + this.id + "'");
     }
     
+    /**
+     * Imposta le variabili di sessione necessarie
+     * @param request
+     */
     public void prepareToLog(HttpServletRequest request){
         // Apri la sessione
         HttpSession session = request.getSession();

@@ -34,7 +34,7 @@
                     </div>
                     <ul class="anagraphics-info">
                         <li>
-                            <p><i class="fa fa-calendar"></i> ${user_current.birthdate}</p>
+                            <p><i class="fa fa-calendar"></i> ${user_current.birthdate?date?string("dd/MM/yyyy")}</p>
                         </li>
                         <li>
                             <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
@@ -121,34 +121,34 @@
         </#if>
 
         
-        <#if children?has_content>
+        <#list children>
             <!-- Children -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
                 <p>Children <i class="fa fa-chevron-down"></i></p>
             </div>
             
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-                <#list children as child>
+                <#items as child>
                     <#assign relative = child>
                     <#include "profile-tile.html">
-                </#list>
+                </#items>
             </div>
-        </#if>
+        </#list>
 
          
-        <#if siblings?has_content>
+        <#list siblings>
             <!-- Siblings -->
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
                 <p>Siblings <i class="fa fa-chevron-down"></i></p>
             </div>
            
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
-                <#list siblings as sibling>
+                <#items as sibling>
                     <#assign relative = sibling>
                     <#include "profile-tile.html">
-                </#list>
+                </#items>
             </div>
-        </#if>
+        </#list>
 
 
     </section>

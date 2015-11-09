@@ -1,9 +1,11 @@
 
 <div class="panel panel-body dark-background">
-    <form action="#" class="delete-relative hover-blue">
-        <button href="#"><i class="fa fa-times"></i></button>
-    </form>
-
+    
+    <#if relative.label == "father" || relative.label == "mother" || relative.label == "daughter" ||relative.label == "son" || relative.label == "husband" || relative.label == "wife" >
+        <form action="#" class="delete-relative hover-blue">
+            <button href="#"><i class="fa fa-times"></i></button>
+        </form>
+    </#if>
     <div class="col-md-12 top-name">
         <a href="profile?id=${relative.user.id}">
             <h3 class="hover-blue">${relative.user.name} ${relative.user.surname}</h3>
@@ -17,7 +19,7 @@
         </div>
         <ul class="anagraphics-info">
             <li>
-                <p><i class="fa fa-calendar"></i> ${relative.user.birthdate}</p>
+                <p><i class="fa fa-calendar"></i> ${relative.user.birthdate?date?string("dd/MM/yyyy")}</p>
             </li>
             <li>
                 <p><i class="fa fa-map-marker"></i> ${relative.user.birthplace}</p>

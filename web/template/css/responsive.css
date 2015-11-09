@@ -109,7 +109,8 @@
     
     section.profile #breadcrumb-nav{
         position:fixed;
-        left: 0;
+        left: 5px;
+        top: 67px;
         width: 50px;
         display: inline-block;
     }

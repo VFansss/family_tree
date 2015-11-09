@@ -198,9 +198,11 @@ section.login .title{
     pointer-events: none;
 }
 
+
+/*== HEADER ==*/
 section.login .title h1{
-    font-family: Arvo;
-    font-size: 60px;
+    font-family: "Droid Sans";
+    font-size: 70px;
     font-weight: bolder;
     color: #fff;
     margin: 50px 0;

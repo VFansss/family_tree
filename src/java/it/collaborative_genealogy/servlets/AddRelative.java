@@ -9,6 +9,7 @@ import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.exception.NotAllowed;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,36 +72,36 @@ public class AddRelative extends HttpServlet {
             String relationship = (String)request.getParameter("relationship");
             
             try{
-                switch(relationship){
-                    case "parent":
-                        user_current.setParent(user_to_add);
-                        break;
-
-                    case "spouse":
-                        user_current.setSpouse(user_to_add);
-                        break;
-
-                    case "sibling":
-                        user_current.setSibling(user_to_add);
-                        break;
-
-                    case "child":
-                        user_current.setChild(user_to_add);
-                        break;
-                }
+                user_current.canAddLike(user_to_add, relationship);
                 
                 //Si deve ricostruire l'albero in cache perché è stato aggiunto un nuovo utente
                 session.setAttribute("family_tree", user_logged.getFamilyTree());
                 
+                /*BISOGNA INSERIRE LA RICHIESTA NEL DATABASE E MANDARE LA MAIL:
+                La richiesta viene inserita nella tabella request, che ha i seguenti campi:
+                user_id è l'id dell'utente al quale si aggiunge il parente
+                relative_id è l'id dell'utente che si aggiunge
+                relationship è il tipo di relazione che viene aggiunta
+                */
+                
+                String user_id = user_current.getId();
+                String relative_id = user_to_add.getId();
+                
+                Map<String, Object> database_data = new HashMap<String, Object>();
+                
+                database_data.put("user_id", user_id);
+                database_data.put("relative_id", relative_id);
+                database_data.put("relationship", relationship);
+                
                 response.sendRedirect("profile?id="+user_current.getId());
                 
             } catch(SQLException ex){
-                PrintWriter out = response.getWriter();
                 
+                PrintWriter out = response.getWriter();
                 out.println("Si è verificato un errore con il database");
             } catch(NotAllowed ex){
-                PrintWriter out = response.getWriter();
                 
+                PrintWriter out = response.getWriter();
                 out.println("Errore: impossibile aggiungere questo utente");
             }
         }

@@ -36,8 +36,8 @@ public class NodeList extends ArrayList<TreeNode>{
         ListIterator iter = this.listIterator(0);
         // Iteratore inverso
         ListIterator iterator_reverse;
-        // Oggetti di supporto
-        User user,user_to_check, user_to_delete;
+        // Oggetti User di supporto
+        User user, user_to_check, user_to_delete;
         UserList family_core;
         // Flag per controllare se è stato eliminato qualche utente
         boolean deleted = false;
@@ -57,7 +57,6 @@ public class NodeList extends ArrayList<TreeNode>{
                     if(user.equals(user_to_check)) break;
                     // Se {user_to_check} fa parte del nucleo familiare di {user} 
                     if(family_core.contains(user_to_check)){
-          
                         // Per ogni utente da eliminare
                         while(iter.hasNext()){
                             user_to_delete = ((TreeNode) iter.next()).getUser();

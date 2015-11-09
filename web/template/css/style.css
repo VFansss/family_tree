@@ -255,7 +255,8 @@ section.login .forgot-password {
 
 
 section.login .form-message,
-section.search .form-message{
+section.search .form-message,
+section.profile .form-message{
     padding: 8px;
     color: #ddd;
     background: rgba(0,0,0,0.33);
@@ -275,7 +276,8 @@ section.search .form-message p{
 
 
 section.login .form-message p,
-section.search .form-message p{
+section.search .form-message p,
+section.profile .form-message p{
     margin: 0 0 0 7px;
     display: inline-block;
 }
@@ -465,6 +467,10 @@ section.settings .avatar i{
     padding-top: 12px;
     font-size: 2em;
     color: #999;
+}
+
+p.adding-subtitle{
+    padding-left: 15px;
 }
 
 /*==========================================*/

@@ -1,35 +1,48 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Error 404 - Collaborative Genealogy</title>
+        
+        <title>
+            Page not found | Collaborative Genealogy
+        </title>
+        
         <!-- icon -->
         <link rel="shortcut icon" href="template/images/favicon.ico" />
+        
+        <!-- Alex Plus Styling -->
+        <link href='https://fonts.googleapis.com/css?family=Droid+Sans:700,400' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+            
         <!-- App Styling Bundle -->
-        <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
         <link href="template/css/blue.css" rel="stylesheet">
         <link href="template/css/style.css" rel="stylesheet">
         <link href="template/css/responsive.css" rel="stylesheet">
-        <!--Script-->   
+        <!--Script-->
+        <script src="template/js/vendor.min.js"></script>
+        <script src="template/js/script.js"></script>
     </head>
     
     <body>
+        
         <header>
+            
             <div class="xs-hidden" id="tree-icon">
-                <a href="/Collaborative_Genealogy/"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
+                <a href="/collaborative_genealogy/"><img class="pull-left" src="template/images/tree-icon-200.png" alt="tree logo"/></a>
             </div>
+            
             <div id="search-bar" class="col-md-4 col-sm-4 col-xs-8">
                 <form method="POST" action="search" >
-                    <input type="button" value="Search" />
-                    <input placeholder="Search" type="text" name="search" required />
-
+                    <input type="submit" name="search-bar-button" value="search-bar" />
+                    <input type="text" name="search-bar-input" placeholder="Search" required />
                 </form>
-            </div>         
+            </div>
+
         </header>
 
         <section class="profile">

@@ -58,6 +58,7 @@
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/search</url-pattern>
+        <url-pattern>/addrelative</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ImageView</servlet-name>
@@ -65,7 +66,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddRelative</servlet-name>
-        <url-pattern>/add</url-pattern>
+        <url-pattern>/add-request</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

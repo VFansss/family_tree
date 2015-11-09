@@ -1001,7 +1001,7 @@ public class User{
      * @param relationship    grado di parentela
      * @return  true se l'utente è stato aggiunto come coniuge, false altrimenti
      */
-    private void canAddLike(User user, String relationship) throws SQLException, NotAllowed {
+    public void canAddLike(User user, String relationship) throws SQLException, NotAllowed {
         
         switch(relationship){
             

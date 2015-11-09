@@ -468,6 +468,10 @@ section.settings .avatar i{
     color: #999;
 }
 
+p.adding-subtitle{
+    padding-left: 15px;
+}
+
 /*==========================================*/
 /*                 SEARCH                   */
 /*==========================================*/

@@ -77,23 +77,9 @@ public class AddRelative extends HttpServlet {
                 //Si deve ricostruire l'albero in cache perché è stato aggiunto un nuovo utente
                 session.setAttribute("family_tree", user_logged.getFamilyTree());
                 
-                /*BISOGNA INSERIRE LA RICHIESTA NEL DATABASE E MANDARE LA MAIL:
-                La richiesta viene inserita nella tabella request, che ha i seguenti campi:
-                user_id è l'id dell'utente al quale si aggiunge il parente
-                relative_id è l'id dell'utente che si aggiunge
-                relationship è il tipo di relazione che viene aggiunta
-                */
+                User.sendRequestFor(user_current, user_to_add, relationship);
                 
-                String user_id = user_current.getId();
-                String relative_id = user_to_add.getId();
-                
-                Map<String, Object> database_data = new HashMap<String, Object>();
-                
-                database_data.put("user_id", user_id);
-                database_data.put("relative_id", relative_id);
-                database_data.put("relationship", relationship);
-                
-                response.sendRedirect("profile?id="+user_current.getId());
+                response.sendRedirect("profile?id="+user_current.getId()+"msg=oksnd");
                 
             } catch(SQLException ex){
                 

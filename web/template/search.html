@@ -6,12 +6,12 @@
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
         <div class="panel panel-body blue-background search-filters">
             <#if add_to??>
-                <h4>Add parent to ${add_to.name} ${add_to.surname}</h4>
-                <p>Search for an existing user to add</p>
+                <h4>Add relative to ${add_to.name} ${add_to.surname}</h4>
+                <p class="adding-subtitle">Search for an existing user to add</p>
             <#else>
                 <h4>Add filters to your search</h4>
             </#if>
-            <form action="search" method="POST">
+            <form action=<#if add_to??>"addrelative"<#else>"search"</#if> method="POST">
                 <fieldset>
                     <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
                     <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
@@ -22,13 +22,13 @@
                             <input type="hidden" name="add_to" value="${add_to.id}"/>
                         </#if>
                     <#else>
-                        <a href="signup"><p>Come on, sign up today and you will get more and more features</p></a>
+                        <a href="signup"><p>Sign up you and get more and more features</p></a>
                     </#if>
 
                 </fieldset>
                 
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
-                    <a href="search" id="search-reset-filters" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
+                    <a href=<#if add_to??>"addrelative?to=${add_to.id}"<#else>"search"</#if> id="search-reset-filters" class="btn btn-default pull-left">Reset filters <i class="fa fa-fw fa-times"></i></a>
                 </div>
 
                 <div class="col-md-6 col-sm-6 col-xs-6 padding-none">
@@ -41,7 +41,7 @@
     <#if message??>
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
             <div class="form-message text-center dark-background">
-                <i class="fa fa-times"></i><p>${message.msg}</p>
+                <p><i class="fa fa-times"></i> ${message.msg}</p>
             </div>
         </div>
     <#else>

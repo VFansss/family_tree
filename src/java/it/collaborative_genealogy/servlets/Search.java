@@ -162,6 +162,7 @@ public class Search extends HttpServlet {
         // Inserisci i campi compilati nel data-model
         data.put("values", input_filter);
         
+        
         //--------------------------------------------
         //         GESTIONE AGGIUNTA PARENTI
         //--------------------------------------------
@@ -206,10 +207,10 @@ public class Search extends HttpServlet {
             User user_logged = (User)session.getAttribute("user_logged");
             
             //Gestione aggiunta parente
-            if(request.getParameter("addto")!=null){
+            if(request.getParameter("to")!=null){
                 
                 try{
-                    TreeNode user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("addto"));
+                    TreeNode user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("to"));
                     User user_current = user_current_node.getUser();
                     String relative_grade = user_current_node.getLabel();
                     

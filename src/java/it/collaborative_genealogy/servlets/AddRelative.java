@@ -72,14 +72,10 @@ public class AddRelative extends HttpServlet {
             String relationship = (String)request.getParameter("relationship");
             
             try{
-                user_current.canAddLike(user_to_add, relationship);
-                
-                //Si deve ricostruire l'albero in cache perché è stato aggiunto un nuovo utente
-                session.setAttribute("family_tree", user_logged.getFamilyTree());
                 
                 User.sendRequestFor(user_current, user_to_add, relationship);
                 
-                response.sendRedirect("profile?id="+user_current.getId()+"msg=oksnd");
+                response.sendRedirect("profile?id=" + user_current.getId() + "msg=oksnd");
                 
             } catch(SQLException ex){
                 

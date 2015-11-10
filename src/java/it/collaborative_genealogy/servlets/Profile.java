@@ -39,13 +39,13 @@ public class Profile extends HttpServlet {
         Map<String, Object> data = new HashMap<>();
     
         try{    
-
+            
             //Gestione sessione
             HttpSession session = request.getSession(false);  
-
+            
             //Se è stata generata la sessione
             if(session != null){
-
+                
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
 
@@ -170,14 +170,14 @@ public class Profile extends HttpServlet {
                 // Controllo richieste in arrivo
                 int request_count = 0;
                 try { 
-                    ResultSet record = user_current.getRequest();
+                    ResultSet record = user_current.getRequests();
                     while(record.next()){
                         request_count++;
                     }
                 } catch (SQLException ex) {
                     request_count = 0;
                 } finally {
-                data.put("request", request_count);
+                    data.put("request", request_count);
                 }
                 
                 

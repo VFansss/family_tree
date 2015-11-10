@@ -740,7 +740,7 @@ public class User{
     
     /**
      * Accetta richiesta di parentela
-     * @param relative  parente a cui si è fatta la richiesta
+     * @param relative  parente che invia la richiesta
      * @throws java.sql.SQLException
      * @throws it.collaborative_genealogy.exception.NotAllowed
      */

@@ -616,8 +616,14 @@ textarea.form-control::-webkit-scrollbar-corner {
     display: none;
 }
 
-/*body{
-    background: url('../images/custom-background.png');
-    background-repeat: repeat;
-    background-attachment: fixed;
-}*/
+/*==========================================*/
+/*                 REQUESTS                 */
+/*==========================================*/
+
+.requests .accept-button{
+    margin-right: 7%;
+}
+
+.requests .decline-button:hover{
+    text-decoration: underline;
+}

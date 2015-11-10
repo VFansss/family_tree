@@ -7,6 +7,7 @@ package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.Request;
+import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.FreeMarker;
@@ -26,18 +27,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gianluca
  */
-public class ShowRequests extends HttpServlet {
+public class RequestsHandler extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
@@ -51,6 +52,35 @@ public class ShowRequests extends HttpServlet {
                 
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
+                
+                // GESTIONE ACCETTAZIONE - RIFIUTO RICHIESTE
+                String req = request.getParameter("accept_from");
+                if(req!=null){
+                    User sender = User.getUserById(req);
+                    try{
+                        user_logged.acceptRequest(sender);
+                        data.put("message", "Request accepted");
+                    } catch (NotAllowed ex){
+                        
+                        data.put("message", "You are not allowed to accept this request");
+                    } catch (SQLException ex){
+                        
+                        data.put("message", "An error occurred, please retry");
+                    }
+                }
+                
+                // GESTIONE ACCETTAZIONE - RIFIUTO RICHIESTE
+                req = request.getParameter("decline_from");
+                if(req!=null){
+                    User sender = User.getUserById(req);
+                    try{
+                        user_logged.declineRequest(sender);
+                        data.put("message", "Request declined");
+                    } catch (SQLException ex){
+                        
+                        data.put("message", "An error occurred, please retry");
+                    }
+                }
                 
                 List<Request> requests = new LinkedList<Request>();
                 
@@ -79,21 +109,6 @@ public class ShowRequests extends HttpServlet {
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -105,7 +120,6 @@ public class ShowRequests extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -116,6 +130,6 @@ public class ShowRequests extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

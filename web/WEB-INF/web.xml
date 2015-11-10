@@ -35,6 +35,10 @@
         <servlet-name>AddRelative</servlet-name>
         <servlet-class>it.collaborative_genealogy.servlets.AddRelative</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Request</servlet-name>
+        <servlet-class>it.collaborative_genealogy.servlets.Request</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -67,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>AddRelative</servlet-name>
         <url-pattern>/add-request</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Request</servlet-name>
+        <url-pattern>/request</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

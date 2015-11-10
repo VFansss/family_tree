@@ -9,6 +9,7 @@ import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.Request;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.TreeNode;
+import it.collaborative_genealogy.util.FreeMarker;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -54,7 +55,7 @@ public class ShowRequests extends HttpServlet {
                 List<Request> requests = new LinkedList<Request>();
                 
                 try{
-                    ResultSet record = user_logged.getRequest();
+                    ResultSet record = user_logged.getRequests();
                     while (record.next()){
                         requests.add(new Request(record));
                     }
@@ -64,6 +65,8 @@ public class ShowRequests extends HttpServlet {
                 
                 data.put("requests", requests);
                 data.put("user_logged", user_logged);
+                
+                FreeMarker.process("requests.html", data, response, getServletContext());
                 
             } else {
                 // Vai alla pagina di login e mostra messaggio di errore

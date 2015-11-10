@@ -3,7 +3,7 @@
 <section>
     <#list requests as request>
     
-    <h3>Richiesta di aggiungere ${request.receiver} come ${request.relationship} di ${request.sender}</h3>
+    <h3>Richiesta di aggiungere ${request.receiver.name} come ${request.relationship} di ${request.sender.name}</h3>
     
     </#list>
 </section>

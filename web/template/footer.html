@@ -1,12 +1,13 @@
     <#if user_logged??>
         <footer>
             <ul>    
-                
-                <li class="xs-hidden">
-                    <a href="request" class="ball requests active" title="${request!} new requests" data-toggle="tooltip" data-placement="left">
-                        <i class="fa fa-user-plus fa-2x"></i>
-                    </a>
-                </li>
+                <#if request?? && request!=0>
+                    <li class="xs-hidden">
+                        <a href="requests" class="ball requests active" title="${request!} new requests" data-toggle="tooltip" data-placement="left">
+                            <i class="fa fa-user-plus fa-2x"></i>
+                        </a>
+                    </li>
+                </#if>
                 <li>
                     <a href="profile" class='ball tree hover-blue <#if active_button! == "profile">active</#if>'
                        title="Profile" data-toggle="tooltip" data-placement="left">

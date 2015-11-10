@@ -74,10 +74,10 @@
                 </div>
             </div>
         </#if>
-        <#if user_logged.id==user_current.id && request==0>
+        <#if user_logged.id==user_current.id && request!=0>
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded md-hidden">
                 <div class="form-message text-center dark-background">
-                    <a href="request"><i class="fa fa-user-plus"></i> You have ${request} new requests</a>
+                    <a href="requests"><i class="fa fa-user-plus"></i> You have ${request} new requests</a>
                     <!--<a href="#"><i class="fa fa-times pull-right"></i></a>-->
                 </div>
             </div>

@@ -36,7 +36,7 @@
         <servlet-class>it.collaborative_genealogy.servlets.AddRelative</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Request</servlet-name>
+        <servlet-name>ShowRequests</servlet-name>
         <servlet-class>it.collaborative_genealogy.servlets.ShowRequests</servlet-class>
     </servlet>
     <servlet-mapping>
@@ -73,8 +73,8 @@
         <url-pattern>/add-request</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Request</servlet-name>
-        <url-pattern>/request</url-pattern>
+        <servlet-name>ShowRequests</servlet-name>
+        <url-pattern>/requests</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

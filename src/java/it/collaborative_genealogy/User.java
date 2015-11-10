@@ -332,7 +332,7 @@ public class User{
      * @throws java.sql.SQLException
      */
     public void removeFather() throws SQLException{
-        removeParent("male");
+        this.removeParent("male");
     }
     //</editor-fold>
     

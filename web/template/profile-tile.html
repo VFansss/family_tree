@@ -2,9 +2,9 @@
 <div class="panel panel-body dark-background">
     
     <#if relative.label == "father" || relative.label == "mother" || relative.label == "daughter" ||relative.label == "son" || relative.label == "husband" || relative.label == "wife" >
-        <form action="#" class="delete-relative hover-blue">
-            <button href="#"><i class="fa fa-times"></i></button>
-        </form>
+        
+        <a href="remove?id=${relative.user.id}&type=${relative.label}" class="delete-relative hover-blue"><i class="fa fa-times"></i></a>
+        
     </#if>
     <div class="col-md-12 top-name">
         <a href="profile?id=${relative.user.id}">

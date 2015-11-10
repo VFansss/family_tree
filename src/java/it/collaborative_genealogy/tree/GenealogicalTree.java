@@ -27,8 +27,6 @@ public class GenealogicalTree{
         this.family_tree.add(new TreeNode(user, "You")); 
     }
     
-
-    
     /**
      * Restiruisci l'intero albero genealogico con utenti etichettati
      * @return
@@ -73,15 +71,27 @@ public class GenealogicalTree{
         // Aggiungi il padre
         this.add(user.getFather(), label, "father");
         
-        // Aggiungi le figlie
-        this.addAll(user.getChildren("female"), label, "daughter");
-        // Aggiungi i figli
-        this.addAll(user.getChildren("male"), label, "son");
+        // Aggiungi i figlie/figlie
+        for(User child: user.getChildren()){
+            if(child.getGender().equals("male")){
+                // Aggiungi i figli
+                this.add(child, label, "son");
+            }else{
+                // Aggiungi le figlie
+                this.add(child, label, "daughter");
+            }
+        }
         
-        // Aggiungi le sorelle
-        this.addAll(user.getSiblings("female"), label, "sister");
-        // Aggiungi i fratelli
-        this.addAll(user.getSiblings("male"), label, "brother");
+        // Aggiungi i fratelli/sorelle
+        for(User sibling: user.getSiblings()){
+            if(sibling.getGender().equals("male")){
+                // Aggiungi i figli
+                this.add(sibling, label, "brother");
+            }else{
+                // Aggiungi le figlie
+                this.add(sibling, label, "sister");
+            }
+        }
 
         if(user.getGender().equals("male")){
             // Aggiungi la moglie
@@ -146,14 +156,6 @@ public class GenealogicalTree{
             if(element.getUser().equals(user)) return element;
         }
         return null;
-    }
-    
-    //Il grado di parentela indicato dalla label è sulla base dell'utente loggato
-    public TreeNode getUser(String label){
-        for(TreeNode element: this.family_tree){
-            if(element.getLabel().equals(label)) return element;
-        }
-        return null; 
     }
     
     public TreeNode getUserById(String id){

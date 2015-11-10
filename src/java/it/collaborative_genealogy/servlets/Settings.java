@@ -204,8 +204,8 @@ public class Settings extends HttpServlet {
                     
                     try {
                         /* Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico */
-                        user_logged.removeFather();
-                        user_logged.removeMother();
+                        user_logged.removeParent("male");
+                        user_logged.removeParent("female");
                         user_logged.removeSpouse();
                         data.put("gender", gender);
                     } catch (SQLException ex) {

@@ -66,44 +66,34 @@ public class Profile extends HttpServlet {
                 /* Recupero dei parenti dell'utente corrente */
 
                 // Recupero del padre
-                TreeNode father;
+                TreeNode father = null;
                 try {
                     father = family_tree.getUser(user_current.getFather());
-                } catch (SQLException ex) {
-                    father = null;
-                }
+                } catch (SQLException ex) { }
 
                 // Recupero della madre
-                TreeNode mother;
+                TreeNode mother = null;
                 try {
                     mother = family_tree.getUser(user_current.getMother());
-                } catch (SQLException ex) {
-                    mother = null;
-                }
+                } catch (SQLException ex) { }
 
                 // Recupero del coniuge
-                TreeNode spouse;
+                TreeNode spouse = null;
                 try {
                     spouse = family_tree.getUser(user_current.getSpouse());
-                } catch (SQLException ex) {
-                    spouse= null;
-                }
+                } catch (SQLException ex) { }
 
                 // Recupero dei fratelli
-                NodeList siblings;
+                NodeList siblings = null;
                 try {
                     siblings = family_tree.getUsers(user_current.getSiblings());
-                } catch (SQLException ex) {
-                    siblings = null;
-                }
+                } catch (SQLException ex) { }
 
                 // Recupero dei figli
-                NodeList children;
+                NodeList children = null;
                 try {
                     children = family_tree.getUsers(user_current.getChildren());
-                } catch (SQLException ex) {
-                    children = null;
-                }
+                } catch (SQLException ex) { }
 
                 /* Inserimento dei parenti nel data-model */
 

@@ -57,9 +57,9 @@
                                     <i class="fa fa-caret-down select-icon"></i>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-4">
-                                    <!-- POCA LEGGIBILITA' VARIABILI, SE RIUSCITE TROVATE NOMI PIU' APPROPRIATI -->
-                                    <input type="hidden" value="${add_to.id}" name="user_current"/> <!-- E' l'utente AL QUALE si sta aggiungendo -->
-                                    <input type="hidden" value="${user.id}" name="user_to_add"/> <!--E' l'utente CHE si sta aggiungendo -->
+                                    
+                                    <input type="hidden" value="${add_to.id}" name="user_sender"/> 
+                                    <input type="hidden" value="${user.id}" name="user_receiver"/> 
                                     <button type="submit" class="btn btn-default btn-xs pull-right"><i class="fa fa-fw fa-plus"></i> Add</button>
                                 </div>
                             </form>

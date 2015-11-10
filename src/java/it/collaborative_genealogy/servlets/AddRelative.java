@@ -9,7 +9,6 @@ import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.exception.NotAllowed;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -67,15 +66,15 @@ public class AddRelative extends HttpServlet {
             //Recupero utente loggato
             User user_logged = (User)session.getAttribute("user_logged");
             
-            User user_to_add = User.getUserById((String)request.getParameter("user_to_add"));
-            User user_current = User.getUserById((String)request.getParameter("user_current"));
+            User user_sender = User.getUserById(request.getParameter("user_sender"));
+            User user_receiver = User.getUserById(request.getParameter("user_receiver"));
             String relationship = (String)request.getParameter("relationship");
             
             try{
                 
-                User.sendRequestFor(user_current, user_to_add, relationship);
+                user_sender.sendRequest(user_receiver, relationship);
                 
-                response.sendRedirect("profile?id=" + user_current.getId() + "msg=oksnd");
+                response.sendRedirect("profile?id=" + user_sender.getId() + "msg=oksnd");
                 
             } catch(SQLException ex){
                 

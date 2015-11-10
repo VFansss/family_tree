@@ -1,0 +1,11 @@
+<#include "frame_public.html">
+
+<section>
+    <#list requests as request>
+    
+    <h3>Richiesta di aggiungere ${request.receiver} come ${request.relationship} di ${request.sender}</h3>
+    
+    </#list>
+</section>
+
+<#include "footer.html">

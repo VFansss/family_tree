@@ -5,6 +5,9 @@
  */
 package it.collaborative_genealogy;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Gianluca
@@ -24,6 +27,12 @@ public class Request {
         this.sender = User.getUserById(sender_id);
         this.receiver = User.getUserById(receiver_id);
         this.relationship = relationship;
+    }
+    
+    public Request(ResultSet request) throws SQLException{
+        this.sender = User.getUserById(request.getString("user_id"));
+        this.receiver = User.getUserById(request.getString("relative_id"));
+        this.relationship = request.getString("relationship");
     }
     
     public User getSender(){

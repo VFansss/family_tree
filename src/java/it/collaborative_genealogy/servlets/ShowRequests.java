@@ -6,11 +6,15 @@
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.Request;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.TreeNode;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gianluca
  */
-public class Request extends HttpServlet {
+public class ShowRequests extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +46,24 @@ public class Request extends HttpServlet {
             
             if(session!=null){
                 
+                Map<String, Object> data = new HashMap<String, Object>();
+                
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
-
                 
+                List<Request> requests = new LinkedList<Request>();
+                
+                try{
+                    ResultSet record = user_logged.getRequest();
+                    while (record.next()){
+                        requests.add(new Request(record));
+                    }
+                } catch (SQLException ex) {
+                    requests = null;
+                }
+                
+                data.put("requests", requests);
+                data.put("user_logged", user_logged);
                 
             } else {
                 // Vai alla pagina di login e mostra messaggio di errore

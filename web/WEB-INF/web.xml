@@ -37,7 +37,7 @@
     </servlet>
     <servlet>
         <servlet-name>Request</servlet-name>
-        <servlet-class>it.collaborative_genealogy.servlets.Request</servlet-class>
+        <servlet-class>it.collaborative_genealogy.servlets.ShowRequests</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>

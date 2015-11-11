@@ -11,6 +11,7 @@ body{
     background: url('../images/background.jpg') no-repeat fixed;
     margin-top:15px; 
     background-position: 50% 10%;
+    background-size:cover;
 } 
 
 header p{
@@ -151,8 +152,6 @@ header .button-top-right a p{
 
 footer .ball{
     display: inline-block;
-    width: 40px;
-    height: 40px;
     margin: 0 5px;
     cursor: pointer;
     text-align: center;
@@ -172,6 +171,10 @@ footer .ball:not(.active):hover{
     -o-transition: opacity 0.2s;
     -moz-transition: opacity 0.2s;
     transition: opacity 0.2s;
+}
+
+footer .ball.requests i{
+    margin:0;
 }
 
 footer .ball i{
@@ -481,10 +484,16 @@ section.search .wrapper{
 /*                 REQUESTS                 */
 /*==========================================*/
 
-.requests .accept-button{
-    margin-right: 7%;
+.accept-decline-rel a{
+    color: white !important;
+    /*width: 100px;*/
 }
 
-.requests .decline-button:hover{
-    text-decoration: underline;
+section.requests .dark-background .biography-box{
+    margin-top: 20px;
+    /*text-align: center;*/
+}
+
+section.requests .dark-background .biography-box p{
+    margin-bottom: 20px;
 }

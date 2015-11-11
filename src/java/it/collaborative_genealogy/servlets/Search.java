@@ -234,7 +234,9 @@ public class Search extends HttpServlet {
     protected static UserList search(String input){
         UserList result = new UserList();
         String condition = "(CONCAT(name, ' ', surname) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%' "
-                        + "OR CONCAT(surname, ' ', name) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%')";
+                      + "OR CONCAT(surname, ' ', name) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%')"
+                      // Includi gli utenti non verificati ma escludi quelli invitati che non hanno ancora fatto la registrazione
+                    + "AND ((email IS NOT NULL AND password IS NOT NULL) OR (email IS NULL AND password IS NULL))";
         
         try {
             ResultSet record = Database.selectRecord("user", condition);

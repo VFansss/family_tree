@@ -358,7 +358,7 @@ section.profile .blue-background .anagraphics-info p{
     font-weight: bold;
 }
 
-section.profile .dark-background:not(:last-child){
+section.profile .dark-background.parent-tile:not(:last-child){
     border-bottom: 1px solid #2a2a2a;
 }
 
@@ -479,6 +479,19 @@ section.search .wrapper{
     padding:0;
 }
 
+section.search .add-info div{
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+section.search .add-info div a{
+    color: #ffffff;
+}
+
+section.search .add-info div a:hover{
+    text-decoration: underline;
+    color: #ffffff;
+}
 
 /*==========================================*/
 /*                 REQUESTS                 */

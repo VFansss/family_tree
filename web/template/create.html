@@ -1,0 +1,64 @@
+<#include "frame_public.html">
+
+
+<section class="login settings"> 
+
+    <div class="container-fluid">
+        <div class="wrapper">
+
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6">
+
+                    <div class="lock-container">
+                        <div class="panel-default text-center">
+                            <form action="settings?action=avatar" class="panel-body" method="POST" enctype="multipart/form-data">
+                                <div class="avatar text-center">
+                                    <img class="img-cover to-refresh" src="image-view?id=${user_logged.id}" alt="profile image" />
+                                    <i class="fa fa-camera fa-3x hover-blue"></i>
+                                    <input class="uploader" type="file" name="photo-upload" />
+                                </div>
+                                <button type="submit" class="col-xs-12 btn btn-primary">Change avatar</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6"> 
+                    <div class="lock-container">
+                        <div class="panel-default text-center">
+
+                            <form action="settings?action=data" class="panel-body" method="POST">
+
+                                <fieldset>
+                                    <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
+                                    <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" required />
+
+                                        <select name="gender" class="form-control" title = "select gender">
+
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+
+
+                                        </select>
+
+                                    <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' required />
+                                    <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" required />
+                                    <textarea class="form-control" name="biography" placeholder="Biography"><#if user_logged.biography??>${user_logged.biography}</#if></textarea>
+                                </fieldset>
+
+                                <button type="submit" class="col-xs-12 btn btn-primary">Change data</button>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<#include "footer.html">

@@ -157,7 +157,7 @@ public class Profile extends HttpServlet {
                 // Controllo richieste in arrivo
                 int request_count = 0;
                 try { 
-                    ResultSet record = user_current.getRequests();
+                    ResultSet record = user_logged.getRequests();
                     while(record.next()){
                         request_count++;
                     }

@@ -192,4 +192,12 @@
     section.search .anagraphics-info{
         left: 130px;
     }
+    
+    section.search .add-info div:not(:last-child){
+        margin-right: 8.3%;
+    }
+    
+    section.search .add-info div:not(:first-child){
+        margin-left: 8.3%;
+    }
 }

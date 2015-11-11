@@ -43,6 +43,10 @@
         <servlet-name>RemoveRelative</servlet-name>
         <servlet-class>it.collaborative_genealogy.servlets.RemoveRelative</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateUser</servlet-name>
+        <servlet-class>it.collaborative_genealogy.servlets.CreateUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -83,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>RemoveRelative</servlet-name>
         <url-pattern>/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateUser</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateUser</servlet-name>
+        <url-pattern>/invite</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

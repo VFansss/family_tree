@@ -146,6 +146,17 @@ public class Search extends HttpServlet {
                 input_filter.put("birthdate", request.getParameter("birthdate").trim());
             }
             
+            //--------------------------------------------
+            //         GESTIONE AGGIUNTA PARENTI
+            //--------------------------------------------
+            if(request.getParameter("add_to")!=null){
+                String add_to_id = request.getParameter("add_to");
+            
+                User add_to = User.getUserById(add_to_id);
+            
+                data.put("add_to", add_to);
+            }
+            
         }
         
         // Se è stato riscontrato qualche errore
@@ -164,19 +175,6 @@ public class Search extends HttpServlet {
         
         // Inserisci i campi compilati nel data-model
         data.put("values", input_filter);
-        
-        
-        //--------------------------------------------
-        //         GESTIONE AGGIUNTA PARENTI
-        //--------------------------------------------
-        if(request.getParameter("add_to")!=null){
-            String add_to_id = request.getParameter("add_to");
-            
-            User add_to = User.getUserById(add_to_id);
-            
-            data.put("add_to", add_to);
-        }
-        
         
         // Genera il data-model
         FreeMarker.process("search.html",data, response, getServletContext());
@@ -235,8 +233,8 @@ public class Search extends HttpServlet {
 
     protected static UserList search(String input){
         UserList result = new UserList();
-        String condition = "CONCAT(name, ' ', surname) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%' "
-                      + "OR CONCAT(surname, ' ', name) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%'";
+        String condition = "(CONCAT(name, ' ', surname) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%' "
+                        + "OR CONCAT(surname, ' ', name) COLLATE UTF8_GENERAL_CI LIKE '%" + input + "%')";
         
         try {
             ResultSet record = Database.selectRecord("user", condition);
@@ -266,11 +264,8 @@ public class Search extends HttpServlet {
                     }else{
                         condition_string += entry.getKey() + "='" + entry.getValue() + "'";
                     }
-                }
-            
-            
+                }     
         }
-        //condition_string = condition_string+" COLLATE LATIN1_SWEDISH_CI";
         
         try {
             ResultSet record = Database.selectRecord("user", condition_string);

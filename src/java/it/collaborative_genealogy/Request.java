@@ -12,10 +12,10 @@ import java.sql.SQLException;
  *
  * @author Gianluca
  */
-public class Request {
-    private User sender;
-    private User receiver;
-    private String relationship;
+public final class Request {
+    private final User sender;
+    private final User receiver;
+    private final String relationship;
     
     public Request(User sender, User receiver, String relationship){
         this.sender = sender;

@@ -49,12 +49,12 @@ public class Settings extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //Gestione sessione
-        HttpSession session = request.getSession(false);  
+        session = request.getSession(false);  
         
         //Se non è stata generata la sessione
         if(session != null){     
             
-            User user_logged = (User)session.getAttribute("user_logged");
+            user_logged = (User)session.getAttribute("user_logged");
             
             String as = user_logged.getBirthdate().toString();
             Map<String, Object> data = new HashMap<>();

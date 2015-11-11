@@ -8,7 +8,6 @@ package it.collaborative_genealogy.tree;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.UserList;
 import java.sql.SQLException;
-import java.util.Iterator;
 
 /**
  *
@@ -30,6 +29,7 @@ public class GenealogicalTree{
     /**
      * Restiruisci l'intero albero genealogico con utenti etichettati
      * @return
+     * @throws java.sql.SQLException
      */
     public NodeList getFamilyTree() throws SQLException {
         

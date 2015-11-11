@@ -8,11 +8,8 @@ package it.collaborative_genealogy.servlets;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.Request;
 import it.collaborative_genealogy.exception.NotAllowed;
-import it.collaborative_genealogy.tree.GenealogicalTree;
-import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.FreeMarker;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,28 +35,28 @@ public class RequestsHandler extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  
         try{
             
             HttpSession session = request.getSession(false);
             
             if(session!=null){
                 
-                Map<String, Object> data = new HashMap<String, Object>();
-                
+                Map<String, Object> data = new HashMap<>();
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
                 
-                // GESTIONE ACCETTAZIONE - RIFIUTO RICHIESTE
+                // GESTIONE ACCETTAZIONE RICHIESTE
                 String req = request.getParameter("accept_from");
                 if(req!=null){
                     User sender = User.getUserById(req);
                     try{
                         user_logged.acceptRequest(sender);
+                        
                         data.put("message", "Request accepted");
+                        // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
+                        user_logged.sendRefreshAck();
                     } catch (NotAllowed ex){
                         
                         data.put("message", "You are not allowed to accept this request");
@@ -69,7 +66,7 @@ public class RequestsHandler extends HttpServlet {
                     }
                 }
                 
-                // GESTIONE ACCETTAZIONE - RIFIUTO RICHIESTE
+                // GESTIONE RIFIUTO RICHIESTE
                 req = request.getParameter("decline_from");
                 if(req!=null){
                     User sender = User.getUserById(req);
@@ -82,7 +79,8 @@ public class RequestsHandler extends HttpServlet {
                     }
                 }
                 
-                List<Request> requests = new LinkedList<Request>();
+               
+                List<Request> requests = new LinkedList<>();
                 
                 try{
                     ResultSet record = user_logged.getRequests();

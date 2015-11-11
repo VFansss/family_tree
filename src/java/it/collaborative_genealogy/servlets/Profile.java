@@ -1,12 +1,10 @@
 package it.collaborative_genealogy.servlets;
 
-import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.NodeList;
 import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.User;
-import it.collaborative_genealogy.UserList;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;
@@ -17,8 +15,6 @@ import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -48,7 +44,8 @@ public class Profile extends HttpServlet {
                 
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
-
+                // Verifica se bisogna fare il refresh dell'albero genealogico presente in cache
+                user_logged.checkFamilyTreeCache(session);
                 // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
                 User user_current;
                 TreeNode user_current_node;

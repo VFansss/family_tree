@@ -5,12 +5,10 @@
  */
 package it.collaborative_genealogy.tree;
 
-import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.UserList;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 /**

@@ -7,6 +7,7 @@ package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.exception.NotAllowed;
+import it.collaborative_genealogy.tree.GenealogicalTree;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -40,8 +41,10 @@ public class RemoveRelative extends HttpServlet {
             try {
                 //Recupero utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
-                
                 String relationship = request.getParameter("type");
+                
+                // Prima di eliminare il parente, bisogna fare il refresh dll'albero genealogico dei parenti loggati in quel momento
+                user_logged.sendRefreshAck();
                 
                 switch(relationship){
                     
@@ -56,7 +59,7 @@ public class RemoveRelative extends HttpServlet {
                         
                     default: throw new NotAllowed();
                 }
-                
+
                 response.sendRedirect("profile");
             } catch (NotAllowed ex) {
                 Logger.getLogger(RemoveRelative.class.getName()).log(Level.SEVERE, null, ex);

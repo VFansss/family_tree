@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -134,7 +136,7 @@ public class User{
             return null;
         }
 
-        public int getNumRelative() throws SQLException {
+        public int getNumRelatives() throws SQLException {
 
         /* Il numero di parenti può essere modificato anche da altri utenti, per cui è necessario prelevare il valore ogni volta dal database*/
         ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
@@ -182,24 +184,24 @@ public class User{
          * @throws java.sql.SQLException
          */
         public void setNumRelatives() throws SQLException {
-        // Recupero i parenti dell'utente corrente
-        NodeList family_tree = this.getFamilyTree().getFamily(this);
-        
-        // Calcola il numero di parenti (-1 per non considerare il parente stesso)
-        int tree_size = family_tree.size() - 1;
-        
-        Map<String, Object> data = new HashMap<>();
-        data.put("num_relatives", tree_size);
-        
-        // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
-        String condition = "";
-        for(TreeNode user: family_tree){
-            condition = condition + "id = '" + user.getUser().getId() + "' OR ";
+            // Recupero i parenti dell'utente corrente
+            NodeList family_tree = this.getFamilyTree().getFamily_tree();
+
+            // Calcola il numero di parenti (-1 per non considerare il parente stesso)
+            int tree_size = family_tree.size() - 1;
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("num_relatives", tree_size);
+
+            // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
+            String condition = "";
+            for(TreeNode user: family_tree){
+                condition = condition + "id = '" + user.getUser().getId() + "' OR ";
+            }
+            condition = condition.substring(0, condition.length()-4);
+            // Aggoirna il numero di parenti
+            Database.updateRecord("user", data, condition);
         }
-        condition = condition.substring(0, condition.length()-4);
-        // Aggoirna il numero di parenti
-        Database.updateRecord("user", data, condition);
-    }
     
     //</editor-fold>
     
@@ -273,7 +275,7 @@ public class User{
 
                 Database.resetAttribute("user", attribute, "id = '" + this.id + "'");
 
-                // Se è stato rimosso il legame di parentela con successo e se due utenti non appartengono più allo stesso albero genealogico
+                // Se i due utenti non sono più parenti
                 if(!this.isRelative(parent)) {
                     // Aggiorna numero di parenti
                     this.setNumRelatives();
@@ -391,6 +393,7 @@ public class User{
          * @throws java.sql.SQLException 
          */
         public void removeChild(User user) throws NotAllowed, SQLException{
+            // Rimuovi l'utente corrente come genitore
             user.removeParent(this.gender);
         }
 
@@ -644,27 +647,35 @@ public class User{
          * @throws it.collaborative_genealogy.exception.NotAllowed
          */
         public void acceptRequest(User relative) throws SQLException, NotAllowed {
+        
             ResultSet request = Database.selectRecord("request", "user_id = '" + relative.getId() + "' AND relative_id = '" + this.id + "'");
             String relationship = "";
 
             while(request.next()){
                 relationship = request.getString("relationship");
             }
+            
+            try {
+                // Effettua il collegamento tra i due parenti
+                switch(relationship){
 
-            // Effettua il collegamento tra i due parenti
-            switch(relationship){
+                    case "parent":  this.setChild(relative);    break;
 
-                case "parent":  this.setChild(relative);    break;
+                    case "child":   this.setParent(relative);   break;
 
-                case "child":   this.setParent(relative);   break;
+                    case "sibling": this.setSibling(relative);  break;
 
-                case "sibling": this.setSibling(relative);  break;
+                    case "spouse":  this.setSpouse(relative);   break;
 
-                case "spouse":  this.setSpouse(relative);   break;
-
-                default: throw new NotAllowed();
+                    default: throw new NotAllowed();
+                }
+            } catch (NotAllowed ex) {
+                // Solo nel caso in cui l'utente non puo accettare la richiesta, elimina quest'ultima dal db 
+                //      ma lancia comunque l'eccezione NotAlloed per poter essere gestita al livello superiore
+                relative.deleteRequest(this);
+                throw new NotAllowed();
             }
-
+            
             // Rimuovi la richiesta dal database
             relative.deleteRequest(this);
 
@@ -872,25 +883,21 @@ public class User{
          * @throws it.collaborative_genealogy.exception.NotAllowed
          */
         private void canAddLike(User user, String relationship) throws SQLException, NotAllowed {
-        
-        // Se c'è già una richiesta di parentela tra i due utenti
-        int record = Database.countRecord("request", "(user_id='" + this.id + "' AND relative_id='" + user.getId() + "') OR (user_id='" + user.getId()+ "' AND relative_id='" + this.id + "')");
-        if(record != 0) throw new NotAllowed();
-        
-        switch(relationship){
-            
-            case "parent": this.canAddLikeParent(user);     break;
-                
-            case "child": this.canAddLikeChild(user);       break;
-                
-            case "sibling": this.canAddLikeSibling(user);   break;
-                
-            case "spouse": this.canAddLikeSpouse(user);     break;
-                
-            default: throw new NotAllowed();
-        }
 
-    }
+            switch(relationship){
+
+                case "parent": this.canAddLikeParent(user);     break;
+
+                case "child": this.canAddLikeChild(user);       break;
+
+                case "sibling": this.canAddLikeSibling(user);   break;
+
+                case "spouse": this.canAddLikeSpouse(user);     break;
+
+                default: throw new NotAllowed();
+            }
+
+        }
     
     //</editor-fold>
     
@@ -905,7 +912,6 @@ public class User{
         public boolean isRelative(User user) throws SQLException {
 
             UserList family_tree_final = new UserList();
-            UserList evaluated = new UserList();
             // Aggiungi l'utente corrente al proprio albero genealogico
             family_tree_final.add(this);
 
@@ -919,7 +925,6 @@ public class User{
                 number_relatives = family_tree_final.size();
                 // Per ogni parente già inserito nell'albero
                 for(User relative: family_tree_final){
-                    if(evaluated.contains(relative)) continue;
                     // Aggiungi all'abero temporaneo gli antenati del parente
                     UserList ancestors = relative.getAncestors();
                     // Se l'utente da trovare è tra gli antenati, ritorna true
@@ -932,25 +937,22 @@ public class User{
 
                     // Per ogni antenato trovato
                     for(User ancestor: ancestors){
-                        // Se l'utente è già stato valutato
-                        if(evaluated.contains(ancestor)) continue;
                         // Recupera i discendenti 
                         UserList offsprings = ancestor.getOffsprings();
                         // Se l'utente da trovare è tra i discententi, ritorna true
                         if(offsprings.contains(user)) return true;
                         // Aggiungi all'albero temporaneo tutti i suoi discendenti (quindi anche i discendenti dell'parente stesso)
                         family_tree_temp.addAll(offsprings);
-
                     }
+                    
                     User spouse = relative.getSpouse();
-                    // Se l'utente da trovare è il coniuge
                     if(spouse != null){
+                        // Se l'utente da trovare è il coniuge
                         if(spouse.equals(user)) return true;
                         // Aggiungi all'albero temporaneo il coniuge del parente
                         family_tree_temp.add(spouse);
                     }
 
-                    evaluated.add(relative);
                 }
 
                 // Aggiungi l'albero temporaneo a quello finale
@@ -991,7 +993,70 @@ public class User{
     }
     
     //</editor-fold>
-    
+        
+    //<editor-fold defaultstate="collapsed" desc="Gestione albero genealogico nella cache">
+        
+        /**
+        *   PROBLEMA: durante la sessione di un utente, è possibile che venga aggiunto/rimosso qualche parente nel suo albero
+        *       In questo caso, l'albero presente nella cache dell'utente loggato risulterebbe non aggiornata
+        *       Per cui quando si aggiunge/rimuove un utente bisogna segnalare a tutti gli utenti nell'albero loggati 
+        *           in quel momento, di fare il refresh di quest'ultimo cosi da avere i PARENTI e le relative LABEL aggiornate.
+        *       Per segnalare a un utente che il proprio albero è da aggiornare, è stato aggiunto l'attributo "refresh" nel db
+        *           che, se posto a 1, indica che l'albero è da aggiornare. Il controllo su questo attributo deve essere fatto 
+        *           in ogni pagina in cui è necessario avere un albero aggiornato, ovvero la pagina del profilo
+        *           e la pagina di ricerca
+        * 
+        *       NOTA: la segnalazione sopra descritta, deve essere fatta DOPO l'aggiunta di un utente e PRIMA di una rimozione
+        *       
+        *       NOTA 2: Prima e dopo l'aggiornamento dell'albero è probabile che gli utenti presenti nell'albero non siano cambiati. 
+        *               Ciò avviene quando:
+        *                   1. un parente aggiunto da un altro già era presente nell'albero di quest'ultimo;
+        *                   2. un parente rimosso da un altro continua a essere presente nel suo albero
+        *               Alla luce di ciò, è comunque necessario aggiornare l'albero degli utenti loggati in quando è probabile
+        *                   che delle label abbiano subito delle modifiche
+        */      
+        
+        /**
+        * Verifica se l'albero genealogico nella cache è da aggiornare
+        * @param session    sessione in cui inserire l'albero aggiornato
+        */
+        public void checkFamilyTreeCache(HttpSession session){
+            try {
+                ResultSet record = Database.selectRecord("user", "id='" + this.id + "'");
+                if(record.next()){
+                    if(record.getInt("refresh") != 0){
+                        // refresh dell'albero
+                        session.setAttribute("family_tree", this.getFamilyTree());
+                        this.updateAttribute("refresh", 0);
+                    };
+                }
+            } catch (SQLException ex) { }
+        }
+        
+        /**
+         * Manda una segnalazione a tutti i parenti loggati dell'utente corrente, per aggiornare l'albero genealogico presente in cache
+         * @throws SQLException
+         */
+        public void sendRefreshAck() throws SQLException{
+            // Recupero i parenti dell'utente corrente
+            GenealogicalTree family_tree = this.getFamilyTree();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("refresh", 1);
+
+            // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
+            String condition = "";
+            for(TreeNode user: family_tree.getFamily_tree()){
+                condition = condition + "id = '" + user.getUser().getId() + "' OR ";
+            }
+            condition = condition.substring(0, condition.length()-4);
+            // Aggoirna il numero di parenti
+            Database.updateRecord("user", data, condition);
+
+        }
+       
+    //</editor-fold>
+      
     /**
      * Recupera un utente attraverso il suo ID
      * @param user_id   id utente
@@ -1081,14 +1146,18 @@ public class User{
         session.setAttribute("user_logged", this);
         // Inizializza la breadcrumb
         session.setAttribute("breadcrumb", new NodeList());
-
+        
+        try {
+            // Appena un utente fa il login non ha bisogno di fare il refresh dell'albero nella cache
+            this.updateAttribute("refresh", 0);
+        } catch (SQLException ex) { }
         try {
             session.setAttribute("family_tree", this.getFamilyTree());
         } catch (SQLException ex) {
             session.setAttribute("family_tree", null);
         }
     }
- 
+
     //<editor-fold defaultstate="collapsed" desc="Metodi ausiliari">
         
     /**

@@ -74,7 +74,7 @@ public class AddRelative extends HttpServlet {
                 
                 user_sender.sendRequest(user_receiver, relationship);
                 
-                response.sendRedirect("profile?id=" + user_sender.getId() + "msg=oksnd");
+                response.sendRedirect("profile?id=" + user_sender.getId() + "&msg=oksnd");
                 
             } catch(SQLException ex){
                 

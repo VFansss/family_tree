@@ -5,17 +5,13 @@
  */
 package it.collaborative_genealogy.servlets;
 
-import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

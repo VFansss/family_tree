@@ -51,6 +51,9 @@ public class Search extends HttpServlet {
         
         //Se è stato effettuato il login...
         if(session!=null) { 
+            // Verifica se l'albero genealogico nella cache è aggiornato
+            User user_logged = (User)session.getAttribute("user_logged");
+            user_logged.checkFamilyTreeCache(session);
             data.put("family_tree", (GenealogicalTree)session.getAttribute("family_tree"));
             data.put("user_logged", (User)session.getAttribute("user_logged"));
         } 

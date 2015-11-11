@@ -6,6 +6,8 @@
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.tree.GenealogicalTree;
+import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.FreeMarker;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gianluca
  */
-public class CreateUser extends HttpServlet {
-
-
+public class Create extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,11 +44,27 @@ public class CreateUser extends HttpServlet {
                 
                 Map<String, Object> data = new HashMap<String, Object>();
                 
-                data.put("user_logged", (User)session.getAttribute("user_logged"));
+                User user_logged = (User)session.getAttribute("user_logged");
+                
+                // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
+                User user_current;
+                TreeNode user_current_node;
+                String relative_grade = null;
+                if (request.getParameter("id") != null){
+                    user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id"));
+                    user_current = user_current_node.getUser();
+                    relative_grade = user_current_node.getLabel();
+                    data.put("relative_grade", relative_grade);
+
+                } else {
+                    user_current = user_logged;
+                }
                                 
                 String action = request.getRequestURI().substring(request.getContextPath().length()+1);
                 
                 data.put("action", action);
+                data.put("user_logged", user_logged);
+                data.put("user_current", user_current);
                 
                 FreeMarker.process(action+".html", data, response, getServletContext());
                 

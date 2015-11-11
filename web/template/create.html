@@ -1,60 +1,61 @@
 <#include "frame_public.html">
 
 
-<section class="login settings"> 
+<section class="login settings">
+    
+    <div class="col-md-12 title text-center">
+        <h2 class="creating-title text-white">Create basic profile</h2>
+    </div>
 
     <div class="container-fluid">
         <div class="wrapper">
 
             <div class="row">
-
-                <div class="col-md-6 col-sm-6">
-
-                    <div class="lock-container">
-                        <div class="panel-default text-center">
-                            <form action="settings?action=avatar" class="panel-body" method="POST" enctype="multipart/form-data">
-                                <div class="avatar text-center">
-                                    <img class="img-cover to-refresh" src="image-view?id=${user_logged.id}" alt="profile image" />
-                                    <i class="fa fa-camera fa-3x hover-blue"></i>
-                                    <input class="uploader" type="file" name="photo-upload" />
-                                </div>
-                                <button type="submit" class="col-xs-12 btn btn-primary">Change avatar</button>
-                            </form>
-
+                <form action="create" method="POST">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="lock-container">
+                            <div class="panel-default text-center">
+                                    <div class="avatar text-center">
+                                        <img class="img-cover to-refresh" src="image-view?id=" alt="profile image" />
+                                        <i class="fa fa-camera fa-3x hover-blue"></i>
+                                        <input class="uploader" type="file" name="photo-upload" />
+                                    </div>
+                            </div>
+                            <p class="text-white">
+                                You are creating a new profile and setting it as <#if relationship??>${user_current.name} ${user_current.surname}'s<#else>your</#if> direct relative.
+                                <br/>Once created, this profile can not be edited, so please check the data inserted.
+                            </p>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-6 col-sm-6"> 
-                    <div class="lock-container">
-                        <div class="panel-default text-center">
-
-                            <form action="settings?action=data" class="panel-body" method="POST">
-
-                                <fieldset>
-                                    <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
-                                    <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" required />
-
+                    <div class="col-md-6 col-sm-6"> 
+                        <div class="lock-container">
+                            <div class="panel-default text-center">
+                                    <fieldset>
+                                        <input class="form-control" type="text" name="name" placeholder="Name" required />
+                                        <input class="form-control" type="text" name="surname" placeholder="Surname" required />
                                         <select name="gender" class="form-control" title = "select gender">
-
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-
-
+                                            <option value="" selected disabled>&nbsp;Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
                                         </select>
+                                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" required />
+                                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" required />
+                                        <select name="relationship" class="form-control" title = "select relationship">
+                                            <option value="" selected disabled>&nbsp;Relationship (with <#if relative_grade??>${relative_grade}<#else>you</#if>)</option>
+                                            <option value="parent">Parent</option>
+                                            <option value="child">Child</option>
+                                            <option value="child">Sibling</option>
+                                            <option value="spouse">Spouse</option>
+                                        </select>
+                                        <input hidden class="hidden" name="relative" value="${user_current.id}"/>
+                                    </fieldset>
 
-                                    <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' required />
-                                    <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" required />
-                                    <textarea class="form-control" name="biography" placeholder="Biography"><#if user_logged.biography??>${user_logged.biography}</#if></textarea>
-                                </fieldset>
-
-                                <button type="submit" class="col-xs-12 btn btn-primary">Change data</button>
-
-                            </form>
-
+                                    <button type="submit" class="col-xs-12 btn btn-primary">Create Profile</button>
+                            </div>
                         </div>
-                    </div>
-                </div>  
+                    </div>  
+                </form>
             </div>
         </div>
     </div>

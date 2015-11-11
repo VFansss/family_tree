@@ -138,14 +138,14 @@ public class User{
 
         public int getNumRelatives() throws SQLException {
 
-        /* Il numero di parenti può essere modificato anche da altri utenti, per cui è necessario prelevare il valore ogni volta dal database*/
-        ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
-        if(record.next()){
-            return record.getInt("num_relatives");
-        }
+            /* Il numero di parenti può essere modificato anche da altri utenti, per cui è necessario prelevare il valore ogni volta dal database*/
+            ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
+            if(record.next()){
+                return record.getInt("num_relatives");
+            }
 
-        return 0;
-    }
+            return 0;
+        }
     
     //</editor-fold>
     
@@ -470,19 +470,19 @@ public class User{
          * @throws java.sql.SQLException
          */
         public UserList getOffsprings(String gender) throws SQLException {
-        UserList offsprings = new UserList();
-        UserList children = this.getChildren();
-        // Per ogni figlio
-        for (User child : children) {  
-            if(child.getGender().equals(gender)){
-                // Aggiungilo alla lista
-                offsprings.add(child);
+            UserList offsprings = new UserList();
+            UserList children = this.getChildren();
+            // Per ogni figlio
+            for (User child : children) {  
+                if(child.getGender().equals(gender)){
+                    // Aggiungilo alla lista
+                    offsprings.add(child);
+                }
+                // Aggiungi ricrosivamente i figli alla lista
+                offsprings.addAll(child.getOffsprings(gender));
             }
-            // Aggiungi ricrosivamente i figli alla lista
-            offsprings.addAll(child.getOffsprings(gender));
+            return offsprings;
         }
-        return offsprings;
-    }
     
     //</editor-fold>
     
@@ -536,13 +536,13 @@ public class User{
             User u2_parent = null;
 
             do{
-
+                // Recupera i genitori dei due utenti
                 u1_parents = u1.getParents();
                 u2_parents = u2.getParents();
-
+                // Recupera il numero di genitori dei due utenti
                 int u1_size = u1_parents.size();
                 int u2_size = u2_parents.size();
-
+                // Se {u1} non ha parenti
                 if(u1_size == 0){
                     for(User parent: u2_parents){
                         u1.setParent(parent);
@@ -550,11 +550,8 @@ public class User{
                 }
 
                 if(u1_size == 1 && u2_size == 2){
-                    // Recupera l'altro genitore
+                    // Recupera il genitore di {u2} che non ha {u1}
                     User other_parent;
-                    Iterator iter1 = u1_parents.iterator();
-                    u1_parent = (User)iter1.next();
-
                     if(u1.getMother() != null){
                         other_parent = u2.getFather();
                     }else{
@@ -702,8 +699,8 @@ public class User{
          * @throws java.sql.SQLException
          */
         private void deleteRequest(User relative) throws SQLException{
-        Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
-    }
+            Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
+        }
     
 //</editor-fold>
     
@@ -774,10 +771,13 @@ public class User{
         }
         /**
          * Verifica se un dato utente può essere aggiunto come fratello
+         * Nota:    due utenti sono fratelli se hanno entrambi i genitori in comune, 
+         *          per cui due utenti possono diventare fratelli sono se entrambi posso avere gli stessi genitori
+         *          e solo se dopo l'aggiunta risultano avere sia il padre che la madre
          * @return  true se l'utente è stato aggiunto con successo, false altrimenti
          */
         private void canAddLikeSibling(User user) throws SQLException, NotAllowed {
-
+            
             // Se i due utenti sono già fratelli
             if(this.getSiblings().contains(user)) throw new NotAllowed();
 
@@ -814,7 +814,9 @@ public class User{
             }
 
             do{
-
+                // Se {u2} non ha genitori e {u1} ne ha solo uno
+                if(u2_size == 0 && u1_size == 1) throw new NotAllowed();
+                
                 // Se {u2} non ha genitori
                 if(u2_size == 0){
 
@@ -980,17 +982,17 @@ public class User{
          * @throws java.sql.SQLException
          */
         public UserList getFamilyCore() throws SQLException{
-        UserList family_core = new UserList();
-        // Aggiungi i genitori
-        family_core.addAll(this.getParents());
-        // Aggiungi i figli
-        family_core.addAll(this.getChildren());
-        // Aggiungi i fratelli
-        family_core.addAll(this.getSiblings());
-        // Aggiungi il coniuge
-        family_core.add(this.getSpouse());
-        return family_core;
-    }
+            UserList family_core = new UserList();
+            // Aggiungi i genitori
+            family_core.addAll(this.getParents());
+            // Aggiungi i figli
+            family_core.addAll(this.getChildren());
+            // Aggiungi i fratelli
+            family_core.addAll(this.getSiblings());
+            // Aggiungi il coniuge
+            family_core.add(this.getSpouse());
+            return family_core;
+        }
     
     //</editor-fold>
         
@@ -1034,7 +1036,6 @@ public class User{
                 }
             } catch (SQLException ex) { }
         }
-        
         /**
          * Manda una segnalazione a tutti i parenti loggati dell'utente corrente, per aggiornare l'albero genealogico presente in cache
          * @throws SQLException
@@ -1077,8 +1078,7 @@ public class User{
         
         return user;
     }
-    
-     /**
+    /**
      * Recupera un utente attraverso la sua e-mail
      * @param user_email   email utente
      * @return          
@@ -1104,7 +1104,6 @@ public class User{
             return null;
         }
     }
-    
     /**
      * Verifica la password dell'utente
      * @param password      password da verificare
@@ -1121,22 +1120,6 @@ public class User{
         
         return false;
     }
-    
-    /**
-     * Elimina l'utente
-     * @throws java.sql.SQLException
-     */
-    public void delete() throws SQLException{
-        // Rimuovi relazione genitore/figli
-        for(User child: this.getChildren()){
-            child.removeParent(this.gender);
-        }
-        // Rimuovi relazione marito/moglie
-        this.removeSpouse();
-        // Rimuovi utente
-        Database.deleteRecord("user", "id = '" + this.id + "'");
-    }
-    
     /**
      * Imposta le variabili di sessione necessarie
      * @param request

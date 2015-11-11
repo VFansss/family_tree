@@ -249,6 +249,9 @@ section.search .form-message p{
     color: white !important;
 }
 
+section.search .responsive-row{
+    margin-left:20px;
+}
 
 section.login .form-message p,
 section.search .form-message p,
@@ -486,6 +489,7 @@ section.search .wrapper{
 
 .accept-decline-rel a{
     color: white !important;
+    min-width: 80px;
     /*width: 100px;*/
 }
 

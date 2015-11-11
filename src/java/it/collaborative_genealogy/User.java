@@ -1005,6 +1005,8 @@ public class User{
         *           che, se posto a 1, indica che l'albero è da aggiornare. Il controllo su questo attributo deve essere fatto 
         *           in ogni pagina in cui è necessario avere un albero aggiornato, ovvero la pagina del profilo
         *           e la pagina di ricerca
+        *       Appena un utente effettua il login, pone a 0 l'attributo "refresh" in quanto non ha bisogno di 
+        *           aggiornare l'albero perchè è stato appena generato. 
         * 
         *       NOTA: la segnalazione sopra descritta, deve essere fatta DOPO l'aggiunta di un utente e PRIMA di una rimozione
         *       

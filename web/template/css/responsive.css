@@ -201,3 +201,11 @@
         margin-left: 8.3%;
     }
 }
+
+/* Other*/
+@media (min-width: 992px) and (max-width: 1150px){
+
+    section.search .responsive-row{
+        margin-left:0;
+    }
+}

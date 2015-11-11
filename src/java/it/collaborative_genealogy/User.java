@@ -623,14 +623,19 @@ public class User{
             // Invia richiesta
             this.send_handler(relative, relationship);
         }
-        private void send_handler(User relative, String relationship) throws SQLException {
+        private void send_handler(User relative, String relationship) throws NotAllowed, SQLException {
+            if(!relative.isBasic()){
+                //Se non è un profilo base manda la richiesta
+                Map<String, Object> data = new HashMap<>();
+                data.put("user_id", this.id);
+                data.put("relative_id", relative.getId());
+                data.put("relationship", relationship);
 
-            Map<String, Object> data = new HashMap<>();
-            data.put("user_id", this.id);
-            data.put("relative_id", relative.getId());
-            data.put("relationship", relationship);
-
-            Database.insertRecord("request", data);
+                Database.insertRecord("request", data); 
+            } else {
+                //Altrimenti aggiungi direttamente l'utente tra i parenti
+                this.setRelative(relative, relationship);
+            }
 
             /*
                 INVIARE EMAIL DI RICHIESTA  
@@ -1142,6 +1147,14 @@ public class User{
         } catch (SQLException ex) {
             session.setAttribute("family_tree", null);
         }
+    }
+    
+   /**
+     * Controlla se l'utente è un profilo base
+     * @return              true se è un profilo base, false altrimenti
+     */ 
+    public boolean isBasic(){
+        return (this.email==null);
     }
  
     //<editor-fold defaultstate="collapsed" desc="Metodi ausiliari">

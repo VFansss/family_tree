@@ -57,6 +57,7 @@ public class RequestsHandler extends HttpServlet {
                         data.put("message", "Request accepted");
                         // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
                         user_logged.sendRefreshAck();
+                        session.setAttribute("family_tree", user_logged.getFamilyTree());
                     } catch (NotAllowed ex){
                         
                         data.put("message", "You are not allowed to accept this request");

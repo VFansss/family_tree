@@ -406,6 +406,7 @@ section.settings .avatar{
 section.settings select.form-control{
     color: #fff;
     background-color: transparent;
+    padding-left: 11px;
 } 
 section.settings .avatar img{
     border-radius: 100%;

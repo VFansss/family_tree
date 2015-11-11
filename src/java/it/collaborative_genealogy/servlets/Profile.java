@@ -65,19 +65,19 @@ public class Profile extends HttpServlet {
                 // Recupero del padre
                 TreeNode father = null;
                 try {
-                    father = family_tree.getUser(user_current.getFather());
+                    father = family_tree.getUser(user_current.getRelative("father"));
                 } catch (SQLException ex) { }
 
                 // Recupero della madre
                 TreeNode mother = null;
                 try {
-                    mother = family_tree.getUser(user_current.getMother());
+                    mother = family_tree.getUser(user_current.getRelative("mother"));
                 } catch (SQLException ex) { }
 
                 // Recupero del coniuge
                 TreeNode spouse = null;
                 try {
-                    spouse = family_tree.getUser(user_current.getSpouse());
+                    spouse = family_tree.getUser(user_current.getRelative("spouse"));
                 } catch (SQLException ex) { }
 
                 // Recupero dei fratelli

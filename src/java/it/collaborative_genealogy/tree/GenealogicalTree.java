@@ -67,9 +67,9 @@ public class GenealogicalTree{
         String label = this.family_tree.get(index).getLabel();
         
         // Aggiungi la madre
-        this.add(user.getMother(), label, "mother");
+        this.add(user.getRelative("mother"), label, "mother");
         // Aggiungi il padre
-        this.add(user.getFather(), label, "father");
+        this.add(user.getRelative("father"), label, "father");
         
         // Aggiungi i figlie/figlie
         for(User child: user.getChildren()){
@@ -95,10 +95,10 @@ public class GenealogicalTree{
 
         if(user.getGender().equals("male")){
             // Aggiungi la moglie
-            this.add(user.getSpouse(), label, "wife");
+            this.add(user.getRelative("wife"), label, "wife");
         }else{
             // Aggiungi il marito
-            this.add(user.getSpouse(), label, "husband");
+            this.add(user.getRelative("husband"), label, "husband");
         }
         
         // Valuta il prossimo utente
@@ -134,7 +134,7 @@ public class GenealogicalTree{
         relatives.addAll(user.getParents());
         relatives.addAll(user.getSiblings());
         relatives.addAll(user.getChildren());
-        relatives.add(user.getSpouse());
+        relatives.add(user.getRelative("spouse"));
         
         // Per ogni membro del nucleo familiare, recupero il nodo dell'albero corrispodente
         for(User relative: relatives){

@@ -55,10 +55,10 @@ ul{
 }
 
 .hover-blue{
-    -webkit-transition: color 0.2s;
-    -o-transition: color 0.2s;
-    -moz-transition: color 0.2s;
-    transition: color 0.2s;
+    -webkit-transition: color 0.2s ease-in;
+    -o-transition: color 0.2s ease-in;
+    -moz-transition: color 0.2s ease-in;
+    transition: color 0.2s ease-in;
 }
 
 .hover-blue:hover{
@@ -159,19 +159,6 @@ footer .ball{
     border-radius: 20%;
 }
 
-footer .ball:not(.active){
-    opacity: 0.8;
-    filter: alpha(opacity=80); /* For IE8 and earlier */
-}
-
-footer .ball:not(.active):hover{
-    opacity: 1;
-    filter: alpha(opacity=100); /* For IE8 and earlier */
-    -webkit-transition: opacity 0.2s;
-    -o-transition: opacity 0.2s;
-    -moz-transition: opacity 0.2s;
-    transition: opacity 0.2s;
-}
 
 footer .ball.requests i{
     margin:0;
@@ -200,7 +187,6 @@ section.login .title{
     pointer-events: none;
 }
 
-
 /*== HEADER ==*/
 section.login .title h1{
     font-family: "Droid Sans";
@@ -209,7 +195,6 @@ section.login .title h1{
     color: #fff;
     margin: 50px 0;
     display: block;
-    
 }
 
 section.login .title img{
@@ -226,8 +211,6 @@ section.login .forgot-password {
     background: transparent;
     border: 0;
 }
-
-
 
 section.login .form-message,
 section.search .form-message,
@@ -264,23 +247,30 @@ section.profile .form-message p{
 /*                PROFILE                   */
 /*==========================================*/
 
-section.profile #breadcrumb-nav .ball{
-    opacity: 0.7;
+.ball:not(.active){
+    opacity: 0.8;
     filter: alpha(opacity=70); /* For IE8 and earlier */
-    -webkit-transition: opacity 0.2s;
-    -o-transition: opacity 0.2s;
-    -moz-transition: opacity 0.2s;
-    transition: opacity 0.2s;
+    -webkit-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    transition: opacity 0.3s;
 }
-
-section.profile #breadcrumb-nav .ball:hover{
-    opacity: 1;
+.red{
+    color: #E83423 !important;
+}
+.ball:hover{
+    opacity: 1 !important;
     filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 
 section.profile #breadcrumb-nav .ball img{
     margin: 3px 0;
 }
+
+section.profile #breadcrumb-nav .ball.cleaner{
+    opacity: 0.4;
+}
+
 
 section.profile .tile{
     margin-bottom: 20px;

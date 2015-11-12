@@ -1,10 +1,10 @@
 /*==========================================*/
 /*                GENERAL                   */
-/*==========================================*/ *
-
+/*==========================================*/ 
 
 *{
     outline: none !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 body{
@@ -156,7 +156,7 @@ header .button-top-right a p{
 }
 
 /*==========================================*/
-/*                FOOTER                     */
+/*                FOOTER                    */
 /*==========================================*/
 
 footer .ball{
@@ -167,7 +167,6 @@ footer .ball{
     color: #555;
     border-radius: 20%;
 }
-
 
 footer .ball.requests i{
     margin:0;
@@ -190,6 +189,136 @@ footer .ball.active{
 }
 
 /*==========================================*/
+/*                BALL                      */
+/*==========================================*/
+
+.ball:not(.active){
+    opacity: 0.8;
+    filter: alpha(opacity=70); /* For IE8 and earlier */
+    -webkit-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+
+.red{
+    color: #E83423 !important;
+}
+
+.ball:hover{
+    opacity: 1 !important;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+/*==========================================*/
+/*                TILE                      */
+/*==========================================*/
+.tile{
+    margin-bottom: 20px;
+}
+
+.tile h3{
+    margin-top: 0;
+    word-wrap: break-word;  
+}
+
+.tile .img-circle{
+    width:100px;
+    height:100px;
+}
+
+.tile .anagraphics-info{
+    margin-top: 10px;
+    padding: 0;
+}
+
+.blue-background .anagraphics-info a{
+    color: #303030;
+}
+
+.blue-background .anagraphics-info a:hover{
+    text-decoration: underline;
+}
+
+.tile-label{
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.tile-label p{
+    margin:0;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.tile-label i.fa-chevron-down{
+    -o-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.tile-label i.fa-chevron-down.down{
+    -ms-transform:rotate(-90deg);
+    -moz-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    transform:rotate(-90deg);
+}
+
+i.top-quote{
+    vertical-align: super;
+    font-size: 0.65em;
+}
+
+.blue-background,
+.dark-background{
+    margin:0;
+}
+
+.blue-background{
+    background-color: rgba(70, 135, 206, 0.8)
+}
+
+.blue-background h3{
+    color: #ffffff;
+}
+
+.blue-background p{
+    color: #303030;
+}
+
+.blue-background .anagraphics-info p{
+    font-weight: bold;
+}
+
+.dark-background.parent-tile:not(:last-child){
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.dark-background{
+    background-color: rgba(20, 20, 20, 0.8) !important;
+    position: relative;
+}
+
+.dark-background p,
+.dark-background a,
+.dark-background h3{
+    color: #707070;
+    
+}
+
+.dark-background .delete-relative{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+    background: transparent;
+    cursor: pointer;
+}
+
+/*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
 section.login .title{
@@ -202,7 +331,6 @@ section.login .wrapper {
     height: auto;
 }
 
-/*== HEADER ==*/
 section.login .title h1{
     font-family: "Droid Sans";
     font-size: 70px;
@@ -222,26 +350,6 @@ section.login .forgot-password {
     border: 0;
 }
 
-section.login .form-message,
-section.search .form-message,
-section.profile .form-message{
-    padding: 8px;
-    color: #ddd;
-    background: rgba(0,0,0,0.33);
-    margin: 8px 0 3px;
-    border-radius: 4px;
-}
-
-section.search .form-message{
-    font-size: 1.6em;
-    
-}
-
-section.search .form-message p{
-    
-    color: white !important;
-}
-
 section.search .responsive-row{
     margin-left:20px;
 }
@@ -257,134 +365,12 @@ section.profile .form-message p{
 /*                PROFILE                   */
 /*==========================================*/
 
-.ball:not(.active){
-    opacity: 0.8;
-    filter: alpha(opacity=70); /* For IE8 and earlier */
-    -webkit-transition: opacity 0.3s;
-    -o-transition: opacity 0.3s;
-    -moz-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-}
-.red{
-    color: #E83423 !important;
-}
-.ball:hover{
-    opacity: 1 !important;
-    filter: alpha(opacity=100); /* For IE8 and earlier */
-}
-
 section.profile #breadcrumb-nav .ball img{
     margin: 3px 0;
 }
 
 section.profile #breadcrumb-nav .ball.cleaner{
     opacity: 0.4;
-}
-
-
-section.profile .tile{
-    margin-bottom: 20px;
-}
-
-section.profile .tile h3{
-    margin-top: 0;
-    word-wrap: break-word;  
-}
-
-section.profile .tile .img-circle{
-    width:100px;
-    height:100px;
-}
-
-section.profile .tile .anagraphics-info{
-    margin-top: 10px;
-    padding: 0;
-}
-
-section.profile .blue-background .anagraphics-info a{
-    color: #303030;
-}
-
-section.profile .blue-background .anagraphics-info a:hover{
-    text-decoration: underline;
-}
-
-section.profile .tile-label{
-    padding-left: 20px;
-    margin-bottom: 10px;
-}
-
-section.profile .tile-label p{
-    margin:0;
-    font-weight: bold;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-section.profile .tile-label i.fa-chevron-down{
-    -o-transition: all 0.3s linear;
-    -moz-transition: all 0.3s linear;
-    -webkit-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-}
-
-section.profile .tile-label i.fa-chevron-down.down{
-    -ms-transform:rotate(-90deg);
-    -moz-transform:rotate(-90deg);
-    -webkit-transform:rotate(-90deg);
-    transform:rotate(-90deg);
-}
-
-section.profile i.top-quote{
-    vertical-align: super;
-    font-size: 0.65em;
-}
-
-section.profile .blue-background,
-section.profile .dark-background{
-    margin:0;
-}
-
-section.profile .blue-background{
-    background-color: rgba(70, 135, 206, 0.8)
-}
-
-section.profile .blue-background h3{
-    color: #ffffff;
-}
-
-section.profile .blue-background p{
-    color: #303030;
-}
-
-section.profile .blue-background .anagraphics-info p{
-    font-weight: bold;
-}
-
-section.profile .dark-background.parent-tile:not(:last-child){
-    border-bottom: 1px solid #2a2a2a;
-}
-
-section.profile .dark-background{
-    background-color: rgba(20, 20, 20, 0.8);
-    position: relative;
-}
-
-section.profile .dark-background p,
-section.profile .dark-background a,
-section.profile .dark-background h3{
-    color: #707070;
-    
-}
-
-section.profile .dark-background .delete-relative{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    opacity: 0.8;
-    filter: alpha(opacity=80); /* For IE8 and earlier */
-    background: transparent;
-    cursor: pointer;
 }
 
 /*==========================================*/
@@ -435,44 +421,46 @@ section.settings .avatar i{
     color: #999;
 }
 
-p.adding-subtitle{
+/*==========================================*/
+/*                 SEARCH                   */
+/*==========================================*/
+ 
+#filters h4{
+    color: #ddd;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+
+}
+
+#filters p{
+    color: white;
+    font-weight: bolder;
     padding-left: 15px;
     font-size:0.9em;
     margin-bottom: 0;
 }
 
-/*==========================================*/
-/*                 SEARCH                   */
-/*==========================================*/
-
-section.search .search-filters h4{
-    color: #ddd;
-    margin-top: 0px;
-    margin-bottom: 5px;
+#filters form{
     padding-left: 15px;
-    
+    padding-right: 15px;
 }
 
-section.search .search-filters p{
-    color: white;
-    font-weight: bolder;
+#filters .form-control{
+    border-bottom: 1px solid rgba(200, 200, 200, 0.8);
 }
 
-section.search .search-filters p.information{
-    font-size: 0.8em;
-    margin-left: 30px;
-    margin-top: -5px;
-}
+#filters fieldset{
+        margin-bottom: 10px;
+    }
 
-section.search .filter-search-button{
-    width: auto;
+section.search .select-wrapper select{
+    border: 0;
 }
 
 section.search .responsive-row{
     height: 120px;
 }
-
-
 
 section.search .wrapper{
     padding:0;
@@ -496,7 +484,7 @@ section.search .add-info div a:hover{
 /*                 REQUESTS                 */
 /*==========================================*/
 
-.accept-decline-rel a{
+section.requests .accept-decline-rel a{
     color: white !important;
     min-width: 80px;
     /*width: 100px;*/

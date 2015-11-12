@@ -5,7 +5,8 @@ $(document).ready(function(){
     var ajax_enabled = true;
     
     // Al submit del form
-    $(".lock-container form").submit(function( event ) {
+    $("section.login .wrapper form").submit(function( event ) {
+
         // Non eseguire il comportamente di default del submit
         event.preventDefault();
         
@@ -16,6 +17,7 @@ $(document).ready(function(){
         var form = $(this);
         var fields = form.find(".form-control:not(button)");
         var message = form.find("div.form-message");
+       
         var icon = message.find("i");
         var paragraph = message.find("p");
         
@@ -37,7 +39,8 @@ $(document).ready(function(){
         if(isValid && ajax_enabled){
             // Disabilita la chiamata ajax per evitare chiamate multiple
             ajax_enabled = false;
-            
+            // Nascondi il messaggio di errore
+            message.addClass("hide")
             // Effettua la chiamata ajax
             var request = $.ajax({
                 // Imposta una chiamata di tipo "post"

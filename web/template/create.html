@@ -1,6 +1,6 @@
 <#include "frame_public.html">
 
-<section class="login settings">
+<section class="settings">
     
     <div class="col-md-12 title text-center">
         <h2 class="creating-title text-white">Create basic profile</h2>
@@ -10,7 +10,7 @@
         <div class="wrapper">
 
             <div class="row">
-                <form action="create" method="POST">
+                <form action="create" method="POST" class="transparent">
                     <div class="col-md-6 col-sm-6">
                         <div class="lock-container">
                             <div class="panel-default text-center">
@@ -50,7 +50,7 @@
                                         <input hidden class="hidden" name="relative" value="${user_current.id}"/>
                                     </fieldset>
 
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Create Profile</button>
+                                    <button type="submit" class="col-xs-12 btn btn-primary form-control">Create Profile</button>
                             </div>
                         </div>
                     </div>  

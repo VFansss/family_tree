@@ -7,8 +7,8 @@
     </div>
 
     <div class="col-md-12">
-        <div class="lock-container">
-            <div class="panel-default text-center">
+        
+            <div class="panel-default text-center wrapper">
 
                 <form action="${action}" class="panel-body main-form" method="POST">
 
@@ -43,7 +43,7 @@
                             <i class="fa fa-times"></i><p>${message.msg!}</p>
                         </div>
                     
-                    <button id="submit" type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
+                    <button id="submit" type="submit" class="col-xs-12 btn btn-primary form-control">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
                     
                     <#if action == "login">
                         </form>
@@ -51,7 +51,7 @@
                         </form>
                     </#if>
             </div>
-        </div>
+       
     </div>
 
 </section>

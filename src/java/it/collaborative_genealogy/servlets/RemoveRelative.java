@@ -7,7 +7,6 @@ package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.exception.NotAllowed;
-import it.collaborative_genealogy.tree.GenealogicalTree;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -61,9 +60,7 @@ public class RemoveRelative extends HttpServlet {
                 }
 
                 response.sendRedirect("profile");
-            } catch (NotAllowed ex) {
-                Logger.getLogger(RemoveRelative.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } catch (NotAllowed | SQLException ex) {
                 Logger.getLogger(RemoveRelative.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

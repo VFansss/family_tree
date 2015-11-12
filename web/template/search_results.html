@@ -37,10 +37,10 @@
                 </div>
                 <#if user_logged?? && add_to??>
                     <div class="row">
-                        <div class="col-md-12 relationship">
-                            <form action="add-request" method="post">
+                        <div class="col-md-12 select-wrapper">
+                            <form action="add-request" method="post" class="transparent">
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <select name="relationship" >
+                                    <select name="relationship" class="transparent">
                                         <option value="" selected disabled>Select a relationship</option>
                                         <#if user.gender == "male">
                                             <option value="parent">Father</option>

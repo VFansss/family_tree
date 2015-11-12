@@ -20,7 +20,7 @@ $(document).ready(function(){
         
         // Caching degli elementi
         var form = $(this);
-        var fields = form.find(".form-control:not(textarea)");
+        var fields = form.find(".form-control:not(textarea):not(button)");
         var message = form.find("div.form-message");
         var icon = message.find("i");
         var paragraph = message.find("p");

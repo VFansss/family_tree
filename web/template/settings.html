@@ -1,6 +1,6 @@
 <#include "frame_public.html">
 
-    <section class="login settings"> 
+    <section class="settings"> 
 
         <div class="container-fluid">
             <div class="wrapper">
@@ -29,7 +29,7 @@
                                             <p><#if action! = "avatar">${message.msg}</#if></p>
                                         </div>
                                     
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change avatar</button>
+                                    <button type="submit" class="col-xs-12 btn btn-primary form-control">Change avatar</button>
                                 </form>
 
                             </div>
@@ -41,7 +41,7 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="settings?action=data" class="panel-body" method="POST">
+                                <form action="settings?action=data" class="panel-body transparent" method="POST">
 
                                     <fieldset>
                                         <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
@@ -75,7 +75,7 @@
                                         <p><#if action! = "data">${message.msg}</#if></p>
                                     </div>
                                     
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change data</button>
+                                    <button type="submit" class="col-xs-12 btn btn-primary form-control">Change data</button>
 
                                 </form>
 
@@ -90,7 +90,7 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="settings?action=email" class="panel-body" method="POST">
+                                <form action="settings?action=email" class="panel-body transparent" method="POST">
 
                                     <fieldset>
                                         <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly />
@@ -110,7 +110,7 @@
                                         <p><#if action! = "email">${message.msg}</#if></p>
                                     </div>
                                    
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change email</button>
+                                    <button type="submit" class="col-xs-12 btn btn-primary form-control">Change email</button>
 
                                 </form>
 
@@ -124,7 +124,7 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="settings?action=password" class="panel-body" method="POST">
+                                <form action="settings?action=password" class="panel-body transparent" method="POST">
 
                                     <fieldset>
                                         <input class="form-control"  type="password" name="current_password" placeholder="Current password" required />
@@ -143,7 +143,7 @@
                                         <p><#if action! = "password">${message.msg}</#if></p>
                                     </div>
                                     
-                                    <button type="submit" class="col-xs-12 btn btn-primary">Change password</button>
+                                    <button type="submit" class="col-xs-12 btn btn-primary form-control">Change password</button>
 
                                 </form>
 

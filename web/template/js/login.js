@@ -14,7 +14,7 @@ $(document).ready(function(){
         
         // Caching degli elementi
         var form = $(this);
-        var fields = form.find(".form-control");
+        var fields = form.find(".form-control:not(button)");
         var message = form.find("div.form-message");
         var icon = message.find("i");
         var paragraph = message.find("p");

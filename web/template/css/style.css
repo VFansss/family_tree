@@ -12,6 +12,7 @@ body{
     margin-top:15px; 
     background-position: 50% 10%;
     background-size:cover;
+    padding-top: 0;
 } 
 
 header p{
@@ -195,6 +196,12 @@ section.login .title{
     pointer-events: none;
 }
 
+section.login .wrapper {
+    margin: auto;
+    max-width: 300px;
+    height: auto;
+}
+
 /*== HEADER ==*/
 section.login .title h1{
     font-family: "Droid Sans";
@@ -207,11 +214,6 @@ section.login .title h1{
 
 section.login .title img{
     display:none;
-}
-
-
-section.login .lock-container {
-    height: auto;
 }
 
 section.login .forgot-password {
@@ -403,15 +405,10 @@ section.settings .avatar{
     position: relative;
 }
     
-section.settings select.form-control{
-    color: #fff;
-    background-color: transparent;
-    padding-left: 11px;
-} 
 section.settings .avatar img{
     border-radius: 100%;
-    height: 228px;
-    width: 228px;
+    height: 237px;
+    width: 237px;
     margin: 24px auto;
 }
 

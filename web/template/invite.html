@@ -2,43 +2,43 @@
 
 <section class="login">
     
-
+    <div class="col-md-12 title text-center">
+        <h2 class="xs-hidden text-white">Invites a relative to join at your family tree</h2>
+    </div>
     
     <div class="col-md-12">
-        <div class="lock-container">
-            <div class="panel-default text-center">
+        <div class="panel-default text-center wrapper">
 
-                <form action="${action}" class="panel-body main-form" method="POST">
+            <form action="${action}" class="panel-body" method="POST">
 
-                    <fieldset class="rounded">
+                <fieldset class="rounded">
 
-                        <input class="form-control" name="email" type="text" placeholder="E-mail"  />  
-                        <input class="form-control" name="name" type="text" placeholder="Name" />  
-                        <input class="form-control" name="surname" type="text" placeholder="Surname" /> 
-                        <select name="gender" class="form-control">
-                            <option value="" readonly selected>Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <input class="form-control" name="birthdate" type="text" placeholder="Birthdate (dd/mm/yyyy)" />  
-                        <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" />  
+                    <input class="form-control" name="email" type="text" placeholder="E-mail"  required/>  
+                    <input class="form-control" name="name" type="text" placeholder="Name" required/>  
+                    <input class="form-control" name="surname" type="text" placeholder="Surname" required/> 
+                    <select name="gender" class="form-control" required>
+                        <option value="" readonly selected>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <input class="form-control" name="birthdate" type="text" placeholder="Birthdate (dd/mm/yyyy)" required/>  
+                    <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" required/>  
 
-                    </fieldset>
+                </fieldset>
 
-                    <#if action == "create">
-                        <#assign button_icon = "unlock-alt">
-                    <#else>
-                        <#assign button_icon = "user">
-                    </#if>
+                <#if action == "create">
+                    <#assign button_icon = "unlock-alt">
+                <#else>
+                    <#assign button_icon = "user">
+                </#if>
 
-                    <#if message??>
-                        <div class="form-message <#if !(message.msg??)>hide</#if>">
-                            <i class="fa fa-times"></i><p>${message.msg!}</p>
-                        </div>
-                    </#if>
+                <#if message??>
+                    <div class="form-message <#if !(message.msg??)>hide</#if>">
+                        <i class="fa fa-times"></i><p>${message.msg!}</p>
+                    </div>
+                </#if>
 
-                    <button id="submit" type="submit" class="col-xs-12 btn btn-primary">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
-            </div>
+                <button id="submit" type="submit" class="col-xs-12 btn btn-primary form-control">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
         </div>
     </div>
 </section>

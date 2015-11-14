@@ -8,19 +8,15 @@ package it.collaborative_genealogy.servlets;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import it.collaborative_genealogy.User;
-import it.collaborative_genealogy.UserList;
 import it.collaborative_genealogy.util.DataUtil;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -148,9 +144,13 @@ public class Settings extends HttpServlet {
         String birthdate    = request.getParameter("birthdate").trim();
         String biography    = DataUtil.spaceTrim(request.getParameter("biography"));
         
-        Message check;
+        
+        Message check = DataUtil.checkData(name, surname, gender, birthdate, birthplace);
         try {
-            check = user_logged.setData(name, surname, gender, birthdate, birthplace, biography);
+            if(!check.isError()){
+                user_logged.setData(name, surname, gender, birthdate, birthplace, biography);
+            }
+            
         } catch (SQLException ex) {
             check = new Message("srv", true); // Server error
         } catch (ParseException ex) {

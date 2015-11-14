@@ -8,14 +8,14 @@ package it.collaborative_genealogy.tree;
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.UserList;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ListIterator;
 
 /**
  *
  * @author Marco
  */
-public class NodeList extends ArrayList<TreeNode>{
+public class NodeList extends LinkedList<TreeNode>{
     
     /** Verifica se in una lista di nodi è presente un utente
      *

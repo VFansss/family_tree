@@ -174,7 +174,7 @@ public class DataUtil {
     }
     
     
-    public static Message checkData(String name, String surname, String gender, String birthdate, String birthplace, String biography){
+    public static Message checkData(String name, String surname, String gender, String birthdate, String birthplace){
         String msg;
             Message check = new Message("", true);
             

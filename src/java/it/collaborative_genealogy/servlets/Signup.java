@@ -79,26 +79,13 @@ public class Signup extends HttpServlet {
                 if(!check.isError()) {
 
                     // Controllo di dati
-                    check = DataUtil.checkData(name, surname, gender, birthdate, birthplace, birthdate);
+                    check = DataUtil.checkData(name, surname, gender, birthdate, birthplace);
 
         }}}
 
         // Se è stato riscontrato un errore, 
-        if(check.isError()){
+        if(!check.isError()){
             
-            if (ajax) {
-                // Handle ajax response.
-                response.setContentType("text/plain");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(check.getMsg());       
-            } else{
-                // Handle regular response
-                // Vai alla pagina di signup mostrando l'errore
-                response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
-            }
-            
-        }else{
-
             Map<String, Object> data = new HashMap<>();
 
             // Genera l'id dell'utente
@@ -129,22 +116,35 @@ public class Signup extends HttpServlet {
                 // Reindirizzamento alla pagina del profilo dell'utente
                 
                 
-            if (ajax) {
+                if (ajax) {
                     // Handle ajax response.  
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write("");  
-            }
-            else{
+                    response.getWriter().write("");
+                }
+                else{
                     // Handle regular response
                     response.sendRedirect("profile");
-            }
+                }
                 
                 
             } catch (SQLException ex) {
                 response.sendRedirect("signup?msg=Error");
             }
 
+        }else{
+            
+            if (ajax) {
+                // Handle ajax response.
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(check.getMsg());
+            } else{
+                // Handle regular response
+                // Vai alla pagina di signup mostrando l'errore
+                response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
+            }
+            
         }
     }
 

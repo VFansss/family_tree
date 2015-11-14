@@ -162,6 +162,9 @@ public final class Message {
                     case "fld":
                         msg = "All fields are required";
                         break;
+                    case "no_all":
+                        msg = "Not Allowed";
+                        break;
                         
                 default: msg = null;
             }

@@ -159,11 +159,10 @@ public class User{
          * @param birthdate
          * @param biography
          * @param birthplace
-         * @return 
          * @throws SQLException
          * @throws java.text.ParseException
         */
-        public Message setData(String name, String surname, String gender, String birthdate, String birthplace, String biography) throws SQLException, ParseException{
+        public void setData(String name, String surname, String gender, String birthdate, String birthplace, String biography) throws SQLException, ParseException{
            
             Map<String, Object> data = new HashMap<>();
             data.put("name", name);
@@ -203,7 +202,6 @@ public class User{
             this.birthplace = birthplace;
             this.biography = biography;
             
-            return new Message("dt_ok", false);
 
         }
 

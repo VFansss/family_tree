@@ -5,7 +5,9 @@
  */
 package it.collaborative_genealogy.util;
 
+import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.UserList;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -14,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import org.apache.commons.validator.DateValidator;
 import org.apache.commons.validator.EmailValidator;
@@ -169,6 +173,40 @@ public class DataUtil {
         return new Message(msg, error);
     }
     
+    
+    public static Message checkData(String name, String surname, String gender, String birthdate, String birthplace, String biography){
+        String msg;
+            Message check = new Message("", true);
+            
+            if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
+                check = new Message("fld", true); // All fields required
+
+                // Se la data di nascita non è valida
+                }else {
+
+                    // Controllo del nome
+                    check = DataUtil.checkName(name, "name");
+                    if(!check.isError()) {
+
+                        // Controllo del cognome
+                        check = DataUtil.checkName(surname, "surname");
+                        if(!check.isError()) {
+
+                            // Controllo del sesso
+                            check = DataUtil.checkGender(gender);
+                            if(!check.isError()) {
+
+                                // Controllo della città di nascita
+                                check = DataUtil.checkBirthplace(birthplace);
+                                if(!check.isError()) {
+
+                                    // Controllo della data di nascita
+                                    check = DataUtil.checkBirthdate(birthdate);
+            }}}}}
+            
+            return check; 
+            
+    }
     /*
         FUNZIONI MARCO
     */

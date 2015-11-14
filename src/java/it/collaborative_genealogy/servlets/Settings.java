@@ -8,6 +8,7 @@ package it.collaborative_genealogy.servlets;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.UserList;
 import it.collaborative_genealogy.util.DataUtil;
 import java.io.File;
 import java.io.IOException;
@@ -140,93 +141,23 @@ public class Settings extends HttpServlet {
 
     private static Message changeData(HttpServletRequest request){
         // Recupero dei dati
-        String name = (String)request.getParameter("name");
-        String surname = (String)request.getParameter("surname");
-        String gender = (String)request.getParameter("gender");
-        String birthdate = (String)request.getParameter("birthdate");
-        String birthplace = (String)request.getParameter("birthplace");
-        String biography = (String)request.getParameter("biography");
+        String name         = DataUtil.spaceTrim(request.getParameter("name"));
+        String surname      = DataUtil.spaceTrim(request.getParameter("surname"));
+        String gender       = request.getParameter("gender").trim();
+        String birthplace   = DataUtil.spaceTrim(request.getParameter("birthplace"));
+        String birthdate    = request.getParameter("birthdate").trim();
+        String biography    = DataUtil.spaceTrim(request.getParameter("biography"));
         
-        // Conversione della data di nascita in un tipo compatibile al database
-        
-        
-        String msg;
-        boolean error = true;
-        // Se non sono stati compilati tutti i dati
-        if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
-            msg = "fld";
-
-        // Se la data di nascita non è valida
-        }else {
-            
-            Message check;
-        
-            // Controllo del nome
-            check = DataUtil.checkName(name, "name");
-            if(!check.isError()) {
-
-                // Controllo del cognome
-                check = DataUtil.checkName(surname, "surname");
-                if(!check.isError()) {
-
-                    // Controllo del sesso
-                    check = DataUtil.checkGender(gender);
-                    if(!check.isError()) {
-
-                        // Controllo della città di nascita
-                        check = DataUtil.checkBirthplace(birthplace);
-                        if(!check.isError()) {
-
-                            // Controllo della data di nascita
-                            check = DataUtil.checkBirthdate(birthdate);
-            }}}}
-            
-            if(check.isError()){
-                msg = check.getCode();
-                
-            }else{
-            
-                Map<String, Object> data = new HashMap<>();
-            
-                data.put("name", name);
-                data.put("surname", surname);
-                Date sqlDate;
-                try {
-                    sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
-                    data.put("birthdate", DataUtil.dateToString(sqlDate));
-                } catch (ParseException ex) {
-                }
-                
-                data.put("birthplace", birthplace);
-                data.put("biography", biography);
-
-                if(!user_logged.getGender().equals(gender)){
-                    
-                    try {
-                        /* Se si cambia il sesso, l'utente deve essere scollegato dal proprio albero genealogico */
-                        user_logged.removeParent("male");
-                        user_logged.removeParent("female");
-                        user_logged.removeSpouse();
-                        data.put("gender", gender);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                
-                try {
-                    // Aggiornamento dati dell'utente
-                    user_logged.setData(data);
-                    msg = "dt_ok"; // Data changed
-                    error = false;
-                } catch (SQLException | ParseException ex) {
-                    msg = "srv";
-                } 
-
-            }
-            
+        Message check;
+        try {
+            check = user_logged.setData(name, surname, gender, birthdate, birthplace, biography);
+        } catch (SQLException ex) {
+            check = new Message("srv", true); // Server error
+        } catch (ParseException ex) {
+             check = new Message("date_2", true); // The date is not valid
         }
-             
-        return new Message(msg, error);
+        
+        return check;
         
     }
     

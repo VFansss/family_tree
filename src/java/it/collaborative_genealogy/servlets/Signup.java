@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -80,44 +78,25 @@ public class Signup extends HttpServlet {
                 check = DataUtil.checkPassword(password);
                 if(!check.isError()) {
 
-                    // Controllo del nome
-                    check = DataUtil.checkName(name, "name");
-                    if(!check.isError()) {
+                    // Controllo di dati
+                    check = DataUtil.checkData(name, surname, gender, birthdate, birthplace, birthdate);
 
-                        // Controllo del cognome
-                        check = DataUtil.checkName(surname, "surname");
-                        if(!check.isError()) {
-
-                            // Controllo del sesso
-                            check = DataUtil.checkGender(gender);
-                            if(!check.isError()) {
-
-                                // Controllo della città di nascita
-                                check = DataUtil.checkBirthplace(birthplace);
-                                if(!check.isError()) {
-
-                                    // Controllo della data di nascita
-                                    check = DataUtil.checkBirthdate(birthdate);
-        }}}}}}}
+        }}}
 
         // Se è stato riscontrato un errore, 
         if(check.isError()){
             
             if (ajax) {
-                    // Handle ajax response.
-                        response.setContentType("text/plain");
-                        response.setCharacterEncoding("UTF-8");
-                        response.getWriter().write(check.getMsg());       
-                              }
-                    
-                    else{
-                    // Handle regular response
-                    // Vai alla pagina di signup mostrando l'errore
-                    response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
-                        }
+                // Handle ajax response.
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(check.getMsg());       
+            } else{
+                // Handle regular response
+                // Vai alla pagina di signup mostrando l'errore
+                response.sendRedirect("signup?msg=" + URLEncoder.encode(check.getCode(), "UTF-8"));
+            }
             
-            
-
         }else{
 
             Map<String, Object> data = new HashMap<>();
@@ -138,9 +117,7 @@ public class Signup extends HttpServlet {
             try {
                 sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
                 data.put("birthdate", DataUtil.dateToString(sqlDate));
-            } catch (ParseException ex) {
-                Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (ParseException ex) { }
             
 
             try {

@@ -14,14 +14,16 @@ import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.NodeList;
 import it.collaborative_genealogy.tree.TreeNode;
+import it.collaborative_genealogy.util.Message;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -151,21 +153,58 @@ public class User{
     
         /**
          * Aggiorna i dati anagrafici dell'utente
-         * @param data          Map contenente i dati da modificare
+         * @param name
+         * @param surname
+         * @param gender
+         * @param birthdate
+         * @param biography
+         * @param birthplace
+         * @return 
          * @throws SQLException
          * @throws java.text.ParseException
-         */
-        public void setData(Map<String, Object> data) throws SQLException, ParseException{
-            Database.updateRecord("user", data, "id = '" + this.getId() + "'");
-            this.name = (String) data.get("name");
-            this.surname = (String) data.get("surname");
-            this.birthdate = DataUtil.stringToDate((String) data.get("birthdate"),"yyyy-MM-dd");
-            this.birthplace = (String) data.get("birthplace");
-            this.biography = (String) data.get("biography");
-
-            if(data.get("gender") != null){
-                this.gender = (String) data.get("gender");
+        */
+        public Message setData(String name, String surname, String gender, String birthdate, String birthplace, String biography) throws SQLException, ParseException{
+           
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", name);
+            data.put("surname", surname);
+            data.put("gender", gender);
+            Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+            data.put("birthdate", DataUtil.dateToString(sqlDate));
+            data.put("birthplace", birthplace);
+            data.put("biography", biography);
+            
+            boolean remove_tree = false;
+            String old_gender = this.gender;
+            if(!gender.equals(old_gender)){
+                remove_tree = true;
             }
+            
+            Database.updateRecord("user", data, "id = '" + this.getId() + "'");
+            
+            if(remove_tree){
+                // Rimuovi i filgi
+                UserList children = this.getChildren();
+                for(User child: children){
+                    child.removeParent(old_gender);
+                }
+                // Rimuovi il padre
+                this.removeParent("male");
+                // Rimuovi la madre
+                this.removeParent("female");
+                // Rimuovi il coniuge
+                this.removeSpouse();
+            }
+            
+            this.name = name;
+            this.surname = surname;
+            this.gender = gender;
+            this.birthdate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+            this.birthplace = birthplace;
+            this.biography = biography;
+            
+            return new Message("dt_ok", false);
+
         }
 
         public void setEmail(String email) throws SQLException {
@@ -573,17 +612,19 @@ public class User{
          * @throws java.sql.SQLException
          */
         public void removeSpouse() throws SQLException {
+            if(this.getSpouse() != null){
+                // Elimina il coniuge a entrambi i coniugi
+                Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
+                User spouse = this.getSpouse();
 
-            // Elimina il coniuge a entrambi i coniugi
-            Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
-            User spouse = this.getSpouse();
-
-            // Se i due ex-coniugi non sono più parenti
-            if(!this.isRelative(spouse)){
-                // Aggiorna il numero di parenti di entrambi
-                this.setNumRelatives();
-                spouse.setNumRelatives();
+                // Se i due ex-coniugi non sono più parenti
+                if(!this.isRelative(spouse)){
+                    // Aggiorna il numero di parenti di entrambi
+                    this.setNumRelatives();
+                    spouse.setNumRelatives();
+                }
             }
+            
         }
         /**
          * Elimina un figlio

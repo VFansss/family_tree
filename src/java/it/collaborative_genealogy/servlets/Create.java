@@ -102,8 +102,6 @@ public class Create extends HttpServlet {
             HttpSession session = request.getSession(false);
             
             if(session!=null) {
-                
-                Map<String, Object> data = new HashMap<>();
 
                 User user_logged = (User)session.getAttribute("user_logged");
                 
@@ -134,7 +132,7 @@ public class Create extends HttpServlet {
                                 Map<String, Object> new_user_data = new HashMap<>();  
 
                                 String user_id = User.createUniqueUserId(10);
-                                data.put("id", user_id);
+                                new_user_data.put("id", user_id);
 
                                 new_user_data.put("name", name);
                                 new_user_data.put("surname", surname);
@@ -142,11 +140,10 @@ public class Create extends HttpServlet {
                                 new_user_data.put("birthplace", birthplace);
                                 new_user_data.put("biography", biography);
                                 Date sqlDate = null;
-
                                 try {
 
                                     sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
-                                    data.put("birthdate", DataUtil.dateToString(sqlDate));
+                                    new_user_data.put("birthdate", DataUtil.dateToString(sqlDate));
                                     Database.insertRecord("user", new_user_data); 
                                     User user_added = User.getUserById(user_id);
                                     user_current.setRelative(user_added, relationship);

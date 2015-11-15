@@ -105,6 +105,14 @@
         font-size: 1.2em;
     }
     
+    footer .ball.requests{
+        color: #3F6690;
+        right: 6px;
+    }
+    
+    footer .ball.requests i.fa-user{ color:#C14242; }
+    footer .ball.requests i.fa-circle-o{ color: #3F6690; }
+    
     .settings{ bottom: 70px; }
     .tree{ bottom: 130px; }
     .logout{ bottom: 10px; }

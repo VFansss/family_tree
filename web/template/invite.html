@@ -23,7 +23,13 @@
                     </select>
                     <input class="form-control" name="birthdate" type="text" placeholder="Birthdate (dd/mm/yyyy)" required/>  
                     <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" required/>  
-
+                    <select name="relationship" class="form-control" title = "select relationship" required>
+                        <option value="" selected disabled>&nbsp;Relationship (with <#if relative_grade??>${relative_grade}<#else>you</#if>)</option>
+                        <option value="parent">Parent</option>
+                        <option value="child">Child</option>
+                        <option value="child">Sibling</option>
+                        <option value="spouse">Spouse</option>
+                    </select>
                 </fieldset>
 
                 <#if action == "create">

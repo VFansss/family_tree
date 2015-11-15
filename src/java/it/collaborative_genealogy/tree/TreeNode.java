@@ -182,7 +182,9 @@ public final class TreeNode {
                     case "paternal aunt":
                     case "maternal uncle":
                     case "paternal uncle":                  new_label = "cousin";                           break;
-
+                    
+                    case "mother":
+                    case "father": 
                     case "stepmother":
                     case "stepfather":                      new_label = "stepbrother";                      break;
 
@@ -216,7 +218,9 @@ public final class TreeNode {
                     case "paternal aunt":
                     case "maternal uncle":
                     case "paternal uncle":                  new_label = "cousin";                           break;
-
+                    
+                    case "mother":
+                    case "father": 
                     case "stepmother":
                     case "stepfather":                      new_label = "stepsister";                       break;
 

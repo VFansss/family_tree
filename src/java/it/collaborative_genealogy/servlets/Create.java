@@ -169,7 +169,7 @@ public class Create extends HttpServlet {
                             response.sendRedirect("profile");
                         }
                         break;
-                        
+                    // Se bisogna invitare un altro utente a iscriversi
                     case "invite":
                         break;
                 } 

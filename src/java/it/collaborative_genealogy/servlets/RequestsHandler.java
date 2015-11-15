@@ -116,61 +116,70 @@ public class RequestsHandler extends HttpServlet {
             String accept = request.getParameter("accept");
             String decline = request.getParameter("decline");
             String send = request.getParameter("send");
-            // Se si deve accettare la richiesta di parantela
-            if(accept != null){
-                
-                // Recupero dell'utente che ha inviato la richeista
-                User sender = User.getUserById(accept);
-                try{
-                    user_logged.acceptRequest(sender);
-                    // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
-                    user_logged.sendRefreshAck();
-                     message = new Message("acc", false); // Request accepted
-                } catch (NotAllowed ex){
-                    message = new Message("no_all", true); // Not allowed
-                } catch (SQLException ex){
-                    message = new Message("srv", true); // Server error
-                }
-                
-            // Se si deve rifiutare la richiesta di parantela
-            }else if(decline != null){
-                // Recupero dell'utente che ha inviato la richeista
-                User sender = User.getUserById(decline);
-                try{
-                    user_logged.declineRequest(sender);
-                    message = new Message("dec", false); // Request declined
-                } catch (SQLException ex){
-                    message = new Message("srv", true); // Server error
+            
+            //============================
+            // ACCEPT
+                // Se si deve accettare la richiesta di parantela
+                if(accept != null){
+
+                    // Recupero dell'utente che ha inviato la richeista
+                    User sender = User.getUserById(accept);
+                    try{
+                        user_logged.acceptRequest(sender);
+                        // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
+                        user_logged.sendRefreshAck();
+                         message = new Message("acc", false); // Request accepted
+                    } catch (NotAllowed ex){
+                        message = new Message("no_all", true); // Not allowed
+                    } catch (SQLException ex){
+                        message = new Message("srv", true); // Server error
+                    }
+                    
+                    
+            //============================
+            // DECLINE
+                // Se si deve rifiutare la richiesta di parantela
+                }else if(decline != null){
+                    // Recupero dell'utente che ha inviato la richeista
+                    User sender = User.getUserById(decline);
+                    try{
+                        user_logged.declineRequest(sender);
+                        message = new Message("dec", false); // Request declined
+                    } catch (SQLException ex){
+                        message = new Message("srv", true); // Server error
+                    }
+                    
+                    
+            //============================
+            // SEND
+                // Se si deve inviare una richiesta di parantela
+                }else if(send != null){
+                    page_redirect = "profile";
+
+                    // Recupero dei due utenti coinvolti (richiedente e richiesto)
+                    User user_sender = User.getUserById(request.getParameter("user_sender"));
+                    User user_receiver = User.getUserById(request.getParameter("user_receiver"));
+                    // Recupero del grado di parentela 
+                    String relationship = request.getParameter("relationship");
+
+                    try{
+                        // Invia richiesta di parentela
+                        user_sender.sendRequest(user_receiver, relationship);
+                        message = new Message("snd", false); // Server error
+
+                    } catch(SQLException ex){
+                        message = new Message("srv", true); // Server error
+                    } catch(NotAllowed ex){
+                        message = new Message("no_all", true); // Not allowed
+                    }
+
+                }else{
+                    // Dati corrotti
+                    message = new Message("tmp", true); // Tampered data
                 }
             
-            // Se si deve inviare una richiesta di parantela
-            }else if(send != null){
-                page_redirect = "profile";
-                
-                // Recupero dei due utenti coinvolti (richiedente e richiesto)
-                User user_sender = User.getUserById(request.getParameter("user_sender"));
-                User user_receiver = User.getUserById(request.getParameter("user_receiver"));
-                // Recupero del grado di parentela 
-                String relationship = request.getParameter("relationship");
-
-                try{
-                    // Invia richiesta di parentela
-                    user_sender.sendRequest(user_receiver, relationship);
-                    message = new Message("snd", false); // Server error
-
-                } catch(SQLException ex){
-                    message = new Message("srv", true); // Server error
-                } catch(NotAllowed ex){
-                    message = new Message("no_all", true); // Not allowed
-                }
-                
-            }else{
-                // Dati corrotti
-                message = new Message("tmp", true); // Tampered data
-            }
-            
-            // Torna all apagina delle richieste
-            response.sendRedirect(page_redirect + "?msg=" + URLEncoder.encode(message.getCode(), "UTF-8"));
+                // Torna all apagina delle richieste
+                response.sendRedirect(page_redirect + "?msg=" + URLEncoder.encode(message.getCode(), "UTF-8"));
             
             
         } else {
@@ -178,7 +187,6 @@ public class RequestsHandler extends HttpServlet {
             response.sendRedirect("login?msg=" + URLEncoder.encode("log", "UTF-8"));
         }
             
-      
     }
 
     /**

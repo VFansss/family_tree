@@ -39,20 +39,21 @@
                         <li>
                             <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
                         </li>
-                        <li>
-                            <p><i class="fa fa-user"></i>
-                                <#if relative_grade??>
+                        <#if relative_grade != "">
+                            <li>
+                                <p><i class="fa fa-user"></i>
+
                                     ${relative_grade?capitalize}                       
-                                <#else>
-                                    You
-                                </#if>
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                <a href="addrelative?to=${user_current.id}"><i class="fa fa-plus"></i>Add a relative</a>
-                            </p>
-                        </li>
+
+
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a href="addrelative?to=${user_current.id}"><i class="fa fa-plus"></i>Add a relative</a>
+                                </p>
+                            </li>
+                        </#if>
                     </ul>
                 </div>
                 <div class="col-md-8 biography-box">

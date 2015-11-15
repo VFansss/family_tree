@@ -57,6 +57,7 @@ public class Profile extends HttpServlet {
                     relative_grade = user_current_node.getLabel();
                 } else {
                     user_current = user_logged;
+                    relative_grade = "You";
                 }
 
                 GenealogicalTree family_tree = (GenealogicalTree)session.getAttribute("family_tree");

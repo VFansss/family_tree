@@ -146,7 +146,10 @@ public final class Message {
                         msg = "Photo Uploaded Failed";
                         break;
                         
-                /* REQUEST */       
+                /* REQUEST */ 
+                    case "snd":
+                        msg = "Request sent";
+                        break;
                     case "acc":
                         msg = "Request accepted";
                         break;

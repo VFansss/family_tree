@@ -11,6 +11,7 @@ import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpSession;
 public class RequestsHandler extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Caricamento delle pagina per la gestione delle richieste
      *
      * @param request servlet request
      * @param response servlet response
@@ -56,19 +57,27 @@ public class RequestsHandler extends HttpServlet {
                 } catch (SQLException ex) {
                     
                 }
-                
+                String msg = request.getParameter("msg");
                 // Se ci sono richieste da mostrare
                 if(!requests.isEmpty()){
                     
                     Map<String, Object> data = new HashMap<>();
                     data.put("user_logged", user_logged);
-                    data.put("message", new Message(request.getParameter("msg"), true));
+                    data.put("message", new Message(msg, true));
                     data.put("requests", requests);
 
                     FreeMarker.process("requests.html", data, response, getServletContext());
                 }else{
-                    // Altrimenti, vai alla pagina del profilo
-                    response.sendRedirect("profile");
+                    
+                    // Se non ci sono messaggi da mostrare
+                    if(msg == null){
+                        // Vai alla pagina del profilo senza mostrare messaggi
+                        response.sendRedirect("profile");
+                    }else{
+                    
+                        // Altrimenti vai alla pagina del profilo mostrando il messaggio
+                        response.sendRedirect("profile?msg=" + msg);
+                    }
                     
                 }
                 
@@ -95,7 +104,7 @@ public class RequestsHandler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
-            
+        String page_redirect = "requests";
         HttpSession session = request.getSession(false);
 
         if(session!=null){
@@ -106,7 +115,7 @@ public class RequestsHandler extends HttpServlet {
             
             String accept = request.getParameter("accept");
             String decline = request.getParameter("decline");
-            
+            String send = request.getParameter("send");
             // Se si deve accettare la richiesta di parantela
             if(accept != null){
                 
@@ -134,16 +143,39 @@ public class RequestsHandler extends HttpServlet {
                     message = new Message("srv", true); // Server error
                 }
             
+            // Se si deve inviare una richiesta di parantela
+            }else if(send != null){
+                page_redirect = "profile";
+                
+                // Recupero dei due utenti coinvolti (richiedente e richiesto)
+                User user_sender = User.getUserById(request.getParameter("user_sender"));
+                User user_receiver = User.getUserById(request.getParameter("user_receiver"));
+                // Recupero del grado di parentela 
+                String relationship = request.getParameter("relationship");
+
+                try{
+                    // Invia richiesta di parentela
+                    user_sender.sendRequest(user_receiver, relationship);
+                    message = new Message("snd", false); // Server error
+
+                } catch(SQLException ex){
+                    message = new Message("srv", true); // Server error
+                } catch(NotAllowed ex){
+                    message = new Message("no_all", true); // Not allowed
+                }
+                
             }else{
                 // Dati corrotti
                 message = new Message("tmp", true); // Tampered data
             }
             
             // Torna all apagina delle richieste
-            response.sendRedirect("requests?msn=" + URLEncoder.encode(message.getCode(), "UTF-8"));
+            response.sendRedirect(page_redirect + "?msg=" + URLEncoder.encode(message.getCode(), "UTF-8"));
+            
+            
         } else {
             // Vai alla pagina di login e mostra messaggio di errore
-            response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
+            response.sendRedirect("login?msg=" + URLEncoder.encode("log", "UTF-8"));
         }
             
       

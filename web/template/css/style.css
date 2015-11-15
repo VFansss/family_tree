@@ -49,6 +49,10 @@ ul{
     white-space: nowrap;
 }
 
+.break-word{
+    word-wrap: break-word; 
+}
+
 .ellipsis{
     white-space: nowrap;
     overflow: hidden;
@@ -219,7 +223,6 @@ footer .ball.active{
 
 .tile h3{
     margin-top: 0;
-    word-wrap: break-word;  
 }
 
 .tile .img-circle{

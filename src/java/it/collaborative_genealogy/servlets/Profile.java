@@ -5,6 +5,7 @@ import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.NodeList;
 import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.User;
+import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletException;
@@ -146,13 +147,10 @@ public class Profile extends HttpServlet {
                 data.put("active_button", "profile");     
                 
                 // Controllo messaggio
-                if(request.getParameter("msg")!=null){
-                    switch(request.getParameter("msg")){
-                        case "oksnd":
-                            data.put("message", "User added to family");
-                            break;
-                    }
-                }
+                Message message = new Message(request.getParameter("msg"), false);
+                data.put("message", message);
+                          
+                    
                 
                 // Controllo richieste in arrivo
                 int request_count = 0;
@@ -173,7 +171,7 @@ public class Profile extends HttpServlet {
 
             }else{
                 // Vai alla pagina di login e mostra messaggio di errore
-                response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
+                response.sendRedirect("login?msg=" + URLEncoder.encode("log", "UTF-8"));
             }
 
         } catch (Exception e){

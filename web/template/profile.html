@@ -26,7 +26,7 @@
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
             <div class="panel panel-body blue-background">
                 <div class="col-md-12 top-name">
-                    <h3>${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
+                    <h3 class="break-word">${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
                 </div>
                 <div class="col-md-4 responsive-row">
                     <div class="img-circle">
@@ -56,9 +56,9 @@
                     </ul>
                 </div>
                 <div class="col-md-8 biography-box">
-                    <h3 class="main-name">${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
+                    <h3 class="main-name break-word">${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
                     <#if user_current.biography != "">
-                        <p><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
+                        <p class="break-word"><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
                     <#else>
                         <p class="bio-miss">Missing biography</p>
                     </#if>
@@ -66,10 +66,10 @@
             </div>
         </div>
         
-        <#if message??>
+        <#if message.msg??>
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
                 <div class="form-message text-center dark-background">
-                    <p><i class="fa fa-info-circle"></i> ${message}</p>
+                    <p><i class="fa fa-info-circle"></i> ${message.msg}</p>
                     <!--<a href="#"><i class="fa fa-times pull-right"></i></a>-->
                 </div>
             </div>

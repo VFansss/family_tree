@@ -145,10 +145,18 @@ public final class Message {
                     case "pho_err":
                         msg = "Photo Uploaded Failed";
                         break;
-                    
+                        
+                /* REQUEST */       
+                    case "acc":
+                        msg = "Request accepted";
+                        break;
+                    case "dec":
+                        msg = "Request declined";
+                        break;
+                        
                 /* OTHER */        
                     case "srv":
-                        msg = "Server error";
+                        msg = "An error occurred, please retry";
                         break;
                     case "tmp":
                         msg = "Tampered data";

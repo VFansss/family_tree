@@ -2,7 +2,7 @@
 
 <section class="profile requests">
     
-    <#if message??>
+    <#if message.msg??>
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
             <div class="form-message text-center dark-background">
                 <p><i class="fa fa-info-circle"></i> ${message}</p>
@@ -42,8 +42,10 @@
                         </a>
                         <p>You have been added as ${request.sender.name?capitalize}'s ${request.relationship}</p>
                         <p class="accept-decline-rel">
-                            <a href="requests?accept_from=${request.sender.id}" class="col-xs-3 btn btn-success btn-sm accept-button"><i class="fa fa-check"></i> Accept</a>
-                            <a href="requests?decline_from=${request.sender.id}" class="col-xs-3 col-xs-offset-3 col-sm-offset-1  btn btn-danger btn-sm decline-button"><i class="fa fa-times"></i> Decline</a>
+                            <form action="requests" method="post">
+                                <button name="accept" value="${request.sender.id}" class="col-xs-3 btn btn-success btn-sm accept-button"><i class="fa fa-check"></i> Accept</button>
+                                <button name="decline" value="${request.sender.id}" class="col-xs-3 col-xs-offset-3 col-sm-offset-1  btn btn-danger btn-sm decline-button"><i class="fa fa-times"></i> Decline</button>
+                             </form>
                         </p>
                     </div>
                 </div>

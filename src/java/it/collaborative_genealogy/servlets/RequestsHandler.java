@@ -9,6 +9,7 @@ import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.Request;
 import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.util.FreeMarker;
+import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
@@ -42,60 +43,35 @@ public class RequestsHandler extends HttpServlet {
             HttpSession session = request.getSession(false);
             
             if(session!=null){
-                
-                Map<String, Object> data = new HashMap<>();
-                // Recupero dell'utente loggato
+                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
                 
-                // GESTIONE ACCETTAZIONE RICHIESTE
-                String req = request.getParameter("accept_from");
-                if(req!=null){
-                    User sender = User.getUserById(req);
-                    try{
-                        user_logged.acceptRequest(sender);
-                        
-                        data.put("message", "Request accepted");
-                        // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
-                        user_logged.sendRefreshAck();
-                        session.setAttribute("family_tree", user_logged.getFamilyTree());
-                    } catch (NotAllowed ex){
-                        
-                        data.put("message", "You are not allowed to accept this request");
-                    } catch (SQLException ex){
-                        
-                        data.put("message", "An error occurred, please retry");
-                    }
-                }
-                
-                // GESTIONE RIFIUTO RICHIESTE
-                req = request.getParameter("decline_from");
-                if(req!=null){
-                    User sender = User.getUserById(req);
-                    try{
-                        user_logged.declineRequest(sender);
-                        data.put("message", "Request declined");
-                    } catch (SQLException ex){
-                        
-                        data.put("message", "An error occurred, please retry");
-                    }
-                }
-                
-               
+                // Recupero la lista delle richieste
                 List<Request> requests = new LinkedList<>();
-                
                 try{
                     ResultSet record = user_logged.getRequests();
                     while (record.next()){
                         requests.add(new Request(record));
                     }
                 } catch (SQLException ex) {
-                    requests = null;
+                    
                 }
                 
-                data.put("requests", requests);
-                data.put("user_logged", user_logged);
+                // Se ci sono richieste da mostrare
+                if(!requests.isEmpty()){
+                    
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("user_logged", user_logged);
+                    data.put("message", new Message(request.getParameter("msg"), true));
+                    data.put("requests", requests);
+
+                    FreeMarker.process("requests.html", data, response, getServletContext());
+                }else{
+                    // Altrimenti, vai alla pagina del profilo
+                    response.sendRedirect("profile");
+                    
+                }
                 
-                FreeMarker.process("requests.html", data, response, getServletContext());
                 
             } else {
                 // Vai alla pagina di login e mostra messaggio di errore
@@ -117,8 +93,60 @@ public class RequestsHandler extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
+            
+        HttpSession session = request.getSession(false);
+
+        if(session!=null){
+            Message message;
+            
+            // Recupero dell'utente loggato
+            User user_logged = (User)session.getAttribute("user_logged");
+            
+            String accept = request.getParameter("accept");
+            String decline = request.getParameter("decline");
+            
+            // Se si deve accettare la richiesta di parantela
+            if(accept != null){
+                
+                // Recupero dell'utente che ha inviato la richeista
+                User sender = User.getUserById(accept);
+                try{
+                    user_logged.acceptRequest(sender);
+                    // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
+                    user_logged.sendRefreshAck();
+                     message = new Message("acc", false); // Request accepted
+                } catch (NotAllowed ex){
+                    message = new Message("no_all", true); // Not allowed
+                } catch (SQLException ex){
+                    message = new Message("srv", true); // Server error
+                }
+                
+            // Se si deve rifiutare la richiesta di parantela
+            }else if(decline != null){
+                // Recupero dell'utente che ha inviato la richeista
+                User sender = User.getUserById(decline);
+                try{
+                    user_logged.declineRequest(sender);
+                    message = new Message("dec", false); // Request declined
+                } catch (SQLException ex){
+                    message = new Message("srv", true); // Server error
+                }
+            
+            }else{
+                // Dati corrotti
+                message = new Message("tmp", true); // Tampered data
+            }
+            
+            // Torna all apagina delle richieste
+            response.sendRedirect("requests?msn=" + URLEncoder.encode(message.getCode(), "UTF-8"));
+        } else {
+            // Vai alla pagina di login e mostra messaggio di errore
+            response.sendRedirect("login?msn=" + URLEncoder.encode("log", "UTF-8"));
+        }
+            
+      
     }
 
     /**

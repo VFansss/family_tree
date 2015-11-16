@@ -157,8 +157,12 @@ public class Settings extends HttpServlet {
              check = new Message("date_2", true); // The date is not valid
         }
         
+        // Se non ci sono errori 
+        if(!check.isError()){
+            check = new Message("dt_ok", false); // Data changed
+        }
+
         return check;
-        
     }
     
     private static Message changeEmail(HttpServletRequest request){

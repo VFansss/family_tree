@@ -176,7 +176,7 @@ public class DataUtil {
     
     public static Message checkData(String name, String surname, String gender, String birthdate, String birthplace){
         String msg;
-            Message check = new Message("", true);
+            Message check = new Message("dt_ok", false);
             
             if(name.equals("") || surname.equals("") || gender == null || birthdate.equals("")  || birthplace.equals("")){
                 check = new Message("fld", true); // All fields required

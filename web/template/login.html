@@ -10,7 +10,7 @@
         
             <div class="panel-default text-center wrapper">
 
-                <form action="${action}" class="panel-body main-form" method="POST">
+                <form action="${action}" class="panel-body main-form" method="post">
 
                     <fieldset class="rounded">
                         
@@ -21,8 +21,8 @@
                             <!-- Aggiunta dei campi per i dati utente in caso di signup -->
                             <input class="form-control" name="name" type="text" placeholder="Name" />  
                             <input class="form-control" name="surname" type="text" placeholder="Surname" /> 
-                            <select name="gender" class="form-control">
-                                <option value="" readonly selected>Gender</option>
+                            <select name="gender" class="selectpicker form-control" data-width="270px">
+                                <option value="" data-hidden="true" selected>Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>

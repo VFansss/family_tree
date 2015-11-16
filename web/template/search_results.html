@@ -40,7 +40,7 @@
                         <div class="col-md-12 select-wrapper">
                             <form action="requests" method="post" class="transparent">
                                 <div class="col-md-8 col-sm-8 col-xs-8 ">
-                                    <select name="relationship" class="transparent">
+                                    <select name="relationship" class="selectpicker" data-width="auto">
                                         <option value="" selected disabled>Select a relationship</option>
                                         <#if user.gender == "male">
                                             <option value="parent">Father</option>
@@ -54,7 +54,6 @@
                                             <option value="child">Daughter</option>
                                         </#if>
                                     </select>
-                                    <i class="fa fa-caret-down select-icon"></i>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                     

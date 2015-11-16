@@ -15,7 +15,7 @@ $(document).ready(function(){
         
         // Caching degli elementi
         var form = $(this);
-        var fields = form.find(".form-control:not(button)");
+        var fields = form.find("input.form-control, select.form-control");
         var message = form.find("div.form-message");
        
         var icon = message.find("i");
@@ -23,6 +23,7 @@ $(document).ready(function(){
         
         //Controllo se tutti i campi sono compilati
         fields.each(function() {
+            
             // Se il campo corrente non è stato compilato
             if ($(this).val() === '' ){
                 // Mostra messaggio di errore

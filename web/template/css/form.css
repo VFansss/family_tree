@@ -2,7 +2,7 @@ form.transparent input,
 form.transparent select,
 form.transparent textarea{
     border: 0; 
-    border-bottom: 1px solid rgba(40, 40, 40, 1);
+    border-bottom: 1px solid rgb(40, 40, 40);
     background-color: transparent !important;
     color: #fff;
 }
@@ -84,3 +84,29 @@ form.transparent textarea{
         border-radius: 2px;
     }
 
+/* SISTEMAZIONI SELECTPICKER*/
+
+
+button.btn.dropdown-toggle.selectpicker{
+    background-color: #f7f7f7;
+    height: 44px;
+    border:0;
+    font-size: 16px;
+}
+
+.transparent div.btn-group.bootstrap-select,
+.transparent button.btn.dropdown-toggle.selectpicker{
+    background-color: transparent !important;
+    color: white;
+}
+
+section.settings .transparent button.btn.dropdown-toggle.selectpicker{
+    border-bottom: 1px solid rgb(40, 40, 40);
+}
+
+
+section.search button.btn.dropdown-toggle.selectpicker{
+    font-size: 14px;  
+    height: 22px;
+    padding-top:0;
+}

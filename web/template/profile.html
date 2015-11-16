@@ -5,8 +5,6 @@
         <!-- Breadcrumb nav -->
         <div id="breadcrumb-nav" class="col-md-12">  
             
-            
-            
             <#list breadcrumb as node>
                 <a href="profile?id=${node.user.id}" class="ball" title='${node.user.name} <#if node.label != "">(${node.label?capitalize})</#if>' data-toggle="tooltip"  data-placement="right">
                     <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="profile" />
@@ -71,7 +69,6 @@
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
                 <div class="form-message text-center dark-background">
                     <p><i class="fa fa-info-circle"></i> ${message.msg}</p>
-                    <!--<a href="#"><i class="fa fa-times pull-right"></i></a>-->
                 </div>
             </div>
         </#if>

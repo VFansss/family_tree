@@ -97,7 +97,7 @@ button.btn.dropdown-toggle.selectpicker{
 .transparent div.btn-group.bootstrap-select,
 .transparent button.btn.dropdown-toggle.selectpicker{
     background-color: transparent !important;
-    color: white;
+  
 }
 
 section.settings .transparent button.btn.dropdown-toggle.selectpicker{
@@ -110,3 +110,7 @@ section.search button.btn.dropdown-toggle.selectpicker{
     height: 22px;
     padding-top:0;
 }
+
+button.btn.dropdown-toggle.selectpicker span:first-child{
+    color: rgb(204, 204, 204);  
+} 

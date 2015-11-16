@@ -27,7 +27,6 @@ $(document).ready(function(){
         
         //Controllo se tutti i campi sono compilati
         fields.each(function() {
-            console.log($(this));
             // Se il campo corrente non è stato compilato
             if ($(this).val() === '' ){
                 // Mostra messaggio di errore

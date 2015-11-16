@@ -1,6 +1,25 @@
 
 $(document).ready(function(){
     
+    // Gestione cambio colore quando viene selezionato un elemento dal selectpicker
+    $("select.selectpicker").change(function(){
+        var form = $(this).parents("form");
+        var color;
+        // Se il form dove si trova il selectpicker è di tipo transparent
+        if(form.hasClass("transparent")){
+            // Il nuovo colore sarà bianco
+            color="white";
+        }else{
+            // Altrimenti, sarà nero
+            color="black";
+        }
+        
+        // Cambia colore
+        $(this).next().find("button.btn.dropdown-toggle.selectpicker span:first-child").css("color", color);
+
+    });
+    
+    
     //Attivazione tooltips
     $('[data-toggle="tooltip"]').tooltip();
     

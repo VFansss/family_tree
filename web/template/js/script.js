@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    
+//    $("[name=birthdate]").datepicker({});
     // Gestione cambio colore quando viene selezionato un elemento dal selectpicker
     $("select.selectpicker").change(function(){
         var form = $(this).parents("form");

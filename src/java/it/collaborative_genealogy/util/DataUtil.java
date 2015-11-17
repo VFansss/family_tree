@@ -299,6 +299,7 @@ public class DataUtil {
      * @return                  true se la password è stata verificata, false altrimenti
      */
     public static boolean decrypt(String string_crypted, String to_check){
+        if(to_check == null || string_crypted == null) return false;
         return string_crypted.equals(crypt(to_check));
     }
     

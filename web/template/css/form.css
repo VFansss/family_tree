@@ -51,12 +51,6 @@ form.transparent textarea{
         font-size: 1.1em;        
     }
     
-    select{
-        appearance: none;
-        -moz-appearance: none; 
-        -webkit-appearance:none; 
-    }
-
     select option{
         background-color: #fff;
         color:#000;
@@ -85,8 +79,6 @@ form.transparent textarea{
     }
 
 /* SISTEMAZIONI SELECTPICKER*/
-
-
 button.btn.dropdown-toggle.selectpicker{
     background-color: #f7f7f7;
     height: 44px;
@@ -97,13 +89,11 @@ button.btn.dropdown-toggle.selectpicker{
 .transparent div.btn-group.bootstrap-select,
 .transparent button.btn.dropdown-toggle.selectpicker{
     background-color: transparent !important;
-  
 }
 
 section.settings .transparent button.btn.dropdown-toggle.selectpicker{
     border-bottom: 1px solid rgb(40, 40, 40);
 }
-
 
 section.search button.btn.dropdown-toggle.selectpicker{
     font-size: 14px;  

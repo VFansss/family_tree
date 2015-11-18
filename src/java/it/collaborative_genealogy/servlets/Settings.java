@@ -233,7 +233,7 @@ public class Settings extends HttpServlet {
         }else{
             
             // Se la password non è nel formato giusto
-            Message check = DataUtil.checkEmail(new_password);
+            Message check = DataUtil.checkPassword(new_password);
             if(check.isError()){
                 msg = check.getCode();
             }else{

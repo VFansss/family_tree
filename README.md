@@ -5,7 +5,7 @@ Authors :
 -------------------
 Created by:
 
- * Marco De Toma - [Github](https://github.com/detomarc)
+ * Marco De Toma - [Github](https://github.com/detomarco)
  * Alessio Di Giacomo - [Github](https://github.com/VFansss)
  * Gianluca Filippone - [Github](https://github.com/Gianlufil)
 

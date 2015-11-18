@@ -46,7 +46,6 @@ public final class Message {
         if(this.code != null){
             switch(this.code){
                         
-                        
                 /* USER */
                     case "usr_1":
                         msg = "User does not exist";
@@ -172,6 +171,9 @@ public final class Message {
                         break;
                     case "fld":
                         msg = "All fields are required";
+                        break;
+                    case "inv":
+                        msg = "User invited";
                         break;
                     case "no_all":
                         msg = "Not Allowed";

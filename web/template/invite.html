@@ -13,24 +13,24 @@
 
                 <fieldset class="rounded">
 
-                    <input class="form-control" name="email" type="text" placeholder="E-mail"  required/>  
-                    <input class="form-control" name="name" type="text" placeholder="Name" required/>  
-                    <input class="form-control" name="surname" type="text" placeholder="Surname" required/> 
-                    <select name="gender" class="selectpicker form-control" required>
+                    <input class="form-control" name="email" type="text" placeholder="E-mail"  />  
+                    <input class="form-control" name="name" type="text" placeholder="Name" />  
+                    <input class="form-control" name="surname" type="text" placeholder="Surname" /> 
+                    <select name="gender" class="selectpicker form-control" >
                         <option value="" data-hidden="true" selected>Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
-                    <input class="form-control" name="birthdate" type="text" placeholder="Birthdate (dd/mm/yyyy)" required/>  
-                    <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" required/>  
-                    <select name="relationship" class="selectpicker form-control" title = "select relationship" required>
+                    <input class="form-control" name="birthdate" type="text" placeholder="Birthdate (dd/mm/yyyy)" />  
+                    <input class="form-control" name="birthplace" type="text" placeholder="Birthplace" />  
+                    <select name="relationship" class="selectpicker form-control" title = "select relationship" >
                         <option value="" selected data-hidden="true">&nbsp;Relationship (with <#if relative_grade??>${relative_grade}<#else>you</#if>)</option>
                         <option value="parent">Parent</option>
                         <option value="child">Child</option>
                         <option value="child">Sibling</option>
                         <option value="spouse">Spouse</option>
                     </select>
-                    
+                    <input type="hidden" class="hidden" name="relative" value="${user_current.id}"/>
                 </fieldset>
 
                 <#if action == "create">
@@ -39,11 +39,9 @@
                     <#assign button_icon = "user">
                 </#if>
 
-                <#if message??>
-                    <div class="form-message <#if !(message.msg??)>hide</#if>">
-                        <i class="fa fa-times"></i><p>${message.msg!}</p>
-                    </div>
-                </#if>
+                <div class="form-message <#if !(message.msg??)>hide</#if>">
+                    <i class="fa fa-times"></i><p>${message.msg!}</p>
+                </div>
 
                 <button id="submit" type="submit" class="col-xs-12 btn btn-primary form-control">${action?cap_first} <i class="fa fa-fw fa-${button_icon}"></i></button>
             </form>

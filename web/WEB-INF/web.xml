@@ -47,6 +47,10 @@
         <servlet-name>Create</servlet-name>
         <servlet-class>it.collaborative_genealogy.servlets.Create</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmailSimulator</servlet-name>
+        <servlet-class>it.collaborative_genealogy.servlets.EmailSimulator</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>Create</servlet-name>
         <url-pattern>/invite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailSimulator</servlet-name>
+        <url-pattern>/email</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

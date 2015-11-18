@@ -21,8 +21,6 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -56,7 +54,6 @@ public class User{
         this.birthdate = user.getDate("birthdate");
         this.birthplace = user.getString("birthplace");
         this.biography = user.getString("biography");
-
     }
     
     public User(String id, String name, String surname, String email, String gender, Date birthdate, String birthplace, String biography) {
@@ -201,6 +198,8 @@ public class User{
                 this.removeParent("female");
                 // Rimuovi il coniuge
                 this.removeSpouse();
+                
+                this.sendRefreshAck();
             }
             
             this.name = name;
@@ -1139,23 +1138,17 @@ public class User{
     public static User getUserByEmail(String user_email){
         
         try {
-            
-            User user = null;
             if(user_email != null){
-            
                 try (ResultSet record = Database.selectRecord("user", "email = '" + user_email + "'")) {
                     if(record.next()){
-                        user =  new User(record);
+                        return new User(record);
                     }
                 }
             
             }
-            
-            return user;
-            
-        } catch (SQLException ex) {
-            return null;
-        }
+        } catch (SQLException ex) { }
+        
+        return null;
     }
     /**
      * Verifica la password dell'utente

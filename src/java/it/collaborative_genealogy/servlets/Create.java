@@ -50,7 +50,8 @@ public class Create extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if(session!=null){
-
+            
+            
             Map<String, Object> data = new HashMap<>();
 
             User user_logged = (User)session.getAttribute("user_logged");
@@ -71,6 +72,7 @@ public class Create extends HttpServlet {
             String action = request.getRequestURI().substring(request.getContextPath().length()+1);
 
             data.put("action", action);
+            data.put("script", action);
             data.put("user_logged", user_logged);
             data.put("user_current", user_current);
             //Codifica del messaggio di errore sulla base del codice inviato
@@ -97,50 +99,57 @@ public class Create extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
             HttpSession session = request.getSession(false);
+            //Controllo. Si tratta di una richiesta AJAX?
+            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
             // Se è attiva una sessiona
             if(session!=null) {
+                
+                
                 // Recupera l'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
                 // Recupera l'azione da svolgere
                 String action = request.getRequestURI().substring(request.getContextPath().length()+1); // create o invite
+                // Recupera i dati del nuovo utente
+                String name = request.getParameter("name");
+                String surname = request.getParameter("surname");
+                String gender = request.getParameter("gender");
+                String birthdate = request.getParameter("birthdate");
+                String birthplace = request.getParameter("birthplace");
                 
-                switch(action){
-                    // Se bisogna creare un nuovo utente
-                    case "create":
-                        // Recupera i dati del nuovo utente
-                        String name = request.getParameter("name");
-                        String surname = request.getParameter("surname");
-                        String gender = request.getParameter("gender");
-                        String birthdate = request.getParameter("birthdate");
-                        String birthplace = request.getParameter("birthplace");
-                        String biography = request.getParameter("biography");
-                        String relationship = request.getParameter("relationship");
-                        Message check;
-                        if(relationship.equals("")){
-                            check = new Message("fld", true);
-                        }else{
-                            // Verifica i dati dell'utente
-                            check = DataUtil.checkData(name, surname, gender, birthdate, birthplace);
-                            // Se tutti i dati sono corretti
-                            if(!check.isError()){
-                                // Recupero dell'utente al quale bisogna aggiungere il nuovo parente
-                                TreeNode user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("relative"));
-                                User user_current = user_current_node.getUser();
+                String relationship = request.getParameter("relationship");
+                Message check;
+                    if(relationship.equals("")){
+                        check = new Message("fld", true);
+                    }else{
+                        // Verifica i dati dell'utente
+                        check = DataUtil.checkData(name, surname, gender, birthdate, birthplace);
+                        // Se tutti i dati sono corretti
+                        if(!check.isError()){
+                            // Recupero dell'utente al quale bisogna aggiungere il nuovo parente
+                            TreeNode user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("relative"));
+                            User user_current = user_current_node.getUser();
+                            // Gestione dati dell'utente
+                            Map<String, Object> data = new HashMap<>();  
+                            String user_id = User.createUniqueUserId(10);
+                            data.put("id", user_id);
+                            data.put("name", name);
+                            data.put("surname", surname);
+                            data.put("gender", gender);
+                            data.put("birthplace", birthplace);
+                            
+                            try {
+                                Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
+                                data.put("birthdate", DataUtil.dateToString(sqlDate));
+                            } catch (ParseException ex) {
+                                check = new Message("date_2", true);
+                            }
+                            // Se bisogna creare un nuovo utente
+                            if(action.equals("create")){
                                 
-                                // Gestione dati dell'utente
-                                Map<String, Object> data = new HashMap<>();  
-                                String user_id = User.createUniqueUserId(10);
-                                data.put("id", user_id);
-                                data.put("name", name);
-                                data.put("surname", surname);
-                                data.put("gender", gender);
-                                data.put("birthplace", birthplace);
+                                String biography = request.getParameter("biography");
                                 data.put("biography", biography);
-                                Date sqlDate = null;
                                 try {
 
-                                    sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
-                                    data.put("birthdate", DataUtil.dateToString(sqlDate));
                                     // Inserimento dati nel db
                                     Database.insertRecord("user", data); 
                                     // Recupero dell'utente appena creato
@@ -149,36 +158,73 @@ public class Create extends HttpServlet {
                                     user_current.setRelative(user_added, relationship);
                                     // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
                                     user_logged.sendRefreshAck();
-                                    
-                                } catch (ParseException ex) {
-                                    check = new Message("date_2", true); // The birthdate is not valid
+
                                 } catch (SQLException ex) {
                                     check = new Message("srv", true); // Server error
                                 } catch (NotAllowed ex) {
                                     check = new Message("no_all", true); // Not allowed
                                 }
 
+                            }else if(action.equals("invite")){
+                                // Se bisogna invitare un altro utente a iscriversi
+                                
+                                    String email = request.getParameter("email");
+                                    check = DataUtil.checkEmail(email);
+                                    if(!check.isError()){
+                                        data.put("email", email);
+                                        data.put("biography", "");
+                                        try {
+                                            // Inserimento dati nel db
+                                            Database.insertRecord("user", data); 
+                                            // Recupero dell'utente appena creato
+                                            User user_added = User.getUserById(user_id);
+                                            // Imposta legame di parentela tra i due utenti convolti
+                                            user_current.sendRequest(user_added, relationship);
+                                            check = new Message("inv", false); // User invited
+                                        } catch (SQLException ex) {
+                                            check = new Message("srv", true); // Server error
+                                        } catch (NotAllowed ex) {
+                                            check = new Message("no_all", true); // Not allowed
+                                        }
+                                    }
+                                    
+                            } else {
+                                check = new Message("tmp", true); // Tampered data
                             }
-                        }
+                            
+                            
+                            
+                            
+                        } 
+                        
+                        // Se la servlet è stata chiamata con ajax
+                        if (ajax) {
+                            // Definisce la risposta alla chiamata ajax
+                            response.setContentType("text/plain");
+                            response.setCharacterEncoding("UTF-8");
+                            response.getWriter().write(check.toJSON());       
+
                         // Se ci sono verificati degli errori
-                        if(check.isError()){
+                        } else if(check.isError()){
                             // Mostra messaggio di errore
-                            response.sendRedirect("create?msg="+check.getCode());
+                            response.sendRedirect(action + "?msg="+check.getCode());
+
                         }else{
                             // Torna alla pagina del profilo
                             response.sendRedirect("profile");
                         }
-                        break;
-                    // Se bisogna invitare un altro utente a iscriversi
-                    case "invite":
-                        break;
-                } 
-                                
-            } else {
-                response.sendRedirect("login?msg=log");
-            }
+                    }
+                } else {
+                    if(ajax){
+                        // Definisce la risposta alla chiamata ajax
+                        response.setContentType("text/plain");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getWriter().write(new Message("log", true).toJSON());       
+                    }else{        
+                        response.sendRedirect("login?msg=log");
+                    }
+                }
             
-       
     }
 
 

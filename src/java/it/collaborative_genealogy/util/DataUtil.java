@@ -11,6 +11,7 @@ import it.collaborative_genealogy.UserList;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.validator.DateValidator;
 import org.apache.commons.validator.EmailValidator;
 
@@ -64,13 +67,25 @@ public class DataUtil {
             msg = "eml_3"; // Email is not valid
             
         // Se l'utente è già registrato
-        }else if(User.getUserByEmail(email) != null){
-            msg = "usr_2"; // User already exist
-        
         }else{
-            error = false;
+            User user = User.getUserByEmail(email);
+            if(user != null){
+                try {
+                    if(user.getPassword() != null){
+                        msg = "usr_2"; // User already exist
+                    }else{
+                        Database.deleteRecord("user", "id = '" + user.getId() + "'");
+                        Database.deleteRecord("request", "user_id = '" + user.getId() + "' OR relative_id = '" + user.getId() + "'");
+       
+                        error = false;
+                    }
+                } catch (SQLException ex) {
+                    msg = "srv";
+                }
+            }else{
+                error = false;
+            }
         }
-
         return new Message(msg, error);
 
     } 

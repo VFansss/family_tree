@@ -40,8 +40,8 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
         HttpSession session = request.getSession(false);  
-        //Se non è stata generata la sessione
-//        if(session == null){
+        // Se non è stata generata la sessione
+        if(session == null){
             
             Map<String, Object> data = new HashMap<>();
 
@@ -62,13 +62,13 @@ public class Login extends HttpServlet {
             //Codifica del messaggio di errore sulla base del codice inviato
             data.put("message", new Message(request.getParameter("msg"), true));
 
-            data.put("login_script", "");
+            data.put("script", "login");
 
             FreeMarker.process("login.html", data, response, getServletContext());
-//        }else{
-//            // Altrimenti vai alla pagina dell'utente loggato
-//            response.sendRedirect("profile");
-//        }
+        }else{
+            // Altrimenti vai alla pagina dell'utente loggato
+            response.sendRedirect("profile");
+        }
         
     }
 

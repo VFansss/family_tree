@@ -21,6 +21,8 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -84,6 +86,15 @@ public class User{
 
         public String getEmail(){
             return this.email;
+        }
+        
+        public String getPassword() throws SQLException{
+
+            ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
+            if(record.next()){
+                return record.getString("password"); 
+            }
+            return null;
         }
 
         public Date getBirthdate(){
@@ -1152,15 +1163,14 @@ public class User{
      * @return              true se la password è verificata, falsa altrimenti
      */
     public boolean checkPassword(String password){
-        
+        String user_password;
         try {
-            ResultSet record = Database.selectRecord("user", "email = '" + this.getEmail() + "'");
-            if(record.next()){
-                return DataUtil.decrypt(record.getString("password"), password); 
-            }
-        } catch (SQLException ex) { }
+            user_password = this.getPassword();
+            return DataUtil.decrypt(user_password, password);
+        } catch (SQLException ex) {
+            return false;
+        }
         
-        return false;
     }
     /**
      * Imposta le variabili di sessione necessarie

@@ -104,30 +104,28 @@ public class Login extends HttpServlet {
             if(user_to_log == null){
                 msg = "usr_1";
             }else{
-                try {
-                    ResultSet record = Database.selectRecord("user", "email = '" + user_to_log.getEmail() + "'");
-                    if(record.next()){
-                        // Se l'utente non ha una password
-                        if(record.getString("password") == null){
-                            //Recupera l'id inviato dal form
-                            String new_user_id = request.getParameter("user_id");
-                            // Controllo di autenticazione: dal form viene anche inviato l'id dell'utente invitato, 
-                            //      quindi se l'id nel form corrisponde all'id dell'utente inviato, quest'ultimo è autenticato.
-                            if(new_user_id != null && new_user_id.equals(user_to_log.getId())){
-
-                                Map<String, Object> data = new HashMap<>();
-                                data.put("password", DataUtil.crypt(password));
-                                Database.updateRecord("user", data, "id = '" + user_to_log.getId() + "'");
-                                // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
-                                user_to_log.prepareToLog(request);
-                                error = false;
-                            }else{
-                                msg = "tmp";
-                            }
-                            quick_signup = true;
-
+                try{
+                    // Se l'utente non ha una password
+                    if(user_to_log.getPassword() == null){
+                        //Recupera l'id inviato dal form
+                        String new_user_id = request.getParameter("user_id");
+                        // Controllo di autenticazione: dal form viene anche inviato l'id dell'utente invitato, 
+                        //      quindi se l'id nel form corrisponde all'id dell'utente inviato, quest'ultimo è autenticato.
+                        if(new_user_id != null && new_user_id.equals(user_to_log.getId())){
+                            // Imposta nuova password
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("password", DataUtil.crypt(password));
+                            Database.updateRecord("user", data, "id = '" + user_to_log.getId() + "'");
+                            // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
+                            user_to_log.prepareToLog(request);
+                            error = false;
+                        }else{
+                            msg = "tmp";
                         }
+                        quick_signup = true;
+
                     }
+                    
                 } catch (SQLException ex) {
                     msg = "srv";
                 }

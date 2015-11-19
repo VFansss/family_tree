@@ -172,6 +172,10 @@
         margin-left: 20px;
     }
     
+    .blue-background .biography-box p{
+        margin-top: 40px;
+        
+    }
 }
 
 /* Large +*/

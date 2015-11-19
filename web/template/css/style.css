@@ -10,8 +10,6 @@
 body{
     background: url('../images/background.jpg') no-repeat fixed;
     margin-top:15px; 
-    background-position: 50% 10%;
-    background-size:cover;
     padding-top: 0;
 } 
 

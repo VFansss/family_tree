@@ -39,7 +39,7 @@ Once you built your tree, you can navigate through it and reach each of your rel
 that joined to Collaborative Genealogy.
 
 Every user can *edit his registry information* from a private dashboard.
-From here user can edit it's information, add a biography or upload an image.
+From here user can edit his information, add a biography or upload an avatar.
 
 An *unregistered* user can however search for registered users from the main page.
 

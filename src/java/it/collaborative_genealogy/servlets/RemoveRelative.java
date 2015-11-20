@@ -57,12 +57,6 @@ public class RemoveRelative extends HttpServlet {
                         
                     default: throw new NotAllowed();
                 }
-                
-                /* Se si rimuove un profilo base, questo deve essere cancellato
-                User user_to_remove = User.getUserById(request.getParameter("id"));
-                if(user_to_remove.isBasic()){
-                    deleteUser(user_to_remove);
-                }*/
 
                 response.sendRedirect("profile");
             } catch (NotAllowed | SQLException ex) {

@@ -1,5 +1,5 @@
 
-<div class="panel panel-body dark-background parent-tile">
+<div class="panel panel-body dark-background parent-tile <#if relative.user.isBasic()>basic</#if>">
     
     <#if relative.label == "father" || relative.label == "mother" || relative.label == "daughter" ||relative.label == "son" || relative.label == "husband" || relative.label == "wife" >
         
@@ -36,6 +36,9 @@
         <a href="profile?id=${relative.user.id}">
             <h3 class="main-name hover-blue break-word">${relative.user.name?capitalize} ${relative.user.surname?capitalize}</h3>
         </a>
+        <#if relative.user.isBasic()>
+            <p><i>Not verified account</i></p>
+        </#if>
         <#if relative.user.biography != "">
             <p class="break-word">${relative.user.biography}</p>
         <#else>

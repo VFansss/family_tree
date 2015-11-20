@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
  */
 public class RemoveRelative extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,6 +57,12 @@ public class RemoveRelative extends HttpServlet {
                         
                     default: throw new NotAllowed();
                 }
+                
+                /* Se si rimuove un profilo base, questo deve essere cancellato
+                User user_to_remove = User.getUserById(request.getParameter("id"));
+                if(user_to_remove.isBasic()){
+                    deleteUser(user_to_remove);
+                }*/
 
                 response.sendRedirect("profile");
             } catch (NotAllowed | SQLException ex) {
@@ -88,6 +93,6 @@ public class RemoveRelative extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

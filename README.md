@@ -45,16 +45,16 @@ An *unregistered* user can however search for registered users from the main pag
 
 How it's done :
 -------------------
-The website is completely available from mobile device ( we made it responsive ) .
-Also, it's completely available **out-the-box**.
 
 The entire system is built around few components:
 
-* Internal logic done with **Java Servlet** and **Java Library**
+* Internal logic realized with **Java Servlet** and **Java Library**
 * **SQL** Database hosted by Apache MySQL
-* Template generation done by **Freemarker**
-* Heavy presence of **CSS3** for the graphical interface part
-* **Bootstrap** CSS library
+* Template generation using **Freemarker**
+* Valid **HTML5**
+* Heavy presence of **CSS3** for the graphical user interface, that ensure a completely responsive design
+* **Javasctip** to enhance the user experience, but also available without this tecnology
+* **Bootstrap**, **Normalize** and **FontAwesome** CSS library, and **jQuery** javascript library
 
 Project developed using **Net Beans IDE 8** and **Apache Tomcat**
 

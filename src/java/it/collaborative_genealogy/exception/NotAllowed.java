@@ -5,10 +5,19 @@
  */
 package it.collaborative_genealogy.exception;
 
+import it.collaborative_genealogy.util.Message;
+
 /**
  *
  * @author Marco
  */
 public class NotAllowed extends Throwable {
+    Message msg;
+    
+    public NotAllowed(String msg){
+        
+        super(new Message(msg, true).getMsg());
+        
+    }
     
 }

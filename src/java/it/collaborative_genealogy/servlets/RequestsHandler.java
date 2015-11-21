@@ -11,7 +11,6 @@ import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -130,7 +129,7 @@ public class RequestsHandler extends HttpServlet {
                         user_logged.sendRefreshAck();
                          message = new Message("acc", false); // Request accepted
                     } catch (NotAllowed ex){
-                        message = new Message("no_all", true); // Not allowed
+                        message = new Message(ex.getMessage(), true); // Not allowed
                     } catch (SQLException ex){
                         message = new Message("srv", true); // Server error
                     }

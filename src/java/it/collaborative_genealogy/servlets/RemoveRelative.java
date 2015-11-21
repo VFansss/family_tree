@@ -55,7 +55,7 @@ public class RemoveRelative extends HttpServlet {
                     case "wife": 
                     case "husband":     user_logged.removeSpouse();                                             break;
                         
-                    default: throw new NotAllowed();
+                    default: throw new NotAllowed("srv");
                 }
 
                 response.sendRedirect("profile");

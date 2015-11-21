@@ -2,13 +2,12 @@
     NOTA:   In questa libreria, con il termine parente/relative, si intende qualsiasi persona appartente 
             all'albero genealogico dell'utente istanziato e non solamente quegli utenti che hanno un effettivo 
             legame di parentela
+
+    IPOTESI: due utenti sono considerati uguali solo se hanno entrmabi i genitori in comune, 
+            di conseguenza un utente può aggiungere un altro come fratello se entrambi possono avere gli stessi genitori
 */
 
-
 package it.collaborative_genealogy;
-
-
-
 import it.collaborative_genealogy.util.DataUtil;
 import it.collaborative_genealogy.exception.NotAllowed;
 import it.collaborative_genealogy.tree.GenealogicalTree;
@@ -229,7 +228,7 @@ public class User{
             // Recupero i parenti dell'utente corrente
             NodeList family_tree = this.getFamilyTree().getFamily_tree();
 
-            // Calcola il numero di parenti (-1 per non considerare il parente stesso)
+            // Calcola il numero di parenti (-1 per non considerare l'utente stesso)
             int tree_size = family_tree.size() - 1;
 
             Map<String, Object> data = new HashMap<>();
@@ -715,12 +714,12 @@ public class User{
             } catch (NotAllowed ex) {
                 // Solo nel caso in cui l'utente non puo accettare la richiesta, elimina quest'ultima dal db 
                 //      ma lancia comunque l'eccezione NotAlloed per poter essere gestita al livello superiore
-                relative.deleteRequest(this);
+                Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
                 throw new NotAllowed();
             }
             
             // Rimuovi la richiesta dal database
-            relative.deleteRequest(this);
+            Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
 
         }
         /**
@@ -729,23 +728,7 @@ public class User{
          * @throws java.sql.SQLException
          */
         public void declineRequest(User relative) throws SQLException{
-            relative.deleteRequest(this);
-        }
-        /**
-         * Annulla richiesta di parentela
-         * @param relative  parente a cui si è fatta la richiesta
-         * @throws java.sql.SQLException
-         */
-        public void dropRequest(User relative) throws SQLException{
-            this.deleteRequest(relative);
-        }
-        /**
-         * Elimina richiesta dal database
-         * @param relative  parente a cui si è fatta la richiesta
-         * @throws java.sql.SQLException
-         */
-        private void deleteRequest(User relative) throws SQLException{
-            Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
+            Database.deleteRecord("request", "user_id = '" + relative.getId() + "' AND relative_id = '" + this.id + "'");
         }
     
     //</editor-fold>
@@ -761,7 +744,7 @@ public class User{
          */
         private void canAddLike(User user, String relationship) throws SQLException, NotAllowed {
             
-            // Se l'utente prova ad agigungere se stesso
+            // Se l'utente prova ad aggiungere se stesso
             if(this.equals(user)) throw new NotAllowed();
             
             switch(relationship){
@@ -868,10 +851,10 @@ public class User{
 
                 User u1_parent, u2_parent;
 
-                // Se entrambi gli utenti non hanno nessun genitore, non è possibile verificare la parentela {*}
+                // Se entrambi gli utenti non hanno nessun genitore, non è possibile verificare la parentela
                 if(u2_size == 0 && u1_size == 0) throw new NotAllowed();
 
-                // Se i due utenti hanno già entrambi i genitori, non è possibile che i due utenti siano fratelli {**}
+                // Se i due utenti hanno già entrambi i genitori, non è possibile che i due utenti siano fratelli
                 if(u2_size == 2 && u1_size == 2) throw new NotAllowed();
 
                 // Se entrambi gli utenti hanno un solo genitore
@@ -880,8 +863,11 @@ public class User{
                     u1_parent = (User) u1_parents.iterator().next();
                     // Reucpera l'unico genitore di {u2}
                     u2_parent = (User) u2_parents.iterator().next();
-                    // Se il genitore di {u1} e il genitore di {u2} sono dello stesso sesso e non identificano lo stesso utente, non è possibile che i due utenti siano fratelli
-                    if(!u1_parent.getGender().equals(u2_parent.getGender()) && !u1_parent.equals(u2_parent)) throw new NotAllowed();
+                    
+                    // Se i due genitori identificano lo sesso utente, non è possibile aggiungere i due utenti sono fratelli
+                    if(u1_parent.equals(u2_parents)) throw new NotAllowed();
+                    // Se il genitore di {u1} e il genitore di {u2} sono dello stesso sesso, non è possibile che i due utenti siano fratelli
+                    if(!u1_parent.getGender().equals(u2_parent.getGender())) throw new NotAllowed();
                     // Verifica se il genitore di {u2} può essere coniuge del genitore di {u1}
                     u2_parent.canAddLike(u1_parent, "spouse");
 

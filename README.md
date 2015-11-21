@@ -53,8 +53,8 @@ The entire system is built around few components:
 * Template generation using **Freemarker**
 * Valid **HTML5**
 * Heavy presence of **CSS3** for the graphical user interface, that ensure a completely responsive design
-* **Javasctip** to enhance the user experience, but also available without this tecnology
-* **Bootstrap**, **Normalize** and **FontAwesome** CSS library, and **jQuery** javascript library
+* **Javascript** to enhance the user experience, but also available without this tecnology
+* **[Bootstrap](http://getbootstrap.com/)**, **[Normalize](https://necolas.github.io/normalize.css/)** and **FontAwesome** CSS library, and **jQuery** javascript library
 
 Project developed using **Net Beans IDE 8** and **Apache Tomcat**
 

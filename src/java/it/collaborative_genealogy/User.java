@@ -875,8 +875,9 @@ public class User{
                     if(u1_parent.equals(u2_parents)) throw new NotAllowedException("sib_1");
                     // Se il genitore di {u1} e il genitore di {u2} sono dello stesso sesso, non è possibile che i due utenti siano fratelli
                     if(!u1_parent.getGender().equals(u2_parent.getGender())) throw new NotAllowedException("sib_3");
+                    
                     try{
-                        // Se i due genitori non possono essere coniugi
+                        // Verifica se i due genitori possono essere coniugi
                         u2_parent.canAddLike(u1_parent, "spouse");
                     }catch(NotAllowedException ex){
                         // i due utenti non possono essere fratelli
@@ -894,8 +895,13 @@ public class User{
                     if(u2_size == 0){
 
                         for(User parent: u1_parents){
-                            // Se {u2} non può avere entrambi i genitori di {u1}, non è possibile che i due utenti siano fratelli
-                            u2.canAddLike(parent, "parent");
+                            try{
+                                // Verifica se {u2} può avere entrambi i genitori di {u1}
+                                u2.canAddLike(parent, "parent");
+                            }catch(NotAllowedException ex){
+                                // i due utenti non possono essere fratelli
+                                throw new NotAllowedException("sib_3");
+                            }
                         }
 
                     }
@@ -917,8 +923,13 @@ public class User{
                             // Altrimenti recupara la madre di {u1}
                             other_parent = u1.getRelative("mother");
                         }
-                        // Se l'altro genitore di {u1} può essere aggiunto come genitore di {u2}
-                        u2.canAddLike(other_parent, "parent");
+                        try{
+                            // Verifica se l'altro genitore di {u1} può essere aggiunto come genitore di {u2}
+                            u2.canAddLike(other_parent, "parent");
+                        }catch(NotAllowedException ex){
+                            // i due utenti non possono essere fratelli
+                            throw new NotAllowedException("sib_3");
+                        }
                     }
 
                     /* 
@@ -947,9 +958,14 @@ public class User{
              * @return  true se l'utente è stato aggiunto con successo, false altrimenti
              */
             private void canAddLikeChild(User user) throws SQLException, NotAllowedException { 
-            // Verifica se {user} può aggiungere l'utente corrente come genitore
-            user.canAddLike(this, "parent");
-        }
+                try{
+                    // Verifica se {user} può aggiungere l'utente corrente come genitore
+                    user.canAddLike(this, "parent");
+                }catch(NotAllowedException ex){
+                    throw new NotAllowedException("ch_" + ex.getMessage());
+                }
+                
+            }
         //</editor-fold>
     
     //</editor-fold>

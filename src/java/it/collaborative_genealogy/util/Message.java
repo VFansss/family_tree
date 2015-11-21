@@ -15,8 +15,8 @@ import java.util.Map;
 public final class Message {
     private final String code;
     private final boolean error;
-    private static Map<String, String> map;
-    private String msg;
+    private final static Map<String, String> map;
+    private final String msg;
 
     public String getMsg() {
         return this.msg;
@@ -119,6 +119,17 @@ public final class Message {
             map.put("fat_sib",  "Not allowed: your father can't be your sibling");
             map.put("fat_anc",  "Not allowed: your father can't be your anchestor");
             map.put("fat_off",  "Not allowed: your father can't be your offspring");
+            /* CHILD */
+            map.put("ch_mot_alr",  "Not allowed: the user already have a mother");
+            map.put("ch_mot_your", "Not allowed: this user already is your child");
+            map.put("ch_mot_sib",  "Not allowed: your child can't be your sibling");
+            map.put("ch_mot_anc",  "Not allowed: your child can't be your offsping");
+            map.put("ch_mot_off",  "Not allowed: your child can't be your anchestor");
+            map.put("ch_fat_alr",  "Not allowed: the user already have a father");
+            map.put("ch_fat_your", "Not allowed: this user already is your child");
+            map.put("ch_fat_sib",  "Not allowed: your child can't be your sibling");
+            map.put("ch_fat_anc",  "Not allowed: your child can't be your offspring");
+            map.put("ch_fat_off",  "Not allowed: your child can't be your anchestor");
             /* SIBLING */
             map.put("sib_your", "Not allowed: this user already is your sibling");
             map.put("sib_1",    "Not allowed: this user can't be add as sibling, because this relationship is not verificable");

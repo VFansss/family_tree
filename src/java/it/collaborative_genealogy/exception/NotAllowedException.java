@@ -11,13 +11,12 @@ import it.collaborative_genealogy.util.Message;
  *
  * @author Marco
  */
-public class NotAllowed extends Throwable {
-    Message msg;
+public class NotAllowedException extends Throwable {
     
-    public NotAllowed(String msg){
+    
+    public NotAllowedException(String msg){
         
         super(new Message(msg, true).getMsg());
-        
     }
     
 }

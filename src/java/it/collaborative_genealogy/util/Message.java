@@ -5,6 +5,9 @@
  */
 package it.collaborative_genealogy.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Marco
@@ -12,177 +15,85 @@ package it.collaborative_genealogy.util;
 public final class Message {
     private final String code;
     private final boolean error;
+    private static Map<String, String> map;
     private String msg;
 
     public String getMsg() {
-        return msg;
+        return this.msg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-    
     public Message(String code, boolean error) {
         this.code = code;
         this.error = error;
-        this.getExtentedMessage();
+        this.msg = map.get(this.code);
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
-    
+
     public boolean isError() {
-        return error;
+        return this.error;
     }
-    
+
     public String toJSON() {
         String error_string = this.error ? "true" : "false";
         return "{\"message\":\"" + this.msg + "\", \"error\":\"" + error_string + "\"}";
     }
-    
-    public void getExtentedMessage(){
 
-        if(this.code != null){
-            switch(this.code){
-                        
-                /* USER */
-                    case "usr_1":
-                        msg = "User does not exist";
-                        break;
-                    case "usr_2":
-                        msg = "User already exist";
-                        break;
-                    case "usr_3":
-                        msg = "No user found";
-                        break;
+    static{
+        map = new HashMap<>();
+        /* USER */
+        map.put("usr_1", "User does not exist");
+        map.put("usr_2", "User already exist");
+        map.put("usr_3", "No user found");
+        /* NOME */
+        map.put("name_1", "The name must be alphanumeric");
+        map.put("name_2", "The name is too short");
+        map.put("name_3", "The name is too long");
+        /* COGNOME */
+        map.put("surname_1", "The surname must be alphanumeric");
+        map.put("surname_2", "The surname is too short");
+        map.put("surname_3", "The surname is too long");
+        /* SESSO */
+        map.put("gnd", "You can be only male or female");
+        /* LUOGO DI NASCITA */
+        map.put("plc", "The birthplace must be alphanumeric");
+        /* DATA DI NASCITA */
+        map.put("date_1", "The birthdate isn't in the right format");
+        map.put("date_2", "The birthdate in not valid");
+        map.put("dt_ok", "Data changed");
+        /* EMAIL  */
+        map.put("eml_1", "Current email is not valid");
+        map.put("eml_2", "Confirm email is not valid");
+        map.put("eml_3", "Email is not valid");
+        map.put("eml_ok", "Email changed");
+        /* PASSWORD  */
+        map.put("psw", "Incorrect password");
+        map.put("psd_1", "Current passwrod is not valid");
+        map.put("psd_2", "Confirm passwrod is not valid");
+        map.put("psd_3", "The password must be 6 characters at least");
+        map.put("psd_4", "The password must be alphanumeric");
+        map.put("psd_ok", "Password changed");
+         /* FOTO */
+        map.put("pho_slt", "Please, select a photo");
+        map.put("pho_ok", "Photo Uploaded Successfully");
+        map.put("pho_err", "Photo Uploaded Failed");
+        /* REQUEST */
+        map.put("snd", "Request sent");
+        map.put("acc", "Request accepted");
+        map.put("dec", "Request declined");
+        /* OTHER */
+        map.put("srv", "An error occurred, please retry");
+        map.put("tmp", "Tampered data");
+        map.put("alp", "Please, insert alphanumeric characters only");
+        map.put("log", "Please log in to see this page");
+        map.put("fld", "All fields are required");
+        map.put("inv", "User invited");
+        map.put("no_all", "Not Allowed");
 
-                /* NOME */
-                    case "name_1":
-                        msg = "The name must be alphanumeric";
-                        break;
-                    case "name_2":
-                        msg = "The name is too short";
-                        break;
-                    case "name_3":
-                        msg = "The name is too long";
-                        break;
-                        
-                /* COGNOME */
-                    case "surname_1":
-                        msg = "The surname must be alphanumeric";
-                        break;
-                    case "surname_2":
-                        msg = "The surname is too short";
-                        break;
-                    case "surname_3":
-                        msg = "The surname is too long";
-                        break;
-                        
-                /* SESSO */        
-                    case "gnd":
-                        msg = "You can be only male or female";
-                        break;
-                        
-                /* LUOGO DI NASCITA */    
-                    case "plc":
-                        msg = "The birthplace must be alphanumeric";
-                        break;
-                
-                /* DATA DI NASCITA */   
-                    case "date_1":
-                            msg = "The birthdate isn't in the right format";
-                        break;
-                    case "date_2":
-                        msg = "The birthdate in not valid";
-                        break;
-                    case "dt_ok":
-                        msg = "Data changed";
-                        break;
-                        
-                /* EMAIL  */           
-                    case "eml_1":
-                        msg = "Current email is not valid";
-                        break;
-                    case "eml_2":
-                        msg = "Confirm email is not valid";
-                        break;
-                    case "eml_3":
-                        msg = "Email is not valid";
-                        break;
-                    case "eml_ok":
-                        msg = "Email changed";
-                        break;
-                        
-                /* PASSWORD */    
-                    case "psw":
-                        msg = "Incorrect password";
-                        break;
-                    case "psd_1":
-                        msg = "Current passwrod is not valid";
-                        break;
-                    case "psd_2":
-                        msg = "Confirm passwrod is not valid";
-                        break;
-                    case "psd_3":
-                        msg = "The password must be 6 characters at least";
-                        break;
-                    case "psd_4":
-                        msg = "The password must be alphanumeric";
-                        break;
-                    case "psd_ok":
-                        msg = "Password changed";
-                        break;
-                        
-                /* FOTO */     
-                    case "pho_slt":
-                        msg = "Please, select a photo";
-                        break;
-                    case "pho_ok":
-                        msg = "Photo Uploaded Successfully";
-                        break;
-                    case "pho_err":
-                        msg = "Photo Uploaded Failed";
-                        break;
-                        
-                /* REQUEST */ 
-                    case "snd":
-                        msg = "Request sent";
-                        break;
-                    case "acc":
-                        msg = "Request accepted";
-                        break;
-                    case "dec":
-                        msg = "Request declined";
-                        break;
-                        
-                /* OTHER */        
-                    case "srv":
-                        msg = "An error occurred, please retry";
-                        break;
-                    case "tmp":
-                        msg = "Tampered data";
-                        break;  
-                    case "alp":
-                        msg = "Please, insert alphanumeric characters only";
-                        break;
-                    case "log":
-                        msg = "Please log in to see this page";
-                        break;
-                    case "fld":
-                        msg = "All fields are required";
-                        break;
-                    case "inv":
-                        msg = "User invited";
-                        break;
-                    case "no_all":
-                        msg = "Not Allowed";
-                        break;
-                        
-                default: msg = null;
-            }
-        }
-        
     }
+
+   
 
 }

@@ -6,7 +6,7 @@
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
-import it.collaborative_genealogy.exception.NotAllowed;
+import it.collaborative_genealogy.exception.NotAllowedException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -55,11 +55,11 @@ public class RemoveRelative extends HttpServlet {
                     case "wife": 
                     case "husband":     user_logged.removeSpouse();                                             break;
                         
-                    default: throw new NotAllowed("srv");
+                    default: throw new NotAllowedException("srv");
                 }
 
                 response.sendRedirect("profile");
-            } catch (NotAllowed | SQLException ex) {
+            } catch (NotAllowedException | SQLException ex) {
                 Logger.getLogger(RemoveRelative.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

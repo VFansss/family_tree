@@ -7,7 +7,7 @@ package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.Database;
 import it.collaborative_genealogy.User;
-import it.collaborative_genealogy.exception.NotAllowed;
+import it.collaborative_genealogy.exception.NotAllowedException;
 import it.collaborative_genealogy.tree.GenealogicalTree;
 import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.DataUtil;
@@ -190,7 +190,7 @@ public class Create extends HttpServlet {
                                 }
                             } catch (SQLException ex) {
                                 check = new Message("srv", true); // Server error
-                            } catch (NotAllowed ex) {
+                            } catch (NotAllowedException ex) {
                                 check = new Message("no_all", true); // Not allowed
                             } catch (Exception ex) {
                                 check = new Message("pho_err", true); // Not allowed

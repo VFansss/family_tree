@@ -7,7 +7,7 @@ package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
 import it.collaborative_genealogy.Request;
-import it.collaborative_genealogy.exception.NotAllowed;
+import it.collaborative_genealogy.exception.NotAllowedException;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
 import java.io.IOException;
@@ -128,7 +128,7 @@ public class RequestsHandler extends HttpServlet {
                         // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
                         user_logged.sendRefreshAck();
                          message = new Message("acc", false); // Request accepted
-                    } catch (NotAllowed ex){
+                    } catch (NotAllowedException ex){
                         message = new Message(ex.getMessage(), true); // Not allowed
                     } catch (SQLException ex){
                         message = new Message("srv", true); // Server error
@@ -168,7 +168,7 @@ public class RequestsHandler extends HttpServlet {
 
                     } catch(SQLException ex){
                         message = new Message("srv", true); // Server error
-                    } catch(NotAllowed ex){
+                    } catch(NotAllowedException ex){
                         message = new Message("no_all", true); // Not allowed
                     }
 

@@ -18,13 +18,14 @@ This website, called **Collaborative Genealogy**, represents a social way to
 build up your own genealogical tree, contributing at the same time to grow
 your relatives' one.
 
-Everyone can signup inserting their personal registry information.
+Everyone can signup inserting their personal information.
 
 Signed users can add a piece of their genealogical tree, i.e.
 
 * Parents
 * Siblings
 * Child
+* Spouse
 
 ...or search if there is a relative which is already a member using a common searchbar
 and sending him a request to join to his genealogical tree.
@@ -38,7 +39,7 @@ profile and add it to a genealogical tree.
 Once you built your tree, you can navigate through it and reach each of your relatives
 that joined to Collaborative Genealogy.
 
-Every user can *edit his registry information* from a private dashboard.
+Every user can *edit his information* from a private dashboard.
 From here user can edit his information, add a biography or upload an avatar.
 
 An *unregistered* user can however search for registered users from the main page.
@@ -50,13 +51,13 @@ The entire system is built around few components:
 
 * Internal logic realized with **Java Servlet** and **Java Library**
 * **SQL** Database hosted by Apache MySQL
-* Template generation using **Freemarker**
+* Template generation using **[Freemarker](http://freemarker.org/)**
 * Valid **HTML5**
 * Heavy presence of **CSS3** for the graphical user interface, that ensure a completely responsive design
 * **Javascript** to enhance the user experience, but also available without this tecnology
-* **[Bootstrap](http://getbootstrap.com/)**, **[Normalize](https://necolas.github.io/normalize.css/)** and **FontAwesome** CSS library, and **jQuery** javascript library
+* **[Bootstrap](http://getbootstrap.com/)**, **[Normalize](https://necolas.github.io/normalize.css/)** and **[FontAwesome](http://fortawesome.github.io/Font-Awesome/)** CSS library, and **[jQuery](http://jquery.com/)** javascript library
 
-Project developed using **Net Beans IDE 8** and **Apache Tomcat**
+Project developed using **NetBeans IDE 8** and **Apache Tomcat**
 
 Deploy instructions :
 -------------------

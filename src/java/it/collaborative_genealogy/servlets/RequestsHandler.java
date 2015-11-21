@@ -169,7 +169,7 @@ public class RequestsHandler extends HttpServlet {
                     } catch(SQLException ex){
                         message = new Message("srv", true); // Server error
                     } catch(NotAllowedException ex){
-                        message = new Message("no_all", true); // Not allowed
+                        message = new Message(ex.getMessage(), true); // Not allowed
                     }
 
                 }else{

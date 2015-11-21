@@ -191,7 +191,7 @@ public class Create extends HttpServlet {
                             } catch (SQLException ex) {
                                 check = new Message("srv", true); // Server error
                             } catch (NotAllowedException ex) {
-                                check = new Message("no_all", true); // Not allowed
+                                check = new Message(ex.getMessage(), true); // Not allowed
                             } catch (Exception ex) {
                                 check = new Message("pho_err", true); // Not allowed
                             }

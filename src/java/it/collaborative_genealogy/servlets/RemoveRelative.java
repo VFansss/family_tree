@@ -54,13 +54,12 @@ public class RemoveRelative extends HttpServlet {
                     
                     case "wife": 
                     case "husband":     user_logged.removeSpouse();                                             break;
-                        
-                    default: throw new NotAllowedException("srv");
+                    
                 }
 
                 response.sendRedirect("profile");
-            } catch (NotAllowedException | SQLException ex) {
-                Logger.getLogger(RemoveRelative.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                response.sendRedirect("profile?msg=srv");
             }
         }
     }

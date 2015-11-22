@@ -92,49 +92,49 @@ public final class Message {
         map.put("inv", "User invited");
         
         /* NotAllowedException */
-        map.put("yourself", "Not allowed: you can't add yourself as relative");
+            map.put("yourself",     "Not allowed: you can't add yourself as relative");
             /* SPOUSE */
-            map.put("sp_alr",   "Not allowed: you already have a spouse");
-            map.put("sp_gen",   "Not allowed: you can't have the same gender of your spouse");
-            map.put("sp_your",  "Not allowed: this user already is your spouse");
-            map.put("sp_sib",   "Not allowed: your spouse can't be your sibling");
-            map.put("sp_anc",   "Not allowed: your spouse can't be your anchestor");
-            map.put("sp_off",   "Not allowed: your spouse can't be your offspring");
+            map.put("sp_alr",       "Not allowed: you already have a spouse");
+            map.put("sp_gen",       "Not allowed: you can't have the same gender of your spouse");
+            map.put("sp_your",      "Not allowed: this user already is your spouse");
+            map.put("sp_sib",       "Not allowed: your spouse can't be your sibling");
+            map.put("sp_anc",       "Not allowed: your spouse can't be your anchestor");
+            map.put("sp_off",       "Not allowed: your spouse can't be your offspring");
             /* FATHER */
-            map.put("sp_alr",   "Not allowed: you already have a spouse");
-            map.put("sp_gen",   "Not allowed: you can't have the same gender of your spouse");
-            map.put("sp_your",  "Not allowed: this user already is your spouse");
-            map.put("sp_sib",   "Not allowed: your spouse can't be your sibling");
-            map.put("sp_anc",   "Not allowed: your spouse can't be your anchestor");
-            map.put("sp_off",   "Not allowed: your spouse can't be your offspring");
+            map.put("sp_alr",       "Not allowed: you already have a spouse");
+            map.put("sp_gen",       "Not allowed: you can't have the same gender of your spouse");
+            map.put("sp_your",      "Not allowed: this user already is your spouse");
+            map.put("sp_sib",       "Not allowed: your spouse can't be your sibling");
+            map.put("sp_anc",       "Not allowed: your spouse can't be your anchestor");
+            map.put("sp_off",       "Not allowed: your spouse can't be your offspring");
             /* MOTHER */
-            map.put("mot_alr",  "Not allowed: you already have a mother");
-            map.put("mot_your", "Not allowed: this user already is your mother");
-            map.put("mot_sib",  "Not allowed: your mother can't be your sibling");
-            map.put("mot_anc",  "Not allowed: your mother can't be your anchestor");
-            map.put("mot_off",  "Not allowed: your mother can't be your offspring");
+            map.put("mot_alr",      "Not allowed: you already have a mother");
+            map.put("mot_your",     "Not allowed: this user already is your mother");
+            map.put("mot_sib",      "Not allowed: your mother can't be your sibling");
+            map.put("mot_anc",      "Not allowed: your mother can't be your anchestor");
+            map.put("mot_off",      "Not allowed: your mother can't be your offspring");
             /* FATHER */
-            map.put("fat_alr",  "Not allowed: you already have a father");
-            map.put("fat_your", "Not allowed: this user already is your father");
-            map.put("fat_sib",  "Not allowed: your father can't be your sibling");
-            map.put("fat_anc",  "Not allowed: your father can't be your anchestor");
-            map.put("fat_off",  "Not allowed: your father can't be your offspring");
+            map.put("fat_alr",      "Not allowed: you already have a father");
+            map.put("fat_your",     "Not allowed: this user already is your father");
+            map.put("fat_sib",      "Not allowed: your father can't be your sibling");
+            map.put("fat_anc",      "Not allowed: your father can't be your anchestor");
+            map.put("fat_off",      "Not allowed: your father can't be your offspring");
             /* CHILD */
-            map.put("ch_mot_alr",  "Not allowed: the user already have a mother");
-            map.put("ch_mot_your", "Not allowed: this user already is your child");
-            map.put("ch_mot_sib",  "Not allowed: your child can't be your sibling");
-            map.put("ch_mot_anc",  "Not allowed: your child can't be your offsping");
-            map.put("ch_mot_off",  "Not allowed: your child can't be your anchestor");
-            map.put("ch_fat_alr",  "Not allowed: the user already have a father");
-            map.put("ch_fat_your", "Not allowed: this user already is your child");
-            map.put("ch_fat_sib",  "Not allowed: your child can't be your sibling");
-            map.put("ch_fat_anc",  "Not allowed: your child can't be your offspring");
-            map.put("ch_fat_off",  "Not allowed: your child can't be your anchestor");
+            map.put("ch_mot_alr",   "Not allowed: the user already have a mother");
+            map.put("ch_mot_your",  "Not allowed: this user already is your child");
+            map.put("ch_mot_sib",   "Not allowed: your child can't be your sibling");
+            map.put("ch_mot_anc",   "Not allowed: your child can't be your offsping");
+            map.put("ch_mot_off",   "Not allowed: your child can't be your anchestor");
+            map.put("ch_fat_alr",   "Not allowed: the user already have a father");
+            map.put("ch_fat_your",  "Not allowed: this user already is your child");
+            map.put("ch_fat_sib",   "Not allowed: your child can't be your sibling");
+            map.put("ch_fat_anc",   "Not allowed: your child can't be your offspring");
+            map.put("ch_fat_off",   "Not allowed: your child can't be your anchestor");
             /* SIBLING */
-            map.put("sib_your", "Not allowed: this user already is your sibling");
-            map.put("sib_1",    "Not allowed: this user can't be add as sibling, because this relationship is not verificable");
-            map.put("sib_2",    "Not allowed: this user can't be your sibling, because you have different parents");
-            map.put("sib_3",    "Not allowed: this user can't be your sibling, beacause you can't have the same parents");
+            map.put("sib_your",     "Not allowed: this user already is your sibling");
+            map.put("sib_1",        "Not allowed: this user can't be add as sibling, because this relationship is not verificable");
+            map.put("sib_2",        "Not allowed: this user can't be your sibling, because you have different parents");
+            map.put("sib_3",        "Not allowed: this user can't be your sibling, beacause you can't have the same parents");
             
             
     }

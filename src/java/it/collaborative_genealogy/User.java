@@ -38,6 +38,10 @@ public class User{
     private String birthplace;
     private String biography;
     
+    private String mother_id;
+    private String father_id;
+    private String spouse_id;
+    
     /**
      * Metodo costruttore
      * @param user      contiene i dati personali dell'utente
@@ -53,6 +57,9 @@ public class User{
         this.birthdate = user.getDate("birthdate");
         this.birthplace = user.getString("birthplace");
         this.biography = user.getString("biography");
+        this.mother_id = user.getString("mother_id");
+        this.father_id = user.getString("father_id");
+        this.spouse_id = user.getString("spouse_id");
     }
     
     public User(String id, String name, String surname, String email, String gender, Date birthdate, String birthplace, String biography) {
@@ -64,6 +71,9 @@ public class User{
         this.birthdate = birthdate;
         this.birthplace = birthplace;
         this.biography = biography;
+        this.mother_id = null;
+        this.father_id = null;
+        this.spouse_id = null;
     }
    
     //<editor-fold defaultstate="collapsed" desc="Metodi GET delle variabili di istanza">
@@ -110,34 +120,15 @@ public class User{
         }
 
         public String getMotherId() throws SQLException {
-            /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
-            ResultSet record = Database.selectRecord("user", "id = '" + this.id +"'");
-            if(record.next()){
-                return record.getString("mother_id");
-            }
-            return null;
+            return this.mother_id;
         }
 
         public String getFatherId() throws SQLException {
-
-            /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
-            ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'"); 
-            if(record.next()){
-                return record.getString("father_id");
-            }
-
-            return null;
+            return this.father_id;
         }
 
         public String getSpouseId() throws SQLException {
-
-            /* E' possibile che questo valore venga modificato da altri utenti, per cui è necessario prelevarlo ogni volta dal database*/
-            ResultSet record = Database.selectRecord("user", "id = '" + this.id + "'");
-            if(record.next()){
-                return record.getString("spouse_id");
-            }
-
-            return null;
+            return this.spouse_id;
         }
 
         public int getNumRelatives() throws SQLException {
@@ -711,16 +702,13 @@ public class User{
                 // Effettua il collegamento tra i due parenti
                 relative.setRelative(this, relationship);
                 
-            } catch (NotAllowedException ex) {
-                // Solo nel caso in cui l'utente non puo accettare la richiesta, elimina quest'ultima dal db 
-                //      ma lancia comunque l'eccezione NotAlloed per poter essere gestita al livello superiore
-                Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
-                throw ex;
+            } finally {
+                // Rimuovi la richiesta dal database
+                Database.deleteRecord("request", "user_id = '" + relative.getId() + "' AND relative_id = '" + this.id + "'");
             }
             
-            // Rimuovi la richiesta dal database
-            Database.deleteRecord("request", "user_id = '" + this.id + "' AND relative_id = '" + relative.getId() + "'");
-
+            
+            
         }
         /**
          * Declina richiesta di parentela
@@ -772,7 +760,8 @@ public class User{
             private void canAddLikeParent(User user) throws SQLException, NotAllowedException {
                 try{
                     // Se {user} è già genitore dell'utente
-                    if(this.getParent(user.getGender()).equals(user)) throw new NotAllowedException("your");
+                    User parent = this.getParent(user.getGender());
+                    if(parent != null && parent.equals(user)) throw new NotAllowedException("your");
                     
                     // Se l'utente hà gia un genitore dello stesso sesso
                     if(this.getParent(user.getGender()) != null) throw new NotAllowedException("alr");
@@ -1096,7 +1085,9 @@ public class User{
                 ResultSet record = Database.selectRecord("user", "id='" + this.id + "'");
                 if(record.next()){
                     if(record.getInt("refresh") != 0){
-                        // refresh dell'albero
+                        // Refresh dell'utente, per un eventuale aggiornamento di padre, madre e coniuge
+                        session.setAttribute("user_logged", User.getUserById(this.id));
+                        // Refresh dell'albero
                         session.setAttribute("family_tree", this.getFamilyTree());
                         this.updateAttribute("refresh", 0);
                     }

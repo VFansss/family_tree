@@ -151,8 +151,6 @@ public class Profile extends HttpServlet {
                 Message message = new Message(request.getParameter("msg"), false);
                 data.put("message", message);
                           
-                    
-                
                 // Controllo richieste in arrivo
                 int request_count = 0;
                 try { 

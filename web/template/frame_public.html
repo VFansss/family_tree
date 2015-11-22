@@ -10,7 +10,7 @@
         
         <title>
             <#if user_logged??>
-                ${user_logged.name} ${user_logged.surname}
+                ${user_logged.name?capitalize} ${user_logged.surname?capitalize}
             <#else>
                 ${action?cap_first}
             </#if> | Collaborative Genealogy

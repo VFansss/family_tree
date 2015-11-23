@@ -2,7 +2,7 @@
     <#list results as user>     
         <!-- Tile -->
         <div class="col-md-6 col-sm-6 tile rounded">
-            <div class="panel panel-body dark-background">
+            <div class="panel panel-body dark-background <#if user.isBasic()>basic</#if>">
                 <div class="row">
                     <div class="col-md-12 text-center" >
                         <h3 class="nowrap ellipsis" title="${user.name?capitalize} ${user.surname?capitalize}">${user.name?capitalize} ${user.surname?capitalize}</h3>

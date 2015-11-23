@@ -162,10 +162,19 @@ public class RequestsHandler extends HttpServlet {
                     String relationship = request.getParameter("relationship");
 
                     try{
-                        // Invia richiesta di parentela
-                        user_sender.sendRequest(user_receiver, relationship);
-                        message = new Message("snd", false); // Server error
-
+                        
+                        // Se l'utente che viene aggiunto è un profilo base, non sarà necessario inviare la richiesta
+                        if(user_receiver.isBasic()){
+                            user_sender.setRelative(user_receiver, relationship);
+                            user_logged.sendRefreshAck();
+                            message = new Message("basic_add", false);
+                        } else {
+                        
+                            // Alrtimenti invia richiesta di parentela
+                            user_sender.sendRequest(user_receiver, relationship);
+                            message = new Message("snd", false); // Server error
+                        }
+                        
                     } catch(SQLException ex){
                         message = new Message("srv", true); // Server error
                     } catch(NotAllowedException ex){

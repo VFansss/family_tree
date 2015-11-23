@@ -90,6 +90,7 @@ public final class Message {
         map.put("log", "Please log in to see this page");
         map.put("fld", "All fields are required");
         map.put("inv", "User invited");
+        map.put("basic_add", "Relative added to your tree");
         
         /* NotAllowedException */
             map.put("yourself",     "Not allowed: you can't add yourself as relative");

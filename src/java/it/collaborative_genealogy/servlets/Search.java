@@ -63,15 +63,20 @@ public class Search extends HttpServlet {
             input_filter.put("birthdate", "");
              
             String input = request.getParameter("search-bar-input");
-            
-            // Se la stringa da cercare è alfanumerica
-            if(!DataUtil.isAlphanumeric(input, true)){
-                check = new Message("alp", false);
+            if(!input.equals("")){
+                // Se la stringa da cercare è alfanumerica
+                if(!DataUtil.isAlphanumeric(input, true)){
+                    check = new Message("alp", false);
+                }else{
+                    // Cerca la stringa
+                    results = search(input); 
+                }
+                data.put("searching", input);
             }else{
-                // Cerca la stringa
-                results = search(input); 
+                response.sendRedirect("search");
             }
-            data.put("searching", input);
+            
+            
             
         }else{
             

@@ -15,7 +15,7 @@
             <#else>
                 <h4>Add filters to your search</h4>
             </#if>
-            <form action='<#if add_to??>addrelative<#else>search</#if>' method="POST" class="transparent">
+            <form action='<#if add_to??>addrelative<#else>search</#if>' method="post" class="transparent">
                 <fieldset>
                     <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
                     <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                

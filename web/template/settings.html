@@ -8,7 +8,7 @@
                     <div class="col-md-6 col-sm-6">
                         <div class="lock-container">
                             <div class="panel-default text-center">
-                                <form action="settings?action=avatar" class="panel-body" method="POST" enctype="multipart/form-data">
+                                <form action="settings?action=avatar" class="panel-body" method="post" enctype="multipart/form-data">
                                     <div class="avatar text-center">
                                         <img class="img-cover to-refresh" src="image-view?id=${user_logged.id}" alt="profile image" />
                                         <i class="fa fa-camera fa-3x hover-blue"></i>
@@ -32,10 +32,10 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="settings?action=data" class="panel-body transparent" method="POST">
+                                <form action="settings?action=data" class="panel-body transparent" method="post">
                                     <fieldset>
-                                        <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" required />
-                                        <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" required />
+                                        <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" />
+                                        <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" />
                                             <select name="gender" class="selectpicker form-control" title="Warning! If you change your gender, your family tree will be removed" >
                                                 <#if user_logged.gender == "male">
                                                     <option value="male" selected>Male</option>
@@ -45,8 +45,8 @@
                                                     <option value="female" selected>Female</option>
                                                 </#if>
                                             </select>
-                                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' required />
-                                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" required />
+                                        <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' />
+                                        <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" />
                                         <textarea class="form-control" name="biography" placeholder="Biography"><#if user_logged.biography??>${user_logged.biography}</#if></textarea>
                                     </fieldset>
 
@@ -76,12 +76,12 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="settings?action=email" class="panel-body transparent" method="POST">
+                                <form action="settings?action=email" class="panel-body transparent" method="post">
 
                                     <fieldset>
                                         <input class="form-control"  type="email" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly />
-                                        <input class="form-control"  type="email" name="new_email" placeholder="New email" required/>
-                                        <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" required />
+                                        <input class="form-control"  type="email" name="new_email" placeholder="New email"/>
+                                        <input class="form-control"  type="email" name="confirm_email" placeholder="Confirm email" />
                                     </fieldset>
 
                                     
@@ -110,12 +110,12 @@
                         <div class="lock-container">
                             <div class="panel-default text-center">
 
-                                <form action="settings?action=password" class="panel-body transparent" method="POST">
+                                <form action="settings?action=password" class="panel-body transparent" method="post">
 
                                     <fieldset>
-                                        <input class="form-control"  type="password" name="current_password" placeholder="Current password" required />
-                                        <input class="form-control"  type="password" name="new_password" placeholder="New password" value="" required/>
-                                        <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" required />
+                                        <input class="form-control"  type="password" name="current_password" placeholder="Current password" />
+                                        <input class="form-control"  type="password" name="new_password" placeholder="New password" value="" />
+                                        <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" />
                                     </fieldset>
 
                                     <div class='form-message <#if !(action??) || action != "password">hide</#if>'>

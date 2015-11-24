@@ -120,8 +120,6 @@ public class RequestsHandler extends HttpServlet {
                     User sender = User.getUserById(accept);
                     try{
                         user_logged.acceptRequest(sender);
-                        // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
-                        user_logged.sendRefreshAck();
                          message = new Message("acc", false); // Request accepted
                     } catch (NotAllowedException ex){
                         message = new Message(ex.getMessage(), true); // Not allowed
@@ -161,7 +159,6 @@ public class RequestsHandler extends HttpServlet {
                         // Se l'utente che viene aggiunto è un profilo base, non sarà necessario inviare la richiesta
                         if(user_receiver.isBasic()){
                             user_sender.setRelative(user_receiver, relationship);
-                            user_logged.sendRefreshAck();
                             message = new Message("basic_add", false);
                         } else {
                         

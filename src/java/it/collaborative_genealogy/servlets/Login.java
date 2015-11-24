@@ -110,8 +110,9 @@ public class Login extends HttpServlet {
                             Map<String, Object> data = new HashMap<>();
                             data.put("password", DataUtil.crypt(password));
                             Database.updateRecord("user", data, "id = '" + user_to_log.getId() + "'");
+                            // Apri la sessione
                             // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
-                            user_to_log.prepareToLog(request);
+                            user_to_log.initSession(request.getSession());
                             error = false;
                         }else{
                             msg = "tmp";
@@ -131,8 +132,8 @@ public class Login extends HttpServlet {
                         msg = "psw";
 
                     }else{
-                        // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
-                        user_to_log.prepareToLog(request);
+                        // Prepara l'utente ad essere loggato (gestione della variabili di sessione)
+                        user_to_log.initSession(request.getSession());
                         error = false;
                     }
                 }

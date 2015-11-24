@@ -107,7 +107,7 @@ public class Signup extends HttpServlet {
                 // Creo l'oggetto riservato all'utente
                 User new_user = new User(user_id, name, surname, email, gender, sqlDate, birthplace, "");
                 // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
-                new_user.prepareToLog(request);
+                new_user.initSession(request.getSession(false));
                 // Reindirizzamento alla pagina del profilo dell'utente
                 
                 

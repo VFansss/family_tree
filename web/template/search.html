@@ -6,7 +6,11 @@
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
         <div id="filters" class="panel panel-body blue-background">
             <#if add_to??>
-                <h4>Add relative to ${add_to.name} ${add_to.surname}</h4>
+                <#if add_to.equals(user_logged)>
+                    <h4>Add your direct relative</h4>
+                <#else>
+                    <h4>Add relative to ${add_to.name} ${add_to.surname}</h4>
+                </#if>
                 <p>Search for an existing user to add</p>
             <#else>
                 <h4>Add filters to your search</h4>

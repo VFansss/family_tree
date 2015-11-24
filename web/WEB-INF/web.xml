@@ -32,10 +32,6 @@
         <servlet-class>it.collaborative_genealogy.servlets.ImageView</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddRelative</servlet-name>
-        <servlet-class>it.collaborative_genealogy.servlets.AddRelative</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ShowRequests</servlet-name>
         <servlet-class>it.collaborative_genealogy.servlets.RequestsHandler</servlet-class>
     </servlet>
@@ -83,10 +79,6 @@
     <servlet-mapping>
         <servlet-name>ImageView</servlet-name>
         <url-pattern>/image-view</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddRelative</servlet-name>
-        <url-pattern>/add-request</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShowRequests</servlet-name>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.Database;
@@ -13,25 +8,17 @@ import it.collaborative_genealogy.tree.TreeNode;
 import it.collaborative_genealogy.util.DataUtil;
 import it.collaborative_genealogy.util.FreeMarker;
 import it.collaborative_genealogy.util.Message;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -198,6 +185,6 @@ public class Invite extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet per la gestione degli inviti a registrarsi a Collaborative Genealogy";
     }
 }

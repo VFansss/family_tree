@@ -3,7 +3,7 @@
             all'albero genealogico dell'utente istanziato e non solamente quegli utenti che hanno un effettivo 
             legame di parentela
 
-    IPOTESI: due utenti sono considerati uguali solo se hanno entrmabi i genitori in comune, 
+    IPOTESI: due utenti sono considerati fratelli solo se hanno entrmabi i genitori in comune, 
             di conseguenza un utente può aggiungere un altro come fratello se entrambi possono avere gli stessi genitori
 */
 

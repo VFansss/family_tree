@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.util.FreeMarker;
@@ -293,6 +288,6 @@ public class Settings extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet per le impostazioni";
     }
 }

@@ -38,6 +38,8 @@ public final class Message {
 
     static{
         map = new HashMap<>();
+        /*GENERIC ERROR*/
+        map.put("err", "There was an error");
         /* USER */
         map.put("usr_1", "User does not exist");
         map.put("usr_2", "User already exist");

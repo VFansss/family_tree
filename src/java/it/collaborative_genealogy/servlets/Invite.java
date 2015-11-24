@@ -80,11 +80,10 @@ public class Invite extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Message check = new Message("dt_ok", false);;
-        // Recupera l'azione da svolgere
-        String action = request.getRequestURI().substring(request.getContextPath().length() + 1); // create o invite
+        Message check = new Message("err", true);
 
         HttpSession session = request.getSession(false);
+        
         //Controllo. Si tratta di una richiesta AJAX?
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         // Se è attiva una sessiona
@@ -158,11 +157,11 @@ public class Invite extends HttpServlet {
                 // Se ci sono verificati degli errori
             } else if (check.isError()) {
                 // Mostra messaggio di errore
-                response.sendRedirect(action + "?msg=" + check.getCode());
+                response.sendRedirect("invite?msg=" + check.getCode());
 
             } else {
                 // Torna alla pagina del profilo
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?msg=inv");
             }
 
         } else {

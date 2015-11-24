@@ -28,9 +28,12 @@ public class EmailSimulator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         User user = User.getUserByEmail(email);
+        
+        String action = (String)request.getParameter("action");
        
         HttpSession session=request.getSession();  
-        session.invalidate(); 
+        
+        User user_logged = (User)session.getAttribute("user_logged");
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -42,11 +45,21 @@ public class EmailSimulator extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Email Simulator</h1>");
             
-            out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to sign up</a>");
+            if(action.equals("invite")){
+                out.println("<p>"+user_logged.getName()+" "+user_logged.getSurname()+" has sent you a request to join to Collaborative Genealogy</p>");
+                out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to sign up</a>"); 
+            } else if(action.equals("request")){
+                out.println("<p>"+user_logged.getName()+" "+user_logged.getSurname()+" added you as "+request.getParameter("relationship")+"</p>");
+                out.println("<a target='_blank' href='requests'>Click here to accept the request</a>"); 
+            } else {
+                out.println("<p>Else<p>");
+            }
             
             out.println("</body>");
             out.println("</html>");
+            out.close();
         }
+        session.invalidate();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

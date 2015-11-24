@@ -67,7 +67,7 @@ $(document).ready(function(){
 //                    window.location = "profile"; 
                     // Imposta messaggio di successo
                     icon.attr("class", "fa fa-check");  
-                    var win = window.open("email?email=" + $("[name=email]").val(), '_blank');
+                    var win = window.open("email?email=" + $("[name=email]").val() + "&action=invite", '_blank');
                     win.focus();
                         
                 }

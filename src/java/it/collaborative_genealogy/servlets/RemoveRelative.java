@@ -41,9 +41,6 @@ public class RemoveRelative extends HttpServlet {
                 User user_logged = (User)session.getAttribute("user_logged");
                 String relationship = request.getParameter("type");
                 
-                // Prima di eliminare il parente, bisogna fare il refresh dll'albero genealogico dei parenti loggati in quel momento
-                user_logged.sendRefreshAck();
-                
                 switch(relationship){
                     
                     case "mother":      user_logged.removeParent("female");                                     break;

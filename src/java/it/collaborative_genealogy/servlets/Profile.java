@@ -42,7 +42,7 @@ public class Profile extends HttpServlet {
             
             //Se è stata generata la sessione
             if(session != null){
-                
+                GenealogicalTree family_tree = (GenealogicalTree)session.getAttribute("family_tree");
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
                 // Verifica se bisogna fare il refresh dell'albero genealogico presente in cache
@@ -52,7 +52,7 @@ public class Profile extends HttpServlet {
                 TreeNode user_current_node;
                 String relative_grade = null;
                 if (request.getParameter("id") != null){
-                    user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("id"));
+                    user_current_node = family_tree.getUserById((String)request.getParameter("id"));
                     user_current = user_current_node.getUser();
                     relative_grade = user_current_node.getLabel();
                 } else {
@@ -60,7 +60,7 @@ public class Profile extends HttpServlet {
                     relative_grade = "You";
                 }
 
-                GenealogicalTree family_tree = (GenealogicalTree)session.getAttribute("family_tree");
+                
 
                 /* Recupero dei parenti dell'utente corrente */
 

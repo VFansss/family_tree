@@ -20,7 +20,6 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -460,6 +459,8 @@ public class User{
 
                 default: throw new NotAllowedException("tmp");
             }
+            
+            this.sendRefreshAck();
 
         }
         /**
@@ -584,7 +585,10 @@ public class User{
             String attribute;
 
             if(parent != null){
-
+                
+                // Prima di eliminare il genitore, bisogna fare il refresh dll'albero genealogico dei parenti loggati in quel momento
+                this.sendRefreshAck();
+                
                 if(gender.equals("female")){
                     attribute = "mother_id";
                 }else{
@@ -608,6 +612,8 @@ public class User{
          */
         public void removeSpouse() throws SQLException {
             if(this.getSpouse() != null){
+                // Prima di eliminare il coniuge, bisogna fare il refresh dll'albero genealogico dei parenti loggati in quel momento
+                this.sendRefreshAck();
                 // Elimina il coniuge a entrambi i coniugi
                 Database.resetAttribute("user", "spouse_id", "id = '" + this.id + "' OR id = '" + this.getSpouseId() + "'");
                 User spouse = this.getSpouse();
@@ -1085,11 +1091,7 @@ public class User{
                 ResultSet record = Database.selectRecord("user", "id='" + this.id + "'");
                 if(record.next()){
                     if(record.getInt("refresh") != 0){
-                        // Refresh dell'utente, per un eventuale aggiornamento di padre, madre e coniuge
-                        session.setAttribute("user_logged", User.getUserById(this.id));
-                        // Refresh dell'albero
-                        session.setAttribute("family_tree", this.getFamilyTree());
-                        this.updateAttribute("refresh", 0);
+                        this.initSession(session);
                     }
                 }
             } catch (SQLException ex) { }
@@ -1105,7 +1107,7 @@ public class User{
             Map<String, Object> data = new HashMap<>();
             data.put("refresh", 1);
 
-            // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
+            // Generazione della condizione: bisogna aggiornare l'albero genealogico di ogni parente
             String condition = "";
             for(TreeNode user: family_tree.getFamily_tree()){
                 condition = condition + "id = '" + user.getUser().getId() + "' OR ";
@@ -1173,22 +1175,24 @@ public class User{
     }
     /**
      * Imposta le variabili di sessione necessarie
-     * @param request
+     * @param session
      */
-    public void prepareToLog(HttpServletRequest request){
-        // Apri la sessione
-        HttpSession session = request.getSession();
+    public void initSession(HttpSession session){
+        User user_refresh = User.getUserById(this.id);
         // Inserisci l'utente corrente nella variabile di sessione
-        session.setAttribute("user_logged", this);
+        session.setAttribute("user_logged", user_refresh);
         // Inizializza la breadcrumb
         session.setAttribute("breadcrumb", new NodeList());
         
         try {
             // Appena un utente fa il login non ha bisogno di fare il refresh dell'albero nella cache
             this.updateAttribute("refresh", 0);
-        } catch (SQLException ex) { }
+        } catch (SQLException ex) { 
+            
+        }
+        
         try {
-            session.setAttribute("family_tree", this.getFamilyTree());
+            session.setAttribute("family_tree", user_refresh.getFamilyTree());
         } catch (SQLException ex) {
             session.setAttribute("family_tree", null);
         }

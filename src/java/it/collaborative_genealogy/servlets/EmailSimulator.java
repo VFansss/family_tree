@@ -34,7 +34,7 @@ public class EmailSimulator extends HttpServlet {
         String email = request.getParameter("email");
         User user = User.getUserByEmail(email);
        
-        HttpSession session=request.getSession();  
+        HttpSession session=request.getSession(false);  
         session.invalidate(); 
         
         try (PrintWriter out = response.getWriter()) {

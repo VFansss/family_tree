@@ -10,11 +10,11 @@
     /*                HEADER                     */
     /*==========================================*/
     
-    header #search-bar{
+    div.header #search-bar{
         margin-bottom: 5px;
     }
     
-    header .button-top-right a{
+    div.header .button-top-right a{
         max-width: 100px;
     }
        
@@ -22,7 +22,7 @@
     /*                LOGIN                     */
     /*==========================================*/
 
-    section.login .title img {
+    div.section.login .title img {
         width: 200px;
         height: 200px;
         margin: auto;
@@ -33,17 +33,17 @@
     /*                FOOTER                   */
     /*==========================================*/
     
-    footer{
+    div.footer{
         width: 100%;
         background: rgba(20, 20, 20, 0.8);
     }
     
-    footer ul{
+    div.footer ul{
         margin: 0;
         padding: 0;
     }
     
-    footer ul li{
+    div.footer ul li{
         text-align: center;
         display: inline-block;
         width: 32%;
@@ -56,11 +56,11 @@
     /*                PROFILE                   */
     /*==========================================*/
 
-    section.profile #breadcrumb-nav{
+    div.section.profile #breadcrumb-nav{
         margin: 2px 0;
     }
     
-    section.profile .tile .biography-box{
+    div.section.profile .tile .biography-box{
         margin-top: 10px;
     }
 
@@ -77,21 +77,21 @@
     /*                HEADER                    */
     /*==========================================*/
     
-    header{
+    div.header{
         top: 15px;
         position:fixed;
         width:100%;
     }
     
-    header .requests{
+    div.header .requests{
         display:none;
     }
     
     /*==========================================*/
-    /*                HEADER                    */
+    /*                SECTION                    */
     /*==========================================*/
     
-    section{
+    div.section{
         margin-top: 70px;
     }
 
@@ -99,13 +99,13 @@
     /*                FOOTER                    */
     /*==========================================*/
 
-    footer .ball{
+    div.footer .ball{
         position: fixed;
         right: 15px;
         font-size: 1.2em;
     }
     
-    footer .ball.requests{
+    div.footer .ball.requests{
         color: #D44535;
     }
     
@@ -119,7 +119,7 @@
     /*                PROFILE                   */
     /*==========================================*/
     
-    section.profile #breadcrumb-nav{
+    div.section.profile #breadcrumb-nav{
         position:fixed;
         left: 5px;
         top: 67px;
@@ -131,7 +131,7 @@
     /*                SETTINGS                  */
     /*==========================================*/
     
-    section.settings .wrapper{
+    div.section.settings .wrapper{
         width: 650px;
     }
 }
@@ -192,21 +192,21 @@
     /*                SEARCH                    */
     /*==========================================*/
     
-    section.search .anagraphics-info,
-    section.search .img-circle{
+    div.section.search .anagraphics-info,
+    div.section.search .img-circle{
         position:absolute;
         top:0;
     }
     
-    section.search .anagraphics-info{
+    div.section.search .anagraphics-info{
         left: 130px;
     }
     
-    section.search .add-info div:not(:last-child){
+    div.section.search .add-info div:not(:last-child){
         margin-right: 8.3%;
     }
     
-    section.search .add-info div:not(:first-child){
+    div.section.search .add-info div:not(:first-child){
         margin-left: 8.3%;
     }
 }
@@ -214,7 +214,7 @@
 /* Other*/
 @media (min-width: 992px) and (max-width: 1150px){
 
-    section.search .responsive-row{
+    div.section.search .responsive-row{
         margin-left:0;
     }
 }

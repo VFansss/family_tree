@@ -11,7 +11,7 @@ $(document).ready(function(){
     });
     
     // Al submit del form
-    $("section.settings .wrapper form").submit(function( event ) {
+    $("div.section.settings .wrapper form").submit(function( event ) {
         // Non eseguire il comportamente di default del submit
         event.preventDefault();
         

@@ -1,5 +1,5 @@
 <#include "frame_public.html">
-<section class="login">
+<div class="section login">
 
     <div class="col-md-12 title text-center">
         <h1 class="xs-hidden">Collaborative Genealogy</h1>
@@ -14,7 +14,7 @@
 
                     <fieldset class="rounded">
                         
-                        <input class="form-control" name="email" type="text" placeholder="E-mail" <#if email??> value="${email}" readonly </#if>>  
+                        <input class="form-control" name="email" type="text" placeholder="E-mail" <#if email??> value="${email}" readonly </#if> />  
                         <input class="form-control" name="password" type="password" placeholder="<#if email??>Choose a password<#else>Password</#if>" />  
                         <input class="hidden" type="hidden" name="user_id" value="${user_id!}" />
                         <#if action == "signup">
@@ -50,6 +50,6 @@
        
     </div>
 
-</section>
+</div>
 
 <#include "footer.html">

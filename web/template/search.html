@@ -1,7 +1,7 @@
 <#assign action = "search">
 <#include "frame_public.html">
 
-<section class="search profile">
+<div class="section search profile">
     
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
         <div id="filters" class="panel panel-body blue-background">
@@ -15,7 +15,7 @@
             <#else>
                 <h4>Add filters to your search</h4>
             </#if>
-            <form action='<#if add_to??>addrelative<#else>search</#if>' method="POST" class="transparent">
+            <form action='<#if add_to??>addrelative<#else>search</#if>' method="post" class="transparent">
                 <fieldset>
                     <input class="form-control" type="text" name="name" placeholder="Name" value="${values.name}"/>
                     <input class="form-control" type="text" name="surname" placeholder="Surname" value="${values.surname}"/>                                
@@ -71,6 +71,6 @@
         <#include "search_results.html">
     </#if>
     
-</section>
+</div>
 
 <#include "footer.html">

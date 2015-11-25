@@ -7,9 +7,11 @@
         
     </#if>
     <div class="col-md-12 top-name">
-        <a href="profile?id=${relative.user.id}">
-            <h3 class="hover-blue break-word">${relative.user.name?capitalize} ${relative.user.surname?capitalize}</h3>
-        </a>
+        <h3>
+            <a class="hover-blue break-word" href="profile?id=${relative.user.id}">
+                ${relative.user.name?capitalize} ${relative.user.surname?capitalize}
+            </a>
+        </h3>
     </div>
     <div class="col-md-4 responsive-row">
         <div class="img-circle">
@@ -33,9 +35,11 @@
 
     </div>
     <div class="col-md-8 biography-box">
-        <a href="profile?id=${relative.user.id}">
-            <h3 class="main-name hover-blue break-word">${relative.user.name?capitalize} ${relative.user.surname?capitalize}</h3>
-        </a>
+        <h3 class="main-name">
+            <a href="profile?id=${relative.user.id}" class="hover-blue break-word">
+                ${relative.user.name?capitalize} ${relative.user.surname?capitalize}
+            </a>
+        </h3>
         <#if relative.user.isBasic()>
             <p><i>Not verified account</i></p>
         </#if>

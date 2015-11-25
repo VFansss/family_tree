@@ -46,129 +46,140 @@ public class Profile extends HttpServlet {
                 // Recupero dell'utente loggato
                 User user_logged = (User)session.getAttribute("user_logged");
                 // Verifica se bisogna fare il refresh dell'albero genealogico presente in cache
-                user_logged.checkFamilyTreeCache(session);
-                // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
-                User user_current;
-                TreeNode user_current_node;
-                String relative_grade = null;
-                if (request.getParameter("id") != null){
-                    user_current_node = family_tree.getUserById((String)request.getParameter("id"));
-                    user_current = user_current_node.getUser();
-                    relative_grade = user_current_node.getLabel();
-                } else {
-                    user_current = user_logged;
-                    relative_grade = "You";
-                }
-
+                boolean refresh = user_logged.checkFamilyTreeCache(session);
+                if(!refresh){
                 
+                    // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
+                    User user_current;
+                    TreeNode user_current_node;
+                    String relative_grade = null;
+                    if (request.getParameter("id") != null){
+                        user_current_node = family_tree.getUserById((String)request.getParameter("id"));
+                        user_current = user_current_node.getUser();
+                        relative_grade = user_current_node.getLabel();
+                    } else {
+                        user_current = user_logged;
+                        relative_grade = "You";
+                    }
 
-                /* Recupero dei parenti dell'utente corrente */
 
-                // Recupero del padre
-                TreeNode father = null;
-                try {
-                    father = family_tree.getUser(user_current.getRelative("father"));
-                } catch (SQLException ex) { }
 
-                // Recupero della madre
-                TreeNode mother = null;
-                try {
-                    mother = family_tree.getUser(user_current.getRelative("mother"));
-                } catch (SQLException ex) { }
+                    /* Recupero dei parenti dell'utente corrente */
 
-                // Recupero del coniuge
-                TreeNode spouse = null;
-                try {
-                    spouse = family_tree.getUser(user_current.getRelative("spouse"));
-                } catch (SQLException ex) { }
+                    // Recupero del padre
+                    TreeNode father = null;
+                    try {
+                        father = family_tree.getUser(user_current.getRelative("father"));
+                    } catch (SQLException ex) { }
 
-                // Recupero dei fratelli
-                NodeList siblings = null;
-                try {
-                    siblings = family_tree.getUsers(user_current.getSiblings());
-                } catch (SQLException ex) { }
+                    // Recupero della madre
+                    TreeNode mother = null;
+                    try {
+                        mother = family_tree.getUser(user_current.getRelative("mother"));
+                    } catch (SQLException ex) { }
 
-                // Recupero dei figli
-                NodeList children = null;
-                try {
-                    children = family_tree.getUsers(user_current.getChildren());
-                } catch (SQLException ex) { }
+                    // Recupero del coniuge
+                    TreeNode spouse = null;
+                    try {
+                        spouse = family_tree.getUser(user_current.getRelative("spouse"));
+                    } catch (SQLException ex) { }
 
-                /* Inserimento dei parenti nel data-model */
+                    // Recupero dei fratelli
+                    NodeList siblings = null;
+                    try {
+                        siblings = family_tree.getUsers(user_current.getSiblings());
+                    } catch (SQLException ex) { }
 
-                data.put("user_logged", user_logged);
-                data.put("user_current", user_current);
-                data.put("relative_grade", relative_grade);
+                    // Recupero dei figli
+                    NodeList children = null;
+                    try {
+                        children = family_tree.getUsers(user_current.getChildren());
+                    } catch (SQLException ex) { }
 
-                data.put("siblings", siblings);
-                data.put("children", children);
+                    /* Inserimento dei parenti nel data-model */
 
-                data.put("spouse", spouse);
-                data.put("father", father);
-                data.put("mother", mother);
+                    data.put("user_logged", user_logged);
+                    data.put("user_current", user_current);
+                    data.put("relative_grade", relative_grade);
 
-                /* Gestione breadcrumb */
+                    data.put("siblings", siblings);
+                    data.put("children", children);
 
-                // Recupero del breadcrumb
-                NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
-                if(user_current.equals(user_logged)){
-                    breadcrumb.clear();
+                    data.put("spouse", spouse);
+                    data.put("father", father);
+                    data.put("mother", mother);
 
-                }else{
+                    /* Gestione breadcrumb */
 
-                    Iterator iter = breadcrumb.iterator();
-                    boolean remove = false;
-                    while(iter.hasNext()){
-                        TreeNode node = (TreeNode)iter.next();
-                        if(!remove){
-                            // Se l'utente corrente è uguale a quello nella lista
-                            if(node.getUser().getId().equals(user_current.getId())){
-                                // Elimina tutti gli utenti successivi
+                    // Recupero del breadcrumb
+                    NodeList breadcrumb = (NodeList)session.getAttribute("breadcrumb");
+                    if(user_current.equals(user_logged)){
+                        breadcrumb.clear();
+
+                    }else{
+
+                        Iterator iter = breadcrumb.iterator();
+                        boolean remove = false;
+                        while(iter.hasNext()){
+                            TreeNode node = (TreeNode)iter.next();
+                            if(!remove){
+                                // Se l'utente corrente è uguale a quello nella lista
+                                if(node.getUser().getId().equals(user_current.getId())){
+                                    // Elimina tutti gli utenti successivi
+                                    iter.remove();
+                                    remove = true;
+                                }
+                            }else{
                                 iter.remove();
-                                remove = true;
                             }
-                        }else{
-                            iter.remove();
                         }
                     }
-                }
 
 
-                breadcrumb.add(family_tree.getUser(user_current));
+                    breadcrumb.add(family_tree.getUser(user_current));
 
-                // Se bisogna ripulire la breadcrumb
-                if(request.getParameter("clear") != null && request.getParameter("clear").equals("true")){
-                    breadcrumb.cleaner();
-                }
-
-                // Inserimento del nuovo breadcrumb nella variabile di sessione
-                session.setAttribute("breadcrumb", breadcrumb);
-                // Inserimento del breadcrumb nel data-model
-                data.put("breadcrumb", breadcrumb);
-                data.put("active_button", "profile");     
-                
-                // Controllo messaggio
-                Message message = new Message(request.getParameter("msg"), false);
-                data.put("message", message);
-                          
-                // Controllo richieste in arrivo
-                int request_count = 0;
-                try { 
-                    ResultSet record = user_logged.getRequests();
-                    while(record.next()){
-                        request_count++;
+                    // Se bisogna ripulire la breadcrumb
+                    if(request.getParameter("clear") != null && request.getParameter("clear").equals("true")){
+                        breadcrumb.cleaner();
                     }
-                } catch (SQLException ex) {
-                    request_count = 0;
-                } finally {
-                    data.put("request", request_count);
-                }
-                
-                
-                // Caricamento del template
-                FreeMarker.process("profile.html",data, response, getServletContext());
 
+                    // Inserimento del nuovo breadcrumb nella variabile di sessione
+                    session.setAttribute("breadcrumb", breadcrumb);
+                    // Inserimento del breadcrumb nel data-model
+                    data.put("breadcrumb", breadcrumb);
+                    data.put("active_button", "profile");     
+
+                    // Controllo messaggio
+                    Message message = new Message(request.getParameter("msg"), false);
+                    data.put("message", message);
+
+                    // Controllo richieste in arrivo
+                    int request_count = 0;
+                    try { 
+                        ResultSet record = user_logged.getRequests();
+                        while(record.next()){
+                            request_count++;
+                        }
+                    } catch (SQLException ex) {
+                        request_count = 0;
+                    } finally {
+                        data.put("request", request_count);
+                    }
+
+
+                    // Caricamento del template
+                    FreeMarker.process("profile.html",data, response, getServletContext());
+                }else{
+                    StringBuffer requestURL = request.getRequestURL();
+                    if (request.getQueryString() != null) {
+                        requestURL.append("?").append(request.getQueryString());
+                    }
+                    String completeURL = requestURL.toString();
+                    // Vai alla pagina di login e mostra messaggio di errore
+                    response.sendRedirect(completeURL);
+                }
             }else{
+                
                 // Vai alla pagina di login e mostra messaggio di errore
                 response.sendRedirect("login?msg=" + URLEncoder.encode("log", "UTF-8"));
             }

@@ -13,10 +13,7 @@ body{
     padding-top: 0;
 } 
 
-header p{
-    margin:0;
-}
-section{
+div.section{
     z-index: 100 !important;
 }
 
@@ -85,21 +82,23 @@ h2.text-white{
 /*                HEADER                     */
 /*==========================================*/
 
-header{
+
+div.header{
     height: 35px;
     margin-bottom: 15px;
 }
 
-header #tree-icon img{
+div.header #tree-icon img{
     margin: 0 20px;
     height: 40px;
     width: 40px;
 }
-header #search-bar{
+
+div.header #search-bar{
     position:relative;
 }
 
-header #search-bar input[type=submit]{
+div.header #search-bar input[type=submit]{
     opacity: 0;
     filter: alpha(opacity=0); /* For IE8 and earlier */
     position:absolute;
@@ -109,7 +108,7 @@ header #search-bar input[type=submit]{
     left: 15px;
 }
 
-header #search-bar input[type=text]{
+div.header #search-bar input[type=text]{
     color: rgba(255,255,255,.5);
     padding: 0 10px 2px 39px;
     background: rgba(0,0,0,0.6);
@@ -123,11 +122,11 @@ header #search-bar input[type=text]{
     width: 100%;
 }
 
-header #search-bar input[type=text]:focus{
+div.header #search-bar input[type=text]:focus{
     background-color:rgba(255,255,255,0.1);
 }
 
-header #search-bar::before{
+div.header #search-bar::before{
     font-family: FontAwesome;
     content:"\f002";
     width: 50px;
@@ -136,24 +135,24 @@ header #search-bar::before{
     font-size: 20px;
 }
 
-header .button-top-right{
+div.header .button-top-right{
     padding-right: 10px;
     padding-left: 10px;
 }
 
-header .button-top-right a{
+div.header .button-top-right a{
     max-width: 300px;
     height: 34px;
     /*padding-top: 1px;*/
 }
 
-header .button-top-right a img{
+div.header .button-top-right a img{
     width: 25px;
     height: 25px;
     margin-top: -4px;
 }
 
-header .button-top-right a p{
+div.header .button-top-right a p{
     margin-top: 0px;
 }
 
@@ -161,7 +160,7 @@ header .button-top-right a p{
 /*                FOOTER                    */
 /*==========================================*/
 
-footer .ball{
+div.footer .ball{
     display: inline-block;
     margin: 0 5px;
     cursor: pointer;
@@ -170,11 +169,11 @@ footer .ball{
     border-radius: 20%;
 }
 
-footer .ball.requests i{
+div.footer .ball.requests i{
     margin:0;
 }
 
-footer .ball i{
+div.footer .ball i{
     display: block;
     margin: 7px auto;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
@@ -186,7 +185,7 @@ footer .ball i{
     width: 40px;
 }
 
-footer .ball.active{
+div.footer .ball.active{
     color: #4687ce;
 }
 
@@ -343,17 +342,17 @@ i.top-quote{
 /*==========================================*/
 /*                LOGIN                     */
 /*==========================================*/
-section.login .title{
+div.section.login .title{
     pointer-events: none;
 }
 
-section.login .wrapper {
+div.section.login .wrapper {
     margin: auto;
     max-width: 300px;
     height: auto;
 }
 
-section.login .title h1{
+div.section.login .title h1{
     font-family: "Droid Sans";
     font-size: 70px;
     font-weight: bolder;
@@ -362,23 +361,23 @@ section.login .title h1{
     display: block;
 }
 
-section.login .title img{
+div.section.login .title img{
     display:none;
 }
 
-section.login .forgot-password {
+div.section.login .forgot-password {
     color: white;
     background: transparent;
     border: 0;
 }
 
-section.search .responsive-row{
+div.section.search .responsive-row{
     margin-left:20px;
 }
 
-section.login .form-message p,
-section.search .form-message p,
-section.profile .form-message p{
+div.section.login .form-message p,
+div.section.search .form-message p,
+div.section.profile .form-message p{
     margin: 0 0 0 7px;
     display: inline-block;
 }
@@ -387,41 +386,41 @@ section.profile .form-message p{
 /*                PROFILE                   */
 /*==========================================*/
 
-section.profile #breadcrumb-nav .ball img{
+div.section.profile #breadcrumb-nav .ball img{
     margin: 3px 0;
 }
 
-section.profile #breadcrumb-nav .ball.cleaner{
+div.section.profile #breadcrumb-nav .ball.cleaner{
     opacity: 0.4;
 }
 
 /*==========================================*/
 /*                SETTINGS                  */
 /*==========================================*/
-section.settings {
+div.section.settings {
     margin-bottom: 20px;
 }
 
-section.settings .wrapper{
+div.section.settings .wrapper{
     background-color: rgba(20, 20, 20, 0.8);
     margin: 0 auto;
     border-radius: 4px;
     padding: 16px;
 }
 
-section.settings .avatar{
+div.section.settings .avatar{
     position: relative;
 }
     
-section.settings .avatar img{
+div.section.settings .avatar img{
     border-radius: 100%;
     height: 237px;
     width: 237px;
     margin: 24px auto;
 }
 
-section.settings .uploader,
-section.settings .avatar i{
+div.section.settings .uploader,
+div.section.settings .avatar i{
     position: absolute;
     width: 50px;
     height: 50px;
@@ -431,12 +430,12 @@ section.settings .avatar i{
     cursor: pointer;
 }
 
-section.settings .uploader{
+div.section.settings .uploader{
     opacity: 0;
     filter: alpha(opacity=0); /* For IE8 and earlier */
 }
 
-section.settings .avatar i{
+div.section.settings .avatar i{
     background-color: rgba(20, 20, 20, 1);
     padding-top: 12px;
     font-size: 2em;
@@ -476,28 +475,28 @@ section.settings .avatar i{
         margin-bottom: 10px;
     }
 
-section.search .select-wrapper select{
+div.section.search .select-wrapper select{
     border: 0;
 }
 
-section.search .responsive-row{
+div.section.search .responsive-row{
     height: 120px;
 }
 
-section.search .wrapper{
+div.section.search .wrapper{
     padding:0;
 }
 
-section.search .add-info div{
+div.section.search .add-info div{
     font-size: 1em;
     margin-bottom: 10px;
 }
 
-section.search .add-info div a{
+div.section.search .add-info div a{
     color: #ffffff;
 }
 
-section.search .add-info div a:hover{
+div.section.search .add-info div a:hover{
     text-decoration: underline;
     color: #ffffff;
 }
@@ -506,17 +505,17 @@ section.search .add-info div a:hover{
 /*                 REQUESTS                 */
 /*==========================================*/
 
-section.requests .accept-decline-rel a{
+div.section.requests .accept-decline-rel a{
     color: white !important;
     min-width: 80px;
     /*width: 100px;*/
 }
 
-section.requests .dark-background .biography-box{
+div.section.requests .dark-background .biography-box{
     margin-top: 20px;
     /*text-align: center;*/
 }
 
-section.requests .dark-background .biography-box p{
+div.section.requests .dark-background .biography-box p{
     margin-bottom: 20px;
 }

@@ -1086,15 +1086,18 @@ public class User{
         * Verifica se l'albero genealogico nella cache è da aggiornare
         * @param session    sessione in cui inserire l'albero aggiornato
         */
-        public void checkFamilyTreeCache(HttpSession session){
+        public boolean checkFamilyTreeCache(HttpSession session){
             try {
                 ResultSet record = Database.selectRecord("user", "id='" + this.id + "'");
                 if(record.next()){
                     if(record.getInt("refresh") != 0){
                         this.initSession(session);
+                        return true;
                     }
                 }
             } catch (SQLException ex) { }
+            
+            return false;
         }
         /**
          * Manda una segnalazione a tutti i parenti loggati dell'utente corrente, per aggiornare l'albero genealogico presente in cache

@@ -6,15 +6,15 @@
         <div id="breadcrumb-nav" class="col-md-12">  
             
             <#list breadcrumb as node>
-                <a href="profile?id=${node.user.id}" class="ball" title='${node.user.name} <#if node.label != "">(${node.label?capitalize})</#if>' data-toggle="tooltip"  data-placement="right">
-                    <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="profile" />
+                <a href="profile?id=${node.user.id}" class="ball" title='${node.user.name} <#if node.label != "">(${node.label?capitalize})</#if>' >
+                    <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="avatar" />
                 </a>
             </#list> 
             
             
             <#if !(breadcrumb?size < 3)>
-                <a href="profile?id=${user_current.id}&clear=true" class="ball cleaner" title="Clear navigation" data-toggle="tooltip"  data-placement="right">
-                   <img src="template/images/cleaner.png" class="img-circle img-cover" alt="profile" />
+                <a href="profile?id=${user_current.id}&amp;clear=true" class="ball cleaner" title="Clear navigation" >
+                   <img src="template/images/cleaner.png" class="img-circle img-cover" alt="cleaner" />
                 </a>
             </#if>
             
@@ -57,7 +57,7 @@
                 <div class="col-md-8 biography-box">
                     <h3 class="main-name break-word">${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
                     <#if user_current.isBasic()>
-                        <p><i>Not verified account</i><p>
+                        <p><i>Not verified account</i></p>
                     </#if>
                     <#if user_current.biography != "">
                         <p class="break-word"><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>

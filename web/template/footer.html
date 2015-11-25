@@ -3,24 +3,23 @@
             <ul>    
                 <#if request?? && request!=0>
                     <li class="xs-hidden">
-                        <a href="requests" class="ball requests active" title="${request} new request<#if request != 1>s</#if>" data-toggle="tooltip" data-placement="left">
+                        <a href="requests" class="ball requests active" title="${request} new request<#if request != 1>s</#if>">
                             <i class="fa fa-bell fa-2x"></i>
                         </a>
                     </li>
                 </#if>
                 <li>
-                    <a href="profile" class='ball tree hover-blue <#if active_button! == "profile">active</#if>' title="Profile" data-toggle="tooltip" data-placement="left">
+                    <a href="profile" class='ball tree hover-blue <#if active_button! == "profile">active</#if>' title="Profile">
                         <i class="fa fa-user fa-2x"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="settings" class='ball settings hover-blue <#if active_button! == "settings">active</#if>'
-                       title="Settings" data-toggle="tooltip" data-placement="left">
+                    <a href="settings" class='ball settings hover-blue <#if active_button! == "settings">active</#if>' title="Settings" >
                         <i class="fa fa-cog fa-2x"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="logout" class="ball logout hover-blue" title="Logout" data-toggle="tooltip" data-placement="left">
+                    <a href="logout" class="ball logout hover-blue" title="Logout" >
                         <i class="fa fa-sign-out fa-2x"></i>
                     </a>
                 </li>

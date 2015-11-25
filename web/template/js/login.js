@@ -5,7 +5,7 @@ $(document).ready(function(){
     var ajax_enabled = true;
     
     // Al submit del form
-    $("section.login .wrapper form").submit(function( event ) {
+    $("div.section.login .wrapper form").submit(function( event ) {
 
         // Non eseguire il comportamente di default del submit
         event.preventDefault();

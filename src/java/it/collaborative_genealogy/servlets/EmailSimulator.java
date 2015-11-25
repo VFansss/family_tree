@@ -1,7 +1,6 @@
 package it.collaborative_genealogy.servlets;
 
 import it.collaborative_genealogy.User;
-import it.collaborative_genealogy.util.DataUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -46,26 +45,27 @@ public class EmailSimulator extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Email Simulator</h1>");
             
-            if(action.equals("invite")){
-                out.println("<h4>Invite</h4>");
-                out.println("<p>"+user_logged.getName()+" "+user_logged.getSurname()+" has sent you a request to join to Collaborative Genealogy</p>");
-                out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to sign up</a>"); 
-                session.invalidate();
-            } else if(action.equals("request")){
-                out.println("<h4>Request</h4>");
-                
-                out.println("<ul>"
-                        + "<li>Name: "+user_logged.getName()+"</li>"
-                        + "<li>Surame: "+user_logged.getSurname()+"</li>"
-                        + "<li>Gender: "+user_logged.getGender()+"</li>"
-                        + "<li>Birthdate: "+user_logged.getBirthdate()+"</li>"
-                        + "<li>Birthplace: "+user_logged.getBirthplace()+"</li>"
-                        + "<li>Relationship: "+request.getParameter("relationship")+"</li>"
-                        + "</ul>");
-                out.println("<a target='_blank' href='requests'>Click here to accept the request</a>"); 
-                
-                out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to login and accept or decline the request</a>"); 
-                session.invalidate();
+            switch (action) {
+                case "invite":
+                    out.println("<h4>Invite</h4>");
+                    out.println("<p>"+user_logged.getName()+" "+user_logged.getSurname()+" has sent you a request to join to Collaborative Genealogy</p>");
+                    out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to sign up</a>");
+                    session.invalidate();
+                    break;
+                case "request":
+                    out.println("<h4>Request</h4>");
+                    out.println("<ul>"
+                            + "<li>Name: "+user_logged.getName()+"</li>"
+                            + "<li>Surame: "+user_logged.getSurname()+"</li>"
+                            + "<li>Gender: "+user_logged.getGender()+"</li>"
+                            + "<li>Birthdate: "+user_logged.getBirthdate()+"</li>"
+                            + "<li>Birthplace: "+user_logged.getBirthplace()+"</li>"
+                            + "<li>Relationship: "+request.getParameter("relationship")+"</li>"
+                            + "</ul>");
+                    out.println("<a target='_blank' href='requests'>Click here to accept the request</a>");
+                    out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to login and accept or decline the request</a>");
+                    session.invalidate();
+                    break;
             }
             
             

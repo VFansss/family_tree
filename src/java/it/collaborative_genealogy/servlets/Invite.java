@@ -80,7 +80,7 @@ public class Invite extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Message check = new Message("err", true);
+        Message check;
 
         HttpSession session = request.getSession(false);
         
@@ -127,9 +127,7 @@ public class Invite extends HttpServlet {
                         try {
                             Date sqlDate = DataUtil.stringToDate(birthdate, "dd/MM/yyyy");
                             data.put("birthdate", DataUtil.dateToString(sqlDate));
-                        } catch (ParseException ex) {
-                            check = new Message("date_2", true);
-                        }
+                        } catch (ParseException ex) { }
 
                         try {
                             // Inserimento dati nel db

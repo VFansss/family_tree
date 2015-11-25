@@ -13,7 +13,7 @@
             
             
             <#if !(breadcrumb?size < 3)>
-                <a href="profile?id=${user_current.id}&amp;clear=true" class="ball cleaner" title="Clear navigation" >
+                <a href="profile?id=${user_current.id}&amp;clear=true" class="ball cleaner" title="Clear navigation" data-toggle="tooltip"  data-placement="right">
                    <img src="template/images/cleaner.png" class="img-circle img-cover" alt="cleaner" />
                 </a>
             </#if>

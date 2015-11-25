@@ -16,15 +16,11 @@
                 <div class="panel panel-body dark-background">
 
                     <div class="col-md-12 top-name">
-                        <a href="profile?id=${request.sender.id}">
-                            <h3 class="hover-blue">${request.sender.name?capitalize} ${request.sender.surname?capitalize}</h3>
-                        </a>
+                        <h3>${request.sender.name?capitalize} ${request.sender.surname?capitalize}</h3>
                     </div>
                     <div class="col-md-4 responsive-row">
                         <div class="img-circle">
-                            <a href="profile?id=${request.sender.id}">
-                                <img src="image-view?id=${request.sender.id}" alt="profile image" class="img-circle img-cover" />
-                            </a>
+                            <img src="image-view?id=${request.sender.id}" alt="profile image" class="img-circle img-cover" />
                         </div>
                         <ul class="anagraphics-info">
                             <li>
@@ -37,16 +33,16 @@
 
                     </div>
                     <div class="col-md-8 biography-box">
-                        <a href="profile?id=${request.sender.id}">
-                            <h3 class="main-name hover-blue">${request.sender.name?capitalize} ${request.sender.surname?capitalize}</h3>
-                        </a>
+                        
+                        <h3 class="main-name">${request.sender.name?capitalize} ${request.sender.surname?capitalize}</h3>
+                      
                         <p>You have been added as ${request.sender.name?capitalize}'s ${request.relationship}</p>
-                        <p class="accept-decline-rel">
+                        <div class="accept-decline-rel">
                             <form action="requests" method="post">
                                 <button name="accept" value="${request.sender.id}" class="col-xs-3 btn btn-success btn-sm accept-button"><i class="fa fa-check"></i> Accept</button>
-                                <button name="decline" value="${request.sender.id}" class="col-xs-3 col-xs-offset-3 col-sm-offset-1  btn btn-danger btn-sm decline-button"><i class="fa fa-times"></i> Decline</button>
+                                <button name="decline" value="${request.sender.id}" class="col-xs-3 col-xs-offset-2 col-sm-offset-1  btn btn-danger btn-sm decline-button"><i class="fa fa-times"></i> Decline</button>
                              </form>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>

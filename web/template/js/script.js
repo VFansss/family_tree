@@ -19,6 +19,10 @@ $(document).ready(function(){
 
     });
     
+    
+    //Attivazione tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+    
     // Quando si preme il pulsante di reset
     $("#search-reset-filters").click(function(e){
         // Non eseguire il comportamente di default del submit

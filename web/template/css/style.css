@@ -505,15 +505,13 @@ div.section.search .add-info div a:hover{
 /*                 REQUESTS                 */
 /*==========================================*/
 
-div.section.requests .accept-decline-rel a{
+div.section.requests .accept-decline-rel button{
     color: white !important;
     min-width: 80px;
-    /*width: 100px;*/
 }
 
 div.section.requests .dark-background .biography-box{
     margin-top: 20px;
-    /*text-align: center;*/
 }
 
 div.section.requests .dark-background .biography-box p{

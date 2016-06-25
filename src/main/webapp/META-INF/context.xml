@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" antiResourceLocking="true" path="/collaborative">
+    <Resource 
+        name="collaborative_genealogy" 
+        type="javax.sql.DataSource" 
+        driverClassName="com.mysql.jdbc.Driver" 
+        url="jdbc:mysql://localhost:3306/collaborative_genealogy" 
+        username="admin"
+        password="admin" 
+        maxActive="30" 
+        maxIdle="5" 
+        maxWait="10000" 
+    />
+</Context>

@@ -1,0 +1,147 @@
+<#include "frame_public.html">
+
+<div class="section settings"> 
+
+    <div class="container-fluid">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="lock-container">
+                        <div class="panel-default text-center">
+                            <form action="settings?action=avatar" class="panel-body" method="post" enctype="multipart/form-data">
+                                <div class="avatar text-center">
+                                    <img class="img-cover to-refresh" src="image-view?id=${user_logged.id}" alt="profile image" />
+                                    <i class="fa fa-camera fa-3x hover-blue"></i>
+                                    <input class="uploader" type="file" name="photo-upload" />
+                                </div>
+                                    <div class='form-message <#if !(action??) || action != "avatar">hide</#if>'>
+                                        <#if message.error == true>
+                                            <i class="fa fa-error"></i>
+                                        <#else>
+                                            <i class="fa fa-check"></i>
+                                        </#if>
+                                        <p><#if action! = "avatar">${message.msg}</#if></p>
+                                    </div>
+                                <button type="submit" class="col-xs-12 btn btn-primary form-control">Change avatar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6"> 
+                    <div class="lock-container">
+                        <div class="panel-default text-center">
+
+                            <form action="settings?action=data" class="panel-body transparent" method="post">
+                                <fieldset>
+                                    <input class="form-control" type="text" name="name" placeholder="Name" value="${user_logged.name}" />
+                                    <input class="form-control" type="text" name="surname" placeholder="Surname" value="${user_logged.surname}" />
+                                        <select name="gender" class="selectpicker form-control" title="Warning! If you change your gender, your family tree will be removed" >
+                                            <#if user_logged.gender == "male">
+                                                <option value="male" selected="selected">Male</option>
+                                                <option value="female">Female</option>
+                                            <#else>
+                                                <option value="male">Male</option>
+                                                <option value="female" selected>Female</option>
+                                            </#if>
+                                        </select>
+                                    <input class="form-control" type="text" name="birthdate" placeholder="Birthdate (dd/mm/yyyy)" value='${user_logged.birthdate?date?string("dd/MM/yyyy")}' />
+                                    <input class="form-control" type="text" name="birthplace" placeholder="Birthplace" value="${user_logged.birthplace}" />
+                                    <textarea class="form-control" name="biography" placeholder="Biography" rows="2" cols="50"><#if user_logged.biography??>${user_logged.biography}</#if></textarea>
+                                </fieldset>
+
+                                <div class='nowrap form-message <#if !(action??) || action != "data">hide</#if>'>
+
+                                    <#if message.error == true>
+                                        <i class="fa fa-error"></i>
+                                    <#else>
+                                        <i class="fa fa-check"></i>
+                                    </#if>
+
+                                    <p><#if action! = "data">${message.msg}</#if></p>
+                                </div>
+
+                                <button type="submit" class="col-xs-12 btn btn-primary form-control">Change data</button>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+
+                    <div class="lock-container">
+                        <div class="panel-default text-center">
+
+                            <form action="settings?action=email" class="panel-body transparent" method="post">
+
+                                <fieldset>
+                                    <input class="form-control"  type="text" name="current_email" placeholder="Current email" value="${user_logged.email}" readonly="readonly"/>
+                                    <input class="form-control"  type="text" name="new_email" placeholder="New email"/>
+                                    <input class="form-control"  type="text" name="confirm_email" placeholder="Confirm email" />
+                                </fieldset>
+
+
+                                <div class='form-message <#if !(action??) || action != "email">hide</#if>'>
+
+                                    <#if message.error == true>
+                                        <i class="fa fa-error"></i>
+                                    <#else>
+                                        <i class="fa fa-check"></i>
+                                    </#if>
+
+                                    <p><#if action! = "email">${message.msg}</#if></p>
+                                </div>
+
+                                <button type="submit" class="col-xs-12 btn btn-primary form-control">Change email</button>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>    
+
+                <div class="col-md-6 col-sm-6">
+
+                    <div class="lock-container">
+                        <div class="panel-default text-center">
+
+                            <form action="settings?action=password" class="panel-body transparent" method="post">
+
+                                <fieldset>
+                                    <input class="form-control"  type="password" name="current_password" placeholder="Current password" />
+                                    <input class="form-control"  type="password" name="new_password" placeholder="New password" value="" />
+                                    <input class="form-control"  type="password" name="confirm_password" placeholder="Confirm password" value="" />
+                                </fieldset>
+
+                                <div class='form-message <#if !(action??) || action != "password">hide</#if>'>
+
+                                    <#if message.error == true>
+                                        <i class="fa fa-error"></i>
+                                    <#else>
+                                        <i class="fa fa-check"></i>
+                                    </#if>
+
+                                    <p><#if action! = "password">${message.msg}</#if></p>
+                                </div>
+
+                                <button type="submit" class="col-xs-12 btn btn-primary form-control">Change password</button>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+            
+<#include "footer.html">

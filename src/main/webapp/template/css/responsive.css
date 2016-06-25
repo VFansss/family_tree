@@ -1,0 +1,220 @@
+
+/* Small */
+@media (max-width: 768px) {
+
+    .xs-hidden{
+        display:none !important;
+    }
+    
+    /*==========================================*/
+    /*                HEADER                     */
+    /*==========================================*/
+    
+    div.header #search-bar{
+        margin-bottom: 5px;
+    }
+    
+    div.header .button-top-right a{
+        max-width: 100px;
+    }
+       
+    /*==========================================*/
+    /*                LOGIN                     */
+    /*==========================================*/
+
+    div.section.login .title img {
+        width: 200px;
+        height: 200px;
+        margin: auto;
+        display: block;
+    }
+
+    /*==========================================*/
+    /*                FOOTER                   */
+    /*==========================================*/
+    
+    div.footer{
+        width: 100%;
+        background: rgba(20, 20, 20, 0.8);
+    }
+    
+    div.footer ul{
+        margin: 0;
+        padding: 0;
+    }
+    
+    div.footer ul li{
+        text-align: center;
+        display: inline-block;
+        width: 32%;
+        margin: 0;
+        padding: 0;
+        padding:5px 0;
+    }
+
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+
+    div.section.profile #breadcrumb-nav{
+        margin: 2px 0;
+    }
+    
+    div.section.profile .tile .biography-box{
+        margin-top: 10px;
+    }
+
+}
+
+/* Small + */
+@media (min-width: 769px) {
+    
+    .md-hidden{
+        display: none !important;
+    }
+    
+    /*==========================================*/
+    /*                HEADER                    */
+    /*==========================================*/
+    
+    div.header{
+        top: 15px;
+        position:fixed;
+        width:100%;
+    }
+    
+    div.header .requests{
+        display:none;
+    }
+    
+    /*==========================================*/
+    /*                SECTION                    */
+    /*==========================================*/
+    
+    div.section{
+        margin-top: 70px;
+    }
+
+    /*==========================================*/
+    /*                FOOTER                    */
+    /*==========================================*/
+
+    div.footer .ball{
+        position: fixed;
+        right: 15px;
+        font-size: 1.2em;
+    }
+    
+    div.footer .ball.requests{
+        color: #D44535;
+    }
+    
+    
+    
+    .settings{ bottom: 70px; }
+    .tree{ bottom: 130px; }
+    .logout{ bottom: 10px; }
+    
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+    
+    div.section.profile #breadcrumb-nav{
+        position:fixed;
+        left: 5px;
+        top: 67px;
+        width: 50px;
+        display: inline-block;
+    }
+    
+    /*==========================================*/
+    /*                SETTINGS                  */
+    /*==========================================*/
+    
+    div.section.settings .wrapper{
+        width: 650px;
+    }
+}
+
+/* Large */
+@media (max-width: 991px) {
+    
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+    
+    .main-name,
+    .max-hidden{
+        display:none;
+    }
+    
+    .top-name{
+        text-align: center;
+    }
+    
+    .responsive-row{
+        height: 100px;
+        position: relative;
+    }
+        
+    .responsive-row .anagraphics-info,
+    .responsive-row .img-circle{
+        position:absolute;
+        top:0;
+    }
+    
+
+    .responsive-row .anagraphics-info{
+        left: 115px;
+    }
+
+    .anagraphics-info{
+        margin-left: 20px;
+    }
+    
+    .blue-background .biography-box p{
+        margin-top: 40px;
+    }
+}
+
+/* Large +*/
+@media (min-width: 992px) {
+    
+    /*==========================================*/
+    /*                PROFILE                   */
+    /*==========================================*/
+    
+    .top-name{
+        display: none;
+    }
+    
+    /*==========================================*/
+    /*                SEARCH                    */
+    /*==========================================*/
+    
+    div.section.search .anagraphics-info,
+    div.section.search .img-circle{
+        position:absolute;
+        top:0;
+    }
+    
+    div.section.search .anagraphics-info{
+        left: 130px;
+    }
+    
+    div.section.search .add-info div:not(:last-child){
+        margin-right: 8.3%;
+    }
+    
+    div.section.search .add-info div:not(:first-child){
+        margin-left: 8.3%;
+    }
+}
+
+/* Other*/
+@media (min-width: 992px) and (max-width: 1150px){
+
+    div.section.search .responsive-row{
+        margin-left:0;
+    }
+}

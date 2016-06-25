@@ -1,0 +1,163 @@
+<#include "frame_public.html">
+
+    <div class="section profile">
+
+        <!-- Breadcrumb nav -->
+        <div id="breadcrumb-nav" class="col-md-12">  
+            
+            <#list breadcrumb as node>
+                <a href="profile?id=${node.user.id}" class="ball" title='${node.user.name} <#if node.label != "">(${node.label?capitalize})</#if>' data-toggle="tooltip"  data-placement="right">
+                    <img src="image-view?id=${node.user.id}" class="img-circle img-cover" alt="avatar" />
+                </a>
+            </#list> 
+            
+            
+            <#if !(breadcrumb?size < 3)>
+                <a href="profile?id=${user_current.id}&amp;clear=true" class="ball cleaner" title="Clear navigation" data-toggle="tooltip"  data-placement="right">
+                   <img src="template/images/cleaner.png" class="img-circle img-cover" alt="cleaner" />
+                </a>
+            </#if>
+            
+        </div>
+
+        <!-- Current user -->
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+            <div class="panel panel-body blue-background <#if user_current.isBasic()>basic</#if>">
+                <div class="col-md-12 top-name">
+                    <h3 class="break-word">${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
+                </div>
+                <div class="col-md-4 responsive-row">
+                    <div class="img-circle">
+                        <img src="image-view?id=${user_current.id}" alt="profile image" class="img-circle img-cover" />
+                    </div>
+                    <ul class="anagraphics-info">
+                        <li>
+                            <p><i class="fa fa-calendar"></i> ${user_current.birthdate?date?string("dd/MM/yyyy")}</p>
+                        </li>
+                        <li>
+                            <p><i class="fa fa-map-marker"></i> ${user_current.birthplace}</p>
+                        </li>
+                        <#if relative_grade != "">
+                            <li>
+                                <p><i class="fa fa-user"></i>
+
+                                    ${relative_grade?capitalize}                       
+
+
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a href="addrelative?to=${user_current.id}"><i class="fa fa-plus"></i>Add a relative</a>
+                                </p>
+                            </li>
+                        </#if>
+                    </ul>
+                </div>
+                <div class="col-md-8 biography-box">
+                    <h3 class="main-name break-word">${user_current.name?capitalize} ${user_current.surname?capitalize}</h3>
+                    <#if user_current.isBasic()>
+                        <p><i>Not verified account</i></p>
+                    </#if>
+                    <#if user_current.biography != "">
+                        <p class="break-word"><i class="fa fa-quote-left top-quote"></i> ${user_current.biography} <i class="fa fa-quote-right top-quote"></i></p>
+                    <#else>
+                        <p class="bio-miss">Missing biography</p>
+                    </#if>
+                </div>
+            </div>
+        </div>
+        
+        <#if message.msg??>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                <div class="form-message text-center dark-background">
+                    <p><i class="fa fa-info-circle"></i> ${message.msg}</p>
+                </div>
+            </div>
+        </#if>
+        <#if user_logged.id==user_current.id && request!=0>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded md-hidden">
+                <div class="form-message text-center dark-background">
+                    <a href="requests"><i class="fa fa-user-plus"></i> You have ${request} new requests</a>
+                    <!--<a href="#"><i class="fa fa-times pull-right"></i></a>-->
+                </div>
+            </div>
+        </#if>
+
+        <#if father?? || mother??>
+        
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <p>Parents <i class="fa fa-chevron-down"></i></p>
+            </div>
+
+            <!-- Parent tile -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                
+                <#if father??>
+                    <!-- Father -->
+                    <#assign relative = father>
+                    <#include "profile-tile.html">
+                </#if>
+                
+                <#if mother??>
+                     <!-- Mother -->
+                    <#assign relative = mother>
+                    <#include "profile-tile.html">
+                </#if>
+                
+            </div>
+        </#if>
+
+        
+        <#if spouse??>
+            <!-- Spouse -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <p>
+                    <#if user_current.gender == "male">
+                        Wife 
+                    <#else>
+                        Husband
+                    </#if>    
+                    <i class="fa fa-chevron-down"></i>
+                </p>
+            </div>
+        
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                <#assign relative = spouse>
+                <#include "profile-tile.html">
+            </div>
+            
+        </#if>
+
+        <#if children??>
+            <!-- Children -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <p>Children <i class="fa fa-chevron-down"></i></p>
+            </div>
+
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                <#list children as child>
+                    <#assign relative = child>
+                    <#include "profile-tile.html">
+                </#list>
+            </div>
+         </#if>
+         
+        <#if siblings??>
+            <!-- Siblings -->
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile-label">
+                <p>Siblings <i class="fa fa-chevron-down"></i></p>
+            </div>
+           
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 tile rounded">
+                <#list siblings as sibling>
+                    <#assign relative = sibling>
+                    <#include "profile-tile.html">
+                </#list>
+            </div>
+        </#if>
+
+
+    </div>
+ 
+<#include "footer.html">

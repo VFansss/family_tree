@@ -76,7 +76,7 @@ $(document).ready(function(){
             // Se la chiamata va a buon fine
             request.done(function(msg) {
                 // Se è ritornato un messaggio di errore
-                if(msg["error"] === "true"){
+                if(msg.error === "true"){
                     // Imposta messaggio di errore
                     icon.attr("class", "fa fa-times");
                 }else{
@@ -94,7 +94,7 @@ $(document).ready(function(){
                 }
                 // Mostra messaggio di ritorno
                 message.removeClass("hide");
-                paragraph.html(msg["message"]);
+                paragraph.html(msg.message);
                 
                 
                 // Ribilita ajax

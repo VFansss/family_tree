@@ -41,7 +41,7 @@ $(document).ready(function(){
             // Disabilita la chiamata ajax per evitare chiamate multiple
             ajax_enabled = false;
             // Nascondi il messaggio di errore
-            message.addClass("hide")
+            message.addClass("hide");
             // Effettua la chiamata ajax
             var request = $.ajax({
                 // Imposta una chiamata di tipo "post"
@@ -55,9 +55,9 @@ $(document).ready(function(){
             
             // Se la chiamata ajax va a buon fine
             request.done(function(msg) {
-                console.log(msg["error"]);
+                console.log(msg.error);
                 // Se è ritornato un messaggio di errore
-                if(msg["error"] == "true"){
+                if(msg.error == "true"){
                     // Imposta messaggio di errore
                     icon.attr("class", "fa fa-times");
                 }else{
@@ -73,7 +73,7 @@ $(document).ready(function(){
                 }
                 // Mostra messaggio di ritorno
                 message.removeClass("hide");
-                paragraph.html(msg["message"]);
+                paragraph.html(msg.message);
    
                 // Riabilita la chiamata ajax
                 ajax_enabled = true;

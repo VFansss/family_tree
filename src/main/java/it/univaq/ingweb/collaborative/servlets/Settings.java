@@ -27,7 +27,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class Settings extends HttpServlet {
     private static HttpSession session;
-    private static User user_logged;
+    private static User userLogged;
     
     /**
      * Caricamento della pagina delle impostazioni
@@ -46,12 +46,12 @@ public class Settings extends HttpServlet {
         //Se non è stata generata la sessione
         if(session != null){     
             
-            user_logged = (User)session.getAttribute("user_logged");
+            userLogged = (User)session.getAttribute("user_logged");
             
-            String as = user_logged.getBirthdate().toString();
+            String as = userLogged.getBirthdate().toString();
             Map<String, Object> data = new HashMap<>();
 
-            data.put("user_logged", user_logged);
+            data.put("user_logged", userLogged);
 
             data.put("action",request.getParameter("action"));
             
@@ -84,7 +84,7 @@ public class Settings extends HttpServlet {
         String action = (String)request.getParameter("action");
 
         session = request.getSession(false);  
-        user_logged = (User)session.getAttribute("user_logged");
+        userLogged = (User)session.getAttribute("user_logged");
         
         //Controllo. Si tratta di una richiesta AJAX?
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
@@ -93,7 +93,7 @@ public class Settings extends HttpServlet {
         if(!(action == null || (action.equals("data") || action.equals("email") || action.equals("password") || action.equals("avatar")))){
             // Vai alla pagina delle impostazioni
             response.sendRedirect("settings");
-        }else if(user_logged == null){
+        }else if(userLogged == null){
             response.sendRedirect("login?msg=log");
 
         }else{
@@ -143,7 +143,7 @@ public class Settings extends HttpServlet {
         Message check = Utility.checkData(name, surname, gender, birthdate, birthplace);
         try {
             if(!check.isError()){
-                user_logged.setData(name, surname, gender, birthdate, birthplace, biography);
+                userLogged.setData(name, surname, gender, birthdate, birthplace, biography);
             }
             
         } catch (SQLException ex) {
@@ -174,7 +174,7 @@ public class Settings extends HttpServlet {
             msg = "fld"; // All fields are required
             
         // Se l'email corrente è sbagliata
-        }else if(!user_logged.getEmail().equals(current_email)){
+        }else if(!userLogged.getEmail().equals(current_email)){
             msg =  "eml_1"; // Current email is not valid
         
         // Se la conferma dell'email non corrisponde
@@ -191,7 +191,7 @@ public class Settings extends HttpServlet {
             }else{
                 try {
                     // Aggiorna email utente
-                    user_logged.setEmail(new_email);
+                    userLogged.setEmail(new_email);
                     msg =  "eml_ok"; // Email changed
                     error = false;
                 } catch (SQLException ex) {
@@ -218,7 +218,7 @@ public class Settings extends HttpServlet {
             msg = "fld";
             
         // Se la password corrente è sbagliata
-        }else if(!user_logged.checkPassword(current_password)){
+        }else if(!userLogged.checkPassword(current_password)){
             msg =  "psd_1"; // Current passwrod is not valid
         
         // Se la conferma della password non corrisponde
@@ -234,7 +234,7 @@ public class Settings extends HttpServlet {
             }else{
                 try {
                     // Aggiorna email utente
-                    user_logged.setPassword(confirm_password);
+                    userLogged.setPassword(confirm_password);
                     msg =  "psd_ok"; // Password changed
                     error = false;
                 } catch (SQLException ex) {
@@ -260,7 +260,7 @@ public class Settings extends HttpServlet {
                         if(item.getName().equals("")){
                             msg = "pho_slt"; // Please, select a photo
                         }else{
-                            String name = user_logged.getId() + ".jpg";
+                            String name = userLogged.getId() + ".jpg";
                             item.write( new File(aThis.getServletContext().getRealPath("/template/profile/").replace("build\\", "") + File.separator + name));
                             msg = "pho_ok"; // Photo Uploaded Successfully
                             error = false;

@@ -64,33 +64,33 @@ public class Database {
     
     /**
      * Select record con join tra due tabelle
-     * @param table_1           nome della prima tabella
-     * @param table_2           nome della seconda tabella
-     * @param join_condition    condizione del join tra la tabelle
-     * @param where_condition   condizione per il filtro dei dati
+     * @param table1           nome della prima tabella
+     * @param table2           nome della seconda tabella
+     * @param joinCondition    condizione del join tra la tabelle
+     * @param whereCondition   condizione per il filtro dei dati
      * @return                  dati prelevati
      * @throws java.sql.SQLException
      */
-    public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition) throws SQLException{
+    public static ResultSet selectJoin(String table1, String table2, String joinCondition, String whereCondition) throws SQLException{
         // Generazione query
-        String query = "SELECT * FROM " + table_1 + " JOIN " + table_2 + " ON " + join_condition + " WHERE " + where_condition;
+        String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + joinCondition + " WHERE " + whereCondition;
         // Esecuzione query
         return Database.executeQuery(query);
     }
     
     /**
      * Select record con join tra due tabelle e ordinamento
-     * @param table_1           nome della prima tabella
-     * @param table_2           nome della seconda tabella
-     * @param join_condition    condizione del join tra la tabelle
-     * @param where_condition   condizione per il filtro dei dati
+     * @param table1           nome della prima tabella
+     * @param table2           nome della seconda tabella
+     * @param joinCondition    condizione del join tra la tabelle
+     * @param whereCondition   condizione per il filtro dei dati
      * @param order             ordinamento dei dati
      * @return                  dati prelevati
      * @throws java.sql.SQLException
      */
-    public static ResultSet selectJoin(String table_1, String table_2, String join_condition, String where_condition, String order) throws SQLException{
+    public static ResultSet selectJoin(String table1, String table2, String joinCondition, String whereCondition, String order) throws SQLException{
         // Generazione query
-        String query = "SELECT * FROM " + table_1 + " JOIN " + table_2 + " ON " + join_condition + " WHERE " + where_condition + "ORDER BY" + order;
+        String query = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON " + joinCondition + " WHERE " + whereCondition + "ORDER BY" + order;
         // Esecuzione query
         return Database.executeQuery(query);
     }

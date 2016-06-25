@@ -93,7 +93,7 @@ public class Create extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Message check = new Message("dt_ok", false);;
+        Message check = new Message("dt_ok", false);
         // Recupera l'azione da svolgere
         String action = request.getRequestURI().substring(request.getContextPath().length() + 1); // create o invite
 

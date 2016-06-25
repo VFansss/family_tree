@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,6 +35,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class User{
     
     private final String id;
@@ -131,19 +133,19 @@ public class User{
             data.put("birthplace", birthplace);
             data.put("biography", biography);
             
-            boolean remove_tree = false;
-            String old_gender = this.gender;
-            if(!gender.equals(old_gender)){
-                remove_tree = true;
+            boolean removeTree = false;
+            String oldGender = this.gender;
+            if(!gender.equals(oldGender)){
+                removeTree = true;
             }
             
             Database.updateRecord("user", data, "id = '" + this.getId() + "'");
             
-            if(remove_tree){
+            if(removeTree){
                 // Rimuovi i filgi
                 UserList children = this.getChildren();
                 for(User child: children){
-                    child.removeParent(old_gender);
+                    child.removeParent(oldGender);
                 }
                 // Rimuovi il padre
                 this.removeParent("male");
@@ -180,17 +182,17 @@ public class User{
          */
         public void setNumRelatives() throws SQLException {
             // Recupero i parenti dell'utente corrente
-            NodeList family_tree = this.getFamilyTree().getFamily_tree();
+            NodeList familyTree = this.getFamilyTree().getFamilyTree();
 
             // Calcola il numero di parenti (-1 per non considerare l'utente stesso)
-            int tree_size = family_tree.size() - 1;
+            int treeSize = familyTree.size() - 1;
 
             Map<String, Object> data = new HashMap<>();
-            data.put("num_relatives", tree_size);
+            data.put("num_relatives", treeSize);
 
             // Generazione della condizione: bisogna aggiornare i numeri di parenti ad ogni membro dell'albero genealogico
             String condition = "";
-            for(TreeNode user: family_tree){
+            for(TreeNode user: familyTree){
                 condition = condition + "id = '" + user.getUser().getId() + "' OR ";
             }
             condition = condition.substring(0, condition.length()-4);
@@ -298,15 +300,15 @@ public class User{
             // Se l'utente ha entrambi i genitori
             if(father != null && mother != null) {
                 // Recupera figli del padre
-                UserList father_children = father.getChildren();
+                UserList fatherChildren = father.getChildren();
                 // Recupera figli della madre
-                UserList mother_children = mother.getChildren();
+                UserList motherChildren = mother.getChildren();
                 // Per ogni figlio del padre
-                for (User father_child : father_children) {
+                for (User fatherChild : fatherChildren) {
                     // Se è anche figlio della madre ed è diverso dall'utente corrente
-                    if(mother_children.contains(father_child) && !father_child.equals(this)){
+                    if(motherChildren.contains(fatherChild) && !fatherChild.equals(this)){
                         // Aggiungilo tra i fratelli di sangue
-                        siblings.add(father_child);
+                        siblings.add(fatherChild);
                     }
                 }
             } 
@@ -593,7 +595,6 @@ public class User{
         /**
          * Elimina un figlio
          * @param user  utente da eliminare come figlio
-         * @throws it.collaborative_genealogy.exception.NotAllowedException 
          * @throws java.sql.SQLException 
          */
         public void removeChild(User user) throws SQLException{
@@ -656,7 +657,7 @@ public class User{
          * Accetta richiesta di parentela
          * @param relative  parente che invia la richiesta
          * @throws java.sql.SQLException
-         * @throws it.collaborative_genealogy.exception.NotAllowedException
+         * @throws it.univaq.ingweb.collaborative.exception.NotAllowedException
          */
         public void acceptRequest(User relative) throws SQLException, NotAllowedException {
         
@@ -998,7 +999,7 @@ public class User{
          */
         public GenealogicalTree getFamilyTree() throws SQLException{
             GenealogicalTree tree = new GenealogicalTree(this);
-            tree.getFamilyTree();
+            tree.generateFamilyTree();
             return tree;
         }
         /**
@@ -1048,6 +1049,7 @@ public class User{
         /**
         * Verifica se l'albero genealogico nella cache è da aggiornare
         * @param session    sessione in cui inserire l'albero aggiornato
+        * @return 
         */
         public boolean checkFamilyTreeCache(HttpSession session){
             try {
@@ -1075,7 +1077,7 @@ public class User{
 
             // Generazione della condizione: bisogna aggiornare l'albero genealogico di ogni parente
             String condition = "";
-            for(TreeNode user: family_tree.getFamily_tree()){
+            for(TreeNode user: family_tree.getFamilyTree()){
                 condition = condition + "id = '" + user.getUser().getId() + "' OR ";
             }
             condition = condition.substring(0, condition.length()-4);

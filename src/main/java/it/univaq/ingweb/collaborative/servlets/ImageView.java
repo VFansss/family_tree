@@ -53,7 +53,7 @@ public class ImageView extends HttpServlet {
 
                 // Copy the contents of the file to the output stream
                 byte[] buf = new byte[1024];
-                int count = 0;
+                int count;
                 while ((count = in.read(buf)) >= 0) {
                     out.write(buf, 0, count);
                 }

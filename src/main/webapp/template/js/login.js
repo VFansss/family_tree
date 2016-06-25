@@ -41,7 +41,7 @@ $(document).ready(function(){
             // Disabilita la chiamata ajax per evitare chiamate multiple
             ajax_enabled = false;
             // Nascondi il messaggio di errore
-            message.addClass("hide")
+            message.addClass("hide");
             // Effettua la chiamata ajax
             var request = $.ajax({
                 // Imposta una chiamata di tipo "post"

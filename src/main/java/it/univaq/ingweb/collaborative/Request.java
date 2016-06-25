@@ -18,9 +18,9 @@ public final class Request {
         this.relationship = relationship;
     }
     
-    public Request(String sender_id, String receiver_id, String relationship){
-        this.sender = User.getUserById(sender_id);
-        this.receiver = User.getUserById(receiver_id);
+    public Request(String idSender, String idReceiver, String relationship){
+        this.sender = User.getUserById(idSender);
+        this.receiver = User.getUserById(idReceiver);
         this.relationship = relationship;
     }
     

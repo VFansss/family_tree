@@ -3,19 +3,20 @@ package it.univaq.ingweb.collaborative.tree;
 import it.univaq.ingweb.collaborative.User;
 import it.univaq.ingweb.collaborative.UserList;
 import java.sql.SQLException;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  *
  * @author Marco
  */
+
+@ToString
+@Getter
 public class GenealogicalTree{
     // Contiene l'albero genealogico
     private final NodeList familyTree;
 
-    public NodeList getFamily_tree() {
-        return familyTree;
-    }
-    
     public GenealogicalTree(User user){
         this.familyTree = new NodeList();
         this.familyTree.add(new TreeNode(user, "You")); 
@@ -26,7 +27,7 @@ public class GenealogicalTree{
      * @return
      * @throws java.sql.SQLException
      */
-    public NodeList getFamilyTree() throws SQLException {
+    public NodeList generateFamilyTree() throws SQLException {
         
         // Crea albero genealogico
         this.createTree(0);
@@ -119,6 +120,7 @@ public class GenealogicalTree{
      * Restiruisci solo il nucleo familiare di un utente presente nell'albero genalogico
      * @param user
      * @return
+     * @throws java.sql.SQLException
      */
     public NodeList getFamily(User user) throws SQLException {
         

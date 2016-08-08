@@ -10,6 +10,7 @@
 package it.univaq.ingweb.collaborative;
 import it.univaq.ingweb.collaborative.util.Utility;
 import it.univaq.ingweb.collaborative.exception.NotAllowedException;
+import it.univaq.ingweb.collaborative.servlets.Login;
 import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
 import it.univaq.ingweb.collaborative.tree.NodeList;
 import it.univaq.ingweb.collaborative.tree.TreeNode;
@@ -26,6 +27,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -51,6 +53,7 @@ public class User{
     private String idFather;
     private String idSpouse;
     
+    final static Logger log = Logger.getLogger(Login.class);
     /**
      * Metodo costruttore
      * @param user      contiene i dati personali dell'utente
@@ -1102,7 +1105,9 @@ public class User{
                     user =  new User(record);
                 }
             }
-        } catch (SQLException ex) {}
+        } catch (SQLException ex) {
+            log.error("Errore getUserById",ex);
+        }
         
         return user;
     }
@@ -1122,7 +1127,9 @@ public class User{
                 }
             
             }
-        } catch (SQLException ex) { }
+        } catch (SQLException ex) { 
+            log.error("Errore getUserByEmail",ex);
+        }
         
         return null;
     }

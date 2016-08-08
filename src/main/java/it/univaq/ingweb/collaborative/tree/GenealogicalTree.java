@@ -32,11 +32,6 @@ public class GenealogicalTree{
         // Crea albero genealogico
         this.createTree(0);
         
-        /* Successivamene non ci sarà bisogno di creare tutto l'albero già dall'inizo,
-            ma si creerà inizialmente solo il nucleo familiare dell'utente, 
-            che poi verrà ampliato in base al parente scelto
-        */
-        
         return this.familyTree;
     }
     
@@ -110,11 +105,6 @@ public class GenealogicalTree{
             }
         }
     }
-    private void addAll(UserList list, String label, String degree){
-        for (User element : list) {
-            add(element, label, degree);
-        }
-    }
     
     /**
      * Restiruisci solo il nucleo familiare di un utente presente nell'albero genalogico
@@ -143,8 +133,6 @@ public class GenealogicalTree{
         }
         // Restituisco il nucleo familiare con utenti etichettati
         return family;
-        
-        
         
     }   
     

@@ -19,12 +19,12 @@ public class FreeMarker {
     /**
      * 
      * @param data              dati da inserire nel template          
-     * @param path_template     pathname del template da caricare
+     * @param pathTemplate     pathname del template da caricare
      * @param response          
      * @param context
      * @throws IOException
      */
-    public static void process(String path_template, Map data, HttpServletResponse response, ServletContext context) throws IOException{
+    public static void process(String pathTemplate, Map data, HttpServletResponse response, ServletContext context) throws IOException{
         log.info("Start templating");
         response.setContentType("text/html;charset=UTF-8");        
         // Configurazione freemarker
@@ -34,7 +34,7 @@ public class FreeMarker {
             
         cfg.setServletContextForTemplateLoading(context, "/template");
 
-        Template template = cfg.getTemplate(path_template);
+        Template template = cfg.getTemplate(pathTemplate);
         
         PrintWriter out = response.getWriter();
         

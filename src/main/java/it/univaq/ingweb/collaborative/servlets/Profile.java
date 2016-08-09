@@ -160,16 +160,16 @@ public class Profile extends HttpServlet {
                     data.put("message", message);
 
                     // Controllo richieste in arrivo
-                    int request_count = 0;
+                    int requestCount = 0;
                     try { 
                         ResultSet record = userLogged.getRequests();
                         while(record.next()){
-                            request_count++;
+                            requestCount++;
                         }
                     } catch (SQLException ex) {
-                        request_count = 0;
+                        requestCount = 0;
                     } finally {
-                        data.put("request", request_count);
+                        data.put("request", requestCount);
                     }
 
 

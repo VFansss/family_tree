@@ -39,12 +39,12 @@ public class RequestsHandler extends HttpServlet {
             
             if(session!=null){
                  // Recupero dell'utente loggato
-                User user_logged = (User)session.getAttribute("user_logged");
+                User userLogged = (User)session.getAttribute("user_logged");
                 
                 // Recupero la lista delle richieste
                 List<Request> requests = new LinkedList<>();
                 try{
-                    ResultSet record = user_logged.getRequests();
+                    ResultSet record = userLogged.getRequests();
                     while (record.next()){
                         requests.add(new Request(record));
                     }
@@ -56,7 +56,7 @@ public class RequestsHandler extends HttpServlet {
                 if(!requests.isEmpty()){
                     
                     Map<String, Object> data = new HashMap<>();
-                    data.put("user_logged", user_logged);
+                    data.put("user_logged", userLogged);
                     data.put("message", new Message(msg, true));
                     data.put("requests", requests);
 
@@ -105,7 +105,7 @@ public class RequestsHandler extends HttpServlet {
             Message message;
             
             // Recupero dell'utente loggato
-            User user_logged = (User)session.getAttribute("user_logged");
+            User userLogged = (User)session.getAttribute("user_logged");
             
             String accept = request.getParameter("accept");
             String decline = request.getParameter("decline");
@@ -119,7 +119,7 @@ public class RequestsHandler extends HttpServlet {
                     // Recupero dell'utente che ha inviato la richeista
                     User sender = User.getUserById(accept);
                     try{
-                        user_logged.acceptRequest(sender);
+                        userLogged.acceptRequest(sender);
                          message = new Message("acc", false); // Request accepted
                     } catch (NotAllowedException ex){
                         message = new Message(ex.getMessage(), true); // Not allowed
@@ -135,7 +135,7 @@ public class RequestsHandler extends HttpServlet {
                     // Recupero dell'utente che ha inviato la richeista
                     User sender = User.getUserById(decline);
                     try{
-                        user_logged.declineRequest(sender);
+                        userLogged.declineRequest(sender);
                         message = new Message("dec", false); // Request declined
                     } catch (SQLException ex){
                         message = new Message("srv", true); // Server error

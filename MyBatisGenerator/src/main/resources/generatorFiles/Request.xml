@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <!--<properties resource="config/db.properties" />-->
+  <context id="BIS2Tables" targetRuntime="MyBatis3">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/collaborative_genealogy"
+        userId="admin"
+        password="admin">
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="true" /> 
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="it.univaq.ingweb.collaborative.dao.beans.request" targetProject="..\src\main\java">
+      <property name="enableSubPackages" value="false" />
+      <property name="trimStrings" value="true" />
+      <property name="rootClass" value="it.univaq.ingweb.collaborative.dao.beanutility.AbstractBean" />
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="it.univaq.ingweb.collaborative.dao.persistence.request"  targetProject="..\src\main\java">
+      <property name="enableSubPackages" value="false" />
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="it.univaq.ingweb.collaborative.dao.persistence.request"  targetProject="..\src\main\java">
+      <property name="enableSubPackages" value="false" />
+    </javaClientGenerator>
+
+ 	<table tableName="Request" domainObjectName="RequestBean" >
+  	</table> 
+
+  </context>
+</generatorConfiguration>

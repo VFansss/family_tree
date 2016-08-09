@@ -29,14 +29,14 @@ public class ImageView extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String code = request.getParameter("code");
-        String user_id = request.getParameter("id");
+        String idUser = request.getParameter("id");
         if(code == null){
-            response.sendRedirect("image-view?id=" + user_id + "&code=" + Utility.generateCode(5));
+            response.sendRedirect("image-view?id=" + idUser + "&code=" + Utility.generateCode(5));
         }else{
             ServletContext cntx= getServletContext();
             // Recupera l'id dell'utente
             
-            String filename = cntx.getRealPath("/template/profile/" + user_id + ".jpg");
+            String filename = cntx.getRealPath("/template/profile/" + idUser + ".jpg");
 
             String mime = cntx.getMimeType(filename);
             if (mime == null) {

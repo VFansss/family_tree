@@ -85,8 +85,8 @@ public class Signup extends HttpServlet {
             Map<String, Object> data = new HashMap<>();
 
             // Genera l'id dell'utente
-            String user_id = User.createUniqueUserId(10);
-            data.put("id", user_id);
+            String idUser = User.createUniqueUserId(10);
+            data.put("id", idUser);
 
             data.put("email", email);
             data.put("password", Utility.crypt(password));
@@ -106,7 +106,7 @@ public class Signup extends HttpServlet {
             try {
                 Database.insertRecord("user", data);
                 // Creo l'oggetto riservato all'utente
-                User new_user = new User(user_id, name, surname, email, gender, sqlDate, birthplace, "");
+                User new_user = new User(idUser, name, surname, email, gender, sqlDate, birthplace, "");
                 // Prepara l'utente ad essere loggato (gestione della variabili si sessione)
                 new_user.initSession(request.getSession(true));
                 // Reindirizzamento alla pagina del profilo dell'utente

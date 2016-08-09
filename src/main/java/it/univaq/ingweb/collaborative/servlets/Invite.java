@@ -43,25 +43,25 @@ public class Invite extends HttpServlet {
 
             Map<String, Object> data = new HashMap<>();
 
-            User user_logged = (User) session.getAttribute("user_logged");
+            User userLogged = (User) session.getAttribute("user_logged");
 
             // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
-            User user_current;
-            TreeNode user_current_node;
+            User userCurrent;
+            TreeNode userCurrentNode;
 
             if (request.getParameter("id") != null) {
-                user_current_node = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById((String) request.getParameter("id"));
-                user_current = user_current_node.getUser();
-                data.put("relative_grade", user_current_node.getLabel());
+                userCurrentNode = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById((String) request.getParameter("id"));
+                userCurrent = userCurrentNode.getUser();
+                data.put("relative_grade", userCurrentNode.getLabel());
 
             } else {
-                user_current = user_logged;
+                userCurrent = userLogged;
             }
 
             data.put("action", "invite");
             data.put("script", "invite");
-            data.put("user_logged", user_logged);
-            data.put("user_current", user_current);
+            data.put("user_logged", userLogged);
+            data.put("user_current", userCurrent);
             //Codifica del messaggio di errore sulla base del codice inviato
             data.put("message", new Message(request.getParameter("msg"), true));
             FreeMarker.process("invite.html", data, response, getServletContext());
@@ -112,8 +112,8 @@ public class Invite extends HttpServlet {
                     check = Utility.checkEmail(email);
                     if (!check.isError()) {
                         // Recupero dell'utente al quale bisogna aggiungere il nuovo parente
-                        TreeNode user_current_node = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById(request.getParameter("relative"));
-                        User user_current = user_current_node.getUser();
+                        TreeNode userCurrentNode = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById(request.getParameter("relative"));
+                        User userCurrent = userCurrentNode.getUser();
                         // Gestione dati dell'utente
                         Map<String, Object> data = new HashMap<>();
                         String user_id = User.createUniqueUserId(10);
@@ -136,7 +136,7 @@ public class Invite extends HttpServlet {
                             // Recupero dell'utente appena creato
                             User user_added = User.getUserById(user_id);
                             // Imposta legame di parentela tra i due utenti convolti
-                            user_current.sendRequest(user_added, relationship);
+                            userCurrent.sendRequest(user_added, relationship);
                             check = new Message("inv", false); // User invited
                         } catch (SQLException ex) {
                             check = new Message("srv", true); // Server error

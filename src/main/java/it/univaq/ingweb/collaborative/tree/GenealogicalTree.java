@@ -96,12 +96,12 @@ public class GenealogicalTree{
         createTree(++index);
         
     }
-    private void add(User new_relative, String label, String degree){
-        if(new_relative != null){
+    private void add(User newRelative, String label, String degree){
+        if(newRelative != null){
             // Se l'utente non è stato ancora valutato
-            if(!this.familyTree.contains(new_relative)){
-                String new_label = TreeNode.getNewLabel(label, degree);
-                this.familyTree.add(new TreeNode(new_relative, new_label));
+            if(!this.familyTree.contains(newRelative)){
+                String newLabel = TreeNode.getNewLabel(label, degree);
+                this.familyTree.add(new TreeNode(newRelative, newLabel));
             }
         }
     }

@@ -52,25 +52,25 @@ public class Create extends HttpServlet {
 
             Map<String, Object> data = new HashMap<>();
 
-            User user_logged = (User) session.getAttribute("user_logged");
+            User userLogged = (User) session.getAttribute("user_logged");
 
             // Recupero dell'utente corrente: non c'è il controllo sull'esistenza dell'utente, viene raccolta l'eccezione
-            User user_current;
-            TreeNode user_current_node;
+            User userCurrent;
+            TreeNode userCurrentNode;
 
             if (request.getParameter("id") != null) {
-                user_current_node = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById((String) request.getParameter("id"));
-                user_current = user_current_node.getUser();
-                data.put("relative_grade", user_current_node.getLabel());
+                userCurrentNode = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById((String) request.getParameter("id"));
+                userCurrent = userCurrentNode.getUser();
+                data.put("relative_grade", userCurrentNode.getLabel());
 
             } else {
-                user_current = user_logged;
+                userCurrent = userLogged;
             }
 
             data.put("action", "create");
             data.put("script", "create");
-            data.put("user_logged", user_logged);
-            data.put("user_current", user_current);
+            data.put("user_logged", userLogged);
+            data.put("user_current", userCurrent);
             //Codifica del messaggio di errore sulla base del codice inviato
             data.put("message", new Message(request.getParameter("msg"), true));
             FreeMarker.process("create.html", data, response, getServletContext());
@@ -103,7 +103,7 @@ public class Create extends HttpServlet {
         // Se è attiva una sessiona
         if (session != null) {
             // Recupera l'utente loggato
-            User user_logged = (User) session.getAttribute("user_logged");
+            User userLogged = (User) session.getAttribute("user_logged");
             String name = "", surname = "", email = "", gender = "", birthdate = "", birthplace = "", biography = "", relationship = "", relative = "";
 
             if (ServletFileUpload.isMultipartContent(request)) {
@@ -143,12 +143,12 @@ public class Create extends HttpServlet {
                         // Se tutti i dati sono corretti
                         if (!check.isError()) {
                             // Recupero dell'utente al quale bisogna aggiungere il nuovo parente
-                            TreeNode user_current_node = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById(relative);
-                            User user_current = user_current_node.getUser();
+                            TreeNode userCurrentNode = ((GenealogicalTree) session.getAttribute("family_tree")).getUserById(relative);
+                            User user_current = userCurrentNode.getUser();
                             // Gestione dati dell'utente
                             Map<String, Object> data = new HashMap<>();
-                            String user_id = User.createUniqueUserId(10);
-                            data.put("id", user_id);
+                            String idUser = User.createUniqueUserId(10);
+                            data.put("id", idUser);
                             data.put("name", name);
                             data.put("surname", surname);
                             data.put("gender", gender);
@@ -166,13 +166,13 @@ public class Create extends HttpServlet {
                                 // Inserimento dati nel db
                                 Database.insertRecord("user", data);
                                 // Recupero dell'utente appena creato
-                                User user_added = User.getUserById(user_id);
+                                User user_added = User.getUserById(idUser);
                                 // Imposta legame di parentela tra i due utenti convolti
                                 user_current.setRelative(user_added, relationship);
                                 // Dopo aver aggiungo il nuovo parente, bisogna fare il refresh dll'albero genealogico di tutti i parenti loggati in quel momento
-                                user_logged.sendRefreshAck();
+                                userLogged.sendRefreshAck();
                                 if (avatar != null && !avatar.getName().equals("")) {
-                                    avatar.write(new File(this.getServletContext().getRealPath("/template/profile/").replace("build\\", "") + File.separator + user_id + ".jpg"));
+                                    avatar.write(new File(this.getServletContext().getRealPath("/template/profile/").replace("build\\", "") + File.separator + idUser + ".jpg"));
                                     check = new Message("pho_ok", false); // Photo Uploaded Successfully
                                 }
                             } catch (SQLException ex) {

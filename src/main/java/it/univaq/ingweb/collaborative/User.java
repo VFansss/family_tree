@@ -435,7 +435,7 @@ public class User{
          * Aggiungi il padre o la madre
          * @param user  genitore da aggiungere
          * @throws java.sql.SQLException
-         * @throws it.collaborative_genealogy.exception.NotAllowedException
+         * @throws it.collaborative.exception.NotAllowedException
          */
         private void setParent(User user) throws SQLException, NotAllowedException{
 
@@ -453,7 +453,7 @@ public class User{
         /**
          * Inserisci il coniuge
          * @param spouse
-         * @throws it.collaborative_genealogy.exception.NotAllowedException
+         * @throws it.collaborative.exception.NotAllowedException
          * @throws java.sql.SQLException
          */
         private void setSpouse(User spouse) throws NotAllowedException, SQLException{
@@ -474,7 +474,7 @@ public class User{
         /**
          * Inserisci un figlio
          * @param user  figlio da inserire
-         * @throws it.collaborative_genealogy.exception.NotAllowedException
+         * @throws it.collaborative.exception.NotAllowedException
          * @throws java.sql.SQLException
          */
         private void setChild(User user) throws NotAllowedException, SQLException{
@@ -486,41 +486,41 @@ public class User{
          * Aggiungi un fratello o una sorella
          * @param sibling  utente da aggiungere
          * @throws java.sql.SQLException
-         * @throws it.collaborative_genealogy.exception.NotAllowedException
+         * @throws it.collaborative.exception.NotAllowedException
          */
         private void setSibling(User sibling) throws SQLException, NotAllowedException {
 
             User u1 = this;
             User u2 = sibling;
-            UserList u1_parents;
-            UserList u2_parents;
-            User u1_parent = null;
-            User u2_parent = null;
+            UserList u1Parents;
+            UserList u2Parents;
+            User u1Parent = null;
+            User u2Parent = null;
 
             do{
                 // Recupera i genitori dei due utenti
-                u1_parents = u1.getParents();
-                u2_parents = u2.getParents();
+                u1Parents = u1.getParents();
+                u2Parents = u2.getParents();
                 // Recupera il numero di genitori dei due utenti
-                int u1_size = u1_parents.size();
-                int u2_size = u2_parents.size();
+                int u1Size = u1Parents.size();
+                int u2Size = u2Parents.size();
                 // Se {u1} non ha parenti
-                if(u1_size == 0){
-                    for(User parent: u2_parents){
+                if(u1Size == 0){
+                    for(User parent: u2Parents){
                         u1.setParent(parent);
                     }
                 }
 
-                if(u1_size == 1 && u2_size == 2){
+                if(u1Size == 1 && u2Size == 2){
                     // Recupera il genitore di {u2} che non ha {u1}
-                    User other_parent;
+                    User otherParent;
                     if(u1.getRelative("mother") != null){
-                        other_parent = u2.getRelative("father");
+                        otherParent = u2.getRelative("father");
                     }else{
-                        other_parent = u2.getRelative("mother");
+                        otherParent = u2.getRelative("mother");
                     }
 
-                    u1.setParent(other_parent);
+                    u1.setParent(otherParent);
                 }
 
                 /* 
@@ -701,7 +701,7 @@ public class User{
          * @param user      user da aggiungere
          * @param relationship    grado di parentela
          * @throws java.sql.SQLException
-         * @throws it.collaborative_genealogy.exception.NotAllowedException
+         * @throws it.collaborative.exception.NotAllowedException
          */
         private void canAddLike(User user, String relationship) throws SQLException, NotAllowedException {
             
@@ -739,16 +739,16 @@ public class User{
                     // Se l'utente hà gia un genitore dello stesso sesso
                     if(this.getParent(user.getGender()) != null) throw new NotAllowedException("alr");
 
-                    String user_gender = user.getGender();
+                    String userGender = user.getGender();
                     // Se {user} è tra i fratelli/sorelle    
                     if(this.getSiblings().contains(user)) throw new NotAllowedException("sib");
 
                     // Se {user} è un discendente
-                    UserList offsprings = this.getOffsprings(user_gender);        
+                    UserList offsprings = this.getOffsprings(userGender);        
                     if(offsprings.contains(user)) throw new NotAllowedException("off");
                     
                     // Se {user} è un antenato
-                    UserList ancestors = this.getAncestors(user_gender);
+                    UserList ancestors = this.getAncestors(userGender);
                     if(ancestors.contains(user)) throw new NotAllowedException("anc");
 
                         
@@ -811,36 +811,36 @@ public class User{
                 User u2 = user;
 
                 // Recupera i genitori dei due utenti
-                UserList u1_parents = u1.getParents();
-                UserList u2_parents = u2.getParents();
+                UserList u1Parents = u1.getParents();
+                UserList u2Parents = u2.getParents();
 
                 // Recupera il numero di genitori dei due utenti
-                int u1_size = u1_parents.size();
-                int u2_size = u2_parents.size();
+                int u1Size = u1Parents.size();
+                int u2Size = u2Parents.size();
 
-                User u1_parent, u2_parent;
+                User u1Parent, u2Parent;
 
                 // Se entrambi gli utenti non hanno nessun genitore, non è possibile verificare la parentela
-                if(u2_size == 0 && u1_size == 0) throw new NotAllowedException("sib_1");
+                if(u2Size == 0 && u1Size == 0) throw new NotAllowedException("sib_1");
 
                 // Se i due utenti hanno già entrambi i genitori, non è possibile che i due utenti siano fratelli
-                if(u2_size == 2 && u1_size == 2) throw new NotAllowedException("sib_2");
+                if(u2Size == 2 && u1Size == 2) throw new NotAllowedException("sib_2");
 
                 // Se entrambi gli utenti hanno un solo genitore
-                if(u2_size == 1 && u1_size == 1){
+                if(u2Size == 1 && u1Size == 1){
                     // Recupera l'unico genitore di {u1}
-                    u1_parent = (User) u1_parents.iterator().next();
+                    u1Parent = (User) u1Parents.iterator().next();
                     // Reucpera l'unico genitore di {u2}
-                    u2_parent = (User) u2_parents.iterator().next();
+                    u2Parent = (User) u2Parents.iterator().next();
                     
                     // Se i due genitori identificano lo sesso utente, non è possibile verificare se i due utenti sono fratelli
-                    if(u1_parent.equals(u2_parents)) throw new NotAllowedException("sib_1");
+                    if(u1Parent.equals(u2Parents)) throw new NotAllowedException("sib_1");
                     // Se il genitore di {u1} e il genitore di {u2} sono dello stesso sesso, non è possibile che i due utenti siano fratelli
-                    if(!u1_parent.getGender().equals(u2_parent.getGender())) throw new NotAllowedException("sib_3");
+                    if(!u1Parent.getGender().equals(u2Parent.getGender())) throw new NotAllowedException("sib_3");
                     
                     try{
                         // Verifica se i due genitori possono essere coniugi
-                        u2_parent.canAddLike(u1_parent, "spouse");
+                        u2Parent.canAddLike(u1Parent, "spouse");
                     }catch(NotAllowedException ex){
                         // i due utenti non possono essere fratelli
                         throw new NotAllowedException("sib_3");
@@ -851,12 +851,12 @@ public class User{
 
                 do{
                     // Se {u2} non ha genitori e {u1} ne ha solo uno
-                    if(u2_size == 0 && u1_size == 1) throw new NotAllowedException("sib_1");
+                    if(u2Size == 0 && u1Size == 1) throw new NotAllowedException("sib_1");
 
                     // Se {u2} non ha genitori
-                    if(u2_size == 0){
+                    if(u2Size == 0){
 
-                        for(User parent: u1_parents){
+                        for(User parent: u1Parents){
                             try{
                                 // Verifica se {u2} può avere entrambi i genitori di {u1}
                                 u2.canAddLike(parent, "parent");
@@ -869,25 +869,25 @@ public class User{
                     }
 
                     // Se {u2} ha un solo genitore e {u1} gli ha entrmabi
-                    if(u2_size == 1 && u1_size == 2){
+                    if(u2Size == 1 && u1Size == 2){
                         // Recupera l'unico genitore di {u2}
-                        u2_parent = u2_parents.iterator().next();
+                        u2Parent = u2Parents.iterator().next();
 
                         // Se il genitore di {u2} non è anche genitore di {u1}
-                        if(!u1_parents.contains(u2_parent)) throw new NotAllowedException("sib_3");
+                        if(!u1Parents.contains(u2Parent)) throw new NotAllowedException("sib_3");
 
-                        User other_parent;
+                        User otherParent;
                         // Se {u2} ha solo la madre
                         if(u2.getRelative("mother") != null){
                             // Recupera il padre di {u1}
-                            other_parent = u1.getRelative("father");
+                            otherParent = u1.getRelative("father");
                         }else{
                             // Altrimenti recupara la madre di {u1}
-                            other_parent = u1.getRelative("mother");
+                            otherParent = u1.getRelative("mother");
                         }
                         try{
                             // Verifica se l'altro genitore di {u1} può essere aggiunto come genitore di {u2}
-                            u2.canAddLike(other_parent, "parent");
+                            u2.canAddLike(otherParent, "parent");
                         }catch(NotAllowedException ex){
                             // i due utenti non possono essere fratelli
                             throw new NotAllowedException("sib_3");
@@ -906,11 +906,11 @@ public class User{
                     u1 = user;
                     u2 = this;
 
-                    u1_parents = u1.getParents();
-                    u2_parents = u2.getParents();
+                    u1Parents = u1.getParents();
+                    u2Parents = u2.getParents();
 
-                    u1_size = u1_parents.size();
-                    u2_size = u2_parents.size();
+                    u1Size = u1Parents.size();
+                    u2Size = u2Parents.size();
 
                 }while(true);
 
@@ -942,20 +942,20 @@ public class User{
          */
         public boolean isRelative(User user) throws SQLException {
 
-            UserList family_tree_final = new UserList();
+            UserList familyTreeFinal = new UserList();
             // Aggiungi l'utente corrente al proprio albero genealogico
-            family_tree_final.add(this);
+            familyTreeFinal.add(this);
 
-            int number_relatives;
+            int numberRelatives;
 
             do{
 
                 // Inizializza albero temporaneo
-                UserList family_tree_temp = new UserList();
+                UserList familyTreeTemp = new UserList();
                 // Calcola numero di parenti inseriti
-                number_relatives = family_tree_final.size();
+                numberRelatives = familyTreeFinal.size();
                 // Per ogni parente già inserito nell'albero
-                for(User relative: family_tree_final){
+                for(User relative: familyTreeFinal){
                     // Aggiungi all'abero temporaneo gli antenati del parente
                     UserList ancestors = relative.getAncestors();
                     // Se l'utente da trovare è tra gli antenati, ritorna true
@@ -964,7 +964,7 @@ public class User{
                     // Se l'utente non ha antenati, inserisci l'utente stesso tra gli antenati, cosi da poter cercare i suoi discendenti
                     if(ancestors.isEmpty()) ancestors.add(relative);
                     // Aggiungi gli antenati all'albero genealogico
-                    family_tree_temp.addAll(ancestors);
+                    familyTreeTemp.addAll(ancestors);
 
                     // Per ogni antenato trovato
                     for(User ancestor: ancestors){
@@ -973,7 +973,7 @@ public class User{
                         // Se l'utente da trovare è tra i discententi, ritorna true
                         if(offsprings.contains(user)) return true;
                         // Aggiungi all'albero temporaneo tutti i suoi discendenti (quindi anche i discendenti dell'parente stesso)
-                        family_tree_temp.addAll(offsprings);
+                        familyTreeTemp.addAll(offsprings);
                     }
                     
                     User spouse = relative.getSpouse();
@@ -981,16 +981,16 @@ public class User{
                         // Se l'utente da trovare è il coniuge
                         if(spouse.equals(user)) return true;
                         // Aggiungi all'albero temporaneo il coniuge del parente
-                        family_tree_temp.add(spouse);
+                        familyTreeTemp.add(spouse);
                     }
 
                 }
 
                 // Aggiungi l'albero temporaneo a quello finale
-                family_tree_final.addAll(family_tree_temp);
+                familyTreeFinal.addAll(familyTreeTemp);
 
             // Cicla fino a quando non sono stati aggiungi nuovi utente nell'albero finale
-            }while(number_relatives != family_tree_final.size());
+            }while(numberRelatives != familyTreeFinal.size());
 
             return false;
         }
@@ -1011,16 +1011,16 @@ public class User{
          * @throws java.sql.SQLException
          */
         public UserList getFamilyCore() throws SQLException{
-            UserList family_core = new UserList();
+            UserList familyCore = new UserList();
             // Aggiungi i genitori
-            family_core.addAll(this.getParents());
+            familyCore.addAll(this.getParents());
             // Aggiungi i figli
-            family_core.addAll(this.getChildren());
+            familyCore.addAll(this.getChildren());
             // Aggiungi i fratelli
-            family_core.addAll(this.getSiblings());
+            familyCore.addAll(this.getSiblings());
             // Aggiungi il coniuge
-            family_core.add(this.getRelative("spouse"));
-            return family_core;
+            familyCore.add(this.getRelative("spouse"));
+            return familyCore;
         }
     
     //</editor-fold>
@@ -1073,14 +1073,14 @@ public class User{
          */
         public void sendRefreshAck() throws SQLException{
             // Recupero i parenti dell'utente corrente
-            GenealogicalTree family_tree = this.getFamilyTree();
+            GenealogicalTree familyTree = this.getFamilyTree();
 
             Map<String, Object> data = new HashMap<>();
             data.put("refresh", 1);
 
             // Generazione della condizione: bisogna aggiornare l'albero genealogico di ogni parente
             String condition = "";
-            for(TreeNode user: family_tree.getFamilyTree()){
+            for(TreeNode user: familyTree.getFamilyTree()){
                 condition = condition + "id = '" + user.getUser().getId() + "' OR ";
             }
             condition = condition.substring(0, condition.length()-4);
@@ -1093,14 +1093,14 @@ public class User{
       
     /**
      * Recupera un utente attraverso il suo ID
-     * @param user_id   id utente
+     * @param idUser   id utente
      * @return          
      */
-    public static User getUserById(String user_id){
+    public static User getUserById(String idUser){
         User user = null;
         try {
-            if(user_id != null){
-                ResultSet record = Database.selectRecord("user", "id = '" + user_id + "'");
+            if(idUser != null){
+                ResultSet record = Database.selectRecord("user", "id = '" + idUser + "'");
                 if(record.next()){
                     user =  new User(record);
                 }
@@ -1113,14 +1113,14 @@ public class User{
     }
     /**
      * Recupera un utente attraverso la sua e-mail
-     * @param user_email   email utente
+     * @param userEmail   email utente
      * @return          
      */
-    public static User getUserByEmail(String user_email){
+    public static User getUserByEmail(String userEmail){
         
         try {
-            if(user_email != null){
-                try (ResultSet record = Database.selectRecord("user", "email = '" + user_email + "'")) {
+            if(userEmail != null){
+                try (ResultSet record = Database.selectRecord("user", "email = '" + userEmail + "'")) {
                     if(record.next()){
                         return new User(record);
                     }
@@ -1139,10 +1139,10 @@ public class User{
      * @return              true se la password è verificata, falsa altrimenti
      */
     public boolean checkPassword(String password){
-        String user_password;
+        String userPassword;
         try {
-            user_password = this.getPassword();
-            return Utility.decrypt(user_password, password);
+            userPassword = this.getPassword();
+            return Utility.decrypt(userPassword, password);
         } catch (SQLException ex) {
             return false;
         }
@@ -1153,9 +1153,9 @@ public class User{
      * @param session
      */
     public void initSession(HttpSession session){
-        User user_refresh = User.getUserById(this.id);
+        User userRefresh = User.getUserById(this.id);
         // Inserisci l'utente corrente nella variabile di sessione
-        session.setAttribute("user_logged", user_refresh);
+        session.setAttribute("user_logged", userRefresh);
         // Inizializza la breadcrumb
         session.setAttribute("breadcrumb", new NodeList());
         
@@ -1167,7 +1167,7 @@ public class User{
         }
         
         try {
-            session.setAttribute("family_tree", user_refresh.getFamilyTree());
+            session.setAttribute("family_tree", userRefresh.getFamilyTree());
         } catch (SQLException ex) {
             session.setAttribute("family_tree", null);
         }
@@ -1201,13 +1201,13 @@ public class User{
      * @return
      */
     public static String createUniqueUserId(int length){
-        String user_id;
+        String idUser;
         do{
-            user_id = Utility.generateCode(length);
+            idUser = Utility.generateCode(length);
         // Cicla fino a quando non esiste un utente con id uguale a quello appena generato
-        }while(User.getUserById(user_id) != null);
+        }while(User.getUserById(idUser) != null);
         
-        return user_id;
+        return idUser;
         
     }
 

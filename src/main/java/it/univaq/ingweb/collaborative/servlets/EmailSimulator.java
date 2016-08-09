@@ -33,7 +33,7 @@ public class EmailSimulator extends HttpServlet {
        
         HttpSession session=request.getSession();  
       
-        User user_logged = (User)session.getAttribute("user_logged");
+        User userLogged = (User)session.getAttribute("user_logged");
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -48,18 +48,18 @@ public class EmailSimulator extends HttpServlet {
             switch (action) {
                 case "invite":
                     out.println("<h4>Invite</h4>");
-                    out.println("<p>"+user_logged.getName()+" "+user_logged.getSurname()+" has sent you a request to join to Collaborative Genealogy</p>");
+                    out.println("<p>"+userLogged.getName()+" "+userLogged.getSurname()+" has sent you a request to join to Collaborative Genealogy</p>");
                     out.println("<a target='_blank' href='login?code="+user.getId()+"'>Click here to sign up</a>");
                     session.invalidate();
                     break;
                 case "request":
                     out.println("<h4>Request</h4>");
                     out.println("<ul>"
-                            + "<li>Name: "+user_logged.getName()+"</li>"
-                            + "<li>Surame: "+user_logged.getSurname()+"</li>"
-                            + "<li>Gender: "+user_logged.getGender()+"</li>"
-                            + "<li>Birthdate: "+user_logged.getBirthdate()+"</li>"
-                            + "<li>Birthplace: "+user_logged.getBirthplace()+"</li>"
+                            + "<li>Name: "+userLogged.getName()+"</li>"
+                            + "<li>Surame: "+userLogged.getSurname()+"</li>"
+                            + "<li>Gender: "+userLogged.getGender()+"</li>"
+                            + "<li>Birthdate: "+userLogged.getBirthdate()+"</li>"
+                            + "<li>Birthplace: "+userLogged.getBirthplace()+"</li>"
                             + "<li>Relationship: "+request.getParameter("relationship")+"</li>"
                             + "</ul>");
                     out.println("<a target='_blank' href='requests'>Click here to accept the request</a>");

@@ -30,19 +30,19 @@ public class RemoveRelative extends HttpServlet {
         if(session!=null){
             try {
                 //Recupero utente loggato
-                User user_logged = (User)session.getAttribute("user_logged");
+                User userLogged = (User)session.getAttribute("user_logged");
                 String relationship = request.getParameter("type");
                 
                 switch(relationship){
                     
-                    case "mother":      user_logged.removeParent("female");                                     break;
-                    case "father":      user_logged.removeParent("male");                                       break;
+                    case "mother":      userLogged.removeParent("female");                                     break;
+                    case "father":      userLogged.removeParent("male");                                       break;
                     
                     case "daughter":
-                    case "son":         user_logged.removeChild(User.getUserById(request.getParameter("id")));  break;
+                    case "son":         userLogged.removeChild(User.getUserById(request.getParameter("id")));  break;
                     
                     case "wife": 
-                    case "husband":     user_logged.removeSpouse();                                             break;
+                    case "husband":     userLogged.removeSpouse();                                             break;
                     
                 }
 

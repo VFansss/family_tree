@@ -237,13 +237,13 @@ public class Utility {
     
     /**
      * Verifica se una stringa criptata è stata generata da un'altra stringa
-     * @param string_crypted    stringa criptata
-     * @param to_check          stringa da verificare
+     * @param stringCrypted    stringa criptata
+     * @param toCheck          stringa da verificare
      * @return                  true se la password è stata verificata, false altrimenti
      */
-    public static boolean decrypt(String string_crypted, String to_check){
-        if(to_check == null || string_crypted == null) return false;
-        return string_crypted.equals(crypt(to_check));
+    public static boolean decrypt(String stringCrypted, String toCheck){
+        if(toCheck == null || stringCrypted == null) return false;
+        return stringCrypted.equals(crypt(toCheck));
     }
     
     /**

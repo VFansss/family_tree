@@ -30,10 +30,10 @@ public class NodeList extends LinkedList<TreeNode>{
         // Iteratore principale
         ListIterator iter = this.listIterator(0);
         // Iteratore inverso
-        ListIterator iterator_reverse;
+        ListIterator iteratorReverse;
         // Oggetti User di supporto
-        User user, user_to_check, user_to_delete;
-        UserList family_core;
+        User user, userToCheck, userToDelete;
+        UserList familyCore;
         // Flag per controllare se è stato eliminato qualche utente
         boolean deleted = false;
         // Per ogni utente ({user}) nella breadcrumb (dal primo all'ultimo inserito)
@@ -42,21 +42,21 @@ public class NodeList extends LinkedList<TreeNode>{
             // Se {user} è stato già verficato, passa all'utente successivo
             try {
                 // Recupera il nucleo familiare di {user}
-                family_core = user.getFamilyCore();
+                familyCore = user.getFamilyCore();
                 // Imposta iteratore inverso
-                iterator_reverse = this.listIterator(this.size());
-                // Per ogni utente ({user_to_check}) della breadcrumb (dall'ulitmo al primo inserito)
-                while(iterator_reverse.hasPrevious()) {
-                    user_to_check = ((TreeNode) iterator_reverse.previous()).getUser();
-                    // Se {user_to_check} è uguale a {user}, esci dal ciclo perchè sono stati verificati tutti gli utenti potenzialmente rimuovibili
-                    if(user.equals(user_to_check)) break;
-                    // Se {user_to_check} fa parte del nucleo familiare di {user} 
-                    if(family_core.contains(user_to_check)){
+                iteratorReverse = this.listIterator(this.size());
+                // Per ogni utente ({userToCheck}) della breadcrumb (dall'ulitmo al primo inserito)
+                while(iteratorReverse.hasPrevious()) {
+                    userToCheck = ((TreeNode) iteratorReverse.previous()).getUser();
+                    // Se {userToCheck} è uguale a {user}, esci dal ciclo perchè sono stati verificati tutti gli utenti potenzialmente rimuovibili
+                    if(user.equals(userToCheck)) break;
+                    // Se {userToCheck} fa parte del nucleo familiare di {user} 
+                    if(familyCore.contains(userToCheck)){
                         // Per ogni utente da eliminare
                         while(iter.hasNext()){
-                            user_to_delete = ((TreeNode) iter.next()).getUser();
-                            // Se non è uguale a {user_to_check}
-                            if(!user_to_delete.equals(user_to_check)){
+                            userToDelete = ((TreeNode) iter.next()).getUser();
+                            // Se non è uguale a {userToCheck}
+                            if(!userToDelete.equals(userToCheck)){
                                 // Rimuovilo
                                 iter.remove();
                                 // Segnala che è stato eliminato un utente

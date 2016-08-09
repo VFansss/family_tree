@@ -162,36 +162,36 @@ public class Settings extends HttpServlet {
     
     private static Message changeEmail(HttpServletRequest request){
         // Recupero dei dati
-        String current_email = (String)request.getParameter("current_email");
-        String new_email = (String)request.getParameter("new_email");
-        String confirm_email = (String)request.getParameter("confirm_email");
+        String currentEmail = (String)request.getParameter("current_email");
+        String newEmail = (String)request.getParameter("new_email");
+        String confirmEmail = (String)request.getParameter("confirm_email");
         
         String msg;
         boolean error = true;
         
         // Se non sono stati compilati tutti i dati
-        if(current_email.equals("") || new_email.equals("") || confirm_email.equals("")){
+        if(currentEmail.equals("") || newEmail.equals("") || confirmEmail.equals("")){
             msg = "fld"; // All fields are required
             
         // Se l'email corrente è sbagliata
-        }else if(!userLogged.getEmail().equals(current_email)){
+        }else if(!userLogged.getEmail().equals(currentEmail)){
             msg =  "eml_1"; // Current email is not valid
         
         // Se la conferma dell'email non corrisponde
-        }else if(!confirm_email.equals(new_email)){
+        }else if(!confirmEmail.equals(newEmail)){
             
             msg =  "eml_2"; // Confirm email is not valid
             
         }else{
             // Se l'email non è valida
-            Message check = Utility.checkEmail(new_email);
+            Message check = Utility.checkEmail(newEmail);
             if(check.isError()){
                 msg = check.getCode();
                 
             }else{
                 try {
                     // Aggiorna email utente
-                    userLogged.setEmail(new_email);
+                    userLogged.setEmail(newEmail);
                     msg =  "eml_ok"; // Email changed
                     error = false;
                 } catch (SQLException ex) {
@@ -206,35 +206,35 @@ public class Settings extends HttpServlet {
     
     private static Message changePassword(HttpServletRequest request){
         // Recupero dei dati
-        String current_password = (String)request.getParameter("current_password");
-        String new_password = (String)request.getParameter("new_password");
-        String confirm_password = (String)request.getParameter("confirm_password");
+        String currentPassword = (String)request.getParameter("current_password");
+        String newPassword = (String)request.getParameter("new_password");
+        String confirmPassword = (String)request.getParameter("confirm_password");
         
         String msg;
         boolean error = true;
         
         // Se non sono stati compilati tutti i dati
-        if(current_password.equals("") || new_password.equals("") || confirm_password.equals("")){
+        if(currentPassword.equals("") || newPassword.equals("") || confirmPassword.equals("")){
             msg = "fld";
             
         // Se la password corrente è sbagliata
-        }else if(!userLogged.checkPassword(current_password)){
+        }else if(!userLogged.checkPassword(currentPassword)){
             msg =  "psd_1"; // Current passwrod is not valid
         
         // Se la conferma della password non corrisponde
-        }else if(!new_password.equals(confirm_password)){
+        }else if(!newPassword.equals(confirmPassword)){
             msg =  "psd_2"; // Confirm passwrod is not valid
             
         }else{
             
             // Se la password non è nel formato giusto
-            Message check = Utility.checkPassword(new_password);
+            Message check = Utility.checkPassword(newPassword);
             if(check.isError()){
                 msg = check.getCode();
             }else{
                 try {
                     // Aggiorna email utente
-                    userLogged.setPassword(confirm_password);
+                    userLogged.setPassword(confirmPassword);
                     msg =  "psd_ok"; // Password changed
                     error = false;
                 } catch (SQLException ex) {

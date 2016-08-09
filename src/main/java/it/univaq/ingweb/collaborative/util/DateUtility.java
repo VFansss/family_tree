@@ -59,19 +59,19 @@ public class DateUtility {
     public static boolean validateDateRange(Date date){
         
         // Calcola la data corrente
-        java.util.Date current_date = new java.util.Date();
+        java.util.Date currentDate = new java.util.Date();
         // Calcola la data minima 01/01/1900)
         Calendar cal = new GregorianCalendar(1900, 01, 01);
-        java.util.Date min_date = cal.getTime();
+        java.util.Date minDate = cal.getTime();
         
         // Calcola i secondi della data da validare
-        long date_second = date.getTime();
+        long dateSecond = date.getTime();
         // Calcola i secondi della data attuale
-        long current_second = current_date.getTime();
+        long currentSecond = currentDate.getTime();
         // Calcola i secondi della data minima
-        long min_second = min_date.getTime();
+        long minSecond = minDate.getTime();
 
-        return !(date_second >= current_second || date_second <= min_second);
+        return !(dateSecond >= currentSecond || dateSecond <= minSecond);
     }
     
     /**

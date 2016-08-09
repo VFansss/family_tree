@@ -40,7 +40,7 @@ public class Search extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserList results = new UserList();
         Map<String, Object> data = new HashMap<>();
-        Map<String, String> input_filter = new HashMap<>();
+        Map<String, String> inputFilter = new HashMap<>();
         //Gestione sessione
         HttpSession session=request.getSession(false);
         Message check = new Message(null, false);
@@ -48,8 +48,8 @@ public class Search extends HttpServlet {
         //Se è stato effettuato il login...
         if(session!=null) { 
             // Verifica se l'albero genealogico nella cache è aggiornato
-            User user_logged = (User)session.getAttribute("user_logged");
-            user_logged.checkFamilyTreeCache(session);
+            User userLogged = (User)session.getAttribute("user_logged");
+            userLogged.checkFamilyTreeCache(session);
             data.put("family_tree", (GenealogicalTree)session.getAttribute("family_tree"));
             data.put("user_logged", (User)session.getAttribute("user_logged"));
         } 
@@ -58,10 +58,10 @@ public class Search extends HttpServlet {
         if(request.getParameter("search-bar-button") != null){
             
             /* Ricerca dalla search bar */
-            input_filter.put("name", "");
-            input_filter.put("surname", "");
-            input_filter.put("birthplace", "");
-            input_filter.put("birthdate", "");
+            inputFilter.put("name", "");
+            inputFilter.put("surname", "");
+            inputFilter.put("birthplace", "");
+            inputFilter.put("birthdate", "");
              
             String input = request.getParameter("search-bar-input");
             if(!input.equals("")){
@@ -86,8 +86,8 @@ public class Search extends HttpServlet {
             String name = Utility.spaceTrim(request.getParameter("name"));
             // Recupero del cognome
             String surname = Utility.spaceTrim(request.getParameter("surname"));
-            input_filter.put("name", name);
-            input_filter.put("surname", surname);
+            inputFilter.put("name", name);
+            inputFilter.put("surname", surname);
             
             // Inizializzazione della data e luogo di nascita
             String birthplace = "";
@@ -101,13 +101,13 @@ public class Search extends HttpServlet {
                 if(!birthdate.equals("")){
                     try {
                         // Prova a convertire la data di nascita in Date e inserisci il risultato del data-model
-                        input_filter.put("birthdate", DateUtility.stringToDate(birthdate).toString());
+                        inputFilter.put("birthdate", DateUtility.stringToDate(birthdate).toString());
                     } catch (ParseException ex) {}
                 }else{
-                    input_filter.put("birthdate", "");
+                    inputFilter.put("birthdate", "");
                 }     
                 // Inserisci il luogo di nascita nel data-model
-                input_filter.put("birthplace", birthplace);
+                inputFilter.put("birthplace", birthplace);
                 
                 String relative = request.getParameter("relative");
                 if(relative != null) data.put("selected_relative", relative); 
@@ -138,24 +138,24 @@ public class Search extends HttpServlet {
             // Se non sono stati trovati errori
             if(!check.isError()){
                 // Esegui la ricerca
-                results = search(input_filter); 
+                results = search(inputFilter); 
             }
             
             // Se c'è una sessione attiva
             if(session != null){
                 // Inserirsci la data di nascita del data-model
-                input_filter.put("birthdate", request.getParameter("birthdate").trim());
+                inputFilter.put("birthdate", request.getParameter("birthdate").trim());
             }
             
             //--------------------------------------------
             //         GESTIONE AGGIUNTA PARENTI
             //--------------------------------------------
             if(request.getParameter("add_to")!=null){
-                String add_to_id = request.getParameter("add_to");
+                String addToId = request.getParameter("add_to");
             
-                User add_to = User.getUserById(add_to_id);
+                User addTo = User.getUserById(addToId);
             
-                data.put("add_to", add_to);
+                data.put("add_to", addTo);
             }
             
         }
@@ -175,7 +175,7 @@ public class Search extends HttpServlet {
         }
         
         // Inserisci i campi compilati nel data-model
-        data.put("values", input_filter);
+        data.put("values", inputFilter);
         
         // Genera il data-model
         FreeMarker.process("search.html",data, response, getServletContext());
@@ -193,12 +193,12 @@ public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         Map<String, Object> data = new HashMap<>();
-        Map<String, String> input_filter = new HashMap<>();
-        input_filter.put("name", "");
-        input_filter.put("surname", "");
-        input_filter.put("birthplace", "");
-        input_filter.put("birthdate", "");
-        data.put("values", input_filter); 
+        Map<String, String> inputFilter = new HashMap<>();
+        inputFilter.put("name", "");
+        inputFilter.put("surname", "");
+        inputFilter.put("birthplace", "");
+        inputFilter.put("birthdate", "");
+        data.put("values", inputFilter); 
         
         
         //Gestione pagina di arrivo per inserimento nuovo parente
@@ -206,17 +206,17 @@ public class Search extends HttpServlet {
         
         if(session!=null){            
             
-            User user_logged = (User)session.getAttribute("user_logged");
+            User userLogged = (User)session.getAttribute("user_logged");
             
             //Gestione aggiunta parente
             if(request.getParameter("to")!=null){
                 
                 try{
-                    TreeNode user_current_node = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("to"));
-                    User user_current = user_current_node.getUser();
-                    String relative_grade = user_current_node.getLabel();
+                    TreeNode userCurrentNode = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("to"));
+                    User userCurrent = userCurrentNode.getUser();
+                    String relativeGrade = userCurrentNode.getLabel();
                     
-                    data.put("add_to", user_current);
+                    data.put("add_to", userCurrent);
                     
                 } catch (NullPointerException ex){
 
@@ -225,7 +225,7 @@ public class Search extends HttpServlet {
                 
             }
             
-            data.put("user_logged", user_logged);
+            data.put("user_logged", userLogged);
             
         }
         
@@ -254,24 +254,24 @@ public class Search extends HttpServlet {
     protected static UserList search(Map<String, String> input){
         UserList result = new UserList();
         
-        String condition_string = "";
+        String conditionString = "";
         for(Map.Entry<String, String> entry : input.entrySet()){
             
             
                 if(!entry.getValue().equals("")){
-                    if(!condition_string.equals("")){
-                        condition_string += " AND ";
+                    if(!conditionString.equals("")){
+                        conditionString += " AND ";
                     }
                     if(!entry.getKey().equals("birthdate")){
-                        condition_string += entry.getKey() + " COLLATE UTF8_GENERAL_CI LIKE '%" + entry.getValue()+"%'";
+                        conditionString += entry.getKey() + " COLLATE UTF8_GENERAL_CI LIKE '%" + entry.getValue()+"%'";
                     }else{
-                        condition_string += entry.getKey() + "='" + entry.getValue() + "'";
+                        conditionString += entry.getKey() + "='" + entry.getValue() + "'";
                     }
                 }     
         }
         
         try {
-            ResultSet record = Database.selectRecord("user", condition_string);
+            ResultSet record = Database.selectRecord("user", conditionString);
             while(record.next()){
                 result.add(new User(record));  
             }

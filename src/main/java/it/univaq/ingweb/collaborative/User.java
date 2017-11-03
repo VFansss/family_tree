@@ -23,10 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.apache.log4j.Logger;
 
 /**
@@ -34,10 +30,7 @@ import org.apache.log4j.Logger;
  * @author Marco
  */
 
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
+
 public class User{
     
     private final String id;
@@ -53,7 +46,91 @@ public class User{
     private String idFather;
     private String idSpouse;
     
-    final static Logger log = Logger.getLogger(Login.class);
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getBirthplace() {
+		return birthplace;
+	}
+
+	public void setBirthplace(String birthplace) {
+		this.birthplace = birthplace;
+	}
+
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public String getIdMother() {
+		return idMother;
+	}
+
+	public void setIdMother(String idMother) {
+		this.idMother = idMother;
+	}
+
+	public String getIdFather() {
+		return idFather;
+	}
+
+	public void setIdFather(String idFather) {
+		this.idFather = idFather;
+	}
+
+	public String getIdSpouse() {
+		return idSpouse;
+	}
+
+	public void setIdSpouse(String idSpouse) {
+		this.idSpouse = idSpouse;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public static Logger getLog() {
+		return log;
+	}
+
+	final static Logger log = Logger.getLogger(Login.class);
     /**
      * Metodo costruttore
      * @param user      contiene i dati personali dell'utente

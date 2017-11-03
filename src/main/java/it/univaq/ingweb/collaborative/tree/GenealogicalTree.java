@@ -1,23 +1,24 @@
 package it.univaq.ingweb.collaborative.tree;
 
+import java.sql.SQLException;
+
 import it.univaq.ingweb.collaborative.User;
 import it.univaq.ingweb.collaborative.UserList;
-import java.sql.SQLException;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  *
  * @author Marco
  */
 
-@ToString
-@Getter
 public class GenealogicalTree{
     // Contiene l'albero genealogico
     private final NodeList familyTree;
+    
+    public NodeList getFamilyTree() {
+		return familyTree;
+	}
 
-    public GenealogicalTree(User user){
+	public GenealogicalTree(User user){
         this.familyTree = new NodeList();
         this.familyTree.add(new TreeNode(user, "You")); 
     }

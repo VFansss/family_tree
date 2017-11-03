@@ -1,17 +1,17 @@
 package it.univaq.ingweb.collaborative.tree;
 
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.UserList;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import lombok.ToString;
+
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.UserList;
 
 /**
  *
  * @author Marco
  */
-@ToString
+
 public class NodeList extends LinkedList<TreeNode>{
     
     /** Verifica se in una lista di nodi è presente un utente

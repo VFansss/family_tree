@@ -1,10 +1,8 @@
 package it.univaq.ingweb.collaborative.tree;
 
-import it.univaq.ingweb.collaborative.User;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+
+import it.univaq.ingweb.collaborative.User;
 
 
 /**
@@ -12,14 +10,20 @@ import lombok.ToString;
  * @author Marco
  */
 
-@Getter
-@Setter
-@ToString
 public final class TreeNode {
     private final String label;
     private final User user;
     
-    public TreeNode(User user, String label){
+    
+    public String getLabel() {
+		return label;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public TreeNode(User user, String label){
         this.label = label;
         this.user = user;
     }

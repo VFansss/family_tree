@@ -1,9 +1,5 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.util.Message;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.util.Utility;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -12,21 +8,32 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
  * @author Marco
  */
 public class Settings extends HttpServlet {
-    private static HttpSession session;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8514158903732829143L;
+	private static HttpSession session;
     private static User userLogged;
     
     /**
@@ -48,7 +55,6 @@ public class Settings extends HttpServlet {
             
             userLogged = (User)session.getAttribute("user_logged");
             
-            String as = userLogged.getBirthdate().toString();
             Map<String, Object> data = new HashMap<>();
 
             data.put("user_logged", userLogged);

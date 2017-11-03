@@ -8,13 +8,6 @@
 */
 
 package it.univaq.ingweb.collaborative;
-import it.univaq.ingweb.collaborative.util.Utility;
-import it.univaq.ingweb.collaborative.exception.NotAllowedException;
-import it.univaq.ingweb.collaborative.servlets.Login;
-import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
-import it.univaq.ingweb.collaborative.tree.NodeList;
-import it.univaq.ingweb.collaborative.tree.TreeNode;
-import it.univaq.ingweb.collaborative.util.DateUtility;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +15,18 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+
+import it.univaq.ingweb.collaborative.exception.NotAllowedException;
+import it.univaq.ingweb.collaborative.servlets.Login;
+import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
+import it.univaq.ingweb.collaborative.tree.NodeList;
+import it.univaq.ingweb.collaborative.tree.TreeNode;
+import it.univaq.ingweb.collaborative.util.DateUtility;
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
@@ -314,7 +317,6 @@ public class User{
         * @throws java.sql.SQLException
         */
         private User getParent(String gender) throws SQLException{
-           String parent;
            // Se bisogna restituire il genitore femmina
            if(gender.equals("female")){
                // Restituire la madre
@@ -571,8 +573,6 @@ public class User{
             User u2 = sibling;
             UserList u1Parents;
             UserList u2Parents;
-            User u1Parent = null;
-            User u2Parent = null;
 
             do{
                 // Recupera i genitori dei due utenti
@@ -1267,7 +1267,7 @@ public class User{
      * @return
      */
     private void updateAttribute(String attribute, Object value) throws SQLException{
-        Map<String, Object> data = new HashMap();
+        Map<String, Object> data = new HashMap<String, Object>();
         data.put(attribute, value);
         Database.updateRecord("user", data, "id = '" + this.id + "'");
     }

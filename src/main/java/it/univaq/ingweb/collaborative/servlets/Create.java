@@ -1,14 +1,5 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.Database;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.exception.NotAllowedException;
-import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
-import it.univaq.ingweb.collaborative.tree.TreeNode;
-import it.univaq.ingweb.collaborative.util.DateUtility;
-import it.univaq.ingweb.collaborative.util.Utility;
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -17,14 +8,26 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import it.univaq.ingweb.collaborative.Database;
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.exception.NotAllowedException;
+import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
+import it.univaq.ingweb.collaborative.tree.TreeNode;
+import it.univaq.ingweb.collaborative.util.DateUtility;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
@@ -33,6 +36,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class Create extends HttpServlet {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1066536126970866033L;
+
+	/**
      * Handles the HTTP <code>GET</code> method.
      *
      * Costruzione della pagina per la creazione di un profilo o per l'invito di
@@ -50,7 +58,7 @@ public class Create extends HttpServlet {
 
         if (session != null) {
 
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<String, Object>();
 
             User userLogged = (User) session.getAttribute("user_logged");
 
@@ -104,7 +112,7 @@ public class Create extends HttpServlet {
         if (session != null) {
             // Recupera l'utente loggato
             User userLogged = (User) session.getAttribute("user_logged");
-            String name = "", surname = "", email = "", gender = "", birthdate = "", birthplace = "", biography = "", relationship = "", relative = "";
+            String name = "", surname = "", gender = "", birthdate = "", birthplace = "", biography = "", relationship = "", relative = "";
 
             if (ServletFileUpload.isMultipartContent(request)) {
                 FileItem avatar = null;

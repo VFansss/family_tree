@@ -1,25 +1,27 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.Database;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.exception.NotAllowedException;
-import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
-import it.univaq.ingweb.collaborative.tree.TreeNode;
-import it.univaq.ingweb.collaborative.util.DateUtility;
-import it.univaq.ingweb.collaborative.util.Utility;
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import it.univaq.ingweb.collaborative.Database;
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.exception.NotAllowedException;
+import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
+import it.univaq.ingweb.collaborative.tree.TreeNode;
+import it.univaq.ingweb.collaborative.util.DateUtility;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
@@ -28,6 +30,11 @@ import javax.servlet.http.HttpSession;
 public class Invite extends HttpServlet {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6506695731942361127L;
+
+	/**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -89,9 +96,6 @@ public class Invite extends HttpServlet {
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         // Se è attiva una sessiona
         if (session != null) {
-            // Recupera l'utente loggato
-            User user_logged = (User) session.getAttribute("user_logged");
-
             String email = request.getParameter("email");
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");

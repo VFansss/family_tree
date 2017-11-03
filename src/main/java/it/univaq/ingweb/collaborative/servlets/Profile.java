@@ -1,29 +1,39 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
-import it.univaq.ingweb.collaborative.tree.NodeList;
-import it.univaq.ingweb.collaborative.tree.TreeNode;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.IOException;
-import java.util.*;
+import java.net.URLEncoder;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.URLEncoder;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
+
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
+import it.univaq.ingweb.collaborative.tree.NodeList;
+import it.univaq.ingweb.collaborative.tree.TreeNode;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
 
 /**
  *
  * @author Gianluca
  */
 public class Profile extends HttpServlet {
-    final static Logger log = Logger.getLogger(Profile.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7885987593945508430L;
+	
+	final static Logger log = Logger.getLogger(Profile.class);
     /**
      * Carica la pagina del profilo
      *
@@ -124,7 +134,7 @@ public class Profile extends HttpServlet {
 
                     }else{
 
-                        Iterator iter = breadcrumb.iterator();
+                        Iterator<TreeNode> iter = breadcrumb.iterator();
                         boolean remove = false;
                         while(iter.hasNext()){
                             TreeNode node = (TreeNode)iter.next();

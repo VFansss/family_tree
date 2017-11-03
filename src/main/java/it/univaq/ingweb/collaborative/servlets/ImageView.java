@@ -1,15 +1,17 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.util.Utility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
@@ -18,6 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ImageView extends HttpServlet {
     
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8212731602885051850L;
+
+	/**
      * Gestione caricamento immagine
      *
      * @param request servlet request

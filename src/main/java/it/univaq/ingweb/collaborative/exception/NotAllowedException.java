@@ -7,7 +7,12 @@ package it.univaq.ingweb.collaborative.exception;
 public class NotAllowedException extends Throwable {
 
     
-    public NotAllowedException(String msg){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1702174700740928559L;
+
+	public NotAllowedException(String msg){
         super(msg);
     }
     

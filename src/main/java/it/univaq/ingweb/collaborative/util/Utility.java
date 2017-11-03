@@ -1,14 +1,16 @@
 package it.univaq.ingweb.collaborative.util;
 
-import it.univaq.ingweb.collaborative.Database;
-import it.univaq.ingweb.collaborative.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Random;
-import org.apache.commons.validator.EmailValidator;
+
+import org.apache.commons.validator.routines.EmailValidator;
+
+import it.univaq.ingweb.collaborative.Database;
+import it.univaq.ingweb.collaborative.User;
 
 /**
  *

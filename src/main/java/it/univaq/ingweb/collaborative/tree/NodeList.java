@@ -14,7 +14,12 @@ import it.univaq.ingweb.collaborative.UserList;
 
 public class NodeList extends LinkedList<TreeNode>{
     
-    /** Verifica se in una lista di nodi è presente un utente
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4510776253467963885L;
+
+	/** Verifica se in una lista di nodi è presente un utente
      *
      * @param user
      * @return 
@@ -28,9 +33,9 @@ public class NodeList extends LinkedList<TreeNode>{
     
     public void cleaner(){
         // Iteratore principale
-        ListIterator iter = this.listIterator(0);
+        ListIterator<TreeNode> iter = this.listIterator(0);
         // Iteratore inverso
-        ListIterator iteratorReverse;
+        ListIterator<TreeNode> iteratorReverse;
         // Oggetti User di supporto
         User user, userToCheck, userToDelete;
         UserList familyCore;

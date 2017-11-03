@@ -1,20 +1,25 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.Request;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.exception.NotAllowedException;
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import it.univaq.ingweb.collaborative.Request;
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.exception.NotAllowedException;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
 
 /**
  *
@@ -23,6 +28,11 @@ import javax.servlet.http.HttpSession;
 public class RequestsHandler extends HttpServlet {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3654090006380478151L;
+
+	/**
      * Caricamento delle pagina per la gestione delle richieste
      *
      * @param request servlet request

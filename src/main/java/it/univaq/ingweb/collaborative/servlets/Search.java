@@ -1,27 +1,29 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.Database;
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.UserList;
-import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
-import it.univaq.ingweb.collaborative.tree.TreeNode;
-import it.univaq.ingweb.collaborative.util.DateUtility;
-import it.univaq.ingweb.collaborative.util.Utility;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.sql.*;
-import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import it.univaq.ingweb.collaborative.Database;
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.UserList;
+import it.univaq.ingweb.collaborative.tree.GenealogicalTree;
+import it.univaq.ingweb.collaborative.tree.TreeNode;
+import it.univaq.ingweb.collaborative.util.DateUtility;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
+import it.univaq.ingweb.collaborative.util.Utility;
 /**
  *
  * @author Gianluca
@@ -29,6 +31,11 @@ import java.util.logging.Logger;
 public class Search extends HttpServlet {
     
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3589338998027595527L;
+
+	/**
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
@@ -214,8 +221,7 @@ public class Search extends HttpServlet {
                 try{
                     TreeNode userCurrentNode = ((GenealogicalTree)session.getAttribute("family_tree")).getUserById((String)request.getParameter("to"));
                     User userCurrent = userCurrentNode.getUser();
-                    String relativeGrade = userCurrentNode.getLabel();
-                    
+                   
                     data.put("add_to", userCurrent);
                     
                 } catch (NullPointerException ex){

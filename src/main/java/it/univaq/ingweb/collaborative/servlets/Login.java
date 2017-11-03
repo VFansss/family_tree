@@ -2,29 +2,37 @@ package it.univaq.ingweb.collaborative.servlets;
 
 
 
-import it.univaq.ingweb.collaborative.Database;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.util.Utility;
-import it.univaq.ingweb.collaborative.util.FreeMarker;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
+
+import it.univaq.ingweb.collaborative.Database;
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.util.FreeMarker;
+import it.univaq.ingweb.collaborative.util.Message;
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
  * @author Marco
  */
 public class Login extends HttpServlet {
-    final static Logger log = Logger.getLogger(Login.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8914037846153606085L;
+	
+	final static Logger log = Logger.getLogger(Login.class);
     /**
      * Caricamento pagina di login
      *

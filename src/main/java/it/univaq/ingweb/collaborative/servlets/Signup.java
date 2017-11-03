@@ -1,10 +1,5 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.Database;
-import it.univaq.ingweb.collaborative.User;
-import it.univaq.ingweb.collaborative.util.DateUtility;
-import it.univaq.ingweb.collaborative.util.Utility;
-import it.univaq.ingweb.collaborative.util.Message;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Date;
@@ -12,10 +7,17 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import it.univaq.ingweb.collaborative.Database;
+import it.univaq.ingweb.collaborative.User;
+import it.univaq.ingweb.collaborative.util.DateUtility;
+import it.univaq.ingweb.collaborative.util.Message;
+import it.univaq.ingweb.collaborative.util.Utility;
 
 /**
  *
@@ -24,6 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 public class Signup extends HttpServlet {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5374952065985365610L;
+
+	/**
      * Caricamento pagina di signup
      *
      * @param request servlet request

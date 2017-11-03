@@ -6,7 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import org.apache.commons.validator.DateValidator;
+
+import org.apache.commons.validator.routines.DateValidator;
 
 /**
  *
@@ -48,7 +49,7 @@ public class DateUtility {
      * @return      true se la data è nel formato corretto, false altrimenti
      */
     public static boolean validateDateFormat(String date){
-        return DateValidator.getInstance().isValid(date, "dd/MM/yyyy", false);
+        return DateValidator.getInstance().isValid(date, "dd/MM/yyyy");
     }
     
     /**

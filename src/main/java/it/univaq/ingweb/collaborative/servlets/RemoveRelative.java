@@ -1,13 +1,15 @@
 package it.univaq.ingweb.collaborative.servlets;
 
-import it.univaq.ingweb.collaborative.User;
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import it.univaq.ingweb.collaborative.User;
 
 /**
  *
@@ -16,6 +18,11 @@ import javax.servlet.http.HttpSession;
 public class RemoveRelative extends HttpServlet {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6642540419874201427L;
+
+	/**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request

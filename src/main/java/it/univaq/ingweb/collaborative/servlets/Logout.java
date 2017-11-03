@@ -1,6 +1,7 @@
 package it.univaq.ingweb.collaborative.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,11 @@ import javax.servlet.http.HttpSession;
 public class Logout extends HttpServlet {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7127866661513777702L;
+
+	/**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
